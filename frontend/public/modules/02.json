@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Quale componente di Kubernetes è il database principale per lo stato del cluster?",
+    "options": [
+      "kube-scheduler",
+      "etcd",
+      "kube-proxy",
+      "kube-apiserver"
+    ],
+    "correct": 1,
+    "explanation": "etcd è un archivio key-value distribuito che memorizza tutte le informazioni sulla configurazione e lo stato del cluster."
+  },
+  {
+    "question": "A cosa serve il componente `kubelet`?",
+    "options": [
+      "Per gestire il traffico di rete",
+      "Per inviare i log al cloud",
+      "Per assicurarsi che i container siano in esecuzione in un Pod",
+      "Per decidere su quale nodo deve andare un nuovo Pod"
+    ],
+    "correct": 2,
+    "explanation": "kubelet è l'agente che gira su ogni nodo e si assicura che i container descritti nei PodSpec siano correttamente avviati."
+  },
+  {
+    "question": "Cos'è il `Control Plane`?",
+    "options": [
+      "Il livello dei dati dove girano le applicazioni",
+      "Il pannello di controllo per configurare la CPU",
+      "L'insieme dei componenti che gestiscono lo stato globale del cluster",
+      "Il sistema operativo del nodo worker"
+    ],
+    "correct": 2,
+    "explanation": "Il Control Plane gestisce lo stato del cluster (es. scheduling, API) e risponde agli eventi."
+  }
+]

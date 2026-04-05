@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Perché si consiglia di non creare Pod direttamente?",
+    "options": [
+      "Perché occupano troppa memoria",
+      "Perché se un Pod fallisce o il nodo muore, non viene ricreato automaticamente",
+      "Perché i Pod non possono avere container multipli",
+      "Perché i Pod non hanno IP"
+    ],
+    "correct": 1,
+    "explanation": "I Deployment gestiscono lo stato desiderato e ricreano i Pod in caso di fallimento, garantendo l'alta affidabilità."
+  },
+  {
+    "question": "Quale tipo di Service espone l'applicazione all'esterno del cluster usando il bilanciatore di carico del cloud provider?",
+    "options": [
+      "ClusterIP",
+      "NodePort",
+      "LoadBalancer",
+      "ExternalName"
+    ],
+    "correct": 2,
+    "explanation": "Il tipo LoadBalancer crea un bilanciatore di carico esterno fornito dall'infrastruttura cloud sottostante."
+  },
+  {
+    "question": "In che modo i Secret si differenziano dalle ConfigMap?",
+    "options": [
+      "I Secret sono criptati di default nel database etcd",
+      "I Secret sono usati per file binari, le ConfigMap solo per testo",
+      "I Secret sono pensati per dati sensibili (codificati in base64)",
+      "Non c'è differenza, sono intercambiabili"
+    ],
+    "correct": 2,
+    "explanation": "Sebbene tecnicamente simili, i Secret sono destinati a informazioni riservate come password e chiavi API."
+  }
+]

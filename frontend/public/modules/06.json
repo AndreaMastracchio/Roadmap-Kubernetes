@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Quale tra questi limita l'accesso a livello di namespace?",
+    "options": [
+      "Role",
+      "ClusterRole",
+      "NetworkPolicy",
+      "StorageClass"
+    ],
+    "correct": 0,
+    "explanation": "Un 'Role' definisce permessi validi solo all'interno del namespace in cui è stato creato."
+  },
+  {
+    "question": "Chi usa i ServiceAccounts in Kubernetes?",
+    "options": [
+      "Amministratori del cloud",
+      "Utenti che usano kubectl",
+      "Processi e carichi di lavoro (Pod) che girano nel cluster",
+      "Solo gli sviluppatori di Go"
+    ],
+    "correct": 2,
+    "explanation": "I ServiceAccounts forniscono un'identità programmabile ai Pod per interagire con l'API di Kubernetes."
+  },
+  {
+    "question": "Cosa significa 'Principio del minimo privilegio'?",
+    "options": [
+      "Tutti gli utenti devono avere i permessi di admin",
+      "Ogni utente/processo deve avere solo i permessi strettamente necessari per il suo compito",
+      "Disabilitare tutti i permessi nel cluster",
+      "Dare i permessi solo a chi paga di più"
+    ],
+    "correct": 1,
+    "explanation": "È una regola d'oro della sicurezza che consiste nel limitare i diritti di accesso al minimo indispensabile."
+  }
+]

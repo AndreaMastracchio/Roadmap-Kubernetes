@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Quale oggetto rappresenta la richiesta fisica di storage da parte di un utente?",
+    "options": [
+      "PersistentVolume (PV)",
+      "PersistentVolumeClaim (PVC)",
+      "StorageClass",
+      "VolumeAttachment"
+    ],
+    "correct": 1,
+    "explanation": "La Claim (PVC) è la richiesta dell'utente; il Volume (PV) è la risorsa fisica legata a quella richiesta."
+  },
+  {
+    "question": "Cosa succede ai dati salvati in un volume emptyDir se il Pod viene rimosso dal cluster?",
+    "options": [
+      "Vengono conservati per il prossimo pod",
+      "Vengono spostati in un PersistentVolume",
+      "Vengono cancellati definitivamente",
+      "Rimangono sul disco del nodo worker"
+    ],
+    "correct": 2,
+    "explanation": "I volumi emptyDir sono temporanei e vengono eliminati quando il Pod che li ospita smette di esistere sul nodo."
+  },
+  {
+    "question": "La modalità di accesso 'ReadWriteMany' permette a:",
+    "options": [
+      "Un solo nodo di leggere e scrivere",
+      "Molti nodi di leggere, ma solo uno di scrivere",
+      "Molti nodi di leggere e scrivere contemporaneamente",
+      "Sola lettura per tutti"
+    ],
+    "correct": 2,
+    "explanation": "RWX (ReadWriteMany) permette l'accesso simultaneo in lettura/scrittura a molti nodi (nodi multipli)."
+  }
+]

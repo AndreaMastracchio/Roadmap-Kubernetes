@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Cos'è un'immagine Docker?",
+    "options": [
+      "Un container in esecuzione",
+      "Un pacchetto statico e immutabile che contiene il codice e le dipendenze",
+      "Un comando per avviare un server",
+      "Un file di configurazione del sistema operativo"
+    ],
+    "correct": 1,
+    "explanation": "Un'immagine Docker è uno snapshot immutabile che serve come blueprint per creare i container."
+  },
+  {
+    "question": "Quale comando permette di vedere i log di un container specifico?",
+    "options": [
+      "docker run --logs",
+      "docker show logs",
+      "docker logs <container_id>",
+      "docker ps -l"
+    ],
+    "correct": 2,
+    "explanation": "Il comando `docker logs` permette di visualizzare lo standard output e lo standard error di un container."
+  },
+  {
+    "question": "A cosa serve il file Dockerfile?",
+    "options": [
+      "Per gestire il networking dei container",
+      "Per definire le istruzioni di creazione di un'immagine",
+      "Per archiviare i dati persistenti",
+      "Per monitorare le performance della CPU"
+    ],
+    "correct": 1,
+    "explanation": "Il Dockerfile è un file di testo che contiene tutti i comandi necessari per assemblare un'immagine Docker."
+  }
+]

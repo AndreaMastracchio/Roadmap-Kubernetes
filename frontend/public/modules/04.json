@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Cos'è un Ingress Controller?",
+    "options": [
+      "Un componente che gestisce lo storage",
+      "Il componente che assegna gli IP ai Pod",
+      "Il software che implementa effettivamente le regole definite negli oggetti Ingress",
+      "Un plugin per la sicurezza della memoria"
+    ],
+    "correct": 2,
+    "explanation": "L'Ingress Controller (es. Nginx o Traefik) è il software che riceve il traffico esterno e lo instrada ai servizi corretti."
+  },
+  {
+    "question": "In Kubernetes, di default, quali Pod possono comunicare tra loro?",
+    "options": [
+      "Solo i Pod nello stesso Namespace",
+      "Tutti i Pod nel cluster possono parlare tra loro",
+      "Solo i Pod con la stessa label",
+      "Nessun Pod può parlare con gli altri finché non viene creata una policy"
+    ],
+    "correct": 1,
+    "explanation": "Kubernetes utilizza una rete piatta dove tutti i Pod possono comunicare di default (isolamento aperto)."
+  },
+  {
+    "question": "Qual è il formato standard del nome DNS interno di un servizio in un namespace 'test'?",
+    "options": [
+      "service.test.pod.local",
+      "service.test.svc.cluster.local",
+      "test.service.local",
+      "service.k8s.io"
+    ],
+    "correct": 1,
+    "explanation": "Il formato standard è <service-name>.<namespace>.svc.cluster.local."
+  }
+]

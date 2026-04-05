@@ -1,0 +1,18 @@
+services:
+  kubestudy-frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "8080:80"
+    volumes:
+      # Mount dei file markdown per vederli aggiornati in real-time
+      - ./README.md:/usr/share/nginx/html/modules/intro.md:ro
+      - ./01-fondamentali/README.md:/usr/share/nginx/html/modules/01.md:ro
+      - ./02-architettura/README.md:/usr/share/nginx/html/modules/02.md:ro
+      - ./03-risorse-base/README.md:/usr/share/nginx/html/modules/03.md:ro
+      - ./04-networking/README.md:/usr/share/nginx/html/modules/04.md:ro
+      - ./05-storage/README.md:/usr/share/nginx/html/modules/05.md:ro
+      - ./06-sicurezza/README.md:/usr/share/nginx/html/modules/06.md:ro
+      - ./07-helm/README.md:/usr/share/nginx/html/modules/07.md:ro
+      - ./08-operatori-go/README.md:/usr/share/nginx/html/modules/08.md:ro
+    restart: always
