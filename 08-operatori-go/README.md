@@ -1,24 +1,42 @@
 # Modulo 8: 🛠️ Estendibilità & Operatori (Go)
 
-Il vero potere di Kubernetes risiede nella sua estendibilità. Invece di usare solo le risorse standard (Pod, Deployment), puoi creare le tue risorse personalizzate (**CRDs**) e scrivere codice che gestisca il loro ciclo di vita (**Controllers** e **Operators**).
+Kubernetes è progettato per essere esteso. Puoi aggiungere nuovi tipi di risorse (**CRDs**) e scrivere codice personalizzato (**Controllers**) che automatizzi compiti complessi. Quando un controller gestisce un'applicazione specifica (es. un database), viene chiamato **Operatore**.
 
-## Perché Go?
-Kubernetes stesso è scritto in Go. Usare Go ti dà accesso diretto alle librerie ufficiali:
-- **client-go**: Per interagire con l'API Server.
-- **controller-runtime**: Il framework standard per scrivere operatori (usato da SDK come Kubebuilder e Operator SDK).
+## 1. Custom Resource Definitions (CRDs)
+Una CRD permette di definire il proprio oggetto Kubernetes. Ad esempio, invece di un generico Deployment, potresti creare un oggetto di tipo `PostgresCluster`.
+Kubernetes memorizzerà questo oggetto in `etcd` e ti permetterà di gestirlo con `kubectl`.
 
-## Concetti Chiave
-- **Control Loop (Reconciliation Loop)**: Il codice che confronta continuamente lo "stato desiderato" (definito in YAML) con lo "stato attuale" del cluster e corregge le discrepanze.
-- **Custom Resource Definition (CRD)**: Definisce uno schema per un nuovo oggetto K8s.
+## 2. Il Reconciliation Loop (Ciclo di Riconciliazione)
+È il cuore di ogni controller. È un ciclo infinito che esegue questa logica:
+1. **Observe**: Legge lo stato attuale del cluster (es. "Ci sono 2 pod").
+2. **Analyze**: Confronta lo stato attuale con quello desiderato (es. "L'utente ne ha chiesti 3").
+3. **Act**: Esegue le azioni necessarie per far coincidere i due stati (es. "Crea un nuovo pod").
 
-## Esempio pratico
-Nella cartella `example/` troverai un'applicazione Go minimale che:
-1. Carica la configurazione del cluster (es. dal file `~/.kube/config`).
-2. Crea un client per l'API.
-3. Elenca tutti i Pod presenti nel cluster.
+## 3. Perché Go?
+Go è il linguaggio nativo di Kubernetes. Usare Go ti permette di sfruttare:
+- **client-go**: La libreria ufficiale per interagire con l'API.
+- **controller-runtime**: Un framework di alto livello che gestisce la complessità del caching e degli eventi.
+- **Kubebuilder / Operator SDK**: Strumenti che generano il boilerplate del codice per te.
 
-### Come eseguirlo localmente
-1. Assicurati di avere un cluster locale (Minikube/Kind) attivo.
-2. Vai nella cartella: `cd 08-operatori-go/example`
-3. Scarica le dipendenze: `go mod tidy`
-4. Esegui il programma: `go run main.go`
+## 4. Esempio di Codice (Go)
+Un controller tipicamente implementa un'interfaccia con un metodo `Reconcile`:
+```go
+func (r *MyReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+    // 1. Recupera l'oggetto dal cluster
+    var myObj MyCustomResource
+    if err := r.Get(ctx, req.NamespacedName, &myObj); err != nil {
+        return ctrl.Result{}, client.IgnoreNotFound(err)
+    }
+
+    // 2. Logica di business qui...
+    
+    return ctrl.Result{}, nil
+}
+```
+
+---
+
+## Esercizio Avanzato
+1. Esplora il codice in `08-operatori-go/example/main.go`.
+2. Prova a modificarlo per contare quanti Pod ci sono in ogni Namespace.
+3. Se hai Go installato, prova a generare un progetto base con `operator-sdk init --domain my.domain --repo github.com/user/my-operator`.

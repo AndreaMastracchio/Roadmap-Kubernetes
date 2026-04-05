@@ -1,0 +1,35 @@
+[
+  {
+    "question": "Come si chiama un pacchetto in Helm?",
+    "options": [
+      "Bundle",
+      "Chart",
+      "Template",
+      "Module"
+    ],
+    "correct": 1,
+    "explanation": "Un pacchetto Helm è chiamato 'Chart' ed è una collezione di file che descrivono un set di risorse Kubernetes."
+  },
+  {
+    "question": "A cosa serve il file 'values.yaml'?",
+    "options": [
+      "A memorizzare i log del database",
+      "A definire i parametri di configurazione che verranno iniettati nei template",
+      "A gestire il networking del cluster",
+      "A installare Docker nel nodo"
+    ],
+    "correct": 1,
+    "explanation": "Il file 'values.yaml' contiene i valori di default per le variabili definite nei template della Chart."
+  },
+  {
+    "question": "Quale comando permette di tornare a una versione precedente di una release in caso di errori?",
+    "options": [
+      "helm undo",
+      "helm rollback",
+      "helm reset",
+      "helm delete"
+    ],
+    "correct": 1,
+    "explanation": "Il comando 'helm rollback' permette di ripristinare una versione specifica di una release precedente."
+  }
+]

@@ -17,6 +17,7 @@ import {
   Typography,
   Container,
   Paper,
+  Chip,
   ThemeProvider,
   createTheme,
   useMediaQuery,
@@ -39,15 +40,15 @@ import {
 const drawerWidth = 280;
 
 const modules = [
-  { id: 'intro', title: 'Benvenuto', file: 'intro.md', icon: <SchoolIcon /> },
-  { id: '01', title: '1. Fondamentali', file: '01.md', icon: <LayersIcon /> },
-  { id: '02', title: '2. Architettura', file: '02.md', icon: <ArchitectureIcon /> },
-  { id: '03', title: '3. Risorse Base', file: '03.md', icon: <InventoryIcon /> },
-  { id: '04', title: '4. Networking', file: '04.md', icon: <NetworkIcon /> },
-  { id: '05', title: '5. Storage', file: '05.md', icon: <StorageIcon /> },
-  { id: '06', title: '6. Sicurezza', file: '06.md', icon: <SecurityIcon /> },
-  { id: '07', title: '7. Helm', file: '07.md', icon: <TerminalIcon /> },
-  { id: '08', title: '8. Operatori Go', file: '08.md', icon: <CodeIcon /> },
+  { id: 'intro', title: 'Benvenuto', file: 'intro.md', icon: <SchoolIcon />, level: 'Base', time: '5 min' },
+  { id: '01', title: '1. Fondamentali', file: '01.md', icon: <LayersIcon />, level: 'Base', time: '20 min' },
+  { id: '02', title: '2. Architettura', file: '02.md', icon: <ArchitectureIcon />, level: 'Intermedio', time: '30 min' },
+  { id: '03', title: '3. Risorse Base', file: '03.md', icon: <InventoryIcon />, level: 'Base', time: '25 min' },
+  { id: '04', title: '4. Networking', file: '04.md', icon: <NetworkIcon />, level: 'Avanzato', time: '40 min' },
+  { id: '05', title: '5. Storage', file: '05.md', icon: <StorageIcon />, level: 'Intermedio', time: '30 min' },
+  { id: '06', title: '6. Sicurezza', file: '06.md', icon: <SecurityIcon />, level: 'Avanzato', time: '35 min' },
+  { id: '07', title: '7. Helm', file: '07.md', icon: <TerminalIcon />, level: 'Intermedio', time: '20 min' },
+  { id: '08', title: '8. Operatori Go', file: '08.md', icon: <CodeIcon />, level: 'Avanzato', time: '60 min' },
 ];
 
 const theme = createTheme({
@@ -149,6 +150,12 @@ function App() {
               <ListItemText
                 primary={mod.title}
                 primaryTypographyProps={{ variant: 'body2', fontWeight: activeModule.id === mod.id ? 700 : 500 }}
+                secondary={
+                  <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5 }}>
+                    <Chip label={mod.level} size="small" sx={{ height: 16, fontSize: '0.65rem' }} color={mod.level === 'Avanzato' ? 'error' : mod.level === 'Intermedio' ? 'warning' : 'success'} variant="outlined" />
+                    <Typography variant="caption" sx={{ fontSize: '0.65rem', alignSelf: 'center' }}>• {mod.time}</Typography>
+                  </Box>
+                }
               />
             </ListItemButton>
           </ListItem>

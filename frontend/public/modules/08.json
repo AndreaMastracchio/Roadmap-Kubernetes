@@ -1,0 +1,35 @@
+[
+  {
+    "question": "A cosa serve una 'Custom Resource Definition' (CRD)?",
+    "options": [
+      "A configurare i nodi del cluster",
+      "A estendere l'API di Kubernetes definendo nuovi tipi di risorse",
+      "A monitorare la temperatura dei server",
+      "A scaricare immagini Docker più velocemente"
+    ],
+    "correct": 1,
+    "explanation": "Le CRD permettono di definire nuovi oggetti (es. PostgresCluster, Backup) che l'API di Kubernetes riconoscerà e gestirà come risorse standard."
+  },
+  {
+    "question": "Qual è lo scopo principale del 'Reconciliation Loop'?",
+    "options": [
+      "Pulire i log vecchi",
+      "Riavviare il computer se Kubernetes crasha",
+      "Confrontare lo stato attuale del cluster con quello desiderato e correggere le discrepanze",
+      "Criptare i dati in transito"
+    ],
+    "correct": 2,
+    "explanation": "Il ciclo di riconciliazione è il cuore di ogni controller e assicura che lo stato del cluster tenda sempre a quello dichiarato dall'utente."
+  },
+  {
+    "question": "Quale framework è lo standard per scrivere operatori Kubernetes in Go?",
+    "options": [
+      "Spring Boot",
+      "Django",
+      "controller-runtime (usato da Kubebuilder / Operator SDK)",
+      "Express.js"
+    ],
+    "correct": 2,
+    "explanation": "controller-runtime è la libreria di riferimento per scrivere controller e operatori moderni in linguaggio Go."
+  }
+]
