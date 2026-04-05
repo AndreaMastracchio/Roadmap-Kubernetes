@@ -1,35 +1,124 @@
-[
-  {
-    "question": "Quale componente di Kubernetes è il database principale per lo stato del cluster?",
-    "options": [
-      "kube-scheduler",
-      "etcd",
-      "kube-proxy",
-      "kube-apiserver"
-    ],
-    "correct": 1,
-    "explanation": "etcd è un archivio key-value distribuito che memorizza tutte le informazioni sulla configurazione e lo stato del cluster."
-  },
-  {
-    "question": "A cosa serve il componente `kubelet`?",
-    "options": [
-      "Per gestire il traffico di rete",
-      "Per inviare i log al cloud",
-      "Per assicurarsi che i container siano in esecuzione in un Pod",
-      "Per decidere su quale nodo deve andare un nuovo Pod"
-    ],
-    "correct": 2,
-    "explanation": "kubelet è l'agente che gira su ogni nodo e si assicura che i container descritti nei PodSpec siano correttamente avviati."
-  },
-  {
-    "question": "Cos'è il `Control Plane`?",
-    "options": [
-      "Il livello dei dati dove girano le applicazioni",
-      "Il pannello di controllo per configurare la CPU",
-      "L'insieme dei componenti che gestiscono lo stato globale del cluster",
-      "Il sistema operativo del nodo worker"
-    ],
-    "correct": 2,
-    "explanation": "Il Control Plane gestisce lo stato del cluster (es. scheduling, API) e risponde agli eventi."
-  }
-]
+{
+  "quiz": [
+    {
+      "question": "Quale componente di Kubernetes è il database principale per lo stato del cluster?",
+      "options": [
+        "kube-scheduler",
+        "etcd",
+        "kube-proxy",
+        "kube-apiserver"
+      ],
+      "correct": 1,
+      "explanation": "etcd è un archivio key-value distribuito che memorizza tutte le informazioni sulla configurazione e lo stato del cluster."
+    },
+    {
+      "question": "A cosa serve il componente `kubelet`?",
+      "options": [
+        "Per gestire il traffico di rete",
+        "Per inviare i log al cloud",
+        "Per assicurarsi che i container siano in esecuzione in un Pod",
+        "Per decidere su quale nodo deve andare un nuovo Pod"
+      ],
+      "correct": 2,
+      "explanation": "kubelet è l'agente che gira su ogni nodo e si assicura che i container descritti nei PodSpec siano correttamente avviati."
+    },
+    {
+      "question": "Quale componente decide su quale nodo deve essere eseguito un Pod?",
+      "options": [
+        "kube-controller-manager",
+        "kube-proxy",
+        "kube-scheduler",
+        "containerd"
+      ],
+      "correct": 2,
+      "explanation": "Lo scheduler monitora i Pod senza un nodo assegnato e sceglie il nodo migliore in base alle risorse e ai vincoli."
+    },
+    {
+      "question": "Cos'è il `kube-proxy`?",
+      "options": [
+        "Un componente che gestisce il traffico di rete sui nodi",
+        "Un database per le credenziali degli utenti",
+        "Un tool per creare immagini Docker",
+        "L'interfaccia a riga di comando di Kubernetes"
+      ],
+      "correct": 0,
+      "explanation": "kube-proxy mantiene le regole di rete sui nodi, permettendo la comunicazione tra i Pod e verso l'esterno."
+    },
+    {
+      "question": "Quale componente è responsabile del mantenimento dei cicli di controllo (es. assicurarsi che ci sia il numero giusto di repliche)?",
+      "options": [
+        "etcd",
+        "kube-apiserver",
+        "kube-controller-manager",
+        "CRI"
+      ],
+      "correct": 2,
+      "explanation": "Il controller manager esegue i loop di controllo che mantengono lo stato desiderato del cluster."
+    },
+    {
+      "question": "Cosa significa CNI?",
+      "options": [
+        "Container Network Interface",
+        "Cluster Node Integration",
+        "Centralized Network Instance",
+        "Cloud Native Infrastructure"
+      ],
+      "correct": 0,
+      "explanation": "CNI è lo standard che permette a Kubernetes di integrarsi con diversi provider di rete (es. Calico, Flannel)."
+    },
+    {
+      "question": "Quale componente è l'unico che può scrivere direttamente in etcd?",
+      "options": [
+        "kubelet",
+        "kube-apiserver",
+        "kubectl",
+        "kube-scheduler"
+      ],
+      "correct": 1,
+      "explanation": "Per motivi di sicurezza e coerenza, solo l'API Server comunica direttamente con etcd."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Verifica i Nodi",
+      "hint": "Usa il verbo 'get' seguito dalla risorsa.",
+      "template": [
+        "kubectl {{verb}} nodes"
+      ],
+      "answers": [
+        { "id": "verb", "accepted": ["get"], "width": "60px" }
+      ]
+    },
+    {
+      "title": "Info del Cluster",
+      "hint": "Cerca informazioni sul 'cluster'.",
+      "template": [
+        "kubectl {{info_cmd}}"
+      ],
+      "answers": [
+        { "id": "info_cmd", "accepted": ["cluster-info"], "width": "120px" }
+      ]
+    },
+    {
+      "title": "Dettagli Nodo",
+      "hint": "Usa il comando 'describe' per i dettagli.",
+      "template": [
+        "kubectl {{desc_cmd}} {{resource}} worker-1"
+      ],
+      "answers": [
+        { "id": "desc_cmd", "accepted": ["describe"], "width": "100px" },
+        { "id": "resource", "accepted": ["node", "nodes"], "width": "60px" }
+      ]
+    },
+    {
+      "title": "Configurazione Contesti",
+      "hint": "Config view mostra la configurazione attuale.",
+      "template": [
+        "kubectl config {{view_cmd}}"
+      ],
+      "answers": [
+        { "id": "view_cmd", "accepted": ["view"], "width": "60px" }
+      ]
+    }
+  ]
+}

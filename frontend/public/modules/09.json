@@ -1,0 +1,59 @@
+{
+  "quiz": [
+    {
+      "question": "Se vuoi vedere i log di un container Docker in tempo reale, quale flag usi?",
+      "options": [
+        "-d",
+        "-it",
+        "-f",
+        "-v"
+      ],
+      "correct": 2,
+      "explanation": "Il flag `-f` (follow) permette di seguire i log mentre vengono generati."
+    },
+    {
+      "question": "Quale comando kubectl permette di vedere le risorse di un cluster a livello di API?",
+      "options": [
+        "kubectl get all",
+        "kubectl api-resources",
+        "kubectl explain",
+        "kubectl show"
+      ],
+      "correct": 1,
+      "explanation": "api-resources elenca tutte le tipologie di oggetti supportati dal cluster corrente."
+    },
+    {
+      "question": "Per applicare un file YAML in modo dichiarativo, quale comando è preferito?",
+      "options": [
+        "kubectl create",
+        "kubectl run",
+        "kubectl apply",
+        "kubectl set"
+      ],
+      "correct": 2,
+      "explanation": "apply è il comando standard per la gestione dichiarativa delle risorse."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Debug Rapido",
+      "hint": "Il comando per eseguire processi in un pod esistente.",
+      "template": [
+        "kubectl {{verb}} -it my-pod -- sh"
+      ],
+      "answers": [
+        { "id": "verb", "accepted": ["exec"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Verifica Permessi",
+      "hint": "Chiedi a Kubernetes: 'posso io?'",
+      "template": [
+        "kubectl auth {{verb}} create secrets"
+      ],
+      "answers": [
+        { "id": "verb", "accepted": ["can-i"], "width": "100px" }
+      ]
+    }
+  ]
+}

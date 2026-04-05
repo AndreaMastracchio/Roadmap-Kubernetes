@@ -1,35 +1,79 @@
-[
-  {
-    "question": "Cos'è un Ingress Controller?",
-    "options": [
-      "Un componente che gestisce lo storage",
-      "Il componente che assegna gli IP ai Pod",
-      "Il software che implementa effettivamente le regole definite negli oggetti Ingress",
-      "Un plugin per la sicurezza della memoria"
-    ],
-    "correct": 2,
-    "explanation": "L'Ingress Controller (es. Nginx o Traefik) è il software che riceve il traffico esterno e lo instrada ai servizi corretti."
-  },
-  {
-    "question": "In Kubernetes, di default, quali Pod possono comunicare tra loro?",
-    "options": [
-      "Solo i Pod nello stesso Namespace",
-      "Tutti i Pod nel cluster possono parlare tra loro",
-      "Solo i Pod con la stessa label",
-      "Nessun Pod può parlare con gli altri finché non viene creata una policy"
-    ],
-    "correct": 1,
-    "explanation": "Kubernetes utilizza una rete piatta dove tutti i Pod possono comunicare di default (isolamento aperto)."
-  },
-  {
-    "question": "Qual è il formato standard del nome DNS interno di un servizio in un namespace 'test'?",
-    "options": [
-      "service.test.pod.local",
-      "service.test.svc.cluster.local",
-      "test.service.local",
-      "service.k8s.io"
-    ],
-    "correct": 1,
-    "explanation": "Il formato standard è <service-name>.<namespace>.svc.cluster.local."
-  }
-]
+{
+  "quiz": [
+    {
+      "question": "Come avviene il Service Discovery interno tra i Pod?",
+      "options": [
+        "Tramite file hosts aggiornati manualmente",
+        "Tramite il DNS del cluster (CoreDNS)",
+        "Tramite messaggi broadcast",
+        "Non esiste service discovery automatico"
+      ],
+      "correct": 1,
+      "explanation": "Ogni servizio riceve un record DNS che i Pod possono usare per comunicare."
+    },
+    {
+      "question": "A cosa serve un Ingress Controller?",
+      "options": [
+        "A gestire l'accesso degli utenti via SSH",
+        "A interpretare le regole Ingress e instradare il traffico HTTP/S esterno",
+        "A creare nuove reti virtuali",
+        "A limitare la banda dei nodi"
+      ],
+      "correct": 1,
+      "explanation": "L'Ingress Controller è il software (es. NGINX) che implementa le regole definite negli oggetti Ingress."
+    },
+    {
+      "question": "Quale risorsa permette di isolare il traffico di rete tra i Pod per motivi di sicurezza?",
+      "options": [
+        "Service",
+        "Security Group",
+        "NetworkPolicy",
+        "FirewallRule"
+      ],
+      "correct": 2,
+      "explanation": "Le NetworkPolicy agiscono come firewall nativi all'interno di Kubernetes."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Verifica Ingress",
+      "hint": "Cerca le risorse di tipo ingress.",
+      "template": [
+        "kubectl {{verb}} {{resource}}"
+      ],
+      "answers": [
+        { "id": "verb", "accepted": ["get"], "width": "60px" },
+        { "id": "resource", "accepted": ["ingress", "ing"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Configurazione Ingress YAML",
+      "hint": "L'ingress instrada il traffico ai servizi.",
+      "template": [
+        "spec:",
+        "  rules:",
+        "  - http:",
+        "      paths:",
+        "      - path: /api",
+        "        backend:",
+        "          service:",
+        "            name: {{svc_name}}",
+        "            port:",
+        "              number: 80"
+      ],
+      "answers": [
+        { "id": "svc_name", "accepted": ["backend-service", "api-service", "web"], "width": "140px" }
+      ]
+    },
+    {
+      "title": "Debug Endpoints",
+      "hint": "Gli endpoints mostrano gli IP reali dei Pod dietro un servizio.",
+      "template": [
+        "kubectl get {{resource}} my-service"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["endpoints", "ep"], "width": "100px" }
+      ]
+    }
+  ]
+}

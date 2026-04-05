@@ -1,35 +1,72 @@
-[
-  {
-    "question": "Quale tra questi limita l'accesso a livello di namespace?",
-    "options": [
-      "Role",
-      "ClusterRole",
-      "NetworkPolicy",
-      "StorageClass"
-    ],
-    "correct": 0,
-    "explanation": "Un 'Role' definisce permessi validi solo all'interno del namespace in cui è stato creato."
-  },
-  {
-    "question": "Chi usa i ServiceAccounts in Kubernetes?",
-    "options": [
-      "Amministratori del cloud",
-      "Utenti che usano kubectl",
-      "Processi e carichi di lavoro (Pod) che girano nel cluster",
-      "Solo gli sviluppatori di Go"
-    ],
-    "correct": 2,
-    "explanation": "I ServiceAccounts forniscono un'identità programmabile ai Pod per interagire con l'API di Kubernetes."
-  },
-  {
-    "question": "Cosa significa 'Principio del minimo privilegio'?",
-    "options": [
-      "Tutti gli utenti devono avere i permessi di admin",
-      "Ogni utente/processo deve avere solo i permessi strettamente necessari per il suo compito",
-      "Disabilitare tutti i permessi nel cluster",
-      "Dare i permessi solo a chi paga di più"
-    ],
-    "correct": 1,
-    "explanation": "È una regola d'oro della sicurezza che consiste nel limitare i diritti di accesso al minimo indispensabile."
-  }
-]
+{
+  "quiz": [
+    {
+      "question": "Cosa gestisce RBAC in Kubernetes?",
+      "options": [
+        "Il consumo di CPU",
+        "Chi può fare cosa su quali risorse",
+        "L'indirizzamento IP dei nodi",
+        "La memorizzazione delle password degli utenti"
+      ],
+      "correct": 1,
+      "explanation": "Role-Based Access Control permette di definire permessi granulari basati sull'identità e il ruolo."
+    },
+    {
+      "question": "A cosa serve un ServiceAccount?",
+      "options": [
+        "Per permettere ai Pod di autenticarsi presso l'API Server",
+        "Per pagare il canone mensile del cloud",
+        "Per gestire l'account email degli admin",
+        "Per limitare l'accesso ai dischi fissi"
+      ],
+      "correct": 0,
+      "explanation": "Il ServiceAccount fornisce un'identità programmabile per i processi che girano nei Pod."
+    },
+    {
+      "question": "Cos'è il SecurityContext?",
+      "options": [
+        "Un sistema di telecamere per i data center",
+        "Un campo nello YAML che definisce privilegi e permessi per un container (es. utente non-root)",
+        "Un file con le password del database",
+        "Un tool per scansionare vulnerabilità"
+      ],
+      "correct": 1,
+      "explanation": "SecurityContext permette di definire restrizioni di sicurezza a livello di singolo container o Pod."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Controllo Permessi",
+      "hint": "Chiedi a kubectl se puoi compiere un'azione.",
+      "template": [
+        "kubectl {{auth_cmd}} {{can_i_cmd}} create pods"
+      ],
+      "answers": [
+        { "id": "auth_cmd", "accepted": ["auth"], "width": "60px" },
+        { "id": "can_i_cmd", "accepted": ["can-i"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Verifica ServiceAccounts",
+      "hint": "Elenca gli account disponibili.",
+      "template": [
+        "kubectl get {{resource}}"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["serviceaccounts", "sa"], "width": "140px" }
+      ]
+    },
+    {
+      "title": "YAML Security Context",
+      "hint": "Specifica che il container deve girare come non-root.",
+      "template": [
+        "spec:",
+        "  securityContext:",
+        "    {{field_name}}: true"
+      ],
+      "answers": [
+        { "id": "field_name", "accepted": ["runAsNonRoot"], "width": "120px" }
+      ]
+    }
+  ]
+}

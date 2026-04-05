@@ -21,7 +21,7 @@ export const courses = [
     id: 'k8s-fondamentali',
     title: 'Fondamentali Kube',
     description: 'Dalla gestione dei container con Docker all\'orchestrazione avanzata con Kubernetes e lo sviluppo di Operatori in Go.',
-    duration: '4h 35min',
+    duration: '5h 20min',
     icon: <K8sIcon sx={{ fontSize: 40, color: '#326ce5' }} />,
     modules: k8sModules,
     color: '#326ce5'

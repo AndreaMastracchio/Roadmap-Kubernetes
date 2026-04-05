@@ -1,35 +1,76 @@
-[
-  {
-    "question": "Quale oggetto rappresenta la richiesta fisica di storage da parte di un utente?",
-    "options": [
-      "PersistentVolume (PV)",
-      "PersistentVolumeClaim (PVC)",
-      "StorageClass",
-      "VolumeAttachment"
-    ],
-    "correct": 1,
-    "explanation": "La Claim (PVC) è la richiesta dell'utente; il Volume (PV) è la risorsa fisica legata a quella richiesta."
-  },
-  {
-    "question": "Cosa succede ai dati salvati in un volume emptyDir se il Pod viene rimosso dal cluster?",
-    "options": [
-      "Vengono conservati per il prossimo pod",
-      "Vengono spostati in un PersistentVolume",
-      "Vengono cancellati definitivamente",
-      "Rimangono sul disco del nodo worker"
-    ],
-    "correct": 2,
-    "explanation": "I volumi emptyDir sono temporanei e vengono eliminati quando il Pod che li ospita smette di esistere sul nodo."
-  },
-  {
-    "question": "La modalità di accesso 'ReadWriteMany' permette a:",
-    "options": [
-      "Un solo nodo di leggere e scrivere",
-      "Molti nodi di leggere, ma solo uno di scrivere",
-      "Molti nodi di leggere e scrivere contemporaneamente",
-      "Sola lettura per tutti"
-    ],
-    "correct": 2,
-    "explanation": "RWX (ReadWriteMany) permette l'accesso simultaneo in lettura/scrittura a molti nodi (nodi multipli)."
-  }
-]
+{
+  "quiz": [
+    {
+      "question": "Cosa succede ai dati in un Pod se non usi un volume persistente?",
+      "options": [
+        "Vengono salvati su etcd",
+        "Vengono persi quando il Pod viene riavviato o cancellato",
+        "Vengono salvati automaticamente sul nodo host",
+        "Kubernetes impedisce l'avvio del Pod"
+      ],
+      "correct": 1,
+      "explanation": "Il filesystem del Pod è effimero; senza volumi, i dati scritti vengono persi alla fine del ciclo di vita del Pod."
+    },
+    {
+      "question": "Qual è lo scopo di un Persistent Volume Claim (PVC)?",
+      "options": [
+        "Definire lo storage fisico disponibile",
+        "Richiedere una specifica quantità e tipo di storage al cluster",
+        "Cancellare i dati vecchi",
+        "Creare nuovi hard disk virtuali"
+      ],
+      "correct": 1,
+      "explanation": "Il PVC è come un 'ticket' che l'utente presenta per ottenere lo storage (PV) necessario per la sua applicazione."
+    },
+    {
+      "question": "Quale risorsa permette il provisioning automatico dello storage senza l'intervento manuale dell'admin?",
+      "options": [
+        "PersistentVolume",
+        "StorageClass",
+        "emptyDir",
+        "HostPath"
+      ],
+      "correct": 1,
+      "explanation": "La StorageClass definisce come creare nuovi PV dinamicamente in base alle richieste dei PVC."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Verifica Storage",
+      "hint": "Cerca le classi di storage disponibili.",
+      "template": [
+        "kubectl {{verb}} {{resource}}"
+      ],
+      "answers": [
+        { "id": "verb", "accepted": ["get"], "width": "60px" },
+        { "id": "resource", "accepted": ["storageclasses", "sc"], "width": "120px" }
+      ]
+    },
+    {
+      "title": "Richiesta Storage (PVC)",
+      "hint": "Specifica la quantità di memoria richiesta nello YAML.",
+      "template": [
+        "spec:",
+        "  accessModes:",
+        "    - {{access_mode}}",
+        "  resources:",
+        "    requests:",
+        "      storage: {{size}}"
+      ],
+      "answers": [
+        { "id": "access_mode", "accepted": ["ReadWriteOnce", "ReadOnlyMany", "ReadWriteMany"], "width": "150px" },
+        { "id": "size", "accepted": ["1Gi", "10Gi", "500Mi"], "width": "60px" }
+      ]
+    },
+    {
+      "title": "Persistent Volumes",
+      "hint": "Elenca i PV a livello di cluster.",
+      "template": [
+        "kubectl get {{resource}}"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["pv", "persistentvolumes"], "width": "120px" }
+      ]
+    }
+  ]
+}

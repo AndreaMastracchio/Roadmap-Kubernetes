@@ -35,12 +35,11 @@ export const useModuleContent = (activeModule) => {
           if (jsonRes.ok) {
             const rawData = await jsonRes.json();
             if (Array.isArray(rawData)) {
-              data.quiz = rawData;
+              data.quiz = rawData.filter(item => !item.type || item.type !== 'coding');
+              data.exercises = rawData.filter(item => item.type === 'coding');
             } else {
-              data = { 
-                quiz: rawData.quiz || [], 
-                exercises: rawData.exercises || [] 
-              };
+              data.quiz = rawData.quiz || [];
+              data.exercises = rawData.exercises || [];
             }
           }
         } catch (e) {

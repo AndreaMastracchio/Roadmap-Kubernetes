@@ -48,11 +48,20 @@ Persistenza dei dati in un mondo effimero.
 Il livello avanzato per chi vuole costruire sopra Kubernetes.
 - **Custom Resource Definitions (CRDs)**: Estendere l'API di K8s.
 - **Controllers & Operators**: Automatizzare compiti complessi usando Go.
+### 9. 📋 Cheat Sheet Comandi
+Riepilogo finale di tutto il percorso.
+- **Docker & K8s CLI**: I comandi che userai ogni giorno.
+- **Helm & Debug**: Riferimento rapido per chart e risoluzione problemi.
+
+### 🎓 10. Esame Finale
+Verifica le tue competenze.
+- **Mega Quizzone**: 15 domande multidisciplinari.
+- **Sfide di Coding**: 5 esercizi pratici riassuntivi.
 
 ---
 
 ## 🚀 Come usare questo repository
-Ogni cartella numerata corrisponde a un modulo della roadmap. Entra nella cartella e leggi il `README.md` specifico per iniziare.
+Ogni cartella numerata (01-10) corrisponde a un modulo della roadmap. Entra nella cartella e leggi il `README.md` specifico per iniziare.
 
 ---
 

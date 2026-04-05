@@ -1,35 +1,70 @@
-[
-  {
-    "question": "Come si chiama un pacchetto in Helm?",
-    "options": [
-      "Bundle",
-      "Chart",
-      "Template",
-      "Module"
-    ],
-    "correct": 1,
-    "explanation": "Un pacchetto Helm è chiamato 'Chart' ed è una collezione di file che descrivono un set di risorse Kubernetes."
-  },
-  {
-    "question": "A cosa serve il file 'values.yaml'?",
-    "options": [
-      "A memorizzare i log del database",
-      "A definire i parametri di configurazione che verranno iniettati nei template",
-      "A gestire il networking del cluster",
-      "A installare Docker nel nodo"
-    ],
-    "correct": 1,
-    "explanation": "Il file 'values.yaml' contiene i valori di default per le variabili definite nei template della Chart."
-  },
-  {
-    "question": "Quale comando permette di tornare a una versione precedente di una release in caso di errori?",
-    "options": [
-      "helm undo",
-      "helm rollback",
-      "helm reset",
-      "helm delete"
-    ],
-    "correct": 1,
-    "explanation": "Il comando 'helm rollback' permette di ripristinare una versione specifica di una release precedente."
-  }
-]
+{
+  "quiz": [
+    {
+      "question": "Cos'è Helm in breve?",
+      "options": [
+        "Un sistema operativo per Kubernetes",
+        "Un gestore di pacchetti (Package Manager) per Kubernetes",
+        "Un database per le metriche",
+        "Un tool per compilare codice Go"
+      ],
+      "correct": 1,
+      "explanation": "Helm permette di impacchettare, distribuire e gestire applicazioni complesse su Kubernetes tramite le 'Chart'."
+    },
+    {
+      "question": "Quale file contiene i valori di default che alimentano i template di una Chart?",
+      "options": [
+        "Chart.yaml",
+        "values.yaml",
+        "templates/pod.yaml",
+        "config.json"
+      ],
+      "correct": 1,
+      "explanation": "Il file `values.yaml` centralizza tutte le variabili di configurazione di una Chart."
+    },
+    {
+      "question": "A cosa serve il comando `helm upgrade`?",
+      "options": [
+        "A reinstallare tutto da zero",
+        "Ad aggiornare una release esistente con una nuova versione o configurazione",
+        "A cancellare l'applicazione",
+        "Ad aggiornare la versione di Helm installata sul PC"
+      ],
+      "correct": 1,
+      "explanation": "Upgrade applica le modifiche a una release esistente mantenendo la cronologia delle versioni."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Installazione Chart",
+      "hint": "Installa una chart con un nome specifico.",
+      "template": [
+        "helm {{verb}} my-release bitnami/nginx"
+      ],
+      "answers": [
+        { "id": "verb", "accepted": ["install"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Debug Template",
+      "hint": "Usa template per vedere lo YAML generato senza installarlo.",
+      "template": [
+        "helm {{verb}} . --values values-prod.yaml"
+      ],
+      "answers": [
+        { "id": "verb", "accepted": ["template"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Gestione Repository",
+      "hint": "Aggiungi un nuovo repo di chart.",
+      "template": [
+        "helm {{resource}} {{action}} bitnami https://charts.bitnami.com/bitnami"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["repo"], "width": "60px" },
+        { "id": "action", "accepted": ["add"], "width": "60px" }
+      ]
+    }
+  ]
+}

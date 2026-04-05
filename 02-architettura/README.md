@@ -1,42 +1,96 @@
 # Modulo 2: 🏛️ Architettura di Kubernetes
 
-Comprendere come Kubernetes gestisce i carichi di lavoro e come i suoi componenti comunicano tra loro.
+Comprendere come Kubernetes gestisce i carichi di lavoro e come i suoi componenti comunicano tra loro è fondamentale per ogni amministratore o sviluppatore.
 
-## Il Cluster: Control Plane e Nodi
-Un cluster Kubernetes è composto da un insieme di macchine (nodi) che eseguono applicazioni containerizzate.
+## 🧠 Il Control Plane (Il "Cervello")
+Il Control Plane è responsabile di mantenere lo **stato desiderato** del cluster. È composto da diversi componenti chiave che lavorano in armonia.
 
-### 🧠 Control Plane (Il "Cervello")
-Responsabile di mantenere lo stato desiderato (es. "voglio 3 istanze di Nginx").
-- **kube-apiserver**: L'unico componente che comunica direttamente con l'utente (`kubectl`) e con il database `etcd`. Funge da front-end per il cluster.
-- **etcd**: Database chiave-valore distribuito altamente affidabile. Contiene l'intero stato del cluster. *Tip: Se perdi etcd, perdi il cluster!*
-- **kube-scheduler**: Osserva i nuovi Pod senza un nodo assegnato e sceglie il nodo migliore in base a risorse disponibili, policy e vincoli.
-- **kube-controller-manager**: Esegue i controller (es. Node Controller, Job Controller). Si occupa di riparare lo stato del cluster quando diverge da quello desiderato.
+### 1. kube-apiserver
+L'unico punto di ingresso per tutte le operazioni sul cluster. 
+- Gestisce le richieste REST da `kubectl`, dalla dashboard o da altri strumenti.
+- Valida i dati e aggiorna gli oggetti in **etcd**.
+- Implementa l'autenticazione (chi sei?) e l'autorizzazione (cosa puoi fare?).
 
-### 👷 Worker Nodes (Le "Braccia")
-Dove girano effettivamente le tue applicazioni (i Pod).
-- **kubelet**: L'agente locale del nodo. Riceve istruzioni dall'API Server e si assicura che i container descritti nei PodSpec siano sani e in esecuzione.
-- **kube-proxy**: Gestisce le regole di rete sul nodo. Permette la comunicazione tra i Pod e l'accesso ai servizi dall'esterno.
-- **Container Runtime**: Il software che esegue i container (es. `containerd`, `CRI-O`).
+### 2. etcd
+Il database del cluster. 
+- Archivio **chiave-valore** distribuito e coerente.
+- Memorizza TUTTI i dati di configurazione e lo stato del cluster.
+- **Best Practice**: In produzione, deve essere sempre in configurazione ad alta disponibilità (HA) con backup regolari.
 
-## Come interagire con il Cluster
-Il modo principale è tramite **kubectl**, che invia richieste REST all'API Server.
+### 3. kube-scheduler
+Il "vigile" del traffico.
+- Monitora i nuovi Pod che non hanno ancora un nodo assegnato.
+- Sceglie il miglior nodo possibile basandosi su:
+    - Requisiti di risorse (CPU/RAM).
+    - Vincoli di policy (Affinity/Anti-affinity).
+    - Taints e Tolerations.
 
-### Comandi Fondamentali
-- `kubectl cluster-info`: Verifica lo stato della connessione al cluster.
-- `kubectl get nodes`: Elenca tutti i nodi e il loro stato (`Ready` / `NotReady`).
-- `kubectl api-resources`: Elenca tutte le risorse disponibili (Pod, Services, ecc.).
-- `kubectl describe node <nome-nodo>`: Mostra dettagli approfonditi (CPU, Memoria, Eventi).
-
-## Strumenti Locali Consigliati
-1. **Kind (Kubernetes in Docker)**: Crea un cluster usando container Docker come nodi. Ideale per test veloci e CI/CD.
-2. **Minikube**: Crea una VM locale per far girare un cluster a nodo singolo.
-3. **K9s**: Un'interfaccia terminale (TUI) fantastica per gestire il cluster senza scrivere mille comandi `kubectl`.
+### 4. kube-controller-manager
+Il guardiano della stabilità.
+- Esegue loop di controllo infiniti: osserva lo stato attuale, lo confronta con lo stato desiderato e agisce per correggere le discrepanze.
+- Include: **Node Controller**, **Replication Controller**, **Endpoints Controller**, e molti altri.
 
 ---
 
-## 💡 Consiglio per lo studio
-Prova a installare `kind` sul tuo computer e crea il tuo primo cluster con:
+## 👷 Worker Nodes (Le "Braccia")
+I nodi sono le macchine (fisiche o virtuali) dove vengono eseguiti i container delle tue applicazioni.
+
+### 1. kubelet
+L'agente che gira su ogni nodo del cluster.
+- Si assicura che i container descritti nei **PodSpec** siano in esecuzione e sani.
+- Non gestisce container che non sono stati creati da Kubernetes.
+
+### 2. kube-proxy
+Il gestore della rete locale al nodo.
+- Mantiene le regole di rete (iptables o IPVS) per permettere la comunicazione tra Pod e verso i Servizi.
+- Gestisce il bilanciamento del carico semplice per i Servizi Kubernetes.
+
+### 3. Container Runtime
+Il software che esegue effettivamente i container.
+- Kubernetes supporta runtime conformi allo standard **CRI** (Container Runtime Interface), come `containerd` or `CRI-O`.
+
+---
+
+## 🔌 Le Interfacce Standard (X-RI)
+Kubernetes è modulare grazie a queste interfacce:
+1. **CRI (Container Runtime Interface)**: Per la gestione dei container.
+2. **CNI (Container Network Interface)**: Per la connettività di rete (es. Calico, Flannel, Cilium).
+3. **CSI (Container Storage Interface)**: Per la gestione dei volumi persistenti.
+
+---
+
+## 🏷️ Concetti di Base degli Oggetti
+Ogni risorsa in Kube ha dei metadati fondamentali:
+- **Namespaces**: Isolamento logico all'interno dello stesso cluster (es. `dev`, `prod`).
+- **Labels (Etichette)**: Coppie chiave-valore usate per raggruppare e selezionare oggetti (fondamentali per i Services).
+- **Annotations (Annotazioni)**: Usate per memorizzare metadati non identificativi (es. info di build o config per strumenti esterni).
+
+---
+
+## 🛠️ Esercizi Pratici con Kubectl
+
+Prova questi comandi sul tuo cluster (es. creato con Minikube o Kind):
+
 ```bash
-kind create cluster --name kubestudy
+# Verifica lo stato dei componenti del control plane (deprecato in alcune versioni, ma utile)
+kubectl get componentstatuses
+
+# Visualizza i nodi con etichette extra
+kubectl get nodes --show-labels
+
+# Ispeziona i dettagli di un nodo specifico
+kubectl describe node <nome-nodo>
+
+# Elenca tutte le API disponibili nel cluster
+kubectl api-versions
 ```
-Verifica il successo con `kubectl get nodes`.
+
+---
+
+## 💡 Approfondimento: Il giro di un Pod
+Cosa succede quando dai `kubectl apply -f pod.yaml`?
+1. **API Server**: Riceve il file, lo valida e lo scrive in `etcd`.
+2. **Scheduler**: Nota il nuovo Pod senza nodo, sceglie un nodo e aggiorna l'API Server.
+3. **API Server**: Scrive la decisione in `etcd`.
+4. **Kubelet (sul nodo scelto)**: Nota che c'è un Pod assegnato a lui, contatta il **Container Runtime** per avviare i container.
+5. **Kubelet**: Aggiorna lo stato del Pod ("Running") all'API Server.

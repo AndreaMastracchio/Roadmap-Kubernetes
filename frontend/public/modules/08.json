@@ -1,35 +1,69 @@
-[
-  {
-    "question": "A cosa serve una 'Custom Resource Definition' (CRD)?",
-    "options": [
-      "A configurare i nodi del cluster",
-      "A estendere l'API di Kubernetes definendo nuovi tipi di risorse",
-      "A monitorare la temperatura dei server",
-      "A scaricare immagini Docker più velocemente"
-    ],
-    "correct": 1,
-    "explanation": "Le CRD permettono di definire nuovi oggetti (es. PostgresCluster, Backup) che l'API di Kubernetes riconoscerà e gestirà come risorse standard."
-  },
-  {
-    "question": "Qual è lo scopo principale del 'Reconciliation Loop'?",
-    "options": [
-      "Pulire i log vecchi",
-      "Riavviare il computer se Kubernetes crasha",
-      "Confrontare lo stato attuale del cluster con quello desiderato e correggere le discrepanze",
-      "Criptare i dati in transito"
-    ],
-    "correct": 2,
-    "explanation": "Il ciclo di riconciliazione è il cuore di ogni controller e assicura che lo stato del cluster tenda sempre a quello dichiarato dall'utente."
-  },
-  {
-    "question": "Quale framework è lo standard per scrivere operatori Kubernetes in Go?",
-    "options": [
-      "Spring Boot",
-      "Django",
-      "controller-runtime (usato da Kubebuilder / Operator SDK)",
-      "Express.js"
-    ],
-    "correct": 2,
-    "explanation": "controller-runtime è la libreria di riferimento per scrivere controller e operatori moderni in linguaggio Go."
-  }
-]
+{
+  "quiz": [
+    {
+      "question": "Cosa significa CRD?",
+      "options": [
+        "Container Resource Data",
+        "Custom Resource Definition",
+        "Cluster Role Deployment",
+        "Core Resource Details"
+      ],
+      "correct": 1,
+      "explanation": "CRD sta per Custom Resource Definition e permette di estendere l'API di Kubernetes con nuovi oggetti personalizzati."
+    },
+    {
+      "question": "Qual è lo scopo del 'Reconciliation Loop'?",
+      "options": [
+        "Pulire i log vecchi",
+        "Confrontare lo stato attuale con quello desiderato e agire per farli coincidere",
+        "Riavviare il computer dell'amministratore",
+        "Verificare la connessione internet"
+      ],
+      "correct": 1,
+      "explanation": "Il ciclo di riconciliazione è il cuore di ogni controller: osserva, analizza e agisce per mantenere lo stato desiderato."
+    },
+    {
+      "question": "Quale libreria Go è fondamentale per interagire con l'API Server di Kubernetes?",
+      "options": [
+        "go-kube",
+        "client-go",
+        "k8s-api-lib",
+        "kubernetes-sdk"
+      ],
+      "correct": 1,
+      "explanation": "client-go è la libreria ufficiale e più usata per scrivere tool e controller per Kubernetes in Go."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Client Go - List Pods",
+      "hint": "Il metodo per elencare (lista) le risorse.",
+      "template": [
+        "clientset.CoreV1().Pods(\"default\").{{verb}}(context.TODO(), metav1.ListOptions{})"
+      ],
+      "answers": [
+        { "id": "verb", "accepted": ["List"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Configurazione Cluster",
+      "hint": "Il file di configurazione standard.",
+      "template": [
+        "~/.kube/{{file_name}}"
+      ],
+      "answers": [
+        { "id": "file_name", "accepted": ["config"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Operazione Controller",
+      "hint": "Il metodo principale del Reconciler.",
+      "template": [
+        "func (r *MyReconciler) {{method_name}}(ctx context.Context, req ctrl.Request)"
+      ],
+      "answers": [
+        { "id": "method_name", "accepted": ["Reconcile"], "width": "120px" }
+      ]
+    }
+  ]
+}
