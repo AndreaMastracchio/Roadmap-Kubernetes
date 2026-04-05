@@ -17,13 +17,19 @@ I container si basano su due pilastri del Kernel Linux:
     *   `NET`: Isola le interfacce di rete.
     *   `MNT`: Isola il file system (mount points).
     *   `UTS`: Isola l'hostname.
-2.  **Control Groups (cgroups)**: Forniscono la gestione delle risorse (CPU, Memoria, I/O). Impediscono che un container consumi tutta la RAM dell'host ("OOM Killer").
+    *   `IPC`: Isola la comunicazione inter-processo (code di messaggi, memoria condivisa).
+    *   `USER`: Isola gli ID utente e gruppo (un utente root nel container può essere non-root sull'host).
+2.  **Control Groups (cgroups)**: Forniscono la gestione delle risorse (CPU, Memoria, I/O). Impediscono che un container consumi tutta la RAM dell'host ("OOM Killer"). La versione moderna è **cgroups v2**, che offre una gerarchia unificata e migliori performance.
 
 ## Concetti Chiave
 1. **Immagine**: Un pacchetto statico, immutabile e stratificato (layers) che contiene tutto il necessario per far girare l'app. Segue lo standard **OCI (Open Container Initiative)**.
 2. **Container**: Un'istanza in esecuzione di un'immagine.
 3. **Registro (Registry)**: Un luogo dove memorizzare e condividere immagini (es. Docker Hub, Google Container Registry, Harbor).
 4. **Runtime**: Il software che esegue i container (es. `containerd`, `CRI-O`). Docker usa `containerd` internamente. Kubernetes interagisce con il runtime tramite il **CRI (Container Runtime Interface)**.
+
+### Image Tag vs Digest
+- **Tag**: Un'etichetta mutabile (es. `nginx:latest`). Il tag `latest` può puntare a versioni diverse nel tempo.
+- **Digest**: Un hash SHA256 immutabile che identifica univocamente un'immagine (es. `nginx@sha256:abc123...`). Usalo in produzione per garantire riproducibilità.
 
 ## Docker e Dockerfile
 Docker è lo strumento che ha reso popolari i container. Il `Dockerfile` è la "ricetta" per creare l'immagine.
@@ -34,7 +40,28 @@ Ogni istruzione in un Dockerfile (`FROM`, `RUN`, `COPY`, `ADD`) crea un nuovo "l
 - Se modifichi solo l'ultimo layer, Docker riutilizza quelli precedenti (**Build Cache**).
 - **Best Practice**: Ordina le istruzioni dalle meno frequenti alle più frequenti (es. installa le dipendenze *prima* di copiare il codice sorgente).
 
-### Esempio Dockerfile Ottimizzato (Multi-stage + Non-root)
+### .dockerignore: Ottimizza il Build Context
+Il file `.dockerignore` funziona come `.gitignore` e specifica quali file/cartelle escludere dal build context inviato al Docker daemon.
+- Riduce il tempo di build e la dimensione del context.
+- Evita di copiare file sensibili (`.env`, `.git`, `node_modules`).
+
+**Esempio .dockerignore:**
+```
+node_modules
+.git
+.env
+*.log
+dist
+```
+
+### BuildKit: Il Motore di Build Moderno
+Docker usa **BuildKit** di default (dalla versione 23.0+). Offre:
+- Build parallele più veloci
+- Cache più intelligente
+- Supporto per secret e SSH agent forwarding
+- Sintassi avanzata (`RUN --mount=type=cache`)
+
+### Esempio Dockerfile Ottimizzato (Multi-stage + Non-root + Healthcheck)
 ```dockerfile
 # Stage 1: Build
 FROM golang:1.21-alpine AS builder
@@ -50,8 +77,13 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser
 WORKDIR /home/appuser
 COPY --from=builder /app/main .
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1
 CMD ["./main"]
 ```
+
+**HEALTHCHECK**: Permette a Docker (e Kubernetes) di verificare se il container è "sano". Se il check fallisce per `retries` volte consecutive, il container viene marcato come "unhealthy".
 
 ## Sicurezza dei Container
 - **Non eseguire come Root**: Di default i container girano come root. È una pessima pratica. Usa l'istruzione `USER` nel Dockerfile.
@@ -74,10 +106,16 @@ Questi due comandi definiscono cosa viene eseguito all'avvio del container:
 - **COPY**: Copia file e directory locali nel container. È l'istruzione consigliata per la maggior parte dei casi.
 - **ADD**: Simile a COPY, ma può anche scaricare file da URL remoti ed estrarre automaticamente archivi `.tar`. Da usare con cautela.
 
-## Gestione dei Dati: Volumi e Bind Mounts
+## Gestione dei Dati: Volumi, Bind Mounts e tmpfs
 I container sono effimeri: se il container viene eliminato, i dati al suo interno vanno persi.
-- **Volumes**: Gestiti da Docker (solitamente in `/var/lib/docker/volumes/`). Sono il modo consigliato per la persistenza.
-- **Bind Mounts**: Mappano una cartella dell'host in una cartella del container. Utili in sviluppo per il ricaricamento a caldo del codice.
+- **Volumes**: Gestiti da Docker (solitamente in `/var/lib/docker/volumes/`). Sono il modo consigliato per la persistenza. Possono essere condivisi tra container e sopravvivono alla rimozione del container.
+- **Bind Mounts**: Mappano una cartella dell'host in una cartella del container. Utili in sviluppo per il ricaricamento a caldo del codice. Dipendono dalla struttura del filesystem dell'host.
+- **tmpfs Mounts**: Montano dati direttamente nella RAM dell'host. I dati sono temporanei e vengono persi quando il container si ferma. Utili per dati sensibili o cache temporanee.
+
+**Quando usare cosa:**
+- **Volumes**: Database, file di configurazione persistenti, dati di produzione.
+- **Bind Mounts**: Sviluppo locale, condivisione di codice sorgente.
+- **tmpfs**: Dati sensibili temporanei (password, token), cache in-memory.
 
 ## Reti Docker
 Docker isola i container anche a livello di rete:

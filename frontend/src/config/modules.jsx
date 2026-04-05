@@ -18,7 +18,7 @@ export const introModule = {
   file: 'intro.md',
   icon: <SchoolIcon />,
   sections: [
-    { id: 'intro-01', title: 'La Roadmap', anchor: 'la-roadmap' },
+    { id: 'intro-01', title: 'La Roadmap', anchor: 'il-percorso-di-studio' },
     { id: 'intro-02', title: 'Come Usare', anchor: 'come-usare-questo-repository' },
     { id: 'intro-03', title: 'Gestione CLI', anchor: 'gestione-rapida-cli' },
     { id: 'intro-04', title: 'Piattaforma Web', anchor: 'piattaforma-web-docker' }
@@ -76,10 +76,10 @@ export const modules = [
     time: '25 min',
     sections: [
       { id: '03-01', title: 'Anatomia YAML', anchor: 'anatomia-di-un-file-yaml' },
-      { id: '03-02', title: 'Il Pod', anchor: '1-il-pod-l-unità-atomica' },
+      { id: '03-02', title: 'Il Pod', anchor: '1-il-pod-lunità-atomica' },
       { id: '03-03', title: 'Deployment', anchor: '2-deployment-gestione-del-ciclo-di-vita' },
       { id: '03-04', title: 'Service', anchor: '3-service-networking-stabile' },
-      { id: '03-05', title: 'ConfigMap & Secret', anchor: '4-configmap-secret-configurazione-esterna' },
+      { id: '03-05', title: 'ConfigMap & Secret', anchor: '4-configmap--secret-configurazione-esterna' },
       { id: '03-06', title: 'Comandi Essenziali', anchor: 'comandi-essenziali-per-le-risorse' },
       { id: '03-07', title: 'Esercizio Pratico', anchor: 'esercizio-pratico' },
       { id: '03-ex', title: 'Esercizi Interattivi', anchor: 'exercises-section' },
@@ -94,10 +94,10 @@ export const modules = [
     level: 'Avanzato',
     time: '40 min',
     sections: [
-      { id: '04-01', title: 'Service Discovery', anchor: '1-service-discovery-dns' },
+      { id: '04-01', title: 'Service Discovery', anchor: '1-service-discovery--dns' },
       { id: '04-02', title: 'Ingress', anchor: '2-ingress-il-gateway-intelligente' },
       { id: '04-03', title: 'Network Policies', anchor: '3-network-policies-il-firewall-nativo' },
-      { id: '04-04', title: 'Endpoints', anchor: '4-endpoints-endpointslices' },
+      { id: '04-04', title: 'Endpoints', anchor: '4-endpoints--endpointslices' },
       { id: '04-05', title: 'CNI e Plugin', anchor: '5-cni-container-network-interface' },
       { id: '04-06', title: 'Debugging Rete', anchor: 'debugging-del-networking' },
       { id: '04-ex', title: 'Esercizi Interattivi', anchor: 'exercises-section' },
@@ -132,7 +132,7 @@ export const modules = [
     sections: [
       { id: '06-01', title: 'Authn vs Authz', anchor: '1-autenticazione-vs-autorizzazione' },
       { id: '06-02', title: 'RBAC Fondamentali', anchor: '2-rbac-role-based-access-control' },
-      { id: '06-03', title: 'ServiceAccounts', anchor: '3-serviceaccounts-l-identità-dei-pod' },
+      { id: '06-03', title: 'ServiceAccounts', anchor: '3-serviceaccounts-lidentità-dei-pod' },
       { id: '06-04', title: 'Security Context', anchor: '4-security-context-sicurezza-del-container' },
       { id: '06-05', title: 'Pod Security (PSA)', anchor: '5-pod-security-admission-psa' },
       { id: '06-06', title: 'Comandi Sicurezza', anchor: 'comandi-per-la-sicurezza' },
@@ -169,7 +169,7 @@ export const modules = [
     sections: [
       { id: '08-01', title: 'Cos\'è una CRD?', anchor: '1-custom-resource-definitions-crds' },
       { id: '08-02', title: 'Reconciliation Loop', anchor: '2-il-reconciliation-loop-ciclo-di-riconciliazione' },
-      { id: '08-03', title: 'Operator Pattern', anchor: '3-l-operator-pattern' },
+      { id: '08-03', title: 'Operator Pattern', anchor: '3-loperator-pattern' },
       { id: '08-04', title: 'Sviluppo in Go', anchor: '4-sviluppo-in-go-client-go-e-frameworks' },
       { id: '08-05', title: 'Strumenti Dev', anchor: 'strumenti-di-sviluppo' },
       { id: '08-06', title: 'Esercizio Avanzato', anchor: 'esercizio-avanzato' },
@@ -186,8 +186,8 @@ export const modules = [
     time: '10 min',
     sections: [
       { id: '09-01', title: 'Docker Essentials', anchor: '1-fondamentali-docker' },
-      { id: '09-02', title: 'Kube Essentials', anchor: '2-esplorazione-cluster-architettura' },
-      { id: '09-03', title: 'Risorse e Networking', anchor: '3-gestione-risorse-base' },
+      { id: '09-02', title: 'Kube Essentials', anchor: '2-architettura-e-esplorazione' },
+      { id: '09-03', title: 'Risorse e Networking', anchor: '3-gestione-risorse' },
       { id: '09-04', title: 'Helm e Operatori', anchor: '7-helm' },
       { id: '09-ex', title: 'Esercizi Interattivi', anchor: 'exercises-section' },
       { id: '09-quiz', title: 'Quiz Finale', anchor: 'quiz-section' }
@@ -201,8 +201,8 @@ export const modules = [
     level: 'Avanzato',
     time: '45 min',
     sections: [
-      { id: '10-01', title: 'Struttura Esame', anchor: 'struttura-dell-esame' },
-      { id: '10-02', title: 'Consigli', anchor: 'consigli-per-l-esame' },
+      { id: '10-01', title: 'Struttura Esame', anchor: 'struttura-dellesame' },
+      { id: '10-02', title: 'Consigli', anchor: 'consigli-per-lesame' },
       { id: '10-ex', title: 'Mega Quizzone', anchor: 'quiz-section' },
       { id: '10-quiz', title: 'Sfide Finali', anchor: 'exercises-section' }
     ]
