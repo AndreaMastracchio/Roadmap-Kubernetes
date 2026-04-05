@@ -49,7 +49,7 @@ services:
       - /app/node_modules
       - ./project_public:/project_public
     ports:
-      - "5000:5000"
+      - "5005:5005"
     environment:
       - MYSQL_HOST=db
       - MYSQL_USER=kubeuser

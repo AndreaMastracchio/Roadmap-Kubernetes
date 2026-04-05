@@ -35,7 +35,7 @@ services:
     build:
       context: ./backend
     ports:
-      - "5000:5000"
+      - "5005:5005"
     volumes:
       - ./project_public:/project_public
     environment:

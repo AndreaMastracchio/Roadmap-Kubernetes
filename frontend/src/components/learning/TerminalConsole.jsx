@@ -3,7 +3,7 @@ import { Box, Paper, Typography, InputBase, Fade, IconButton } from '@mui/materi
 import { Terminal as TerminalIcon, Close as CloseIcon } from '@mui/icons-material';
 import KubeTypography from '../ui/KubeTypography';
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'http://localhost:5005/api';
 
 const TerminalConsole = ({ courses, onClose }) => {
   const [history, setHistory] = useState([

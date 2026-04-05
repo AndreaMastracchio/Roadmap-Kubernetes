@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'http://localhost:5005/api';
 
 export const useModuleContent = (activeModule) => {
   const [content, setContent] = useState('');

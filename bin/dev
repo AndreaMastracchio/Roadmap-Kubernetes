@@ -9,7 +9,7 @@ docker compose -f "$DEV_COMPOSE" down > /dev/null 2>&1
 
 echo "🚀 Avvio dell'ambiente di sviluppo (Frontend + Backend + Database + Redis)..."
 echo "📍 Frontend: http://localhost:8080"
-echo "📍 Backend:  http://localhost:5000/api/health"
+echo "📍 Backend:  http://localhost:5005/api/health"
 echo "ℹ️  I log mostreranno l'attività di tutti i servizi."
 echo "💡 Premi Ctrl+C per fermare la visualizzazione dei log (il container rimarrà attivo)."
 echo "🛑 Per spegnere tutto usa: ./bin/stop"

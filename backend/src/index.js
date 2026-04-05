@@ -10,7 +10,7 @@ const fs = require('fs').promises;
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5005;
 
 // Configurazione Redis
 const redisClient = new Redis({
