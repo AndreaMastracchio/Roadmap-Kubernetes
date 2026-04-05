@@ -1,0 +1,113 @@
+# Job per task one-time
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: database-migration
+spec:
+  # Numero di completamenti richiesti
+  completions: 1
+  # Numero di Pod in parallelo
+  parallelism: 1
+  # Numero di retry in caso di fallimento
+  backoffLimit: 3
+  # TTL per cleanup automatico dopo completamento (secondi)
+  ttlSecondsAfterFinished: 100
+  
+  template:
+    metadata:
+      labels:
+        app: migration
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: migration
+        image: migrate/migrate:v4.15.2
+        command:
+        - migrate
+        - -path=/migrations
+        - -database=postgres://user:pass@db:5432/mydb?sslmode=disable
+        - up
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: migrations
+          mountPath: /migrations
+      volumes:
+      - name: migrations
+        configMap:
+          name: db-migrations
+
+---
+# CronJob per backup notturno
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: database-backup
+spec:
+  # Schedule in formato cron: "minuto ora giorno mese giorno-settimana"
+  schedule: "0 2 * * *"  # Ogni giorno alle 2 AM
+  
+  # Timezone (richiede K8s 1.25+)
+  timeZone: "Europe/Rome"
+  
+  # Numero di Job completati da mantenere
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  
+  # Politica di concorrenza
+  concurrencyPolicy: Forbid  # Non permette esecuzioni concorrenti
+  
+  # Deadline per l'avvio del Job (secondi)
+  startingDeadlineSeconds: 300
+  
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: backup
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: backup
+            image: postgres:14-alpine
+            command:
+            - /bin/sh
+            - -c
+            - |
+              pg_dump -h $DB_HOST -U $DB_USER $DB_NAME | gzip > /backup/backup-$(date +%Y%m%d-%H%M%S).sql.gz
+              echo "Backup completed successfully"
+            env:
+            - name: DB_HOST
+              value: "postgres-service"
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: DB_NAME
+              value: "mydb"
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: password
+            resources:
+              requests:
+                memory: "256Mi"
+                cpu: "500m"
+              limits:
+                memory: "512Mi"
+                cpu: "1000m"
+            volumeMounts:
+            - name: backup-storage
+              mountPath: /backup
+          volumes:
+          - name: backup-storage
+            persistentVolumeClaim:
+              claimName: backup-pvc

@@ -34,7 +34,9 @@ export const courses = [
     icon: <CloudIcon sx={{ fontSize: 40, color: '#2496ed' }} />,
     modules: [], // In arrivo
     color: '#2496ed',
-    comingSoon: true
+    comingSoon: true,
+    isPrivate: true,
+    price: '29.90€'
   },
   {
     id: 'cloud-native-security',
@@ -44,6 +46,8 @@ export const courses = [
     icon: <SecurityIcon sx={{ fontSize: 40, color: '#f44336' }} />,
     modules: [], // In arrivo
     color: '#f44336',
-    comingSoon: true
+    comingSoon: true,
+    isPrivate: true,
+    price: '39.90€'
   }
 ];

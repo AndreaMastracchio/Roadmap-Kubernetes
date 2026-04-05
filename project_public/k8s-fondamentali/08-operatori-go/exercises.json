@@ -1,0 +1,239 @@
+{
+  "quiz": [
+    {
+      "question": "Cos'è una Custom Resource Definition (CRD)?",
+      "options": [
+        "Un tipo di Pod speciale",
+        "Una definizione che permette di creare nuovi tipi di risorse in Kubernetes",
+        "Un tipo di Service",
+        "Una configurazione del cluster"
+      ],
+      "correct": 1,
+      "explanation": "Una CRD permette di estendere Kubernetes definendo nuovi tipi di risorse personalizzate (es. PostgresCluster, AutoScaler) oltre a quelle standard."
+    },
+    {
+      "question": "Cos'è un Operator in Kubernetes?",
+      "options": [
+        "Un utente amministratore",
+        "Un controller che incorpora conoscenza operativa di un software specifico",
+        "Un tipo di Pod",
+        "Un tool di monitoring"
+      ],
+      "correct": 1,
+      "explanation": "Un Operator è un controller che automatizza la gestione di applicazioni complesse (es. database) incorporando la conoscenza operativa (backup, scaling, upgrade)."
+    },
+    {
+      "question": "Qual è il cuore di ogni controller?",
+      "options": [
+        "Il database etcd",
+        "Il Reconciliation Loop (Osserva -> Analizza -> Agisci)",
+        "L'API Server",
+        "Il Scheduler"
+      ],
+      "correct": 1,
+      "explanation": "Il Reconciliation Loop è il cuore di ogni controller: osserva lo stato attuale, lo confronta con lo stato desiderato e agisce per convergere."
+    },
+    {
+      "question": "Quale libreria Go è ufficiale per interagire con l'API Server?",
+      "options": [
+        "kube-go",
+        "client-go",
+        "k8s-client",
+        "api-client"
+      ],
+      "correct": 1,
+      "explanation": "client-go è la libreria ufficiale Go per interagire con l'API Server di Kubernetes. Include Informers, Listers e client per tutte le risorse."
+    },
+    {
+      "question": "Cosa fanno gli Informers in client-go?",
+      "options": [
+        "Inviano notifiche email",
+        "Monitorano i cambiamenti alle risorse in modo efficiente con caching locale",
+        "Creano nuove risorse",
+        "Eliminano risorse obsolete"
+      ],
+      "correct": 1,
+      "explanation": "Gli Informers monitorano i cambiamenti alle risorse usando il meccanismo watch e mantengono una cache locale, riducendo il carico sull'API Server."
+    },
+    {
+      "question": "Quale framework è lo standard per creare Operator?",
+      "options": [
+        "Operator Framework",
+        "Kubebuilder",
+        "Controller SDK",
+        "K8s Builder"
+      ],
+      "correct": 1,
+      "explanation": "Kubebuilder è il framework standard per creare CRD e controller usando controller-runtime. Operator SDK estende Kubebuilder con tool aggiuntivi."
+    },
+    {
+      "question": "Cosa fa controller-runtime?",
+      "options": [
+        "Esegue i container",
+        "Gestisce la complessità del reconciliation loop e degli eventi",
+        "Gestisce il networking",
+        "Gestisce lo storage"
+      ],
+      "correct": 1,
+      "explanation": "controller-runtime è il framework alla base di Kubebuilder e Operator SDK. Gestisce la complessità del loop di riconciliazione, eventi, caching e watch."
+    },
+    {
+      "question": "Quale sezione di una Custom Resource definisce lo stato desiderato?",
+      "options": [
+        "metadata",
+        "spec",
+        "status",
+        "config"
+      ],
+      "correct": 1,
+      "explanation": "La sezione 'spec' definisce lo stato desiderato (es. versione DB, numero nodi). La sezione 'status' definisce lo stato attuale (gestito dal controller)."
+    },
+    {
+      "question": "Quale sezione di una Custom Resource è gestita dal controller?",
+      "options": [
+        "spec",
+        "status",
+        "metadata",
+        "config"
+      ],
+      "correct": 1,
+      "explanation": "La sezione 'status' è gestita dal controller e riflette lo stato attuale della risorsa (es. 'Cluster in salute', 'Upgrade in corso')."
+    },
+    {
+      "question": "Cosa fa un Lister in client-go?",
+      "options": [
+        "Crea liste di risorse",
+        "Permette di leggere dati dalla cache locale dell'Informer senza chiamare l'API",
+        "Elimina risorse",
+        "Aggiorna risorse"
+      ],
+      "correct": 1,
+      "explanation": "Un Lister permette di leggere dati dalla cache locale mantenuta dall'Informer, evitando chiamate all'API Server e migliorando le performance."
+    },
+    {
+      "question": "Quale tool è utile per testare operator localmente?",
+      "options": [
+        "Minikube",
+        "Kind (Kubernetes in Docker)",
+        "Docker Compose",
+        "Vagrant"
+      ],
+      "correct": 1,
+      "explanation": "Kind (Kubernetes in Docker) è ottimo per testare operator localmente perché permette di creare cluster multi-nodo velocemente."
+    },
+    {
+      "question": "Cosa automatizza un Operator per un database?",
+      "options": [
+        "Solo l'installazione",
+        "Backup, ripristini, aggiornamenti, scaling e monitoraggio",
+        "Solo il monitoring",
+        "Solo il backup"
+      ],
+      "correct": 1,
+      "explanation": "Un Operator per database automatizza l'intero ciclo di vita: installazione, backup, ripristini, aggiornamenti, scaling, failover e monitoraggio."
+    },
+    {
+      "question": "Quale comando visualizza le CRD installate?",
+      "options": [
+        "kubectl get customresources",
+        "kubectl get crd",
+        "kubectl get operators",
+        "kubectl get extensions"
+      ],
+      "correct": 1,
+      "explanation": "kubectl get crd (o customresourcedefinitions) mostra tutte le Custom Resource Definitions installate nel cluster."
+    },
+    {
+      "question": "Cosa significa che Kubernetes è 'estendibile'?",
+      "options": [
+        "Può scalare a molti nodi",
+        "Puoi aggiungere nuovi tipi di risorse (CRD) e controller custom",
+        "Può gestire molti Pod",
+        "Supporta molti cloud provider"
+      ],
+      "correct": 1,
+      "explanation": "Kubernetes è estendibile perché puoi aggiungere nuovi tipi di risorse tramite CRD e scrivere controller custom che li gestiscono, senza modificare il core."
+    },
+    {
+      "question": "Quale pattern segue un controller Kubernetes?",
+      "options": [
+        "Event-driven",
+        "Level-triggered (osserva stato attuale vs desiderato)",
+        "Polling continuo",
+        "Push-based"
+      ],
+      "correct": 1,
+      "explanation": "I controller K8s seguono il pattern level-triggered: osservano continuamente lo stato attuale e lo confrontano con lo stato desiderato, agendo per convergere."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Visualizza CRD",
+      "hint": "Usa 'kubectl get crd' o 'customresourcedefinitions'.",
+      "template": [
+        "kubectl get {{resource}}"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["crd", "customresourcedefinitions"], "width": "220px" }
+      ]
+    },
+    {
+      "title": "Descrivi CRD",
+      "hint": "Usa 'kubectl describe crd' per vedere i dettagli.",
+      "template": [
+        "kubectl {{describe_cmd}} crd my-custom-resource"
+      ],
+      "answers": [
+        { "id": "describe_cmd", "accepted": ["describe"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Client-Go List Pods",
+      "hint": "Usa clientset.CoreV1().Pods(namespace).List() per listare i Pod.",
+      "template": [
+        "pods, err := clientset.{{core_api}}().{{pods_resource}}(\"default\").{{list_method}}(context.TODO(), metav1.ListOptions{})"
+      ],
+      "answers": [
+        { "id": "core_api", "accepted": ["CoreV1"], "width": "100px" },
+        { "id": "pods_resource", "accepted": ["Pods"], "width": "80px" },
+        { "id": "list_method", "accepted": ["List"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "CRD Spec Section",
+      "hint": "La sezione 'spec' definisce lo stato desiderato della risorsa custom.",
+      "template": [
+        "apiVersion: mygroup.example.com/v1",
+        "kind: MyResource",
+        "metadata:",
+        "  name: my-instance",
+        "{{spec_key}}:",
+        "  replicas: 3",
+        "  version: \"1.0\""
+      ],
+      "answers": [
+        { "id": "spec_key", "accepted": ["spec"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Kubebuilder Init",
+      "hint": "Usa 'kubebuilder init' per inizializzare un nuovo progetto operator.",
+      "template": [
+        "kubebuilder {{init_cmd}} --domain my.domain --repo github.com/user/my-operator"
+      ],
+      "answers": [
+        { "id": "init_cmd", "accepted": ["init"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Kubebuilder Create API",
+      "hint": "Usa 'kubebuilder create api' per creare una nuova CRD e controller.",
+      "template": [
+        "kubebuilder create {{api_cmd}} --group mygroup --version v1 --kind MyResource"
+      ],
+      "answers": [
+        { "id": "api_cmd", "accepted": ["api"], "width": "60px" }
+      ]
+    }
+  ]
+}

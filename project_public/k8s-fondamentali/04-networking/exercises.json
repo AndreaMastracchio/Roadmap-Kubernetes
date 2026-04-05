@@ -1,0 +1,326 @@
+{
+  "quiz": [
+    {
+      "question": "Qual è il servizio DNS interno di default in Kubernetes?",
+      "options": [
+        "kube-dns",
+        "CoreDNS",
+        "bind9",
+        "dnsmasq"
+      ],
+      "correct": 1,
+      "explanation": "CoreDNS è il servizio DNS interno di default in Kubernetes (dalla versione 1.13+). Risolve i nomi dei Service in indirizzi IP."
+    },
+    {
+      "question": "Qual è il FQDN completo di un Service chiamato 'api' nel namespace 'prod'?",
+      "options": [
+        "api.prod",
+        "api.prod.svc",
+        "api.prod.svc.cluster.local",
+        "prod.api.cluster.local"
+      ],
+      "correct": 2,
+      "explanation": "Il formato FQDN è: <service>.<namespace>.svc.cluster.local. Quindi: api.prod.svc.cluster.local"
+    },
+    {
+      "question": "Cosa fa un Ingress Controller?",
+      "options": [
+        "Gestisce il traffico interno tra Pod",
+        "Implementa le regole di routing HTTP/HTTPS per esporre servizi all'esterno",
+        "Controlla l'accesso RBAC",
+        "Gestisce i certificati TLS automaticamente"
+      ],
+      "correct": 1,
+      "explanation": "L'Ingress Controller (es. nginx, Traefik) implementa le regole definite negli oggetti Ingress per instradare il traffico HTTP/HTTPS verso i Service."
+    },
+    {
+      "question": "Quale tipo di routing può fare un Ingress?",
+      "options": [
+        "Solo host-based (es. app1.com vs app2.com)",
+        "Solo path-based (es. /api vs /web)",
+        "Sia host-based che path-based",
+        "Solo TCP/UDP load balancing"
+      ],
+      "correct": 2,
+      "explanation": "Un Ingress può fare routing sia host-based (diversi domini) che path-based (diversi path dello stesso dominio)."
+    },
+    {
+      "question": "Di default, quale politica di rete ha Kubernetes?",
+      "options": [
+        "Tutto il traffico è bloccato",
+        "Tutto il traffico è permesso (rete aperta)",
+        "Solo traffico interno al namespace è permesso",
+        "Solo traffico HTTPS è permesso"
+      ],
+      "correct": 1,
+      "explanation": "Di default, Kubernetes ha una rete 'aperta' dove ogni Pod può comunicare con ogni altro Pod. Le Network Policies servono per restringere questo comportamento."
+    },
+    {
+      "question": "Cosa controlla una Ingress Network Policy?",
+      "options": [
+        "Il traffico in uscita dal Pod",
+        "Il traffico in entrata al Pod",
+        "Il traffico HTTP/HTTPS",
+        "Il traffico DNS"
+      ],
+      "correct": 1,
+      "explanation": "Una Ingress Network Policy controlla il traffico in entrata (ingress) al Pod. Una Egress Policy controlla il traffico in uscita."
+    },
+    {
+      "question": "Cosa sono gli Endpoints in Kubernetes?",
+      "options": [
+        "I nodi del cluster",
+        "Gli IP dei Pod che superano il Readiness Probe e sono pronti per traffico",
+        "Le porte esposte dai Service",
+        "I certificati TLS"
+      ],
+      "correct": 1,
+      "explanation": "Gli Endpoints sono una risorsa automatica che elenca gli IP dei Pod che hanno superato il Readiness Probe e sono pronti a ricevere traffico dal Service."
+    },
+    {
+      "question": "Quale CNI plugin usa eBPF per performance elevate?",
+      "options": [
+        "Flannel",
+        "Calico",
+        "Cilium",
+        "Weave"
+      ],
+      "correct": 2,
+      "explanation": "Cilium usa eBPF (extended Berkeley Packet Filter) nel kernel Linux per prestazioni elevatissime e sicurezza avanzata senza iptables."
+    },
+    {
+      "question": "Quale CNI plugin è ottimo per Network Policies e usa BGP?",
+      "options": [
+        "Flannel",
+        "Calico",
+        "Cilium",
+        "Weave"
+      ],
+      "correct": 1,
+      "explanation": "Calico è ottimo per le Network Policies e usa BGP (Border Gateway Protocol) per il routing. È molto usato in produzione."
+    },
+    {
+      "question": "Come testi la connettività DNS da un Pod?",
+      "options": [
+        "kubectl dns test",
+        "kubectl exec -it <pod> -- nslookup <service>",
+        "kubectl check dns",
+        "kubectl describe dns"
+      ],
+      "correct": 1,
+      "explanation": "Puoi testare il DNS eseguendo 'nslookup' o 'dig' dentro un Pod con kubectl exec."
+    },
+    {
+      "question": "Se un Service non ha Endpoints, qual è la causa più probabile?",
+      "options": [
+        "Il Service è di tipo LoadBalancer",
+        "Il selector del Service non trova Pod o i Pod hanno fallito il Readiness Probe",
+        "Il DNS non funziona",
+        "Il cluster non ha abbastanza risorse"
+      ],
+      "correct": 1,
+      "explanation": "Se gli Endpoints sono vuoti, significa che il selector del Service non trova Pod con le label corrette, oppure i Pod esistono ma hanno fallito il Readiness Probe."
+    },
+    {
+      "question": "Cosa fa 'kubectl port-forward'?",
+      "options": [
+        "Configura un Service di tipo NodePort",
+        "Crea un tunnel locale per accedere a un Pod o Service",
+        "Modifica le porte di un container",
+        "Espone un Service all'esterno"
+      ],
+      "correct": 1,
+      "explanation": "kubectl port-forward crea un tunnel dalla tua macchina locale a un Pod o Service nel cluster, utile per test e debugging."
+    },
+    {
+      "question": "Quale pathType in Ingress fa matching esatto del path?",
+      "options": [
+        "Prefix",
+        "Exact",
+        "ImplementationSpecific",
+        "Regex"
+      ],
+      "correct": 1,
+      "explanation": "pathType: Exact richiede un match esatto del path. Prefix fa match di tutti i path che iniziano con il prefisso specificato."
+    },
+    {
+      "question": "Cosa sostituirà gli Ingress in futuro?",
+      "options": [
+        "Service Mesh",
+        "Gateway API",
+        "LoadBalancer avanzati",
+        "Network Policies v2"
+      ],
+      "correct": 1,
+      "explanation": "Gateway API è il successore di Ingress, con un modello più espressivo e role-oriented. È attualmente in beta."
+    },
+    {
+      "question": "Come blocchi tutto il traffico in uscita da un Pod tranne il DNS?",
+      "options": [
+        "Non è possibile",
+        "Crea una Egress Network Policy che permette solo porta 53 UDP/TCP",
+        "Usa un Service Mesh",
+        "Configura iptables manualmente"
+      ],
+      "correct": 1,
+      "explanation": "Puoi creare una Egress Network Policy che blocca tutto tranne il traffico verso porta 53 (DNS) nel namespace kube-system."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Ingress con Host-based Routing",
+      "hint": "Usa 'host' per specificare il dominio e 'backend' per il Service.",
+      "template": [
+        "apiVersion: networking.k8s.io/v1",
+        "kind: {{kind}}",
+        "metadata:",
+        "  name: main-ingress",
+        "spec:",
+        "  rules:",
+        "  - {{host_key}}: myapp.local",
+        "    http:",
+        "      paths:",
+        "      - path: /",
+        "        pathType: Prefix",
+        "        backend:",
+        "          service:",
+        "            name: frontend",
+        "            port:",
+        "              number: 80"
+      ],
+      "answers": [
+        { "id": "kind", "accepted": ["Ingress"], "width": "100px" },
+        { "id": "host_key", "accepted": ["host"], "width": "60px" }
+      ]
+    },
+    {
+      "title": "Network Policy - Blocca Tutto Ingress",
+      "hint": "Usa 'podSelector' per selezionare i Pod e 'policyTypes' per specificare Ingress.",
+      "template": [
+        "apiVersion: networking.k8s.io/v1",
+        "kind: {{kind}}",
+        "metadata:",
+        "  name: deny-all",
+        "spec:",
+        "  {{pod_selector}}:",
+        "    matchLabels:",
+        "      app: database",
+        "  {{policy_types}}:",
+        "  - Ingress"
+      ],
+      "answers": [
+        { "id": "kind", "accepted": ["NetworkPolicy"], "width": "140px" },
+        { "id": "pod_selector", "accepted": ["podSelector"], "width": "120px" },
+        { "id": "policy_types", "accepted": ["policyTypes"], "width": "120px" }
+      ]
+    },
+    {
+      "title": "Network Policy - Permetti da Namespace",
+      "hint": "Usa 'ingress' con 'from' e 'namespaceSelector'.",
+      "template": [
+        "spec:",
+        "  podSelector:",
+        "    matchLabels:",
+        "      app: api",
+        "  {{ingress_key}}:",
+        "  - from:",
+        "    - {{namespace_selector}}:",
+        "        matchLabels:",
+        "          env: prod"
+      ],
+      "answers": [
+        { "id": "ingress_key", "accepted": ["ingress"], "width": "100px" },
+        { "id": "namespace_selector", "accepted": ["namespaceSelector"], "width": "180px" }
+      ]
+    },
+    {
+      "title": "Test DNS da Pod",
+      "hint": "Usa kubectl exec con nslookup per testare la risoluzione DNS.",
+      "template": [
+        "kubectl {{exec_cmd}} -it my-pod -- {{dns_tool}} my-service"
+      ],
+      "answers": [
+        { "id": "exec_cmd", "accepted": ["exec"], "width": "60px" },
+        { "id": "dns_tool", "accepted": ["nslookup", "dig"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Port Forward per Debugging",
+      "hint": "Usa kubectl port-forward con la sintassi local-port:remote-port.",
+      "template": [
+        "kubectl {{port_forward}} pod/my-pod 8080:80"
+      ],
+      "answers": [
+        { "id": "port_forward", "accepted": ["port-forward"], "width": "140px" }
+      ]
+    },
+    {
+      "title": "Visualizza Endpoints di un Service",
+      "hint": "Usa 'kubectl get endpoints' o 'ep' come abbreviazione.",
+      "template": [
+        "kubectl get {{resource}} my-service"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["endpoints", "ep"], "width": "120px" }
+      ]
+    },
+    {
+      "title": "Ingress con TLS",
+      "hint": "Usa 'tls' nella spec con 'hosts' e 'secretName'.",
+      "template": [
+        "spec:",
+        "  {{tls_key}}:",
+        "  - hosts:",
+        "    - myapp.local",
+        "    {{secret_name}}: tls-secret",
+        "  rules:",
+        "  - host: myapp.local"
+      ],
+      "answers": [
+        { "id": "tls_key", "accepted": ["tls"], "width": "60px" },
+        { "id": "secret_name", "accepted": ["secretName"], "width": "120px" }
+      ]
+    },
+    {
+      "title": "Network Policy - Egress DNS",
+      "hint": "Permetti egress verso porta 53 (DNS) nel namespace kube-system.",
+      "template": [
+        "spec:",
+        "  policyTypes:",
+        "  - {{egress_type}}",
+        "  egress:",
+        "  - to:",
+        "    - namespaceSelector:",
+        "        matchLabels:",
+        "          name: kube-system",
+        "    ports:",
+        "    - protocol: UDP",
+        "      {{port_key}}: 53"
+      ],
+      "answers": [
+        { "id": "egress_type", "accepted": ["Egress"], "width": "100px" },
+        { "id": "port_key", "accepted": ["port"], "width": "60px" }
+      ]
+    },
+    {
+      "title": "Test Connettività con Curl",
+      "hint": "Usa kubectl exec per eseguire curl dentro un Pod.",
+      "template": [
+        "kubectl exec -it my-pod -- {{http_tool}} http://my-service:80"
+      ],
+      "answers": [
+        { "id": "http_tool", "accepted": ["curl", "wget"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Visualizza Ingress",
+      "hint": "Usa 'kubectl get ingress' o 'ing' come abbreviazione.",
+      "template": [
+        "kubectl get {{resource}}"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["ingress", "ing"], "width": "100px" }
+      ]
+    }
+  ]
+}

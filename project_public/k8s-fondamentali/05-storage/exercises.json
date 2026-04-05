@@ -1,0 +1,276 @@
+{
+  "quiz": [
+    {
+      "question": "Qual è la differenza tra PersistentVolume (PV) e PersistentVolumeClaim (PVC)?",
+      "options": [
+        "Non c'è differenza, sono sinonimi",
+        "PV è la risorsa fisica di storage, PVC è la richiesta di storage",
+        "PV è per namespace, PVC è cluster-scoped",
+        "PV è deprecato, usa solo PVC"
+      ],
+      "correct": 1,
+      "explanation": "PV è la risorsa fisica di storage nel cluster (creata dall'admin). PVC è la richiesta di storage fatta dallo sviluppatore. Kubernetes li 'lega' insieme (binding)."
+    },
+    {
+      "question": "Quale Access Mode permette a più nodi di montare un volume in lettura/scrittura?",
+      "options": [
+        "ReadWriteOnce (RWO)",
+        "ReadOnlyMany (ROX)",
+        "ReadWriteMany (RWX)",
+        "ReadWriteOncePod (RWOP)"
+      ],
+      "correct": 2,
+      "explanation": "ReadWriteMany (RWX) permette a più nodi di montare il volume in lettura/scrittura contemporaneamente. Richiede storage che supporta questa modalità (es. NFS, CephFS)."
+    },
+    {
+      "question": "Cosa fa una StorageClass?",
+      "options": [
+        "Classifica i volumi per dimensione",
+        "Abilita il provisioning dinamico dei volumi",
+        "Gestisce i backup automatici",
+        "Controlla l'accesso ai volumi"
+      ],
+      "correct": 1,
+      "explanation": "Una StorageClass abilita il provisioning dinamico: quando crei un PVC con una storageClassName, Kubernetes crea automaticamente il volume fisico e il PV."
+    },
+    {
+      "question": "Cosa succede al volume fisico quando elimini un PVC con Reclaim Policy 'Delete'?",
+      "options": [
+        "Il volume viene mantenuto per recupero manuale",
+        "Il volume viene cancellato automaticamente",
+        "Il volume viene archiviato",
+        "Il volume viene spostato in un altro namespace"
+      ],
+      "correct": 1,
+      "explanation": "Con Reclaim Policy 'Delete' (default), il volume fisico viene cancellato quando elimini il PVC. Con 'Retain' invece viene mantenuto."
+    },
+    {
+      "question": "Quando è utile il Volume Binding Mode 'WaitForFirstConsumer'?",
+      "options": [
+        "Per volumi molto grandi",
+        "Per cluster multi-zona, assicura che il volume sia nella stessa zona del Pod",
+        "Per volumi read-only",
+        "Per volumi temporanei"
+      ],
+      "correct": 1,
+      "explanation": "WaitForFirstConsumer ritarda la creazione del volume fino a quando un Pod che usa il PVC viene schedulato. Fondamentale in cloud multi-zona per evitare che volume e Pod siano in zone diverse."
+    },
+    {
+      "question": "Cos'è un volume emptyDir?",
+      "options": [
+        "Un volume vuoto che causa errori",
+        "Un volume temporaneo che viene pulito quando il Pod termina",
+        "Un volume senza permessi di scrittura",
+        "Un volume che non può essere montato"
+      ],
+      "correct": 1,
+      "explanation": "emptyDir è un volume temporaneo creato quando il Pod viene assegnato a un nodo. I dati sopravvivono ai crash dei container ma vengono persi quando il Pod termina."
+    },
+    {
+      "question": "Quale tipo di applicazione è ideale per StatefulSet con PVC?",
+      "options": [
+        "Web server stateless",
+        "Database che richiede storage persistente dedicato per ogni replica",
+        "Job batch",
+        "Proxy reverse"
+      ],
+      "correct": 1,
+      "explanation": "StatefulSet è ideale per database e applicazioni stateful che richiedono identità stabile e storage persistente dedicato per ogni Pod (es. MySQL, PostgreSQL, Cassandra)."
+    },
+    {
+      "question": "Cosa significa che un PVC è in stato 'Pending'?",
+      "options": [
+        "Il PVC è stato creato con successo",
+        "Kubernetes non trova un PV compatibile o non riesce a creare il volume dinamicamente",
+        "Il PVC è in fase di eliminazione",
+        "Il PVC è pronto per l'uso"
+      ],
+      "correct": 1,
+      "explanation": "Stato 'Pending' significa che Kubernetes non trova un PV compatibile (provisioning statico) o non riesce a creare il volume (provisioning dinamico). Controlla con 'kubectl describe pvc'."
+    },
+    {
+      "question": "Quale Access Mode supporta AWS EBS?",
+      "options": [
+        "ReadWriteMany (RWX)",
+        "ReadWriteOnce (RWO)",
+        "ReadOnlyMany (ROX)",
+        "Tutti e tre"
+      ],
+      "correct": 1,
+      "explanation": "AWS EBS supporta solo ReadWriteOnce (RWO) - può essere montato in lettura/scrittura da un singolo nodo alla volta. Per RWX serve NFS o EFS."
+    },
+    {
+      "question": "Cosa fa CSI (Container Storage Interface)?",
+      "options": [
+        "Gestisce i Secret",
+        "Permette a Kubernetes di integrarsi con diversi provider di storage",
+        "Controlla l'accesso ai volumi",
+        "Gestisce i backup"
+      ],
+      "correct": 1,
+      "explanation": "CSI è lo standard che permette a Kubernetes di integrarsi con diversi provider di storage (AWS EBS, GCE PD, Azure Disk, Ceph, etc.) senza modificare il core di K8s."
+    },
+    {
+      "question": "Come monti un emptyDir in memoria (RAM)?",
+      "options": [
+        "Non è possibile",
+        "Imposta emptyDir.medium: Memory",
+        "Usa tmpfs invece",
+        "Imposta emptyDir.type: RAM"
+      ],
+      "correct": 1,
+      "explanation": "Puoi montare un emptyDir in RAM impostando 'emptyDir.medium: Memory'. Utile per cache temporanee ad alte performance."
+    },
+    {
+      "question": "Quale comando mostra i PersistentVolumes del cluster?",
+      "options": [
+        "kubectl get pvc",
+        "kubectl get pv",
+        "kubectl get volumes",
+        "kubectl get storage"
+      ],
+      "correct": 1,
+      "explanation": "kubectl get pv mostra i PersistentVolumes (cluster-scoped). kubectl get pvc mostra i PersistentVolumeClaims (namespace-scoped)."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "PersistentVolumeClaim Basico",
+      "hint": "Usa 'accessModes' e 'resources.requests.storage' per definire il PVC.",
+      "template": [
+        "apiVersion: v1",
+        "kind: {{kind}}",
+        "metadata:",
+        "  name: my-pvc",
+        "spec:",
+        "  {{access_modes}}:",
+        "  - ReadWriteOnce",
+        "  resources:",
+        "    requests:",
+        "      {{storage_key}}: 1Gi"
+      ],
+      "answers": [
+        { "id": "kind", "accepted": ["PersistentVolumeClaim"], "width": "200px" },
+        { "id": "access_modes", "accepted": ["accessModes"], "width": "140px" },
+        { "id": "storage_key", "accepted": ["storage"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "PVC con StorageClass",
+      "hint": "Usa 'storageClassName' per specificare la classe di storage.",
+      "template": [
+        "spec:",
+        "  {{storage_class}}: fast-ssd",
+        "  accessModes:",
+        "  - ReadWriteOnce",
+        "  resources:",
+        "    requests:",
+        "      storage: 5Gi"
+      ],
+      "answers": [
+        { "id": "storage_class", "accepted": ["storageClassName"], "width": "160px" }
+      ]
+    },
+    {
+      "title": "Monta PVC in un Pod",
+      "hint": "Usa 'volumes' per definire il volume e 'volumeMounts' nel container.",
+      "template": [
+        "spec:",
+        "  {{volumes_key}}:",
+        "  - name: data",
+        "    {{pvc_key}}:",
+        "      claimName: my-pvc",
+        "  containers:",
+        "  - name: app",
+        "    image: nginx",
+        "    volumeMounts:",
+        "    - name: data",
+        "      mountPath: /data"
+      ],
+      "answers": [
+        { "id": "volumes_key", "accepted": ["volumes"], "width": "100px" },
+        { "id": "pvc_key", "accepted": ["persistentVolumeClaim"], "width": "200px" }
+      ]
+    },
+    {
+      "title": "emptyDir Volume",
+      "hint": "Usa 'emptyDir: {}' per creare un volume temporaneo.",
+      "template": [
+        "volumes:",
+        "- name: cache",
+        "  {{empty_dir}}: {}"
+      ],
+      "answers": [
+        { "id": "empty_dir", "accepted": ["emptyDir"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "emptyDir in Memoria",
+      "hint": "Imposta 'medium: Memory' per montare in RAM.",
+      "template": [
+        "volumes:",
+        "- name: cache",
+        "  emptyDir:",
+        "    {{medium_key}}: Memory"
+      ],
+      "answers": [
+        { "id": "medium_key", "accepted": ["medium"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Visualizza PersistentVolumes",
+      "hint": "Usa 'kubectl get pv' per vedere i PersistentVolumes.",
+      "template": [
+        "kubectl get {{resource}}"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["pv", "persistentvolumes"], "width": "160px" }
+      ]
+    },
+    {
+      "title": "Visualizza PersistentVolumeClaims",
+      "hint": "Usa 'kubectl get pvc' per vedere i PersistentVolumeClaims.",
+      "template": [
+        "kubectl get {{resource}}"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["pvc", "persistentvolumeclaims"], "width": "200px" }
+      ]
+    },
+    {
+      "title": "Visualizza StorageClasses",
+      "hint": "Usa 'kubectl get sc' o 'storageclass'.",
+      "template": [
+        "kubectl get {{resource}}"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["sc", "storageclass", "storageclasses"], "width": "160px" }
+      ]
+    },
+    {
+      "title": "Descrivi PVC per Troubleshooting",
+      "hint": "Usa 'kubectl describe pvc' per vedere eventi e dettagli.",
+      "template": [
+        "kubectl {{describe_cmd}} pvc my-pvc"
+      ],
+      "answers": [
+        { "id": "describe_cmd", "accepted": ["describe"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "StorageClass con Reclaim Policy",
+      "hint": "Usa 'reclaimPolicy' per definire cosa succede quando il PVC viene eliminato.",
+      "template": [
+        "apiVersion: storage.k8s.io/v1",
+        "kind: StorageClass",
+        "metadata:",
+        "  name: retain-storage",
+        "provisioner: kubernetes.io/aws-ebs",
+        "{{reclaim_policy}}: Retain"
+      ],
+      "answers": [
+        { "id": "reclaim_policy", "accepted": ["reclaimPolicy"], "width": "140px" }
+      ]
+    }
+  ]
+}

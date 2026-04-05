@@ -1,22 +1,49 @@
 import React from 'react';
-import { Box, Chip } from '@mui/material';
-import { AccessTime as TimeIcon, ChevronRight as ArrowIcon } from '@mui/icons-material';
+import { Box, Chip, Tooltip } from '@mui/material';
+import { AccessTime as TimeIcon, ChevronRight as ArrowIcon, LockOutlined as LockIcon, CheckCircle as OwnedIcon } from '@mui/icons-material';
 import KubeCard from '../ui/KubeCard';
 import KubeTypography from '../ui/KubeTypography';
+import { useAuth } from '../../context/AuthContext';
 
 const CourseCard = ({ course, onSelect }) => {
+  const { user, hasAccessToProject } = useAuth();
+  const hasAccess = hasAccessToProject(course.id);
+  const isPrivate = course.isPrivate;
+  const isOwned = user && user.purchasedProjects.includes(course.id);
+
+  const handleClick = () => {
+    if (course.comingSoon) return; // Se coming soon non facciamo nulla
+    onSelect(course);
+  };
+
   return (
     <KubeCard
-      onClick={() => !course.comingSoon && onSelect(course)}
+      onClick={handleClick}
       disabled={course.comingSoon}
       sx={{ 
         p: 2, 
         height: '100%', 
         display: 'flex', 
         flexDirection: 'column',
-        opacity: course.comingSoon ? 0.7 : 1 
+        opacity: course.comingSoon ? 0.7 : 1,
+        position: 'relative',
+        cursor: course.comingSoon ? 'default' : 'pointer'
       }}
     >
+      {isPrivate && (
+        <Box sx={{ position: 'absolute', top: 12, right: 12 }}>
+          {isOwned ? (
+            <Tooltip title="Acquistato">
+              <OwnedIcon sx={{ color: 'success.main', fontSize: 20 }} />
+            </Tooltip>
+          ) : (
+            <Tooltip title="Progetto Privato">
+              <LockIcon sx={{ color: 'text.disabled', fontSize: 20 }} />
+            </Tooltip>
+          )}
+        </Box>
+      )}
+
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
         <Box 
           sx={{ 
@@ -61,6 +88,16 @@ const CourseCard = ({ course, onSelect }) => {
 
         {course.comingSoon ? (
           <Chip label="Coming Soon" size="small" variant="outlined" color="secondary" sx={{ fontSize: '0.6rem', height: 18 }} />
+        ) : isPrivate && !isOwned ? (
+           <Box sx={{ display: 'flex', alignItems: 'center', color: 'primary.main' }}>
+            <KubeTypography variant="button" weight="bold" sx={{ fontSize: '0.65rem', mr: 0.5 }}>
+              {course.price}
+            </KubeTypography>
+            <KubeTypography variant="button" weight="bold" sx={{ fontSize: '0.65rem', textTransform: 'uppercase' }}>
+              Acquista
+            </KubeTypography>
+            <ArrowIcon sx={{ fontSize: '0.9rem' }} />
+          </Box>
         ) : (
           <Box sx={{ display: 'flex', alignItems: 'center', color: course.color }}>
             <KubeTypography variant="button" weight="bold" sx={{ fontSize: '0.65rem', textTransform: 'uppercase' }}>

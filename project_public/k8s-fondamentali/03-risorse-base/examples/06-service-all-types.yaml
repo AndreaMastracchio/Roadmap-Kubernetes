@@ -1,0 +1,77 @@
+# Service ClusterIP (default) - interno al cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  sessionAffinity: ClientIP  # Sticky sessions
+
+---
+# Service NodePort - esposto su ogni nodo
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-nodeport
+spec:
+  type: NodePort
+  selector:
+    app: frontend
+  ports:
+  - port: 80
+    targetPort: 8080
+    nodePort: 30080  # Porta fissa su ogni nodo (30000-32767)
+    protocol: TCP
+
+---
+# Service LoadBalancer - esposto all'esterno (cloud)
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-lb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"  # AWS NLB
+spec:
+  type: LoadBalancer
+  selector:
+    app: webapp
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+  # IP statico (se supportato dal cloud provider)
+  loadBalancerIP: "203.0.113.10"
+
+---
+# Headless Service - per StatefulSet
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-headless
+spec:
+  clusterIP: None  # Headless
+  selector:
+    app: mysql
+  ports:
+  - port: 3306
+    targetPort: 3306
+    name: mysql
+
+---
+# ExternalName Service - mappa a DNS esterno
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-database
+spec:
+  type: ExternalName
+  externalName: database.example.com
+  ports:
+  - port: 5432

@@ -1,0 +1,308 @@
+{
+  "quiz": [
+    {
+      "question": "Qual è la differenza tra autenticazione e autorizzazione?",
+      "options": [
+        "Non c'è differenza",
+        "Autenticazione verifica chi sei, autorizzazione verifica cosa puoi fare",
+        "Autenticazione è per utenti, autorizzazione per Pod",
+        "Autenticazione è opzionale, autorizzazione è obbligatoria"
+      ],
+      "correct": 1,
+      "explanation": "Autenticazione (Authentication) verifica l'identità (chi sei?). Autorizzazione (Authorization) verifica i permessi (cosa puoi fare?). RBAC gestisce l'autorizzazione."
+    },
+    {
+      "question": "Qual è la differenza tra Role e ClusterRole?",
+      "options": [
+        "Role ha più permessi di ClusterRole",
+        "Role è namespace-scoped, ClusterRole è cluster-scoped",
+        "Role è per utenti, ClusterRole per ServiceAccount",
+        "Non c'è differenza"
+      ],
+      "correct": 1,
+      "explanation": "Role definisce permessi all'interno di un namespace specifico. ClusterRole definisce permessi a livello di cluster o su risorse cluster-scoped (Node, PV, Namespace)."
+    },
+    {
+      "question": "Cosa fa un RoleBinding?",
+      "options": [
+        "Crea un nuovo Role",
+        "Lega un Role (o ClusterRole) a un soggetto (utente, gruppo, ServiceAccount) in un namespace",
+        "Elimina un Role",
+        "Modifica i permessi di un Role"
+      ],
+      "correct": 1,
+      "explanation": "RoleBinding associa un Role (o ClusterRole) a un soggetto (User, Group, ServiceAccount) in un namespace specifico, garantendo i permessi."
+    },
+    {
+      "question": "Cosa sono i ServiceAccounts?",
+      "options": [
+        "Account per utenti umani",
+        "Identità per i processi che girano nei Pod",
+        "Account per amministratori",
+        "Account per il Control Plane"
+      ],
+      "correct": 1,
+      "explanation": "ServiceAccounts sono identità per i processi che girano nei Pod. Ogni namespace ha un ServiceAccount 'default'. I Pod usano SA per autenticarsi con l'API Server."
+    },
+    {
+      "question": "Quale comando verifica se hai il permesso di eseguire un'azione?",
+      "options": [
+        "kubectl check permissions",
+        "kubectl auth can-i <verb> <resource>",
+        "kubectl verify access",
+        "kubectl test rbac"
+      ],
+      "correct": 1,
+      "explanation": "kubectl auth can-i verifica se hai il permesso di eseguire un'azione. Es: 'kubectl auth can-i create pods' restituisce yes/no."
+    },
+    {
+      "question": "Cosa fa 'runAsNonRoot: true' nel securityContext?",
+      "options": [
+        "Crea un nuovo utente",
+        "Impedisce l'esecuzione del container come utente root",
+        "Elimina l'utente root",
+        "Cambia i permessi dei file"
+      ],
+      "correct": 1,
+      "explanation": "runAsNonRoot: true impedisce l'esecuzione del container come root. Se l'immagine prova a girare come root, il container fallisce. Best practice di sicurezza."
+    },
+    {
+      "question": "Cosa fa 'readOnlyRootFilesystem: true'?",
+      "options": [
+        "Rende il volume root read-only",
+        "Rende il filesystem del container in sola lettura",
+        "Impedisce la lettura dei file",
+        "Cripta il filesystem"
+      ],
+      "correct": 1,
+      "explanation": "readOnlyRootFilesystem: true rende il filesystem del container in sola lettura, prevenendo modifiche malevole. Usa emptyDir o volumi per dati scrivibili."
+    },
+    {
+      "question": "Quali sono i tre livelli di Pod Security Admission?",
+      "options": [
+        "low, medium, high",
+        "privileged, baseline, restricted",
+        "open, secure, locked",
+        "basic, standard, advanced"
+      ],
+      "correct": 1,
+      "explanation": "I tre livelli sono: privileged (nessuna restrizione), baseline (restrizioni minime), restricted (massima sicurezza con best practice)."
+    },
+    {
+      "question": "Come attivi Pod Security Admission 'restricted' su un namespace?",
+      "options": [
+        "kubectl secure namespace",
+        "kubectl label namespace <name> pod-security.kubernetes.io/enforce=restricted",
+        "kubectl set security restricted",
+        "kubectl apply psa restricted"
+      ],
+      "correct": 1,
+      "explanation": "Usi kubectl label per aggiungere la label 'pod-security.kubernetes.io/enforce=restricted' al namespace."
+    },
+    {
+      "question": "Cosa sono le 'capabilities' nel securityContext?",
+      "options": [
+        "Le risorse CPU/RAM del container",
+        "Privilegi specifici del kernel Linux che possono essere aggiunti o rimossi",
+        "Le porte esposte dal container",
+        "I volumi montati"
+      ],
+      "correct": 1,
+      "explanation": "Le capabilities sono privilegi specifici del kernel Linux (es. NET_ADMIN, SYS_TIME). Best practice: drop ALL e aggiungi solo quelle necessarie."
+    },
+    {
+      "question": "Quale verbo RBAC permette di leggere risorse?",
+      "options": [
+        "read",
+        "get, list, watch",
+        "view",
+        "select"
+      ],
+      "correct": 1,
+      "explanation": "I verbi per leggere sono: 'get' (singola risorsa), 'list' (elenco), 'watch' (osserva cambiamenti). Non esiste un verbo 'read'."
+    },
+    {
+      "question": "Come testi i permessi di un ServiceAccount specifico?",
+      "options": [
+        "kubectl auth can-i <verb> <resource> --as=system:serviceaccount:<namespace>:<sa-name>",
+        "kubectl test sa",
+        "kubectl verify serviceaccount",
+        "kubectl check permissions"
+      ],
+      "correct": 0,
+      "explanation": "Usi --as=system:serviceaccount:<namespace>:<sa-name> per impersonare un ServiceAccount e testare i suoi permessi."
+    },
+    {
+      "question": "Cosa fa 'allowPrivilegeEscalation: false'?",
+      "options": [
+        "Impedisce al processo di ottenere più privilegi del processo padre",
+        "Impedisce l'accesso root",
+        "Impedisce l'uso di sudo",
+        "Impedisce la creazione di nuovi processi"
+      ],
+      "correct": 0,
+      "explanation": "allowPrivilegeEscalation: false impedisce al processo di ottenere più privilegi del processo padre (es. via setuid binaries). Best practice di sicurezza."
+    },
+    {
+      "question": "Quale apiGroup contiene le risorse RBAC?",
+      "options": [
+        "core",
+        "rbac.authorization.k8s.io",
+        "security.k8s.io",
+        "auth.k8s.io"
+      ],
+      "correct": 1,
+      "explanation": "Le risorse RBAC (Role, ClusterRole, RoleBinding, ClusterRoleBinding) sono nell'apiGroup 'rbac.authorization.k8s.io'."
+    },
+    {
+      "question": "Cosa succede se un Pod non specifica un ServiceAccount?",
+      "options": [
+        "Il Pod fallisce",
+        "Usa il ServiceAccount 'default' del namespace",
+        "Gira senza autenticazione",
+        "Usa il ServiceAccount dell'utente che ha creato il Pod"
+      ],
+      "correct": 1,
+      "explanation": "Se non specificato, il Pod usa automaticamente il ServiceAccount 'default' del suo namespace."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Role per Lettura Pod",
+      "hint": "Usa 'rules' con 'apiGroups', 'resources' e 'verbs'. Core API group è stringa vuota.",
+      "template": [
+        "apiVersion: rbac.authorization.k8s.io/v1",
+        "kind: {{kind}}",
+        "metadata:",
+        "  name: pod-reader",
+        "{{rules_key}}:",
+        "- apiGroups: [\"\"]",
+        "  resources: [\"pods\"]",
+        "  {{verbs_key}}: [\"get\", \"list\", \"watch\"]"
+      ],
+      "answers": [
+        { "id": "kind", "accepted": ["Role"], "width": "80px" },
+        { "id": "rules_key", "accepted": ["rules"], "width": "80px" },
+        { "id": "verbs_key", "accepted": ["verbs"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "RoleBinding",
+      "hint": "Usa 'roleRef' per riferire il Role e 'subjects' per specificare il ServiceAccount.",
+      "template": [
+        "apiVersion: rbac.authorization.k8s.io/v1",
+        "kind: {{kind}}",
+        "metadata:",
+        "  name: read-pods-binding",
+        "{{subjects_key}}:",
+        "- kind: ServiceAccount",
+        "  name: my-sa",
+        "  namespace: default",
+        "{{role_ref}}:",
+        "  kind: Role",
+        "  name: pod-reader",
+        "  apiGroup: rbac.authorization.k8s.io"
+      ],
+      "answers": [
+        { "id": "kind", "accepted": ["RoleBinding"], "width": "120px" },
+        { "id": "subjects_key", "accepted": ["subjects"], "width": "100px" },
+        { "id": "role_ref", "accepted": ["roleRef"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "SecurityContext - Non Root",
+      "hint": "Usa 'runAsNonRoot' e 'runAsUser' nel securityContext.",
+      "template": [
+        "spec:",
+        "  {{security_context}}:",
+        "    {{run_as_non_root}}: true",
+        "    runAsUser: 1000",
+        "  containers:",
+        "  - name: app",
+        "    image: nginx"
+      ],
+      "answers": [
+        { "id": "security_context", "accepted": ["securityContext"], "width": "160px" },
+        { "id": "run_as_non_root", "accepted": ["runAsNonRoot"], "width": "140px" }
+      ]
+    },
+    {
+      "title": "SecurityContext - Read-Only Filesystem",
+      "hint": "Usa 'readOnlyRootFilesystem' nel securityContext del container.",
+      "template": [
+        "containers:",
+        "- name: app",
+        "  image: nginx",
+        "  {{security_context}}:",
+        "    {{read_only_fs}}: true"
+      ],
+      "answers": [
+        { "id": "security_context", "accepted": ["securityContext"], "width": "160px" },
+        { "id": "read_only_fs", "accepted": ["readOnlyRootFilesystem"], "width": "220px" }
+      ]
+    },
+    {
+      "title": "Drop All Capabilities",
+      "hint": "Usa 'capabilities' con 'drop: [\"ALL\"]'.",
+      "template": [
+        "securityContext:",
+        "  {{capabilities_key}}:",
+        "    {{drop_key}}: [\"ALL\"]"
+      ],
+      "answers": [
+        { "id": "capabilities_key", "accepted": ["capabilities"], "width": "140px" },
+        { "id": "drop_key", "accepted": ["drop"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Verifica Permessi",
+      "hint": "Usa 'kubectl auth can-i' per verificare i permessi.",
+      "template": [
+        "kubectl auth {{can_i}} create pods"
+      ],
+      "answers": [
+        { "id": "can_i", "accepted": ["can-i"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Verifica Permessi Come ServiceAccount",
+      "hint": "Usa --as=system:serviceaccount:<namespace>:<sa-name>.",
+      "template": [
+        "kubectl auth can-i list secrets {{as_flag}}=system:serviceaccount:default:my-sa"
+      ],
+      "answers": [
+        { "id": "as_flag", "accepted": ["--as"], "width": "60px" }
+      ]
+    },
+    {
+      "title": "Crea ServiceAccount",
+      "hint": "Usa 'kubectl create serviceaccount' o 'sa' come abbreviazione.",
+      "template": [
+        "kubectl create {{resource}} my-sa"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["serviceaccount", "sa"], "width": "140px" }
+      ]
+    },
+    {
+      "title": "Pod Security Admission Label",
+      "hint": "Usa kubectl label con pod-security.kubernetes.io/enforce.",
+      "template": [
+        "kubectl {{label_cmd}} namespace dev pod-security.kubernetes.io/enforce=restricted"
+      ],
+      "answers": [
+        { "id": "label_cmd", "accepted": ["label"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Visualizza Roles e RoleBindings",
+      "hint": "Puoi visualizzare più risorse separandole con virgola.",
+      "template": [
+        "kubectl get {{resources}}"
+      ],
+      "answers": [
+        { "id": "resources", "accepted": ["roles,rolebindings", "role,rolebinding"], "width": "200px" }
+      ]
+    }
+  ]
+}

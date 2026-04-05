@@ -27,26 +27,45 @@ const KubeListItem = ({
   onClick, 
   sx = {}, 
   primaryTypographyProps = {},
+  hideText = false,
   ...props 
 }) => {
   return (
     <ListItem disablePadding sx={{ mb: 0.5, ...sx }} {...props}>
-      <StyledListItemButton active={active ? 1 : 0} onClick={onClick}>
-        {icon && <ListItemIcon>{icon}</ListItemIcon>}
-        <ListItemText
-          primary={primary}
-          secondary={secondary}
-          primaryTypographyProps={{
-            variant: 'body2',
-            fontWeight: active ? 700 : 500,
-            fontSize: '0.875rem',
-            ...primaryTypographyProps
-          }}
-          secondaryTypographyProps={{
-            variant: 'caption',
-            sx: { mt: 0.5, display: 'block' }
-          }}
-        />
+      <StyledListItemButton 
+        active={active ? 1 : 0} 
+        onClick={onClick}
+        sx={{
+          justifyContent: hideText ? 'center' : 'flex-start',
+          px: hideText ? 0 : 2,
+        }}
+      >
+        {icon && (
+          <ListItemIcon sx={{ 
+            minWidth: hideText ? 0 : 36, 
+            mr: hideText ? 0 : 1,
+            display: 'flex',
+            justifyContent: 'center'
+          }}>
+            {icon}
+          </ListItemIcon>
+        )}
+        {!hideText && (
+          <ListItemText
+            primary={primary}
+            secondary={secondary}
+            primaryTypographyProps={{
+              variant: 'body2',
+              fontWeight: active ? 700 : 500,
+              fontSize: '0.875rem',
+              ...primaryTypographyProps
+            }}
+            secondaryTypographyProps={{
+              variant: 'caption',
+              sx: { mt: 0.5, display: 'block' }
+            }}
+          />
+        )}
       </StyledListItemButton>
     </ListItem>
   );

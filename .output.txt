@@ -1,0 +1,222 @@
+name: kubestudy
+services:
+  db:
+    environment:
+      MYSQL_DATABASE: kubestudy
+      MYSQL_PASSWORD: kubepassword
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USER: kubeuser
+    healthcheck:
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - -h
+        - localhost
+      timeout: 20s
+      retries: 10
+    image: mysql:8.0
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 3306
+        published: "3306"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/backend/db/schema.sql
+        target: /docker-entrypoint-initdb.d/schema.sql
+        bind: {}
+      - type: volume
+        source: mysql_dev_data
+        target: /var/lib/mysql
+        volume: {}
+  kubestudy-backend:
+    command:
+      - sh
+      - -c
+      - " echo '\U0001F4E6 Backend avviato. Inizio installazione dipendenze...' && npm install && echo '\U0001F680 Avvio backend in modalità watch...' && npm run dev"
+    depends_on:
+      db:
+        condition: service_healthy
+        required: true
+      redis:
+        condition: service_started
+        required: true
+    environment:
+      MYSQL_DATABASE: kubestudy
+      MYSQL_HOST: db
+      MYSQL_PASSWORD: kubepassword
+      MYSQL_USER: kubeuser
+      REDIS_HOST: redis
+      SESSION_SECRET: kube-dev-secret
+    image: node:20-alpine
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5000
+        published: "5000"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/backend
+        target: /app
+        bind: {}
+      - type: volume
+        target: /app/node_modules
+        volume: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public
+        target: /project_public
+        bind: {}
+    working_dir: /app
+  kubestudy-frontend:
+    command:
+      - sh
+      - -c
+      - " echo '\U0001F4E6 Frontend avviato. Inizio installazione dipendenze...' && npm install && echo '✅ Dipendenze installate con successo!' && echo '\U0001F680 Avvio server di sviluppo Vite su http://localhost:8080...' && npm run dev"
+    depends_on:
+      kubestudy-backend:
+        condition: service_started
+        required: true
+    environment:
+      VITE_WATCH_USE_POLLING: "true"
+    image: node:20-alpine
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 3000
+        published: "8080"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/frontend
+        target: /app
+        bind: {}
+      - type: volume
+        target: /app/node_modules
+        volume: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/README.md
+        target: /app/public/modules/intro.md
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/01-fondamentali/README.md
+        target: /app/public/modules/01.md
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/01-fondamentali/exercises.json
+        target: /app/public/modules/01.json
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/02-architettura/README.md
+        target: /app/public/modules/02.md
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/02-architettura/exercises.json
+        target: /app/public/modules/02.json
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/03-risorse-base/README.md
+        target: /app/public/modules/03.md
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/03-risorse-base/exercises.json
+        target: /app/public/modules/03.json
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/04-networking/README.md
+        target: /app/public/modules/04.md
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/04-networking/exercises.json
+        target: /app/public/modules/04.json
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/05-storage/README.md
+        target: /app/public/modules/05.md
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/05-storage/exercises.json
+        target: /app/public/modules/05.json
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/06-sicurezza/README.md
+        target: /app/public/modules/06.md
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/06-sicurezza/exercises.json
+        target: /app/public/modules/06.json
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/07-helm/README.md
+        target: /app/public/modules/07.md
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/07-helm/exercises.json
+        target: /app/public/modules/07.json
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/08-operatori-go/README.md
+        target: /app/public/modules/08.md
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/08-operatori-go/exercises.json
+        target: /app/public/modules/08.json
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/09-comandi-utili/README.md
+        target: /app/public/modules/09.md
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/09-comandi-utili/exercises.json
+        target: /app/public/modules/09.json
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/10-esame-finale/README.md
+        target: /app/public/modules/10.md
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/andreamastracchio/Documents/Progetti/kubestudy/project_public/k8s-fondamentali/10-esame-finale/exercises.json
+        target: /app/public/modules/10.json
+        read_only: true
+        bind: {}
+    working_dir: /app
+  redis:
+    image: redis:7-alpine
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 6379
+        published: "6379"
+        protocol: tcp
+networks:
+  default:
+    name: kubestudy_default
+volumes:
+  mysql_dev_data:
+    name: kubestudy_mysql_dev_data

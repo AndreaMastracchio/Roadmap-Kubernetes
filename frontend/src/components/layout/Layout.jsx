@@ -16,6 +16,12 @@ const Layout = ({
   activeModule,
   onBackToHome,
   onOpenIntro,
+  onToggleConsole,
+  onOpenAuth,
+  onOpenProfile, // Aggiunto
+  isConsoleOpen,
+  isDashboardOpen,
+  isProfileOpen,
   // Sidebar specific props
   courses,
   modules,
@@ -27,6 +33,12 @@ const Layout = ({
 }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  
+  // Larghezza effettiva della sidebar
+  const miniDrawerWidth = 70;
+  const currentWidth = isDesktop 
+    ? (drawerOpen ? drawerWidth : miniDrawerWidth) 
+    : 0;
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
@@ -36,10 +48,14 @@ const Layout = ({
         handleDrawerToggle={handleDrawerToggle}
         activeCourse={activeCourse}
         activeModule={activeModule}
-        currentDrawerWidth={drawerOpen && isDesktop ? drawerWidth : 0}
+        currentDrawerWidth={currentWidth}
         isResizing={isResizing}
         onBackToHome={onBackToHome}
         onOpenIntro={onOpenIntro}
+        onOpenAuth={onOpenAuth} // Passato all'header
+        onOpenProfile={onOpenProfile} // Passato all'header
+        isDashboardOpen={isDashboardOpen}
+        isProfileOpen={isProfileOpen}
       />
       
       <Box sx={{ display: 'flex', flex: 1, pt: 8 }}>
@@ -53,9 +69,13 @@ const Layout = ({
           handleCourseSelect={handleCourseSelect}
           handleModuleSelect={handleModuleSelect}
           handleSectionSelect={handleSectionSelect}
+          onToggleConsole={onToggleConsole}
+          onOpenAuth={onOpenAuth}
+          isConsoleOpen={isConsoleOpen}
           mobileOpen={mobileOpen}
           handleDrawerToggle={handleDrawerToggle}
           drawerWidth={drawerWidth}
+          miniDrawerWidth={miniDrawerWidth}
           drawerOpen={drawerOpen}
           startResizing={startResizing}
           isResizing={isResizing}
@@ -67,7 +87,7 @@ const Layout = ({
           sx={{
             flexGrow: 1,
             p: { xs: 2, sm: 3, md: 4 },
-            width: { md: `calc(100% - ${drawerOpen ? drawerWidth : 0}px)` },
+            width: { md: `calc(100% - ${currentWidth}px)` },
             ml: { md: 0 },
             transition: isResizing ? 'none' : theme.transitions.create(['width', 'margin-left'], {
               easing: theme.transitions.easing.sharp,

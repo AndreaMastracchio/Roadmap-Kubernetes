@@ -1,0 +1,325 @@
+{
+  "quiz": [
+    {
+      "question": "Quale comando mostra informazioni sul cluster?",
+      "options": [
+        "kubectl info",
+        "kubectl cluster-info",
+        "kubectl get cluster",
+        "kubectl describe cluster"
+      ],
+      "correct": 1,
+      "explanation": "kubectl cluster-info mostra gli endpoint dei servizi del Control Plane (API Server, CoreDNS, etc.)."
+    },
+    {
+      "question": "Come visualizzi i Pod con informazioni extra come IP e nodo?",
+      "options": [
+        "kubectl get pods --details",
+        "kubectl get pods -o wide",
+        "kubectl get pods --verbose",
+        "kubectl get pods --full"
+      ],
+      "correct": 1,
+      "explanation": "kubectl get pods -o wide mostra informazioni extra come IP del Pod, nodo su cui gira, e readiness gates."
+    },
+    {
+      "question": "Come segui i log di un Pod in tempo reale?",
+      "options": [
+        "kubectl logs <pod> --watch",
+        "kubectl logs -f <pod>",
+        "kubectl logs <pod> --stream",
+        "kubectl logs <pod> --tail"
+      ],
+      "correct": 1,
+      "explanation": "kubectl logs -f <pod> segue i log in tempo reale (follow). Equivalente a 'tail -f' in Unix."
+    },
+    {
+      "question": "Come esegui una shell interattiva dentro un Pod?",
+      "options": [
+        "kubectl shell <pod>",
+        "kubectl exec -it <pod> -- sh",
+        "kubectl run shell <pod>",
+        "kubectl attach <pod>"
+      ],
+      "correct": 1,
+      "explanation": "kubectl exec -it <pod> -- sh esegue una shell interattiva. -i = interactive, -t = tty. Il -- separa i flag kubectl dai comandi del container."
+    },
+    {
+      "question": "Come visualizzi tutte le risorse in tutti i namespace?",
+      "options": [
+        "kubectl get all --everywhere",
+        "kubectl get all -A",
+        "kubectl get all --global",
+        "kubectl get all --cluster"
+      ],
+      "correct": 1,
+      "explanation": "kubectl get all -A (o --all-namespaces) mostra risorse in tutti i namespace. 'all' include pod, service, deployment, replicaset."
+    },
+    {
+      "question": "Come elimini un Pod forzatamente senza aspettare il graceful shutdown?",
+      "options": [
+        "kubectl delete pod <pod> --force",
+        "kubectl delete pod <pod> --force --grace-period=0",
+        "kubectl kill pod <pod>",
+        "kubectl delete pod <pod> --immediate"
+      ],
+      "correct": 1,
+      "explanation": "kubectl delete pod <pod> --force --grace-period=0 elimina immediatamente il Pod senza aspettare il graceful shutdown. Da usare con cautela."
+    },
+    {
+      "question": "Come visualizzi l'output in formato YAML?",
+      "options": [
+        "kubectl get pod <pod> --yaml",
+        "kubectl get pod <pod> -o yaml",
+        "kubectl get pod <pod> --format yaml",
+        "kubectl get pod <pod> --output=yaml"
+      ],
+      "correct": 1,
+      "explanation": "kubectl get <resource> -o yaml mostra l'output in formato YAML. Altre opzioni: -o json, -o wide, -o name."
+    },
+    {
+      "question": "Come visualizzi gli eventi del cluster?",
+      "options": [
+        "kubectl logs events",
+        "kubectl get events",
+        "kubectl show events",
+        "kubectl describe events"
+      ],
+      "correct": 1,
+      "explanation": "kubectl get events mostra gli eventi del cluster (creazione Pod, errori, scheduling, etc.). Usa --sort-by=.metadata.creationTimestamp per ordinarli."
+    },
+    {
+      "question": "Come applichi modifiche a una risorsa esistente?",
+      "options": [
+        "kubectl update -f file.yaml",
+        "kubectl apply -f file.yaml",
+        "kubectl modify -f file.yaml",
+        "kubectl change -f file.yaml"
+      ],
+      "correct": 1,
+      "explanation": "kubectl apply -f file.yaml crea o aggiorna risorse in modo dichiarativo. È idempotente: puoi eseguirlo più volte con lo stesso risultato."
+    },
+    {
+      "question": "Come visualizzi l'uso di risorse (CPU/RAM) dei Pod?",
+      "options": [
+        "kubectl stats",
+        "kubectl top pods",
+        "kubectl resources",
+        "kubectl usage"
+      ],
+      "correct": 1,
+      "explanation": "kubectl top pods mostra l'uso di CPU e RAM dei Pod. Richiede Metrics Server installato nel cluster."
+    },
+    {
+      "question": "Come visualizzi la documentazione di un campo di una risorsa?",
+      "options": [
+        "kubectl help <resource>",
+        "kubectl explain <resource>.<field>",
+        "kubectl docs <resource>",
+        "kubectl info <resource>"
+      ],
+      "correct": 1,
+      "explanation": "kubectl explain <resource>.<field> mostra la documentazione integrata. Es: kubectl explain pod.spec.containers"
+    },
+    {
+      "question": "Come crei un Deployment imperativo?",
+      "options": [
+        "kubectl run nginx --image=nginx",
+        "kubectl create deployment nginx --image=nginx",
+        "kubectl deploy nginx --image=nginx",
+        "kubectl make deployment nginx --image=nginx"
+      ],
+      "correct": 1,
+      "explanation": "kubectl create deployment <name> --image=<image> crea un Deployment imperativo. kubectl run crea un Pod (non Deployment) dalla v1.18+."
+    },
+    {
+      "question": "Come esponi un Deployment come Service?",
+      "options": [
+        "kubectl service <deployment>",
+        "kubectl expose deployment <name> --port=80",
+        "kubectl create service <deployment>",
+        "kubectl publish deployment <name>"
+      ],
+      "correct": 1,
+      "explanation": "kubectl expose deployment <name> --port=80 crea un Service che espone il Deployment. Usa --type per specificare ClusterIP, NodePort o LoadBalancer."
+    },
+    {
+      "question": "Come visualizzi le label di tutte le risorse?",
+      "options": [
+        "kubectl get all --labels",
+        "kubectl get all --show-labels",
+        "kubectl get all -l",
+        "kubectl get all --with-labels"
+      ],
+      "correct": 1,
+      "explanation": "kubectl get <resource> --show-labels mostra tutte le label delle risorse. Usa -l key=value per filtrare per label."
+    },
+    {
+      "question": "Come visualizzi i log di un container specifico in un Pod multi-container?",
+      "options": [
+        "kubectl logs <pod> <container>",
+        "kubectl logs <pod> -c <container>",
+        "kubectl logs <pod> --container=<container>",
+        "kubectl logs <pod>/<container>"
+      ],
+      "correct": 1,
+      "explanation": "kubectl logs <pod> -c <container> mostra i log di un container specifico in un Pod multi-container."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Visualizza Pod con IP e Nodo",
+      "hint": "Usa -o wide per informazioni extra.",
+      "template": [
+        "kubectl get pods {{wide_flag}}"
+      ],
+      "answers": [
+        { "id": "wide_flag", "accepted": ["-o wide", "--output=wide"], "width": "120px" }
+      ]
+    },
+    {
+      "title": "Segui Log in Tempo Reale",
+      "hint": "Usa -f o --follow per seguire i log.",
+      "template": [
+        "kubectl logs {{follow_flag}} my-pod"
+      ],
+      "answers": [
+        { "id": "follow_flag", "accepted": ["-f", "--follow"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Shell Interattiva",
+      "hint": "Usa -it per interactive + tty, e -- per separare i comandi.",
+      "template": [
+        "kubectl exec {{flags}} my-pod {{separator}} sh"
+      ],
+      "answers": [
+        { "id": "flags", "accepted": ["-it", "-ti"], "width": "60px" },
+        { "id": "separator", "accepted": ["--"], "width": "40px" }
+      ]
+    },
+    {
+      "title": "Tutte le Risorse in Tutti i Namespace",
+      "hint": "Usa -A o --all-namespaces.",
+      "template": [
+        "kubectl get all {{all_ns}}"
+      ],
+      "answers": [
+        { "id": "all_ns", "accepted": ["-A", "--all-namespaces"], "width": "180px" }
+      ]
+    },
+    {
+      "title": "Output in YAML",
+      "hint": "Usa -o yaml per output YAML.",
+      "template": [
+        "kubectl get pod my-pod {{output_format}}"
+      ],
+      "answers": [
+        { "id": "output_format", "accepted": ["-o yaml", "--output=yaml"], "width": "120px" }
+      ]
+    },
+    {
+      "title": "Visualizza Eventi",
+      "hint": "Usa 'kubectl get events'.",
+      "template": [
+        "kubectl get {{resource}}"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["events"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Top Pods (Uso Risorse)",
+      "hint": "Usa 'kubectl top pods' per vedere CPU/RAM.",
+      "template": [
+        "kubectl {{top_cmd}} pods"
+      ],
+      "answers": [
+        { "id": "top_cmd", "accepted": ["top"], "width": "60px" }
+      ]
+    },
+    {
+      "title": "Explain Resource Field",
+      "hint": "Usa 'kubectl explain' per documentazione.",
+      "template": [
+        "kubectl {{explain_cmd}} pod.spec.containers"
+      ],
+      "answers": [
+        { "id": "explain_cmd", "accepted": ["explain"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Crea Deployment Imperativo",
+      "hint": "Usa 'kubectl create deployment' con --image.",
+      "template": [
+        "kubectl create {{resource}} nginx {{image_flag}}=nginx"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["deployment"], "width": "120px" },
+        { "id": "image_flag", "accepted": ["--image"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Esponi Deployment",
+      "hint": "Usa 'kubectl expose' con --port.",
+      "template": [
+        "kubectl {{expose_cmd}} deployment nginx {{port_flag}}=80"
+      ],
+      "answers": [
+        { "id": "expose_cmd", "accepted": ["expose"], "width": "100px" },
+        { "id": "port_flag", "accepted": ["--port"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Filtra per Label",
+      "hint": "Usa -l o --selector per filtrare per label.",
+      "template": [
+        "kubectl get pods {{label_flag}} app=nginx"
+      ],
+      "answers": [
+        { "id": "label_flag", "accepted": ["-l", "--selector"], "width": "120px" }
+      ]
+    },
+    {
+      "title": "Mostra Label",
+      "hint": "Usa --show-labels per vedere tutte le label.",
+      "template": [
+        "kubectl get pods {{show_labels}}"
+      ],
+      "answers": [
+        { "id": "show_labels", "accepted": ["--show-labels"], "width": "140px" }
+      ]
+    },
+    {
+      "title": "Log Container Specifico",
+      "hint": "Usa -c per specificare il container in un Pod multi-container.",
+      "template": [
+        "kubectl logs my-pod {{container_flag}} sidecar"
+      ],
+      "answers": [
+        { "id": "container_flag", "accepted": ["-c", "--container"], "width": "120px" }
+      ]
+    },
+    {
+      "title": "Delete con Force",
+      "hint": "Usa --force e --grace-period=0 per eliminazione immediata.",
+      "template": [
+        "kubectl delete pod my-pod {{force}} {{grace}}=0"
+      ],
+      "answers": [
+        { "id": "force", "accepted": ["--force"], "width": "100px" },
+        { "id": "grace", "accepted": ["--grace-period"], "width": "140px" }
+      ]
+    },
+    {
+      "title": "Patch Resource",
+      "hint": "Usa 'kubectl patch' per modifiche parziali.",
+      "template": [
+        "kubectl {{patch_cmd}} deployment nginx -p '{\"spec\":{\"replicas\":5}}'"
+      ],
+      "answers": [
+        { "id": "patch_cmd", "accepted": ["patch"], "width": "80px" }
+      ]
+    }
+  ]
+}

@@ -7,12 +7,74 @@ services:
     volumes:
       # Mount dei file markdown per vederli aggiornati in real-time
       - ./README.md:/usr/share/nginx/html/modules/intro.md:ro
-      - ./01-fondamentali/README.md:/usr/share/nginx/html/modules/01.md:ro
-      - ./02-architettura/README.md:/usr/share/nginx/html/modules/02.md:ro
-      - ./03-risorse-base/README.md:/usr/share/nginx/html/modules/03.md:ro
-      - ./04-networking/README.md:/usr/share/nginx/html/modules/04.md:ro
-      - ./05-storage/README.md:/usr/share/nginx/html/modules/05.md:ro
-      - ./06-sicurezza/README.md:/usr/share/nginx/html/modules/06.md:ro
-      - ./07-helm/README.md:/usr/share/nginx/html/modules/07.md:ro
-      - ./08-operatori-go/README.md:/usr/share/nginx/html/modules/08.md:ro
+      - ./project_public/k8s-fondamentali/01-fondamentali/README.md:/usr/share/nginx/html/modules/01.md:ro
+      - ./project_public/k8s-fondamentali/01-fondamentali/exercises.json:/usr/share/nginx/html/modules/01.json:ro
+      - ./project_public/k8s-fondamentali/02-architettura/README.md:/usr/share/nginx/html/modules/02.md:ro
+      - ./project_public/k8s-fondamentali/02-architettura/exercises.json:/usr/share/nginx/html/modules/02.json:ro
+      - ./project_public/k8s-fondamentali/03-risorse-base/README.md:/usr/share/nginx/html/modules/03.md:ro
+      - ./project_public/k8s-fondamentali/03-risorse-base/exercises.json:/usr/share/nginx/html/modules/03.json:ro
+      - ./project_public/k8s-fondamentali/04-networking/README.md:/usr/share/nginx/html/modules/04.md:ro
+      - ./project_public/k8s-fondamentali/04-networking/exercises.json:/usr/share/nginx/html/modules/04.json:ro
+      - ./project_public/k8s-fondamentali/05-storage/README.md:/usr/share/nginx/html/modules/05.md:ro
+      - ./project_public/k8s-fondamentali/05-storage/exercises.json:/usr/share/nginx/html/modules/05.json:ro
+      - ./project_public/k8s-fondamentali/06-sicurezza/README.md:/usr/share/nginx/html/modules/06.md:ro
+      - ./project_public/k8s-fondamentali/06-sicurezza/exercises.json:/usr/share/nginx/html/modules/06.json:ro
+      - ./project_public/k8s-fondamentali/07-helm/README.md:/usr/share/nginx/html/modules/07.md:ro
+      - ./project_public/k8s-fondamentali/07-helm/exercises.json:/usr/share/nginx/html/modules/07.json:ro
+      - ./project_public/k8s-fondamentali/08-operatori-go/README.md:/usr/share/nginx/html/modules/08.md:ro
+      - ./project_public/k8s-fondamentali/08-operatori-go/exercises.json:/usr/share/nginx/html/modules/08.json:ro
+      - ./project_public/k8s-fondamentali/09-comandi-utili/README.md:/usr/share/nginx/html/modules/09.md:ro
+      - ./project_public/k8s-fondamentali/09-comandi-utili/exercises.json:/usr/share/nginx/html/modules/09.json:ro
+      - ./project_public/k8s-fondamentali/10-esame-finale/README.md:/usr/share/nginx/html/modules/10.md:ro
+      - ./project_public/k8s-fondamentali/10-esame-finale/exercises.json:/usr/share/nginx/html/modules/10.json:ro
+    depends_on:
+      - kubestudy-backend
     restart: always
+
+  kubestudy-backend:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./project_public:/project_public
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=kubeuser
+      - MYSQL_PASSWORD=kubepassword
+      - MYSQL_DATABASE=kubestudy
+      - REDIS_HOST=redis
+      - SESSION_SECRET=kube-super-secret-session-key
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: always
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: kubestudy
+      MYSQL_USER: kubeuser
+      MYSQL_PASSWORD: kubepassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  mysql_data:

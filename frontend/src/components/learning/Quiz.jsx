@@ -14,7 +14,7 @@ import KubeButton from '../ui/KubeButton';
 import KubePaper from '../ui/KubePaper';
 import KubeTypography from '../ui/KubeTypography';
 
-const Quiz = ({ questions }) => {
+const Quiz = ({ questions, onFinish }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showResult, setShowResult] = useState(false);
@@ -41,6 +41,7 @@ const Quiz = ({ questions }) => {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       setFinished(true);
+      if (onFinish) onFinish(score + (selectedOption === questions[currentQuestion].correct ? 1 : 0));
     }
   };
 

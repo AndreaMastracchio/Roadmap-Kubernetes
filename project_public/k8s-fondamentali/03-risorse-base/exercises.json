@@ -1,0 +1,317 @@
+{
+  "quiz": [
+    {
+      "question": "Qual è l'unità atomica più piccola in Kubernetes?",
+      "options": [
+        "Container",
+        "Pod",
+        "Deployment",
+        "Node"
+      ],
+      "correct": 1,
+      "explanation": "Il Pod è l'oggetto più piccolo e semplice di Kubernetes. Rappresenta un'istanza di un processo in esecuzione e può contenere uno o più container."
+    },
+    {
+      "question": "Cosa succede se un Liveness Probe fallisce?",
+      "options": [
+        "Il Pod viene rimosso dagli Endpoints del Service",
+        "Kubelet riavvia il container",
+        "Il Pod viene eliminato definitivamente",
+        "Viene inviato un alert all'amministratore"
+      ],
+      "correct": 1,
+      "explanation": "Se il Liveness Probe fallisce, kubelet interpreta il container come non funzionante e lo riavvia automaticamente."
+    },
+    {
+      "question": "Qual è la differenza tra Readiness Probe e Liveness Probe?",
+      "options": [
+        "Non c'è differenza, sono sinonimi",
+        "Readiness controlla se il container è pronto per traffico, Liveness se è vivo",
+        "Readiness è per HTTP, Liveness per TCP",
+        "Readiness è opzionale, Liveness è obbligatorio"
+      ],
+      "correct": 1,
+      "explanation": "Readiness Probe determina se il container può ricevere traffico (viene aggiunto/rimosso dagli Endpoints). Liveness Probe determina se il container deve essere riavviato."
+    },
+    {
+      "question": "Quale strategia di aggiornamento del Deployment causa downtime?",
+      "options": [
+        "RollingUpdate",
+        "Recreate",
+        "BlueGreen",
+        "Canary"
+      ],
+      "correct": 1,
+      "explanation": "La strategia Recreate elimina tutti i vecchi Pod prima di creare i nuovi, causando downtime. RollingUpdate invece sostituisce i Pod gradualmente senza downtime."
+    },
+    {
+      "question": "Cosa gestisce un StatefulSet che un Deployment non gestisce?",
+      "options": [
+        "Scaling automatico",
+        "Identità stabile e storage persistente per ogni Pod",
+        "Load balancing",
+        "Health checks"
+      ],
+      "correct": 1,
+      "explanation": "StatefulSet fornisce identità stabile (nomi predicibili come mysql-0, mysql-1), storage persistente dedicato per ogni Pod e ordine di avvio/terminazione."
+    },
+    {
+      "question": "Quando useresti un DaemonSet?",
+      "options": [
+        "Per applicazioni web stateless",
+        "Per database distribuiti",
+        "Per eseguire un Pod su ogni nodo (es. monitoring agent)",
+        "Per job batch schedulati"
+      ],
+      "correct": 2,
+      "explanation": "DaemonSet assicura che una copia di un Pod giri su ogni nodo del cluster. Ideale per agenti di monitoring, log collectors, network plugins."
+    },
+    {
+      "question": "Qual è il tipo di Service di default?",
+      "options": [
+        "NodePort",
+        "LoadBalancer",
+        "ClusterIP",
+        "ExternalName"
+      ],
+      "correct": 2,
+      "explanation": "ClusterIP è il tipo di Service di default. Fornisce un IP interno al cluster per la comunicazione tra servizi."
+    },
+    {
+      "question": "Quando useresti un Headless Service (ClusterIP: None)?",
+      "options": [
+        "Per esporre un servizio all'esterno",
+        "Per service discovery diretta dei Pod IP (es. con StatefulSet)",
+        "Per bilanciare il carico tra Pod",
+        "Per servizi che non hanno Pod"
+      ],
+      "correct": 1,
+      "explanation": "Un Headless Service non ha un IP virtuale. Restituisce direttamente gli IP dei Pod, utile per StatefulSet dove serve comunicazione diretta con Pod specifici."
+    },
+    {
+      "question": "Cosa fa un CronJob in Kubernetes?",
+      "options": [
+        "Monitora i Pod e li riavvia se falliscono",
+        "Esegue Job su schedule (sintassi cron)",
+        "Gestisce il backup automatico del cluster",
+        "Pulisce risorse inutilizzate"
+      ],
+      "correct": 1,
+      "explanation": "CronJob esegue Job su schedule usando la sintassi cron Unix (es. '0 2 * * *' per ogni giorno alle 2 AM). Utile per backup, cleanup, report."
+    },
+    {
+      "question": "Qual è la differenza tra ConfigMap e Secret?",
+      "options": [
+        "ConfigMap è per dati sensibili, Secret per dati pubblici",
+        "ConfigMap è per dati non sensibili, Secret per dati sensibili (base64)",
+        "Non c'è differenza, sono intercambiabili",
+        "ConfigMap è deprecato, usa solo Secret"
+      ],
+      "correct": 1,
+      "explanation": "ConfigMap memorizza dati non sensibili (config, variabili). Secret memorizza dati sensibili (password, token) codificati in base64 (non criptati!)."
+    },
+    {
+      "question": "Come si chiamano le risorse garantite per un container?",
+      "options": [
+        "limits",
+        "requests",
+        "quotas",
+        "reservations"
+      ],
+      "correct": 1,
+      "explanation": "Le 'requests' sono le risorse garantite che il container riceverà. Le 'limits' sono il massimo che può usare. Lo scheduler usa le requests per decidere su quale nodo mettere il Pod."
+    },
+    {
+      "question": "Cosa succede se un container supera il suo memory limit?",
+      "options": [
+        "Viene rallentato (throttled)",
+        "Viene terminato (OOMKilled)",
+        "Viene spostato su un altro nodo",
+        "Niente, il limit è solo un suggerimento"
+      ],
+      "correct": 1,
+      "explanation": "Se un container supera il memory limit, viene terminato dal kernel (OOMKilled - Out Of Memory Killed). Per la CPU invece viene solo throttled."
+    },
+    {
+      "question": "Quale comando permette di fare rollback di un Deployment?",
+      "options": [
+        "kubectl revert deployment",
+        "kubectl rollout undo deployment/<name>",
+        "kubectl rollback deployment/<name>",
+        "kubectl deployment rollback"
+      ],
+      "correct": 1,
+      "explanation": "Il comando 'kubectl rollout undo deployment/<name>' permette di tornare alla revisione precedente del Deployment."
+    },
+    {
+      "question": "Cosa definisce maxSurge in una strategia RollingUpdate?",
+      "options": [
+        "Il numero massimo di Pod che possono essere non disponibili",
+        "Il numero massimo di Pod extra durante l'update",
+        "Il tempo massimo per l'update",
+        "Il numero di tentativi prima di fallire"
+      ],
+      "correct": 1,
+      "explanation": "maxSurge definisce quanti Pod extra possono essere creati durante il rolling update (default 25%). maxUnavailable definisce quanti possono essere non disponibili."
+    },
+    {
+      "question": "Quale tipo di Secret useresti per certificati TLS?",
+      "options": [
+        "Opaque",
+        "kubernetes.io/tls",
+        "kubernetes.io/dockerconfigjson",
+        "kubernetes.io/basic-auth"
+      ],
+      "correct": 1,
+      "explanation": "Il tipo 'kubernetes.io/tls' è specifico per certificati TLS e richiede i campi 'tls.crt' e 'tls.key'."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Creazione Pod con Resource Requests",
+      "hint": "Usa 'resources' con 'requests' per CPU e memoria. CPU in millicores (m), memoria in Mi/Gi.",
+      "template": [
+        "apiVersion: v1",
+        "kind: Pod",
+        "metadata:",
+        "  name: my-app",
+        "spec:",
+        "  containers:",
+        "  - name: nginx",
+        "    image: nginx",
+        "    {{resources_key}}:",
+        "      {{requests_key}}:",
+        "        memory: \"64Mi\"",
+        "        cpu: \"250m\""
+      ],
+      "answers": [
+        { "id": "resources_key", "accepted": ["resources"], "width": "100px" },
+        { "id": "requests_key", "accepted": ["requests"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Liveness Probe HTTP",
+      "hint": "Usa livenessProbe con httpGet, specificando path e port.",
+      "template": [
+        "{{probe_type}}:",
+        "  {{probe_method}}:",
+        "    path: /healthz",
+        "    port: 8080",
+        "  initialDelaySeconds: 30"
+      ],
+      "answers": [
+        { "id": "probe_type", "accepted": ["livenessProbe"], "width": "140px" },
+        { "id": "probe_method", "accepted": ["httpGet"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Deployment con Replicas",
+      "hint": "Usa 'replicas' nella spec del Deployment.",
+      "template": [
+        "apiVersion: apps/v1",
+        "kind: {{kind}}",
+        "metadata:",
+        "  name: nginx-deploy",
+        "spec:",
+        "  {{replicas_key}}: 3",
+        "  selector:",
+        "    matchLabels:",
+        "      app: nginx"
+      ],
+      "answers": [
+        { "id": "kind", "accepted": ["Deployment"], "width": "120px" },
+        { "id": "replicas_key", "accepted": ["replicas"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Service ClusterIP",
+      "hint": "Il tipo di default è ClusterIP. Usa 'selector' per collegare ai Pod.",
+      "template": [
+        "apiVersion: v1",
+        "kind: {{kind}}",
+        "metadata:",
+        "  name: my-service",
+        "spec:",
+        "  {{selector_key}}:",
+        "    app: nginx",
+        "  ports:",
+        "  - port: 80",
+        "    targetPort: 8080"
+      ],
+      "answers": [
+        { "id": "kind", "accepted": ["Service"], "width": "100px" },
+        { "id": "selector_key", "accepted": ["selector"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "ConfigMap come Variabile d'Ambiente",
+      "hint": "Usa 'env' con 'valueFrom' e 'configMapKeyRef'.",
+      "template": [
+        "env:",
+        "- name: DB_HOST",
+        "  {{value_from}}:",
+        "    {{config_ref}}:",
+        "      name: app-config",
+        "      key: database_host"
+      ],
+      "answers": [
+        { "id": "value_from", "accepted": ["valueFrom"], "width": "120px" },
+        { "id": "config_ref", "accepted": ["configMapKeyRef"], "width": "160px" }
+      ]
+    },
+    {
+      "title": "Rollback Deployment",
+      "hint": "Usa 'kubectl rollout undo' per fare rollback.",
+      "template": [
+        "kubectl {{rollout_cmd}} {{undo_cmd}} deployment/nginx-deploy"
+      ],
+      "answers": [
+        { "id": "rollout_cmd", "accepted": ["rollout"], "width": "100px" },
+        { "id": "undo_cmd", "accepted": ["undo"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Visualizza Storia Rollout",
+      "hint": "Usa 'kubectl rollout history' per vedere le revisioni.",
+      "template": [
+        "kubectl rollout {{history_cmd}} deployment/nginx-deploy"
+      ],
+      "answers": [
+        { "id": "history_cmd", "accepted": ["history"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Scala Deployment",
+      "hint": "Usa 'kubectl scale' con --replicas.",
+      "template": [
+        "kubectl {{scale_cmd}} deployment/nginx-deploy {{replicas_flag}}=5"
+      ],
+      "answers": [
+        { "id": "scale_cmd", "accepted": ["scale"], "width": "80px" },
+        { "id": "replicas_flag", "accepted": ["--replicas"], "width": "120px" }
+      ]
+    },
+    {
+      "title": "Crea ConfigMap da File",
+      "hint": "Usa 'kubectl create configmap' con --from-file.",
+      "template": [
+        "kubectl create {{resource}} app-config {{from_file}}=config.properties"
+      ],
+      "answers": [
+        { "id": "resource", "accepted": ["configmap", "cm"], "width": "120px" },
+        { "id": "from_file", "accepted": ["--from-file"], "width": "140px" }
+      ]
+    },
+    {
+      "title": "Crea Secret Generico",
+      "hint": "Usa 'kubectl create secret generic' con --from-literal.",
+      "template": [
+        "kubectl create secret {{secret_type}} db-secret {{from_literal}}=password=mypass123"
+      ],
+      "answers": [
+        { "id": "secret_type", "accepted": ["generic"], "width": "100px" },
+        { "id": "from_literal", "accepted": ["--from-literal"], "width": "140px" }
+      ]
+    }
+  ]
+}

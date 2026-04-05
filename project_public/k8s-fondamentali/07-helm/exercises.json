@@ -1,0 +1,293 @@
+{
+  "quiz": [
+    {
+      "question": "Cos'è Helm?",
+      "options": [
+        "Un container runtime",
+        "Il gestore di pacchetti per Kubernetes",
+        "Un tool di monitoring",
+        "Un Ingress Controller"
+      ],
+      "correct": 1,
+      "explanation": "Helm è il gestore di pacchetti per Kubernetes, simile ad apt, yum o npm. Permette di pacchettizzare, condividere e distribuire applicazioni su K8s."
+    },
+    {
+      "question": "Cos'è una Helm Chart?",
+      "options": [
+        "Un grafico di monitoring",
+        "Un pacchetto di file YAML template per installare un'applicazione",
+        "Un tipo di Service",
+        "Un dashboard"
+      ],
+      "correct": 1,
+      "explanation": "Una Helm Chart è un pacchetto che contiene file YAML template, valori di configurazione e metadati per installare un'applicazione su Kubernetes."
+    },
+    {
+      "question": "Cos'è una Release in Helm?",
+      "options": [
+        "Una versione di Kubernetes",
+        "Un'istanza di una Chart installata nel cluster",
+        "Un tipo di Deployment",
+        "Una versione di Helm"
+      ],
+      "correct": 1,
+      "explanation": "Una Release è un'istanza di una Chart installata nel cluster. Puoi installare la stessa Chart più volte con nomi di release diversi."
+    },
+    {
+      "question": "Quale file contiene i valori di default di una Chart?",
+      "options": [
+        "config.yaml",
+        "values.yaml",
+        "defaults.yaml",
+        "settings.yaml"
+      ],
+      "correct": 1,
+      "explanation": "Il file 'values.yaml' contiene i valori di default della configurazione. Puoi sovrascriverli con --values o --set durante l'installazione."
+    },
+    {
+      "question": "Come sovrascrivi un valore durante l'installazione?",
+      "options": [
+        "helm install --config key=value",
+        "helm install --set key=value",
+        "helm install --override key=value",
+        "helm install --value key=value"
+      ],
+      "correct": 1,
+      "explanation": "Usi --set key=value per sovrascrivere singoli valori, o --values custom-values.yaml per sovrascrivere con un file."
+    },
+    {
+      "question": "Quale comando aggiorna una release esistente?",
+      "options": [
+        "helm update",
+        "helm upgrade",
+        "helm modify",
+        "helm change"
+      ],
+      "correct": 1,
+      "explanation": "helm upgrade <release-name> <chart> aggiorna una release esistente con nuovi valori o una nuova versione della chart."
+    },
+    {
+      "question": "Come fai rollback di una release?",
+      "options": [
+        "helm undo",
+        "helm rollback <release> <revision>",
+        "helm revert",
+        "helm restore"
+      ],
+      "correct": 1,
+      "explanation": "helm rollback <release-name> <revision> torna a una revisione precedente. Senza specificare revision, torna alla precedente."
+    },
+    {
+      "question": "Quale comando simula l'installazione senza applicare al cluster?",
+      "options": [
+        "helm install --test",
+        "helm install --dry-run --debug",
+        "helm install --simulate",
+        "helm install --preview"
+      ],
+      "correct": 1,
+      "explanation": "helm install --dry-run --debug simula l'installazione e stampa lo YAML generato senza applicarlo al cluster. Utile per debugging."
+    },
+    {
+      "question": "Quale comando verifica se una Chart ha errori?",
+      "options": [
+        "helm check",
+        "helm lint",
+        "helm validate",
+        "helm test"
+      ],
+      "correct": 1,
+      "explanation": "helm lint <chart-path> controlla se la chart ha errori di sintassi o strutturali prima dell'installazione."
+    },
+    {
+      "question": "Come accedi ai valori nel template?",
+      "options": [
+        "{{ $Values.key }}",
+        "{{ .Values.key }}",
+        "{{ Values.key }}",
+        "{{ values.key }}"
+      ],
+      "correct": 1,
+      "explanation": "Nei template Helm usi {{ .Values.key }} per accedere ai valori definiti in values.yaml. Il punto iniziale è importante."
+    },
+    {
+      "question": "Quale oggetto contiene informazioni sulla release corrente?",
+      "options": [
+        ".Chart",
+        ".Release",
+        ".Files",
+        ".Capabilities"
+      ],
+      "correct": 1,
+      "explanation": ".Release contiene informazioni sulla release corrente (nome, namespace, servizio). .Chart contiene metadati della chart."
+    },
+    {
+      "question": "Come visualizzi tutte le release installate?",
+      "options": [
+        "helm get",
+        "helm list",
+        "helm show",
+        "helm releases"
+      ],
+      "correct": 1,
+      "explanation": "helm list (o helm ls) mostra tutte le release installate nel namespace corrente. Usa -A per tutti i namespace."
+    },
+    {
+      "question": "Come disinstalli una release?",
+      "options": [
+        "helm delete",
+        "helm uninstall",
+        "helm remove",
+        "helm destroy"
+      ],
+      "correct": 1,
+      "explanation": "helm uninstall <release-name> rimuove una release e tutte le sue risorse dal cluster."
+    },
+    {
+      "question": "Dove vengono salvate le informazioni delle release?",
+      "options": [
+        "In etcd direttamente",
+        "Come Secret nel namespace della release",
+        "In un database esterno",
+        "In file locali"
+      ],
+      "correct": 1,
+      "explanation": "Helm salva le informazioni delle release come Secret nel namespace della release (Helm 3). Helm 2 usava ConfigMap in kube-system."
+    },
+    {
+      "question": "Come aggiungi un repository Helm?",
+      "options": [
+        "helm add repo",
+        "helm repo add <name> <url>",
+        "helm repository add",
+        "helm install repo"
+      ],
+      "correct": 1,
+      "explanation": "helm repo add <name> <url> aggiunge un repository. Es: helm repo add bitnami https://charts.bitnami.com/bitnami"
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Aggiungi Repository Helm",
+      "hint": "Usa 'helm repo add' con nome e URL.",
+      "template": [
+        "helm {{repo_cmd}} {{add_cmd}} bitnami https://charts.bitnami.com/bitnami"
+      ],
+      "answers": [
+        { "id": "repo_cmd", "accepted": ["repo"], "width": "60px" },
+        { "id": "add_cmd", "accepted": ["add"], "width": "60px" }
+      ]
+    },
+    {
+      "title": "Installa Chart",
+      "hint": "Usa 'helm install' con nome release e chart.",
+      "template": [
+        "helm {{install_cmd}} my-nginx bitnami/nginx"
+      ],
+      "answers": [
+        { "id": "install_cmd", "accepted": ["install"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Installa con Valori Custom",
+      "hint": "Usa --values o -f per specificare un file di valori.",
+      "template": [
+        "helm install my-app bitnami/nginx {{values_flag}} custom-values.yaml"
+      ],
+      "answers": [
+        { "id": "values_flag", "accepted": ["--values", "-f"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Installa con Set",
+      "hint": "Usa --set per sovrascrivere singoli valori.",
+      "template": [
+        "helm install my-app bitnami/nginx {{set_flag}} replicaCount=3"
+      ],
+      "answers": [
+        { "id": "set_flag", "accepted": ["--set"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Dry Run",
+      "hint": "Usa --dry-run e --debug per simulare l'installazione.",
+      "template": [
+        "helm install my-app bitnami/nginx {{dry_run}} {{debug}}"
+      ],
+      "answers": [
+        { "id": "dry_run", "accepted": ["--dry-run"], "width": "120px" },
+        { "id": "debug", "accepted": ["--debug"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Upgrade Release",
+      "hint": "Usa 'helm upgrade' per aggiornare una release.",
+      "template": [
+        "helm {{upgrade_cmd}} my-app bitnami/nginx --set replicaCount=5"
+      ],
+      "answers": [
+        { "id": "upgrade_cmd", "accepted": ["upgrade"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Rollback Release",
+      "hint": "Usa 'helm rollback' con nome release e revisione (opzionale).",
+      "template": [
+        "helm {{rollback_cmd}} my-app 1"
+      ],
+      "answers": [
+        { "id": "rollback_cmd", "accepted": ["rollback"], "width": "120px" }
+      ]
+    },
+    {
+      "title": "Lista Release",
+      "hint": "Usa 'helm list' o 'helm ls'.",
+      "template": [
+        "helm {{list_cmd}}"
+      ],
+      "answers": [
+        { "id": "list_cmd", "accepted": ["list", "ls"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Uninstall Release",
+      "hint": "Usa 'helm uninstall' per rimuovere una release.",
+      "template": [
+        "helm {{uninstall_cmd}} my-app"
+      ],
+      "answers": [
+        { "id": "uninstall_cmd", "accepted": ["uninstall"], "width": "120px" }
+      ]
+    },
+    {
+      "title": "Template Values Access",
+      "hint": "Usa {{ .Values.key }} per accedere ai valori.",
+      "template": [
+        "replicas: {{ {{values_obj}}.replicaCount }}"
+      ],
+      "answers": [
+        { "id": "values_obj", "accepted": [".Values"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Lint Chart",
+      "hint": "Usa 'helm lint' per verificare errori nella chart.",
+      "template": [
+        "helm {{lint_cmd}} ./my-chart"
+      ],
+      "answers": [
+        { "id": "lint_cmd", "accepted": ["lint"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Get Manifest",
+      "hint": "Usa 'helm get manifest' per vedere lo YAML installato.",
+      "template": [
+        "helm get {{manifest_cmd}} my-app"
+      ],
+      "answers": [
+        { "id": "manifest_cmd", "accepted": ["manifest"], "width": "120px" }
+      ]
+    }
+  ]
+}

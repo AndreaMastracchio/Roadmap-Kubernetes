@@ -26,6 +26,10 @@ const HomeView = ({ onSelectCourse }) => {
         </KubeTypography>
       </Box>
 
+      <KubeTypography variant="h5" weight="bold" sx={{ mb: 4, color: '#1e293b' }}>
+        I Nostri Percorsi
+      </KubeTypography>
+
       <KubeGrid 
         columns={{
           xs: 1,
@@ -34,7 +38,36 @@ const HomeView = ({ onSelectCourse }) => {
         }}
         gap={4}
       >
-        {courses.map((course) => (
+        {courses.filter(c => !c.comingSoon).map((course) => (
+          <Box 
+            key={course.id} 
+            sx={{ 
+              minWidth: 0,
+              width: '100%'
+            }}
+          >
+            <CourseCard 
+              course={course} 
+              onSelect={onSelectCourse} 
+            />
+          </Box>
+        ))}
+      </KubeGrid>
+
+      <KubeTypography variant="h5" weight="bold" sx={{ mb: 4, mt: 10, color: '#64748b', opacity: 0.8 }}>
+        Prossimamente
+      </KubeTypography>
+
+      <KubeGrid 
+        columns={{
+          xs: 1,
+          sm: 2,
+          md: 'auto auto auto'
+        }}
+        gap={4}
+        sx={{ opacity: 0.8 }}
+      >
+        {courses.filter(c => c.comingSoon).map((course) => (
           <Box 
             key={course.id} 
             sx={{ 

@@ -1,0 +1,19 @@
+# Ignora file di versioning
+.git
+.gitignore
+
+# Ignora file di configurazione locale
+.env
+.env.local
+
+# Ignora file di log
+*.log
+
+# Ignora file temporanei
+*.tmp
+*.swp
+*~
+
+# Ignora directory di build (se presenti)
+dist
+build

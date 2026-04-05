@@ -1,28 +1,95 @@
 services:
-  kubestudy-dev:
+  kubestudy-frontend:
     image: node:20-alpine
     working_dir: /app
     volumes:
       - ./frontend:/app
       - /app/node_modules
-      # Mount dei file markdown per vederli aggiornati in real-time nel frontend/public/modules
-      - ./README.md:/app/public/modules/intro.md:ro
-      - ./01-fondamentali/README.md:/app/public/modules/01.md:ro
-      - ./02-architettura/README.md:/app/public/modules/02.md:ro
-      - ./03-risorse-base/README.md:/app/public/modules/03.md:ro
-      - ./04-networking/README.md:/app/public/modules/04.md:ro
-      - ./05-storage/README.md:/app/public/modules/05.md:ro
-      - ./06-sicurezza/README.md:/app/public/modules/06.md:ro
-      - ./07-helm/README.md:/app/public/modules/07.md:ro
-      - ./08-operatori-go/README.md:/app/public/modules/08.md:ro
+      # Mount dei contenuti del corso
+      - ./project_public/k8s-fondamentali/README.md:/app/public/modules/intro.md:ro
+      - ./project_public/k8s-fondamentali/01-fondamentali/README.md:/app/public/modules/01.md:ro
+      - ./project_public/k8s-fondamentali/01-fondamentali/exercises.json:/app/public/modules/01.json:ro
+      - ./project_public/k8s-fondamentali/02-architettura/README.md:/app/public/modules/02.md:ro
+      - ./project_public/k8s-fondamentali/02-architettura/exercises.json:/app/public/modules/02.json:ro
+      - ./project_public/k8s-fondamentali/03-risorse-base/README.md:/app/public/modules/03.md:ro
+      - ./project_public/k8s-fondamentali/03-risorse-base/exercises.json:/app/public/modules/03.json:ro
+      - ./project_public/k8s-fondamentali/04-networking/README.md:/app/public/modules/04.md:ro
+      - ./project_public/k8s-fondamentali/04-networking/exercises.json:/app/public/modules/04.json:ro
+      - ./project_public/k8s-fondamentali/05-storage/README.md:/app/public/modules/05.md:ro
+      - ./project_public/k8s-fondamentali/05-storage/exercises.json:/app/public/modules/05.json:ro
+      - ./project_public/k8s-fondamentali/06-sicurezza/README.md:/app/public/modules/06.md:ro
+      - ./project_public/k8s-fondamentali/06-sicurezza/exercises.json:/app/public/modules/06.json:ro
+      - ./project_public/k8s-fondamentali/07-helm/README.md:/app/public/modules/07.md:ro
+      - ./project_public/k8s-fondamentali/07-helm/exercises.json:/app/public/modules/07.json:ro
+      - ./project_public/k8s-fondamentali/08-operatori-go/README.md:/app/public/modules/08.md:ro
+      - ./project_public/k8s-fondamentali/08-operatori-go/exercises.json:/app/public/modules/08.json:ro
+      - ./project_public/k8s-fondamentali/09-comandi-utili/README.md:/app/public/modules/09.md:ro
+      - ./project_public/k8s-fondamentali/09-comandi-utili/exercises.json:/app/public/modules/09.json:ro
+      - ./project_public/k8s-fondamentali/10-esame-finale/README.md:/app/public/modules/10.md:ro
+      - ./project_public/k8s-fondamentali/10-esame-finale/exercises.json:/app/public/modules/10.json:ro
     ports:
       - "8080:3000"
     environment:
       - VITE_WATCH_USE_POLLING=true
     command: >
       sh -c "
-      echo '📦 Container avviato. Inizio installazione dipendenze...' &&
+      echo '📦 Frontend avviato. Inizio installazione dipendenze...' &&
       npm install &&
       echo '✅ Dipendenze installate con successo!' &&
       echo '🚀 Avvio server di sviluppo Vite su http://localhost:8080...' &&
       npm run dev"
+    depends_on:
+      - kubestudy-backend
+
+  kubestudy-backend:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - ./project_public:/project_public
+    ports:
+      - "5000:5000"
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=kubeuser
+      - MYSQL_PASSWORD=kubepassword
+      - MYSQL_DATABASE=kubestudy
+      - REDIS_HOST=redis
+      - SESSION_SECRET=kube-dev-secret
+    command: >
+      sh -c "
+      echo '📦 Backend avviato. Inizio installazione dipendenze...' &&
+      npm install &&
+      echo '🚀 Avvio backend in modalità watch...' &&
+      npm run dev"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: kubestudy
+      MYSQL_USER: kubeuser
+      MYSQL_PASSWORD: kubepassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - mysql_dev_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  mysql_dev_data:

@@ -1,0 +1,85 @@
+# StorageClass per provisioning dinamico
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast-ssd
+provisioner: kubernetes.io/aws-ebs  # AWS EBS
+parameters:
+  type: gp3
+  iopsPerGB: "50"
+  fsType: ext4
+  encrypted: "true"
+reclaimPolicy: Retain  # Mantieni il volume dopo eliminazione PVC
+volumeBindingMode: WaitForFirstConsumer  # Crea volume nella zona del Pod
+allowVolumeExpansion: true  # Permetti resize del volume
+
+---
+# PersistentVolumeClaim con StorageClass
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: webapp-pvc
+  labels:
+    app: webapp
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: fast-ssd
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+# Pod che usa il PVC
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp-pod
+spec:
+  containers:
+  - name: webapp
+    image: nginx:1.21
+    volumeMounts:
+    - name: data
+      mountPath: /usr/share/nginx/html
+  volumes:
+  - name: data
+    persistentVolumeClaim:
+      claimName: webapp-pvc
+
+---
+# StatefulSet con volumeClaimTemplates
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  serviceName: mysql
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "password"
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/mysql
+  # Ogni Pod ottiene il suo PVC
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: fast-ssd
+      resources:
+        requests:
+          storage: 20Gi

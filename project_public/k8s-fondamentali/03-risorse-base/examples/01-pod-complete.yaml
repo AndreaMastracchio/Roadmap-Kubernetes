@@ -1,0 +1,104 @@
+# Esempio completo di Pod con probes, resources e multi-container
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp-pod
+  labels:
+    app: webapp
+    tier: frontend
+  annotations:
+    description: "Pod di esempio con tutte le best practice"
+spec:
+  # Security context a livello di Pod
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    fsGroup: 2000
+  
+  containers:
+  # Container principale
+  - name: webapp
+    image: nginx:1.21-alpine
+    ports:
+    - containerPort: 80
+      name: http
+    
+    # Resource requests e limits
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    
+    # Liveness Probe - verifica se il container è vivo
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 80
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 3
+      failureThreshold: 3
+    
+    # Readiness Probe - verifica se può ricevere traffico
+    readinessProbe:
+      httpGet:
+        path: /ready
+        port: 80
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      timeoutSeconds: 2
+      failureThreshold: 3
+    
+    # Startup Probe - per container con avvio lento
+    startupProbe:
+      httpGet:
+        path: /startup
+        port: 80
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      failureThreshold: 30  # 30 * 10 = 300 secondi max per startup
+    
+    # Variabili d'ambiente
+    env:
+    - name: ENV
+      value: "production"
+    - name: LOG_LEVEL
+      value: "info"
+    
+    # Volume mounts
+    volumeMounts:
+    - name: config
+      mountPath: /etc/config
+      readOnly: true
+    - name: cache
+      mountPath: /var/cache
+  
+  # Sidecar container per logging
+  - name: log-collector
+    image: fluent/fluentd:v1.14-1
+    resources:
+      requests:
+        memory: "32Mi"
+        cpu: "100m"
+      limits:
+        memory: "64Mi"
+        cpu: "200m"
+    volumeMounts:
+    - name: logs
+      mountPath: /var/log
+  
+  # Volumi
+  volumes:
+  - name: config
+    configMap:
+      name: webapp-config
+  - name: cache
+    emptyDir: {}
+  - name: logs
+    emptyDir: {}
+  
+  # Restart policy
+  restartPolicy: Always
