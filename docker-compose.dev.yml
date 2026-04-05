@@ -1,0 +1,28 @@
+services:
+  kubestudy-dev:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      # Mount dei file markdown per vederli aggiornati in real-time nel frontend/public/modules
+      - ./README.md:/app/public/modules/intro.md:ro
+      - ./01-fondamentali/README.md:/app/public/modules/01.md:ro
+      - ./02-architettura/README.md:/app/public/modules/02.md:ro
+      - ./03-risorse-base/README.md:/app/public/modules/03.md:ro
+      - ./04-networking/README.md:/app/public/modules/04.md:ro
+      - ./05-storage/README.md:/app/public/modules/05.md:ro
+      - ./06-sicurezza/README.md:/app/public/modules/06.md:ro
+      - ./07-helm/README.md:/app/public/modules/07.md:ro
+      - ./08-operatori-go/README.md:/app/public/modules/08.md:ro
+    ports:
+      - "8080:3000"
+    environment:
+      - VITE_WATCH_USE_POLLING=true
+    command: >
+      sh -c "
+      echo '📦 Container avviato. Inizio installazione dipendenze...' &&
+      npm install &&
+      echo '✅ Dipendenze installate con successo!' &&
+      echo '🚀 Avvio server di sviluppo Vite su http://localhost:8080...' &&
+      npm run dev"

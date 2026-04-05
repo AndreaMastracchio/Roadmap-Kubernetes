@@ -13,6 +13,9 @@ import {
 } from '@mui/material';
 import { CheckCircleOutline, ErrorOutline } from '@mui/icons-material';
 
+import KubeButton from './ui/KubeButton';
+import KubePaper from './ui/KubePaper';
+
 const Quiz = ({ questions }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -58,7 +61,7 @@ const Quiz = ({ questions }) => {
         <Typography variant="body1" sx={{ mb: 3 }}>
           Hai risposto correttamente a {score} su {questions.length} domande.
         </Typography>
-        <Button variant="contained" onClick={restartQuiz}>Riprova</Button>
+        <KubeButton variant="contained" onClick={restartQuiz}>Riprova</KubeButton>
       </Box>
     );
   }
@@ -71,7 +74,7 @@ const Quiz = ({ questions }) => {
       <Typography variant="h5" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
         🧠 Esercizio Interattivo ({currentQuestion + 1}/{questions.length})
       </Typography>
-      <Paper elevation={0} sx={{ p: 3, border: '1px solid #e0e0e0', borderRadius: 3, bgcolor: '#fcfcfc' }}>
+      <KubePaper sx={{ p: 3, bgcolor: '#fcfcfc' }}>
         <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
           {question.question}
         </Typography>
@@ -109,23 +112,23 @@ const Quiz = ({ questions }) => {
               </Typography>
               <Typography variant="body2">{question.explanation}</Typography>
             </Alert>
-            <Button variant="contained" sx={{ mt: 2 }} onClick={handleNextQuestion}>
+            <KubeButton variant="contained" sx={{ mt: 2 }} onClick={handleNextQuestion}>
               {currentQuestion + 1 < questions.length ? "Prossima domanda" : "Vedi risultati"}
-            </Button>
+            </KubeButton>
           </Box>
         )}
 
         {!showResult && (
-          <Button
+          <KubeButton
             variant="contained"
             disabled={selectedOption === null}
             sx={{ mt: 3 }}
             onClick={handleNext}
           >
             Verifica risposta
-          </Button>
+          </KubeButton>
         )}
-      </Paper>
+      </KubePaper>
     </Box>
   );
 };

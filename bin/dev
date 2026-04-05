@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Identifica i file di configurazione
+DEV_COMPOSE="docker-compose.dev.yml"
+
+# Assicuriamoci che non ci siano residui
+echo "🧹 Pulizia ambiente precedente..."
+docker compose -f "$DEV_COMPOSE" down > /dev/null 2>&1
+
+echo "🚀 Avvio dell'ambiente di sviluppo (HMR attivo)..."
+echo "📍 Indirizzo: http://localhost:8080"
+echo "ℹ️  La prima installazione delle dipendenze potrebbe richiedere un minuto."
+echo "💡 Premi Ctrl+C per fermare la visualizzazione dei log (il container rimarrà attivo)."
+echo "🛑 Per spegnere tutto usa: ./bin/stop"
+echo ""
+
+# Avvia in background e segui i log
+docker compose -f "$DEV_COMPOSE" up -d
+docker compose -f "$DEV_COMPOSE" logs -f

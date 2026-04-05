@@ -59,7 +59,8 @@ Ogni cartella numerata corrisponde a un modulo della roadmap. Entra nella cartel
 ## 🚀 Gestione rapida (CLI)
 Per semplificare la gestione dell'ambiente Docker, puoi usare i seguenti comandi dalla radice del progetto:
 
-- **Avviare**: `./bin/start`
+- **Sviluppo (Hot Reload)**: `./bin/dev`
+- **Avviare (Prod)**: `./bin/start`
 - **Fermare**: `./bin/stop`
 - **Riavviare**: `./bin/restart`
 - **Stato**: `./bin/status`
@@ -70,7 +71,16 @@ Per semplificare la gestione dell'ambiente Docker, puoi usare i seguenti comandi
 Per un'esperienza di studio più piacevole, è stata creata un'applicazione frontend che permette di leggere i contenuti in formato corso interattivo.
 
 ### Avvio rapido
-Puoi usare gli script nella cartella `bin/` oppure eseguire direttamente:
+Per lo sviluppo con ricaricamento a caldo (HMR):
+```bash
+./bin/dev
+```
+
+Per l'avvio in modalità produzione:
+```bash
+./bin/start
+```
+O via Docker Compose:
 ```bash
 docker-compose up --build
 ```

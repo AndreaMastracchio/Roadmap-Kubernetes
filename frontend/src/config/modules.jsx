@@ -1,82 +1,4 @@
 import React from 'react';
-import { Button } from '@mui/material';
-import { styled } from '@mui/material/styles';
-const StyledButton = styled(Button)(({ theme }) => ({
-  borderRadius: 10,
-  textTransform: 'none',
-  fontWeight: 600,
-  padding: '8px 20px',
-  boxShadow: 'none',
-  '&:hover': {
-    boxShadow: '0px 4px 12px rgba(50, 108, 229, 0.2)',
-  },
-}));
-const KubeButton = (props) => {
-  return <StyledButton {...props} />;
-};
-export default KubeButton;
-import React from 'react';
-import { Paper } from '@mui/material';
-import { styled } from '@mui/material/styles';
-const StyledPaper = styled(Paper)(({ theme }) => ({
-  borderRadius: 16,
-  border: '1px solid #e0e0e0',
-  boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05)',
-  padding: theme.spacing(3),
-  [theme.breakpoints.up('md')]: {
-    padding: theme.spacing(6),
-  },
-  backgroundColor: '#fff',
-}));
-const KubePaper = ({ children, ...props }) => {
-  return (
-    <StyledPaper elevation={0} {...props}>
-      {children}
-    </StyledPaper>
-  );
-};
-export default KubePaper;
-import { useState, useCallback, useEffect } from 'react';
-export const useResizer = (initialWidth, minWidth = 200, maxWidth = 600) => {
-  const [width, setWidth] = useState(initialWidth);
-  const [isResizing, setIsResizing] = useState(false);
-  const startResizing = useCallback(() => {
-    setIsResizing(true);
-  }, []);
-  const stopResizing = useCallback(() => {
-    setIsResizing(false);
-  }, []);
-  const resize = useCallback(
-    (mouseMoveEvent) => {
-      if (isResizing) {
-        const newWidth = mouseMoveEvent.clientX;
-        if (newWidth >= minWidth && newWidth <= maxWidth) {
-          setWidth(newWidth);
-        }
-      }
-    },
-    [isResizing, minWidth, maxWidth]
-  );
-  useEffect(() => {
-    window.addEventListener("mousemove", resize);
-    window.addEventListener("mouseup", stopResizing);
-    return () => {
-      window.removeEventListener("mousemove", resize);
-      window.removeEventListener("mouseup", stopResizing);
-    };
-  }, [resize, stopResizing]);
-  useEffect(() => {
-    if (isResizing) {
-      document.body.style.userSelect = 'none';
-      document.body.style.cursor = 'col-resize';
-    } else {
-      document.body.style.userSelect = 'auto';
-      document.body.style.cursor = 'auto';
-    }
-  }, [isResizing]);
-  return { width, isResizing, startResizing };
-};
-import React from 'react';
 import {
   School as SchoolIcon,
   Code as CodeIcon,
@@ -88,13 +10,14 @@ import {
   Layers as LayersIcon,
   Inventory2 as InventoryIcon,
 } from '@mui/icons-material';
+
 export const modules = [
-  {
-    id: 'intro',
-    title: 'Benvenuto',
-    file: 'intro.md',
-    icon: <SchoolIcon />,
-    level: 'Base',
+  { 
+    id: 'intro', 
+    title: 'Benvenuto', 
+    file: 'intro.md', 
+    icon: <SchoolIcon />, 
+    level: 'Base', 
     time: '5 min',
     sections: [
       { id: 'intro-01', title: 'La Roadmap', anchor: 'la-roadmap' },
@@ -103,12 +26,12 @@ export const modules = [
       { id: 'intro-04', title: 'Piattaforma Web', anchor: 'piattaforma-web-docker' }
     ]
   },
-  {
-    id: '01',
-    title: '1. Fondamentali',
-    file: '01.md',
-    icon: <LayersIcon />,
-    level: 'Base',
+  { 
+    id: '01', 
+    title: '1. Fondamentali', 
+    file: '01.md', 
+    icon: <LayersIcon />, 
+    level: 'Base', 
     time: '20 min',
     sections: [
       { id: '01-01', title: 'Perché i Container?', anchor: 'perché-i-container' },
@@ -118,12 +41,12 @@ export const modules = [
       { id: '01-05', title: 'Esercizio Pratico', anchor: 'esercizio-pratico' }
     ]
   },
-  {
-    id: '02',
-    title: '2. Architettura',
-    file: '02.md',
-    icon: <ArchitectureIcon />,
-    level: 'Intermedio',
+  { 
+    id: '02', 
+    title: '2. Architettura', 
+    file: '02.md', 
+    icon: <ArchitectureIcon />, 
+    level: 'Intermedio', 
     time: '30 min',
     sections: [
       { id: '02-01', title: 'Control Plane e Nodi', anchor: 'il-cluster-control-plane-e-nodi' },
@@ -132,12 +55,12 @@ export const modules = [
       { id: '02-04', title: 'Esercizio', anchor: 'consiglio-per-lo-studio' }
     ]
   },
-  {
-    id: '03',
-    title: '3. Risorse Base',
-    file: '03.md',
-    icon: <InventoryIcon />,
-    level: 'Base',
+  { 
+    id: '03', 
+    title: '3. Risorse Base', 
+    file: '03.md', 
+    icon: <InventoryIcon />, 
+    level: 'Base', 
     time: '25 min',
     sections: [
       { id: '03-01', title: 'Il Pod', anchor: '1-il-pod-l-unità-atomica' },
@@ -147,12 +70,12 @@ export const modules = [
       { id: '03-05', title: 'Esercizio', anchor: 'esercizio-pratico' }
     ]
   },
-  {
-    id: '04',
-    title: '4. Networking',
-    file: '04.md',
-    icon: <NetworkIcon />,
-    level: 'Avanzato',
+  { 
+    id: '04', 
+    title: '4. Networking', 
+    file: '04.md', 
+    icon: <NetworkIcon />, 
+    level: 'Avanzato', 
     time: '40 min',
     sections: [
       { id: '04-01', title: 'Ingress', anchor: '1-ingress-il-reverse-proxy-intelligente' },
@@ -161,12 +84,12 @@ export const modules = [
       { id: '04-04', title: 'Esercizio', anchor: 'esercizio-pratico' }
     ]
   },
-  {
-    id: '05',
-    title: '5. Storage',
-    file: '05.md',
-    icon: <StorageIcon />,
-    level: 'Intermedio',
+  { 
+    id: '05', 
+    title: '5. Storage', 
+    file: '05.md', 
+    icon: <StorageIcon />, 
+    level: 'Intermedio', 
     time: '30 min',
     sections: [
       { id: '05-01', title: 'PV e PVC', anchor: '1-il-ciclo-dello-storage-pv-e-pvc' },
@@ -175,12 +98,12 @@ export const modules = [
       { id: '05-04', title: 'Esercizio', anchor: 'esercizio-pratico' }
     ]
   },
-  {
-    id: '06',
-    title: '6. Sicurezza',
-    file: '06.md',
-    icon: <SecurityIcon />,
-    level: 'Avanzato',
+  { 
+    id: '06', 
+    title: '6. Sicurezza', 
+    file: '06.md', 
+    icon: <SecurityIcon />, 
+    level: 'Avanzato', 
     time: '35 min',
     sections: [
       { id: '06-01', title: 'RBAC', anchor: '1-rbac-role-based-access-control' },
@@ -189,12 +112,12 @@ export const modules = [
       { id: '06-04', title: 'Esercizio', anchor: 'esercizio-pratico' }
     ]
   },
-  {
-    id: '07',
-    title: '7. Helm',
-    file: '07.md',
-    icon: <TerminalIcon />,
-    level: 'Intermedio',
+  { 
+    id: '07', 
+    title: '7. Helm', 
+    file: '07.md', 
+    icon: <TerminalIcon />, 
+    level: 'Intermedio', 
     time: '20 min',
     sections: [
       { id: '07-01', title: 'Perché Helm?', anchor: '1-perché-usare-helm' },
@@ -203,12 +126,12 @@ export const modules = [
       { id: '07-04', title: 'Esercizio', anchor: 'esercizio-pratico' }
     ]
   },
-  {
-    id: '08',
-    title: '8. Operatori Go',
-    file: '08.md',
-    icon: <CodeIcon />,
-    level: 'Avanzato',
+  { 
+    id: '08', 
+    title: '8. Operatori Go', 
+    file: '08.md', 
+    icon: <CodeIcon />, 
+    level: 'Avanzato', 
     time: '60 min',
     sections: [
       { id: '08-01', title: 'CRDs', anchor: '1-custom-resource-definitions-crds' },
