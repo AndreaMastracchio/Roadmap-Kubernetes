@@ -4,61 +4,89 @@ import rehypeSlug from 'rehype-slug';
 import {
   Box,
   CssBaseline,
-  Container,
-  Typography,
   ThemeProvider,
-  useMediaQuery,
-  CircularProgress,
   Fade,
 } from '@mui/material';
-import { QuizOutlined } from '@mui/icons-material';
+import { QuizOutlined, AssignmentOutlined } from '@mui/icons-material';
 
 // Config & Hooks
-import { modules } from './config/modules.jsx';
+import { courses } from './config/courses.jsx';
+import { introModule } from './config/modules.jsx';
 import { useResizer } from './hooks/useResizer';
 import { useModuleContent } from './hooks/useModuleContent';
 import { useScrollSpy } from './hooks/useScrollSpy';
 import theme from './theme';
 
-// Components
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
-import Quiz from './components/Quiz';
-import NavigationButtons from './components/NavigationButtons';
+// Layout & UI Components
+import Layout from './components/layout/Layout';
+import KubeContainer from './components/ui/KubeContainer';
 import KubePaper from './components/ui/KubePaper';
+import KubeTypography from './components/ui/KubeTypography';
+import KubeLoader from './components/ui/KubeLoader';
+import KubeSection from './components/ui/KubeSection';
+
+// Feature Components
+import HomeView from './components/course/HomeView';
+import Quiz from './components/learning/Quiz';
+import CodingExercises from './components/learning/CodingExercises';
+import NavigationButtons from './components/learning/NavigationButtons';
 
 const DEFAULT_DRAWER_WIDTH = 280;
 
 function App() {
   const { width: drawerWidth, isResizing, startResizing } = useResizer(DEFAULT_DRAWER_WIDTH);
   const [drawerOpen, setDrawerOpen] = useState(true);
-  const [activeModule, setActiveModule] = useState(modules[0]);
+  const [activeCourse, setActiveCourse] = useState(null); // null = Home
+  const [activeModule, setActiveModule] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
   // Custom Hooks per la gestione dei dati e dello scroll
-  const { content, questions, loading } = useModuleContent(activeModule);
-  const { activeSection, setActiveSection } = useScrollSpy(content, questions);
+  const { content, questions, exercises, loading } = useModuleContent(activeModule);
+  const { activeSection, setActiveSection } = useScrollSpy(content, questions, exercises);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    setActiveSection('');
+    if (activeModule) {
+      window.scrollTo(0, 0);
+      setActiveSection('');
+    }
   }, [activeModule, setActiveSection]);
 
   const handleDrawerToggle = useCallback(() => {
-    if (isDesktop) {
-      setDrawerOpen((prev) => !prev);
+    setDrawerOpen((prev) => !prev);
+    setMobileOpen((prev) => !prev);
+  }, []);
+
+  const handleCourseSelect = useCallback((course) => {
+    setActiveCourse(course);
+    if (course && course.modules && course.modules.length > 0) {
+      setActiveModule(course.modules[0]);
     } else {
-      setMobileOpen((prev) => !prev);
+      setActiveModule(null);
     }
-  }, [isDesktop]);
+    setMobileOpen(false);
+  }, []);
 
   const handleModuleSelect = useCallback((mod) => {
     setActiveModule(mod);
-    if (!isDesktop) {
-      setMobileOpen(false);
-    }
-  }, [isDesktop]);
+    setMobileOpen(false);
+  }, []);
+
+  const handleBackToHome = useCallback(() => {
+    setActiveCourse(null);
+    setActiveModule(null);
+  }, []);
+
+  const handleOpenIntro = useCallback(() => {
+    const virtualIntroCourse = {
+      id: 'intro',
+      title: 'Informazioni',
+      modules: [introModule],
+      isIntro: true
+    };
+    setActiveCourse(virtualIntroCourse);
+    setActiveModule(introModule);
+    setMobileOpen(false);
+  }, []);
 
   const handleSectionSelect = useCallback((anchor) => {
     const element = document.getElementById(anchor);
@@ -72,106 +100,88 @@ function App() {
         behavior: 'smooth'
       });
     }
-    if (!isDesktop) {
-      setMobileOpen(false);
-    }
-  }, [isDesktop]);
+    setMobileOpen(false);
+  }, []);
 
-  const currentDrawerWidth = useMemo(() => 
-    isDesktop && drawerOpen ? drawerWidth : 0
-  , [isDesktop, drawerOpen, drawerWidth]);
+  const mainContent = useMemo(() => {
+    if (!activeCourse) {
+      return <HomeView onSelectCourse={handleCourseSelect} />;
+    }
+
+    return (
+      <KubeContainer maxWidth="lg">
+        <Fade in={!loading} timeout={400}>
+          <Box>
+            <KubePaper sx={{ mb: 4, minHeight: '60vh', position: 'relative' }}>
+              {loading ? (
+                <KubeLoader message="Caricamento contenuti del modulo..." />
+              ) : (
+                <>
+                  <Box className="markdown-content">
+                    <ReactMarkdown rehypePlugins={[rehypeSlug]}>{content}</ReactMarkdown>
+                  </Box>
+
+                  {exercises && exercises.length > 0 && (
+                    <KubeSection
+                      id="exercises-section"
+                      title="Esercitazioni Pratiche"
+                      icon={<AssignmentOutlined />}
+                    >
+                      <CodingExercises exercises={exercises} key={`${activeModule.id}-exercises`} />
+                    </KubeSection>
+                  )}
+
+                  {questions.length > 0 && (
+                    <KubeSection
+                      id="quiz-section"
+                      title="Quiz di Verifica"
+                      icon={<QuizOutlined />}
+                    >
+                      <Quiz questions={questions} key={activeModule.id} />
+                    </KubeSection>
+                  )}
+
+                  {!activeCourse.isIntro && (
+                    <NavigationButtons
+                      currentModule={activeModule}
+                      allModules={activeCourse.modules}
+                      onModuleSelect={handleModuleSelect}
+                    />
+                  )}
+                </>
+              )}
+            </KubePaper>
+          </Box>
+        </Fade>
+      </KubeContainer>
+    );
+  }, [activeCourse, activeModule, content, exercises, questions, loading, handleCourseSelect, handleModuleSelect]);
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        
-        <Header 
-          drawerOpen={drawerOpen}
-          isDesktop={isDesktop}
-          handleDrawerToggle={handleDrawerToggle}
-          activeModule={activeModule}
-          currentDrawerWidth={currentDrawerWidth}
-          isResizing={isResizing}
-        />
-
-        <Sidebar 
-          modules={modules}
-          activeModule={activeModule}
-          activeSection={activeSection}
-          questions={questions}
-          handleModuleSelect={handleModuleSelect}
-          handleSectionSelect={handleSectionSelect}
-          handleDrawerToggle={handleDrawerToggle}
-          mobileOpen={mobileOpen}
-          drawerWidth={drawerWidth}
-          drawerOpen={drawerOpen}
-          startResizing={startResizing}
-          isResizing={isResizing}
-          isDesktop={isDesktop}
-        />
-
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            p: { xs: 2, md: 3 },
-            width: { md: `calc(100% - ${currentDrawerWidth}px)` },
-            minHeight: '100vh',
-            pt: { xs: 10, md: 12 },
-            transition: isResizing ? 'none' : (theme) => theme.transitions.create(['width', 'margin-left'], {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.leavingScreen,
-            }),
-          }}
-        >
-          <Container maxWidth="lg">
-            <Fade in={!loading} timeout={400}>
-              <Box>
-                <KubePaper sx={{ mb: 4, minHeight: '60vh', position: 'relative' }}>
-                  {loading ? (
-                    <Box sx={{ 
-                      display: 'flex', 
-                      flexDirection: 'column',
-                      alignItems: 'center', 
-                      justifyContent: 'center', 
-                      py: 20,
-                      gap: 2
-                    }}>
-                      <CircularProgress size={60} thickness={4} />
-                      <Typography variant="body1" color="text.secondary">
-                        Caricamento contenuti...
-                      </Typography>
-                    </Box>
-                  ) : (
-                    <>
-                      <Box className="markdown-content">
-                        <ReactMarkdown rehypePlugins={[rehypeSlug]}>{content}</ReactMarkdown>
-                      </Box>
-
-                      {questions.length > 0 && (
-                        <Box id="quiz-section" sx={{ mt: 8, pt: 4, borderTop: '2px dashed #e0e0e0' }}>
-                          <Typography variant="h4" sx={{ mb: 4, fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 2 }}>
-                            <QuizOutlined color="primary" fontSize="large" />
-                            Quiz di Verifica
-                          </Typography>
-                          <Quiz questions={questions} key={activeModule.id} />
-                        </Box>
-                      )}
-
-                      <NavigationButtons 
-                        currentModule={activeModule}
-                        allModules={modules}
-                        onModuleSelect={handleModuleSelect}
-                      />
-                    </>
-                  )}
-                </KubePaper>
-              </Box>
-            </Fade>
-          </Container>
-        </Box>
-      </Box>
+      <CssBaseline />
+      <Layout
+        drawerOpen={drawerOpen}
+        mobileOpen={mobileOpen}
+        handleDrawerToggle={handleDrawerToggle}
+        drawerWidth={drawerWidth}
+        startResizing={startResizing}
+        isResizing={isResizing}
+        activeCourse={activeCourse}
+        activeModule={activeModule}
+        onBackToHome={handleBackToHome}
+        onOpenIntro={handleOpenIntro}
+        // Sidebar specific props
+        courses={courses}
+        modules={activeCourse ? activeCourse.modules : []}
+        activeSection={activeSection}
+        questions={questions}
+        handleCourseSelect={handleCourseSelect}
+        handleModuleSelect={handleModuleSelect}
+        handleSectionSelect={handleSectionSelect}
+      >
+        {mainContent}
+      </Layout>
     </ThemeProvider>
   );
 }

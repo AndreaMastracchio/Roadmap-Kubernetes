@@ -3,10 +3,19 @@ import { useState, useEffect } from 'react';
 export const useModuleContent = (activeModule) => {
   const [content, setContent] = useState('');
   const [questions, setQuestions] = useState([]);
+  const [exercises, setExercises] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!activeModule) {
+      setContent('');
+      setQuestions([]);
+      setExercises([]);
+      setLoading(false);
+      return;
+    }
+
     let isMounted = true;
     setLoading(true);
     setError(null);
@@ -18,21 +27,30 @@ export const useModuleContent = (activeModule) => {
         if (!mdRes.ok) throw new Error('Modulo non trovato');
         const mdText = await mdRes.text();
 
-        // Fetch Quiz (optional)
+        // Fetch Data (Quiz & Exercises)
         const jsonFile = activeModule.file.replace('.md', '.json');
-        let quizData = [];
+        let data = { quiz: [], exercises: [] };
         try {
           const jsonRes = await fetch(`/modules/${jsonFile}`);
           if (jsonRes.ok) {
-            quizData = await jsonRes.json();
+            const rawData = await jsonRes.json();
+            if (Array.isArray(rawData)) {
+              data.quiz = rawData;
+            } else {
+              data = { 
+                quiz: rawData.quiz || [], 
+                exercises: rawData.exercises || [] 
+              };
+            }
           }
         } catch (e) {
-          // No quiz is fine
+          // No data is fine
         }
 
         if (isMounted) {
           setContent(mdText);
-          setQuestions(quizData);
+          setQuestions(data.quiz);
+          setExercises(data.exercises);
           setLoading(false);
         }
       } catch (err) {
@@ -40,6 +58,7 @@ export const useModuleContent = (activeModule) => {
           setError(err.message);
           setContent('# Errore\nImpossibile caricare il modulo.');
           setQuestions([]);
+          setExercises([]);
           setLoading(false);
         }
       }
@@ -52,5 +71,5 @@ export const useModuleContent = (activeModule) => {
     };
   }, [activeModule]);
 
-  return { content, questions, loading, error };
+  return { content, questions, exercises, loading, error };
 };

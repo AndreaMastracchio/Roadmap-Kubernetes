@@ -1,35 +1,205 @@
-[
-  {
-    "question": "Cos'è un'immagine Docker?",
-    "options": [
-      "Un container in esecuzione",
-      "Un pacchetto statico e immutabile che contiene il codice e le dipendenze",
-      "Un comando per avviare un server",
-      "Un file di configurazione del sistema operativo"
-    ],
-    "correct": 1,
-    "explanation": "Un'immagine Docker è uno snapshot immutabile che serve come blueprint per creare i container."
-  },
-  {
-    "question": "Quale comando permette di vedere i log di un container specifico?",
-    "options": [
-      "docker run --logs",
-      "docker show logs",
-      "docker logs <container_id>",
-      "docker ps -l"
-    ],
-    "correct": 2,
-    "explanation": "Il comando `docker logs` permette di visualizzare lo standard output e lo standard error di un container."
-  },
-  {
-    "question": "A cosa serve il file Dockerfile?",
-    "options": [
-      "Per gestire il networking dei container",
-      "Per definire le istruzioni di creazione di un'immagine",
-      "Per archiviare i dati persistenti",
-      "Per monitorare le performance della CPU"
-    ],
-    "correct": 1,
-    "explanation": "Il Dockerfile è un file di testo che contiene tutti i comandi necessari per assemblare un'immagine Docker."
-  }
-]
+{
+  "quiz": [
+    {
+      "question": "Cos'è un'immagine Docker?",
+      "options": [
+        "Un container in esecuzione",
+        "Un pacchetto statico e immutabile che contiene il codice e le dipendenze",
+        "Un comando per avviare un server",
+        "Un file di configurazione del sistema operativo"
+      ],
+      "correct": 1,
+      "explanation": "Un'immagine Docker è uno snapshot immutabile che serve come blueprint per creare i container."
+    },
+    {
+      "question": "Quale comando permette di vedere i log di un container specifico?",
+      "options": [
+        "docker run --logs",
+        "docker show logs",
+        "docker logs <container_id>",
+        "docker ps -l"
+      ],
+      "correct": 2,
+      "explanation": "Il comando `docker logs` permette di visualizzare lo standard output e lo standard error di un container."
+    },
+    {
+      "question": "A cosa serve il file Dockerfile?",
+      "options": [
+        "Per gestire il networking dei container",
+        "Per definire le istruzioni di creazione di un'immagine",
+        "Per archiviare i dati persistenti",
+        "Per monitorare le performance della CPU"
+      ],
+      "correct": 1,
+      "explanation": "Il Dockerfile è un file di testo che contiene tutti i comandi necessari per assemblare un'immagine Docker."
+    },
+    {
+      "question": "Quale funzionalità del Kernel Linux è responsabile della limitazione delle risorse (CPU, RAM) per un container?",
+      "options": [
+        "Namespaces",
+        "SELinux",
+        "Control Groups (cgroups)",
+        "IP Tables"
+      ],
+      "correct": 2,
+      "explanation": "I cgroups gestiscono l'allocazione e la limitazione delle risorse hardware per i processi."
+    },
+    {
+      "question": "Cosa garantisce l'isolamento della visibilità (es. PID, Network) in un container?",
+      "options": [
+        "Namespaces",
+        "Hypervisor",
+        "Docker Daemon",
+        "Systemd"
+      ],
+      "correct": 0,
+      "explanation": "I Namespaces permettono di isolare ciò che un processo può vedere (altri processi, interfacce di rete, mount points)."
+    },
+    {
+      "question": "Perché si usa la build 'multi-stage' in un Dockerfile?",
+      "options": [
+        "Per eseguire più container contemporaneamente",
+        "Per ridurre la dimensione dell'immagine finale separando l'ambiente di build da quello di runtime",
+        "Per velocizzare la connessione internet durante il download delle immagini",
+        "Per permettere l'uso di più sistemi operativi nello stesso container"
+      ],
+      "correct": 1,
+      "explanation": "Il multi-stage build permette di lasciare nel primo stage gli strumenti di compilazione e copiare solo il binario finale nell'immagine di runtime, rendendola molto più piccola e sicura."
+    },
+    {
+      "question": "Qual è una best practice fondamentale per la sicurezza dei container?",
+      "options": [
+        "Eseguire sempre i processi come utente root",
+        "Installare SSH nel container per debuggare meglio",
+        "Utilizzare immagini di base minimali e non eseguire come root",
+        "Disabilitare i log per risparmiare spazio"
+      ],
+      "correct": 2,
+      "explanation": "Usare immagini minimali (come Alpine o Distroless) e utenti non-root riduce drasticamente la superficie di attacco."
+    },
+    {
+      "question": "Quale comando permette di ripulire in un colpo solo container fermi, reti inutilizzate e immagini senza tag?",
+      "options": [
+        "docker clean all",
+        "docker system prune",
+        "docker rm -a",
+        "docker images purge"
+      ],
+      "correct": 1,
+      "explanation": "`docker system prune` è il comando 'tuttofare' per liberare spazio rimuovendo risorse inutilizzate."
+    },
+    {
+      "question": "Come si può monitorare in tempo reale l'uso di CPU e RAM di tutti i container in esecuzione?",
+      "options": [
+        "docker monitor",
+        "docker top",
+        "docker stats",
+        "docker ps -res"
+      ],
+      "correct": 2,
+      "explanation": "`docker stats` fornisce uno stream live delle statistiche sull'uso delle risorse hardware."
+    },
+    {
+      "question": "Cosa succede se elimini un container che ha scritto dei dati nel suo 'container layer'?",
+      "options": [
+        "I dati vengono salvati automaticamente nell'immagine",
+        "I dati vanno persi definitivamente, a meno che non siano in un volume",
+        "Docker chiede se vuoi fare il commit delle modifiche",
+        "Il container non può essere eliminato se ha dati scritti"
+      ],
+      "correct": 1,
+      "explanation": "I container sono effimeri. Senza volumi o bind mounts, ogni modifica al file system del container viene persa alla sua eliminazione."
+    },
+    {
+      "question": "Qual è il driver di rete di default per i container Docker?",
+      "options": [
+        "Host",
+        "None",
+        "Bridge",
+        "Overlay"
+      ],
+      "correct": 2,
+      "explanation": "Il driver `bridge` è il default e crea una rete privata interna all'host dove i container possono comunicare tra loro."
+    },
+    {
+      "question": "Quale istruzione Dockerfile è consigliata per copiare file locali nell'immagine se non servono funzionalità extra come l'estrazione automatica?",
+      "options": [
+        "ADD",
+        "COPY",
+        "GET",
+        "PUT"
+      ],
+      "correct": 1,
+      "explanation": "`COPY` è l'istruzione preferita perché è più esplicita e sicura, mentre `ADD` ha comportamenti magici (come scaricare URL o estrarre archivi) che possono creare confusione."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Configurazione Dockerfile Multi-stage",
+      "hint": "Ricorda di usare AS per nominare lo stage di build e COPY --from per copiare i file.",
+      "template": [
+        "FROM golang:1.21-alpine {{stage_name}}",
+        "WORKDIR /app",
+        "COPY go.mod .",
+        "RUN go mod download",
+        "COPY . .",
+        "RUN go build -o main .",
+        "",
+        "FROM alpine:latest",
+        "{{copy_instr}} --from={{stage_ref}} /app/main .",
+        "CMD [\"./main\"]"
+      ],
+      "answers": [
+        { "id": "stage_name", "accepted": ["AS builder", "as builder"], "width": "120px" },
+        { "id": "copy_instr", "accepted": ["COPY", "copy"], "width": "80px" },
+        { "id": "stage_ref", "accepted": ["builder"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Comando Docker Run con Volumi",
+      "hint": "Il flag per i volumi è -v oppure --volume. La sintassi è host_path:container_path.",
+      "template": [
+        "docker run -d -p 8080:80 {{vol_flag}} $(pwd)/html:{{container_path}} nginx:alpine"
+      ],
+      "answers": [
+        { "id": "vol_flag", "accepted": ["-v", "--volume"], "width": "80px" },
+        { "id": "container_path", "accepted": ["/usr/share/nginx/html"], "width": "220px" }
+      ]
+    },
+    {
+      "title": "Ispezione e Debug",
+      "hint": "Per eseguire una shell interattiva servono i flag -i (interactive) e -t (tty).",
+      "template": [
+        "docker {{cmd_exec}} {{flags}} mio-container {{shell_bin}}"
+      ],
+      "answers": [
+        { "id": "cmd_exec", "accepted": ["exec"], "width": "80px" },
+        { "id": "flags", "accepted": ["-it", "-ti", "--interactive --tty"], "width": "120px" },
+        { "id": "shell_bin", "accepted": ["sh", "bash", "/bin/sh", "/bin/bash"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Build di un'Immagine",
+      "hint": "Il flag -t serve per assegnare un tag. Il punto finale indica il contesto corrente.",
+      "template": [
+        "docker {{build_cmd}} {{tag_flag}} mia-app:v1 {{context}}"
+      ],
+      "answers": [
+        { "id": "build_cmd", "accepted": ["build"], "width": "80px" },
+        { "id": "tag_flag", "accepted": ["-t", "--tag"], "width": "60px" },
+        { "id": "context", "accepted": ["."], "width": "40px" }
+      ]
+    },
+    {
+      "title": "Manutenzione e Pulizia",
+      "hint": "Il comando prune rimuove tutto ciò che non è utilizzato.",
+      "template": [
+        "docker {{sys_cmd}} {{prune_cmd}}"
+      ],
+      "answers": [
+        { "id": "sys_cmd", "accepted": ["system"], "width": "80px" },
+        { "id": "prune_cmd", "accepted": ["prune"], "width": "80px" }
+      ]
+    }
+  ]
+}

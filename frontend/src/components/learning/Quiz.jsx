@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
 import {
   Box,
-  Typography,
   Radio,
   RadioGroup,
   FormControlLabel,
   FormControl,
-  Button,
   Alert,
-  Paper,
   Divider,
 } from '@mui/material';
 import { CheckCircleOutline, ErrorOutline } from '@mui/icons-material';
 
-import KubeButton from './ui/KubeButton';
-import KubePaper from './ui/KubePaper';
+import KubeButton from '../ui/KubeButton';
+import KubePaper from '../ui/KubePaper';
+import KubeTypography from '../ui/KubeTypography';
 
 const Quiz = ({ questions }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -57,10 +55,10 @@ const Quiz = ({ questions }) => {
   if (finished) {
     return (
       <Box sx={{ mt: 4, p: 3, textAlign: 'center' }}>
-        <Typography variant="h5" gutterBottom>🎉 Quiz Completato!</Typography>
-        <Typography variant="body1" sx={{ mb: 3 }}>
+        <KubeTypography variant="h5" weight="bold" sx={{ mb: 2 }}>🎉 Quiz Completato!</KubeTypography>
+        <KubeTypography variant="body1" sx={{ mb: 3 }}>
           Hai risposto correttamente a {score} su {questions.length} domande.
-        </Typography>
+        </KubeTypography>
         <KubeButton variant="contained" onClick={restartQuiz}>Riprova</KubeButton>
       </Box>
     );
@@ -69,31 +67,38 @@ const Quiz = ({ questions }) => {
   const question = questions[currentQuestion];
 
   return (
-    <Box sx={{ mt: 6, mb: 4 }}>
-      <Divider sx={{ mb: 4 }} />
-      <Typography variant="h5" sx={{ mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-        🧠 Esercizio Interattivo ({currentQuestion + 1}/{questions.length})
-      </Typography>
-      <KubePaper sx={{ p: 3, bgcolor: '#fcfcfc' }}>
-        <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
+    <Box id="quiz-section" sx={{ mt: 8, mb: 6 }}>
+      <Divider sx={{ mb: 6 }} />
+      <KubeTypography variant="h5" weight="bold" sx={{ mb: 3, display: 'flex', alignItems: 'center', gap: 1.5 }}>
+        🧠 Quiz di verifica <KubeTypography variant="h6" color="text.secondary" component="span">({currentQuestion + 1}/{questions.length})</KubeTypography>
+      </KubeTypography>
+      <KubePaper sx={{ p: 4, bgcolor: '#ffffff', borderRadius: 4 }}>
+        <KubeTypography variant="h6" weight="semibold" sx={{ mb: 3, color: '#111827' }}>
           {question.question}
-        </Typography>
-        <FormControl component="fieldset" sx={{ width: '100%', mt: 2 }}>
+        </KubeTypography>
+        <FormControl component="fieldset" sx={{ width: '100%' }}>
           <RadioGroup value={selectedOption !== null ? selectedOption : ''} onChange={handleOptionChange}>
             {question.options.map((option, index) => (
               <FormControlLabel
                 key={index}
                 value={index}
-                control={<Radio disabled={showResult} />}
+                control={<Radio disabled={showResult} color="primary" />}
                 label={option}
                 sx={{
-                  my: 0.5,
-                  p: 1,
-                  borderRadius: 2,
-                  bgcolor: showResult && index === question.correct ? 'rgba(76, 175, 80, 0.1)' :
-                           showResult && selectedOption === index && index !== question.correct ? 'rgba(244, 67, 54, 0.1)' : 'transparent',
+                  my: 0.75,
+                  mx: 0,
+                  p: 1.5,
+                  borderRadius: 3,
+                  transition: 'all 0.2s ease',
+                  bgcolor: showResult && index === question.correct ? 'rgba(76, 175, 80, 0.08)' :
+                           showResult && selectedOption === index && index !== question.correct ? 'rgba(244, 67, 54, 0.08)' : 
+                           selectedOption === index ? 'rgba(50, 108, 229, 0.04)' : 'transparent',
                   border: showResult && index === question.correct ? '1px solid #4caf50' :
-                          showResult && selectedOption === index && index !== question.correct ? '1px solid #f44336' : '1px solid transparent'
+                          showResult && selectedOption === index && index !== question.correct ? '1px solid #f44336' : 
+                          selectedOption === index ? '1px solid #326ce540' : '1px solid #e5e7eb',
+                  '&:hover': {
+                    bgcolor: showResult ? 'inherit' : 'rgba(50, 108, 229, 0.02)',
+                  }
                 }}
               />
             ))}
@@ -101,18 +106,18 @@ const Quiz = ({ questions }) => {
         </FormControl>
 
         {showResult && (
-          <Box sx={{ mt: 3 }}>
+          <Box sx={{ mt: 4 }}>
             <Alert
               severity={selectedOption === question.correct ? "success" : "error"}
               icon={selectedOption === question.correct ? <CheckCircleOutline /> : <ErrorOutline />}
-              sx={{ borderRadius: 2 }}
+              sx={{ borderRadius: 3, border: '1px solid', borderColor: selectedOption === question.correct ? '#4caf5030' : '#f4433630' }}
             >
-              <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
-                {selectedOption === question.correct ? "Corretto!" : "Sbagliato!"}
-              </Typography>
-              <Typography variant="body2">{question.explanation}</Typography>
+              <KubeTypography weight="bold" variant="subtitle2" sx={{ mb: 0.5 }}>
+                {selectedOption === question.correct ? "Ottimo lavoro!" : "Quasi corretto!"}
+              </KubeTypography>
+              <KubeTypography variant="body2">{question.explanation}</KubeTypography>
             </Alert>
-            <KubeButton variant="contained" sx={{ mt: 2 }} onClick={handleNextQuestion}>
+            <KubeButton variant="contained" sx={{ mt: 3 }} onClick={handleNextQuestion}>
               {currentQuestion + 1 < questions.length ? "Prossima domanda" : "Vedi risultati"}
             </KubeButton>
           </Box>
@@ -122,7 +127,7 @@ const Quiz = ({ questions }) => {
           <KubeButton
             variant="contained"
             disabled={selectedOption === null}
-            sx={{ mt: 3 }}
+            sx={{ mt: 4, minWidth: 160 }}
             onClick={handleNext}
           >
             Verifica risposta

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useScrollSpy = (content, questions) => {
+export const useScrollSpy = (content, questions, exercises) => {
   const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
@@ -18,13 +18,13 @@ export const useScrollSpy = (content, questions) => {
       }
     );
 
-    const headings = document.querySelectorAll(
-      '.markdown-content h1, .markdown-content h2, .markdown-content h3, #quiz-section'
+    const elements = document.querySelectorAll(
+      '.markdown-content h1, .markdown-content h2, .markdown-content h3, #exercises-section, #quiz-section'
     );
-    headings.forEach((h) => observer.observe(h));
+    elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, [content, questions]);
+  }, [content, questions, exercises]);
 
   return { activeSection, setActiveSection };
 };
