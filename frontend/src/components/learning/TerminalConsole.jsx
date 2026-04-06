@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Box, Paper, Typography, InputBase, Fade, IconButton } from '@mui/material';
 import { Terminal as TerminalIcon, Close as CloseIcon } from '@mui/icons-material';
 import KubeTypography from '../ui/KubeTypography';
-
-const API_BASE = 'http://localhost:5005/api';
+import { API_ENDPOINTS } from '../../config/api';
 
 const TerminalConsole = ({ courses, onClose }) => {
   const [history, setHistory] = useState([
@@ -100,7 +99,7 @@ const TerminalConsole = ({ courses, onClose }) => {
     let questions = [];
     for (const mod of course.modules) {
       try {
-        const res = await fetch(`${API_BASE}/modules/${mod.id}/data`);
+        const res = await fetch(API_ENDPOINTS.MODULES_DATA(mod.id));
         if (res.ok) {
           const data = await res.json();
           const moduleExercises = Array.isArray(data)

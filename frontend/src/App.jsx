@@ -16,6 +16,7 @@ import { introModule } from './config/modules.jsx';
 import { useResizer } from './hooks/useResizer';
 import { useModuleContent } from './hooks/useModuleContent';
 import { useScrollSpy } from './hooks/useScrollSpy';
+import { useAppUI } from './hooks/useAppUI';
 import theme from './theme';
 
 // Layout & UI Components
@@ -41,18 +42,16 @@ import { useAuth } from './context/AuthContext';
 const DEFAULT_DRAWER_WIDTH = 280;
 
 function AppContent() {
-  const { user, hasAccessToProject, buyProject, completeModule } = useAuth();
+  const { user, hasAccessToProject, buyProject, completeModule, updateLastVisitedModule } = useAuth();
   const { width: drawerWidth, isResizing, startResizing } = useResizer(DEFAULT_DRAWER_WIDTH);
-  const [drawerOpen, setDrawerOpen] = useState(true);
-  const [activeCourse, setActiveCourse] = useState(null); // null = Home
-  const [activeModule, setActiveModule] = useState(null);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [isConsoleOpen, setIsConsoleOpen] = useState(false);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [purchaseModalOpen, setPurchaseModalOpen] = useState(false);
-  const [courseToPurchase, setCourseToPurchase] = useState(null);
-  const [isDashboardOpen, setIsDashboardOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false); // Nuovo
+  const {
+    drawerOpen, mobileOpen, activeCourse, activeModule, isConsoleOpen,
+    authModalOpen, purchaseModalOpen, courseToPurchase, view,
+    actions
+  } = useAppUI();
+
+  const isDashboardOpen = view === 'dashboard';
+  const isProfileOpen = view === 'profile';
 
   // Custom Hooks per la gestione dei dati e dello scroll
   const { content, questions, exercises, loading } = useModuleContent(activeModule);
@@ -66,64 +65,79 @@ function AppContent() {
   }, [activeModule, setActiveSection]);
 
   const handleDrawerToggle = useCallback(() => {
-    setDrawerOpen((prev) => !prev);
-    setMobileOpen((prev) => !prev);
-  }, []);
+    actions.toggleDrawer();
+  }, [actions]);
 
   const handleCourseSelect = useCallback((course) => {
     if (course && course.isPrivate && !hasAccessToProject(course.id)) {
-      setCourseToPurchase(course);
-      setPurchaseModalOpen(true);
+      actions.openPurchase(course);
       return;
     }
 
-    setActiveCourse(course);
-    setIsDashboardOpen(false); // Chiudi dashboard se apri un corso
+    actions.selectCourse(course);
+    
     if (course && course.modules && course.modules.length > 0) {
-      setActiveModule(course.modules[0]);
-    } else {
-      setActiveModule(null);
-    }
-    setMobileOpen(false);
-  }, [hasAccessToProject]);
+      // Priorità: il primo modulo NON completato nel corso
+      const firstUncompletedModule = course.modules.find(m => 
+        !user?.completedModules?.includes(`${course.id}-${m.id}`) && 
+        !user?.completedModules?.includes(m.id)
+      );
+      
+      // Se non ci sono moduli incompleti, prendiamo l'ultimo visitato o il primo
+      const backendLastModuleId = user?.lastVisitedModules?.[course.id];
+      const localLastModuleId = localStorage.getItem(`last-mod-${course.id}`);
+      const lastModuleId = backendLastModuleId || localLastModuleId;
+      const lastModule = course.modules.find(m => m.id === lastModuleId);
+      
+      const targetModule = firstUncompletedModule || lastModule || course.modules[0];
+      actions.selectModule(targetModule);
 
-  const handleConfirmPurchase = useCallback(() => {
+      // Sincronizza con il backend se necessario
+      if (user && !backendLastModuleId) {
+        updateLastVisitedModule(course.id, targetModule.id);
+      }
+    } else {
+      actions.selectModule(null);
+    }
+  }, [hasAccessToProject, user, actions, updateLastVisitedModule]);
+
+  const handleConfirmPurchase = useCallback(async () => {
     if (courseToPurchase) {
-      const result = buyProject(courseToPurchase.id);
+      const result = await buyProject(courseToPurchase.id);
       if (result.success) {
-        setPurchaseModalOpen(false);
+        actions.closePurchase();
         handleCourseSelect(courseToPurchase);
       }
     }
-  }, [courseToPurchase, buyProject, handleCourseSelect]);
+  }, [courseToPurchase, buyProject, handleCourseSelect, actions]);
 
   const handleModuleSelect = useCallback((mod) => {
-    setActiveModule(mod);
-    setMobileOpen(false);
-  }, []);
-
-  const handleBackToHome = useCallback((view) => {
-    setActiveCourse(null);
-    setActiveModule(null);
-    if (view === 'dashboard') {
-      setIsDashboardOpen(true);
-      setIsProfileOpen(false);
-    } else if (view === 'profile') {
-      setIsDashboardOpen(false);
-      setIsProfileOpen(true);
-    } else {
-      setIsDashboardOpen(false);
-      setIsProfileOpen(false);
+    actions.selectModule(mod);
+    if (activeCourse && mod) {
+      localStorage.setItem(`last-mod-${activeCourse.id}`, mod.id);
+      if (user) {
+        updateLastVisitedModule(activeCourse.id, mod.id);
+      }
     }
-  }, []);
+  }, [activeCourse, user, updateLastVisitedModule, actions]);
+
+  const handleBackToHome = useCallback((viewType) => {
+    if (viewType === 'dashboard') {
+      actions.openDashboard();
+    } else if (viewType === 'profile') {
+      actions.openProfile();
+    } else {
+      actions.openHome();
+    }
+  }, [actions]);
 
   const handleProfileOpen = useCallback(() => {
     if (!user) {
-      setAuthModalOpen(true);
+      actions.openAuth();
     } else {
       handleBackToHome('profile');
     }
-  }, [user, handleBackToHome]);
+  }, [user, handleBackToHome, actions]);
 
   const handleModuleFinish = useCallback(() => {
     if (activeCourse && activeModule) {
@@ -138,15 +152,8 @@ function AppContent() {
       modules: [introModule],
       isIntro: true
     };
-    setActiveCourse(virtualIntroCourse);
-    setActiveModule(introModule);
-    setMobileOpen(false);
-  }, []);
-
-  const handleToggleConsole = useCallback(() => {
-    setIsConsoleOpen((prev) => !prev);
-    setMobileOpen(false);
-  }, []);
+    handleCourseSelect(virtualIntroCourse);
+  }, [handleCourseSelect]);
 
   const handleSectionSelect = useCallback((anchor) => {
     const element = document.getElementById(anchor);
@@ -160,8 +167,8 @@ function AppContent() {
         behavior: 'smooth'
       });
     }
-    setMobileOpen(false);
-  }, []);
+    actions.setMobileOpen(false);
+  }, [actions]);
 
   const mainContent = useMemo(() => {
     if (!activeCourse) {
@@ -193,7 +200,11 @@ function AppContent() {
                       title="Esercitazioni Pratiche"
                       icon={<AssignmentOutlined />}
                     >
-                      <CodingExercises exercises={exercises} key={`${activeModule.id}-exercises`} />
+                      <CodingExercises 
+                        exercises={exercises} 
+                        key={`${activeModule.id}-exercises`} 
+                        onFinish={handleModuleFinish}
+                      />
                     </KubeSection>
                   )}
 
@@ -240,9 +251,9 @@ function AppContent() {
         activeModule={activeModule}
         onBackToHome={handleBackToHome}
         onOpenIntro={handleOpenIntro}
-        onToggleConsole={handleToggleConsole}
+        onToggleConsole={actions.toggleConsole}
         isConsoleOpen={isConsoleOpen}
-        onOpenAuth={() => setAuthModalOpen(true)}
+        onOpenAuth={actions.openAuth}
         onOpenProfile={handleProfileOpen}
         isDashboardOpen={isDashboardOpen}
         isProfileOpen={isProfileOpen}
@@ -260,16 +271,16 @@ function AppContent() {
       {isConsoleOpen && (
         <TerminalConsole
           courses={courses}
-          onClose={() => setIsConsoleOpen(false)}
+          onClose={actions.toggleConsole}
         />
       )}
-      <AuthModal open={authModalOpen} onClose={() => setAuthModalOpen(false)} />
+      <AuthModal open={authModalOpen} onClose={actions.closeAuth} />
       <PurchaseModal
         open={purchaseModalOpen}
-        onClose={() => setPurchaseModalOpen(false)}
+        onClose={actions.closePurchase}
         course={courseToPurchase}
         onPurchase={handleConfirmPurchase}
-        onOpenAuth={() => setAuthModalOpen(true)}
+        onOpenAuth={actions.openAuth}
       />
     </>
   );

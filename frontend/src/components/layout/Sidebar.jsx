@@ -21,11 +21,12 @@ import {
   Person as PersonIcon,
   Logout as LogoutIcon,
   ShoppingBagOutlined as ShopIcon,
+  CheckCircle as CheckCircleIcon,
 } from '@mui/icons-material';
 import { useAuth } from '../../context/AuthContext';
 import KubeListItem from '../ui/KubeListItem';
 import KubeTypography from '../ui/KubeTypography';
-import { Avatar, Button, Typography } from '@mui/material';
+import { Avatar, Button, Typography, LinearProgress } from '@mui/material';
 
 const SidebarContent = memo(({
   courses,
@@ -80,12 +81,12 @@ const SidebarContent = memo(({
           )}
         </Box>
         {isDesktop && (
-          <IconButton 
-            onClick={handleDrawerToggle} 
-            size="small" 
-            sx={{ 
-              bgcolor: 'white', 
-              boxShadow: '0 2px 8px rgba(0,0,0,0.05)', 
+          <IconButton
+            onClick={handleDrawerToggle}
+            size="small"
+            sx={{
+              bgcolor: 'white',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
               '&:hover': { bgcolor: '#f3f4f6' },
               display: drawerOpen ? 'flex' : 'none' // Lo mostriamo solo se aperto qui, se chiuso usiamo quello sotto o quello in header
             }}
@@ -125,6 +126,22 @@ const SidebarContent = memo(({
         >
           {activeCourse ? 'CONTENUTO CORSO' : 'ESPLORA PERCORSI'}
         </KubeTypography>
+      )}
+
+      {drawerOpen && activeCourse && !activeCourse.isIntro && (
+        <Box sx={{ px: 2, mb: 2 }}>
+           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
+              <KubeTypography variant="caption" color="text.secondary">Il tuo progresso</KubeTypography>
+              <KubeTypography variant="caption" weight="bold">
+                {Math.round((modules.filter(m => user?.completedModules?.includes(`${activeCourse.id}-${m.id}`) || user?.completedModules?.includes(m.id)).length / (modules.length || 1)) * 100)}%
+              </KubeTypography>
+           </Box>
+           <LinearProgress 
+              variant="determinate" 
+              value={(modules.filter(m => user?.completedModules?.includes(`${activeCourse.id}-${m.id}`) || user?.completedModules?.includes(m.id)).length / (modules.length || 1)) * 100} 
+              sx={{ height: 4, borderRadius: 2, bgcolor: '#f1f5f9', '& .MuiLinearProgress-bar': { borderRadius: 2 } }}
+           />
+        </Box>
       )}
 
       {!activeCourse ? (
@@ -167,8 +184,23 @@ const SidebarContent = memo(({
                 onClick={() => handleModuleSelect(mod)}
                 active={activeModule && activeModule.id === mod.id}
                 hideText={!drawerOpen}
-                icon={React.cloneElement(mod.icon, { fontSize: 'small' })}
-                primary={mod.title}
+                icon={React.cloneElement(mod.icon, { 
+                  fontSize: 'small',
+                  sx: { color: (user?.completedModules?.includes(`${activeCourse.id}-${mod.id}`) || user?.completedModules?.includes(mod.id)) ? '#10b981' : 'inherit' }
+                })}
+                primary={
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, justifyContent: 'space-between', width: '100%' }}>
+                    <Typography variant="body2" sx={{ 
+                      fontWeight: (activeModule && activeModule.id === mod.id) ? 700 : 500,
+                      fontSize: '0.875rem'
+                    }}>
+                      {mod.title}
+                    </Typography>
+                    {drawerOpen && (user?.completedModules?.includes(`${activeCourse.id}-${mod.id}`) || user?.completedModules?.includes(mod.id)) && (
+                      <CheckCircleIcon sx={{ fontSize: 16, color: '#10b981', flexShrink: 0 }} />
+                    )}
+                  </Box>
+                }
                 secondary={
                   drawerOpen && (mod.level || mod.time) ? (
                     <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
@@ -233,17 +265,17 @@ const SidebarContent = memo(({
         </>
       )}
       </Box>
-      
+
       {!drawerOpen && isDesktop && (
         <Box sx={{ p: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, mb: 2 }}>
-            <IconButton 
-              onClick={handleDrawerToggle} 
-              size="small" 
-              sx={{ 
-                bgcolor: '#326ce5', 
+            <IconButton
+              onClick={handleDrawerToggle}
+              size="small"
+              sx={{
+                bgcolor: '#326ce5',
                 color: 'white',
                 boxShadow: '0 4px 12px rgba(50, 108, 229, 0.3)',
-                '&:hover': { bgcolor: '#285ad1' } 
+                '&:hover': { bgcolor: '#285ad1' }
               }}
             >
                 <ChevronRightIcon fontSize="small" />

@@ -3,7 +3,7 @@ const db = require('../config/db');
 
 exports.register = async (req, res) => {
   const { name, email, password } = req.body;
-  
+
   if (!name || !email || !password) {
     return res.status(400).json({ success: false, message: 'Tutti i campi sono obbligatori' });
   }
@@ -24,8 +24,8 @@ exports.register = async (req, res) => {
       [name, email, hashedPassword]
     );
 
-    const newUser = { id: result.insertId, name, email };
-    
+    const newUser = { id: result.insertId, name, email, avatar_url: null };
+
     // Inizializza sessione
     req.session.user = newUser;
 
@@ -51,7 +51,7 @@ exports.login = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Credenziali non valide' });
     }
 
-    const userData = { id: user.id, name: user.name, email: user.email };
+    const userData = { id: user.id, name: user.name, email: user.email, avatar_url: user.avatar_url };
     req.session.user = userData;
 
     res.json({ success: true, user: userData });
@@ -78,7 +78,7 @@ exports.getMe = async (req, res) => {
 
   try {
     const userId = req.session.user.id;
-    
+
     // Recupera acquisti
     const [purchases] = await db.query('SELECT course_id FROM user_purchases WHERE user_id = ?', [userId]);
     const purchasedProjects = purchases.map(p => p.course_id);
@@ -87,12 +87,20 @@ exports.getMe = async (req, res) => {
     const [progress] = await db.query('SELECT module_key FROM user_progress WHERE user_id = ?', [userId]);
     const completedModules = progress.map(p => p.module_key);
 
+    // Recupera ultimo modulo per corso
+    const [status] = await db.query('SELECT course_id, last_module_id FROM user_course_status WHERE user_id = ?', [userId]);
+    const lastVisitedModules = {};
+    status.forEach(s => {
+      lastVisitedModules[s.course_id] = s.last_module_id;
+    });
+
     res.json({
       success: true,
       user: {
         ...req.session.user,
         purchasedProjects,
-        completedModules
+        completedModules,
+        lastVisitedModules
       }
     });
   } catch (error) {

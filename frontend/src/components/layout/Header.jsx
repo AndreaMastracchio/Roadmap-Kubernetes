@@ -10,6 +10,7 @@ import {
 } from '@mui/icons-material';
 import KubeTypography from '../ui/KubeTypography';
 import { useAuth } from '../../context/AuthContext';
+import API_BASE from '../../config/api';
 
 const Header = memo(({ 
   drawerOpen, 
@@ -203,7 +204,10 @@ const Header = memo(({
                 size="small"
                 sx={{ ml: 1, p: 0.5, border: '1px solid #e2e8f0' }}
               >
-                <Avatar sx={{ width: 32, height: 32, bgcolor: '#326ce5', fontSize: '0.875rem' }}>
+                <Avatar 
+                  src={user.avatar_url ? `${API_BASE.replace('/api', '')}${user.avatar_url}` : null}
+                  sx={{ width: 32, height: 32, bgcolor: '#326ce5', fontSize: '0.875rem' }}
+                >
                   {user.name?.charAt(0) || user.email?.charAt(0).toUpperCase()}
                 </Avatar>
               </IconButton>

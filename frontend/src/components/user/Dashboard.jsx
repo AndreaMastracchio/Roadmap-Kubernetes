@@ -74,6 +74,14 @@ const Dashboard = ({ onSelectCourse }) => {
             {userCourses.length > 0 ? (
               userCourses.map(course => {
                 const progress = calculateProgress(course);
+                const firstUncompletedModule = course.modules?.find(m => 
+                  !user.completedModules?.includes(`${course.id}-${m.id}`) && 
+                  !user.completedModules?.includes(m.id)
+                );
+                const lastVisitedModuleId = user?.lastVisitedModules?.[course.id];
+                const lastVisitedModule = course.modules?.find(m => m.id === lastVisitedModuleId);
+                const resumeModule = firstUncompletedModule || lastVisitedModule;
+                
                 return (
                   <Grid item xs={12} md={6} lg={4} key={course.id}>
                     <KubeCard 
@@ -86,7 +94,9 @@ const Dashboard = ({ onSelectCourse }) => {
                                 <Box sx={{ color: course.color, display: 'flex' }}>{course.icon}</Box>
                                 <Box>
                                   <KubeTypography weight="bold">{course.title}</KubeTypography>
-                                  <KubeTypography variant="caption" color="text.secondary">{course.modules?.length || 0} Moduli</KubeTypography>
+                                  <KubeTypography variant="caption" color="text.secondary">
+                                    {progress === 100 ? 'Completato!' : (resumeModule ? `Prossimo: ${resumeModule.title}` : `${course.modules?.length || 0} Moduli`)}
+                                  </KubeTypography>
                                 </Box>
                              </Box>
                              <Chip 

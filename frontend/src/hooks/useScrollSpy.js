@@ -6,43 +6,37 @@ export const useScrollSpy = (content, questions, exercises) => {
   useEffect(() => {
     let observer;
     
-    // Piccolo timeout per assicurarsi che il DOM sia stato aggiornato da ReactMarkdown
     const timer = setTimeout(() => {
-      observer = new IntersectionObserver(
-        (entries) => {
-          // Filtriamo solo gli elementi che stanno entrando nella "zona attiva"
-          const visibleEntries = entries.filter(entry => entry.isIntersecting);
-          
-          if (visibleEntries.length > 0) {
-            // Se più elementi sono visibili, prendiamo quello più in alto nella zona attiva
-            // Questo gestisce meglio lo scorrimento veloce
-            const sorted = visibleEntries.sort((a, b) => 
-              a.boundingClientRect.top - b.boundingClientRect.top
-            );
-            
-            if (sorted[0].target.id) {
-              setActiveSection(sorted[0].target.id);
-            }
-          }
-        },
-        {
-          // Zona attiva: tra 100px dal top (sotto l'AppBar) e il 40% dell'altezza schermo
-          // Una zona più ampia rende lo scroll spy più fluido e meno "nervoso"
-          rootMargin: '-100px 0px -60% 0px',
-          threshold: 0,
-        }
-      );
-
       const elements = document.querySelectorAll(
         '.markdown-content h1, .markdown-content h2, .markdown-content h3, #exercises-section, #quiz-section'
       );
-      
-      elements.forEach((el) => {
-        if (el.id) {
-          observer.observe(el);
+
+      const callback = (entries) => {
+        // Troviamo l'elemento che sta più in alto ma è ancora visibile nella viewport (sotto l'header)
+        const intersecting = entries.filter(e => e.isIntersecting);
+        
+        if (intersecting.length > 0) {
+          // Ordiniamo per posizione nel viewport (top)
+          const sorted = intersecting.sort((a, b) => 
+            a.boundingClientRect.top - b.boundingClientRect.top
+          );
+          
+          if (sorted[0].target.id) {
+            setActiveSection(sorted[0].target.id);
+          }
         }
+      };
+
+      observer = new IntersectionObserver(callback, {
+        // Monitoriamo una zona che parte dall'header (100px) e copre buona parte della metà superiore
+        rootMargin: '-100px 0px -40% 0px',
+        threshold: [0, 0.1, 0.5, 1]
       });
-    }, 150);
+
+      elements.forEach((el) => {
+        if (el.id) observer.observe(el);
+      });
+    }, 500); // Ritardo leggermente maggiore per assicurarsi che Markdown sia renderizzato
 
     return () => {
       clearTimeout(timer);

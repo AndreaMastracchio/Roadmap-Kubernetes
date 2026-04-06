@@ -7,14 +7,34 @@ DEV_COMPOSE="docker-compose.dev.yml"
 echo "🧹 Pulizia ambiente precedente..."
 docker compose -f "$DEV_COMPOSE" down > /dev/null 2>&1
 
-echo "🚀 Avvio dell'ambiente di sviluppo (Frontend + Backend + Database + Redis)..."
-echo "📍 Frontend: http://localhost:8080"
-echo "📍 Backend:  http://localhost:5005/api/health"
-echo "ℹ️  I log mostreranno l'attività di tutti i servizi."
-echo "💡 Premi Ctrl+C per fermare la visualizzazione dei log (il container rimarrà attivo)."
-echo "🛑 Per spegnere tutto usa: ./bin/stop"
+# Pulizia cache Vite per prevenire l'errore "Outdated Optimize Dep"
+if [ -d "frontend/node_modules/.vite" ]; then
+    echo "🧹 Pulizia cache locale Vite..."
+    rm -rf frontend/node_modules/.vite
+fi
+
+echo "🚀 Avvio dello stack di sviluppo..."
+# Avvia i container
+docker compose -f "$DEV_COMPOSE" up -d
+
+echo "⏳ In attesa che il database sia pronto (questo può richiedere un momento)..."
+# Un piccolo loop per monitorare l'health del database
+for i in {1..20}; do
+    if docker compose -f "$DEV_COMPOSE" ps db | grep -q "healthy"; then
+        echo "✅ Database pronto!"
+        break
+    fi
+    echo -n "."
+    sleep 2
+done
 echo ""
 
-# Avvia in background e segui i log
-docker compose -f "$DEV_COMPOSE" up -d
-docker compose -f "$DEV_COMPOSE" logs -f
+echo "📍 Frontend: http://localhost:8080"
+echo "📍 Backend:  http://localhost:5005/api/health"
+echo "ℹ️  Visualizzazione log in corso..."
+echo "💡 Premi Ctrl+C per uscire dai log (i container rimarranno attivi)."
+echo "🛑 Per spegnere tutto: ./bin/stop"
+echo ""
+
+# Segui i log
+docker compose -f "$DEV_COMPOSE" logs -f --tail=20

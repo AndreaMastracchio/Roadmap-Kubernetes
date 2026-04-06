@@ -18,6 +18,9 @@ const redisClient = new Redis({
   port: process.env.REDIS_PORT || 6379,
 });
 
+redisClient.on('error', (err) => console.error('Redis Client Error:', err));
+redisClient.on('connect', () => console.log('Redis Client Connected'));
+
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 
@@ -30,10 +33,16 @@ app.use(cors({
 app.use(morgan('dev'));
 app.use(express.json());
 
+// Servire file statici (avatar)
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
 // Sessioni con Redis
 app.use(
   session({
-    store: new RedisStore({ client: redisClient }),
+    store: new RedisStore({
+      client: redisClient,
+      prefix: 'kubesess:',
+    }),
     name: 'kubesid',
     secret: process.env.SESSION_SECRET || 'secret',
     resave: false,
@@ -42,6 +51,7 @@ app.use(
       secure: process.env.NODE_ENV === 'production',
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 giorni
+      sameSite: 'lax', // Importante per cookie in cross-origin locale (8080 <-> 5005)
     },
   })
 );
@@ -54,7 +64,7 @@ app.use('/api/user', userRoutes);
 app.get('/api/modules/:moduleId', async (req, res) => {
   try {
     const { moduleId } = req.params;
-    
+
     // In Docker usiamo il mount point fisso, in locale usiamo il path relativo
     let baseDir = '/project_public';
     try {
@@ -99,7 +109,7 @@ app.get('/api/modules/:moduleId', async (req, res) => {
 app.get('/api/modules/:moduleId/data', async (req, res) => {
   try {
     const { moduleId } = req.params;
-    
+
     // In Docker usiamo il mount point fisso, in locale usiamo il path relativo
     let baseDir = '/project_public';
     try {

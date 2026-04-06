@@ -4,7 +4,7 @@ import CodingExercise from './CodingExercise';
 import KubeButton from '../ui/KubeButton';
 import KubeTypography from '../ui/KubeTypography';
 
-const CodingExercises = ({ exercises }) => {
+const CodingExercises = ({ exercises, onFinish }) => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [completedExercises, setCompletedExercises] = useState([]);
   const [finished, setFinished] = useState(false);
@@ -22,6 +22,7 @@ const CodingExercises = ({ exercises }) => {
       setCurrentIdx(currentIdx + 1);
     } else {
       setFinished(true);
+      if (onFinish) onFinish();
     }
   };
 

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-
-const API_BASE = 'http://localhost:5005/api';
+import { API_ENDPOINTS } from '../config/api';
 
 export const useModuleContent = (activeModule) => {
   const [content, setContent] = useState('');
@@ -25,14 +24,14 @@ export const useModuleContent = (activeModule) => {
     const loadContent = async () => {
       try {
         // Fetch Markdown dal backend
-        const mdRes = await fetch(`${API_BASE}/modules/${activeModule.id}`);
+        const mdRes = await fetch(API_ENDPOINTS.MODULES(activeModule.id));
         if (!mdRes.ok) throw new Error('Modulo non trovato');
         const mdText = await mdRes.text();
 
         // Fetch Data (Quiz & Exercises) dal backend
         let data = { quiz: [], exercises: [] };
         try {
-          const jsonRes = await fetch(`${API_BASE}/modules/${activeModule.id}/data`);
+          const jsonRes = await fetch(API_ENDPOINTS.MODULES_DATA(activeModule.id));
           if (jsonRes.ok) {
             const rawData = await jsonRes.json();
             if (Array.isArray(rawData)) {

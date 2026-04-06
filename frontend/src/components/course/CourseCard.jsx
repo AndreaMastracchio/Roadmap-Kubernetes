@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Chip, Tooltip } from '@mui/material';
+import { Box, Chip, Tooltip, LinearProgress } from '@mui/material';
 import { AccessTime as TimeIcon, ChevronRight as ArrowIcon, LockOutlined as LockIcon, CheckCircle as OwnedIcon } from '@mui/icons-material';
 import KubeCard from '../ui/KubeCard';
 import KubeTypography from '../ui/KubeTypography';
@@ -10,6 +10,20 @@ const CourseCard = ({ course, onSelect }) => {
   const hasAccess = hasAccessToProject(course.id);
   const isPrivate = course.isPrivate;
   const isOwned = user && user.purchasedProjects.includes(course.id);
+
+  const progress = user && course.modules ? 
+    Math.round((course.modules.filter(m => user.completedModules?.includes(`${course.id}-${m.id}`) || user.completedModules?.includes(m.id)).length / (course.modules.length || 1)) * 100) : 0;
+
+  const firstUncompletedModule = course.modules?.find(m => 
+    !user?.completedModules?.includes(`${course.id}-${m.id}`) && 
+    !user?.completedModules?.includes(m.id)
+  );
+
+  const lastVisitedModuleId = user?.lastVisitedModules?.[course.id];
+  const lastVisitedModule = course.modules?.find(m => m.id === lastVisitedModuleId);
+
+  // Il modulo da suggerire per la ripresa
+  const resumeModule = firstUncompletedModule || lastVisitedModule;
 
   const handleClick = () => {
     if (course.comingSoon) return; // Se coming soon non facciamo nulla
@@ -107,6 +121,22 @@ const CourseCard = ({ course, onSelect }) => {
           </Box>
         )}
       </Box>
+
+      {(user && hasAccess && !course.comingSoon) && (
+        <Box sx={{ mt: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
+            <KubeTypography variant="caption" color="text.secondary" sx={{ maxWidth: '80%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {progress === 100 ? 'Corso Completato!' : (resumeModule ? `Riprendi: ${resumeModule.title}` : 'Inizia il corso')}
+            </KubeTypography>
+            <KubeTypography variant="caption" weight="bold">{progress}%</KubeTypography>
+          </Box>
+          <LinearProgress 
+            variant="determinate" 
+            value={progress} 
+            sx={{ height: 4, borderRadius: 2, bgcolor: '#f1f5f9', '& .MuiLinearProgress-bar': { borderRadius: 2, bgcolor: progress === 100 ? '#10b981' : 'primary.main' } }}
+          />
+        </Box>
+      )}
     </KubeCard>
   );
 };

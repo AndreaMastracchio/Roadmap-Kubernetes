@@ -44,3 +44,4 @@ docker-compose.override.yml
 docs
 private
 project_private/
+cookies.txt

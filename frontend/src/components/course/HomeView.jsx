@@ -10,16 +10,16 @@ const HomeView = ({ onSelectCourse }) => {
   return (
     <KubeContainer maxWidth="xl" sx={{ mt: 6, mb: 10 }}>
       <Box sx={{ mb: 8, textAlign: 'center' }}>
-        <KubeTypography 
-          variant="h3" 
+        <KubeTypography
+          variant="h3"
           weight="bold"
           sx={{ mb: 2, fontSize: { xs: '2rem', md: '3rem' } }}
         >
           I tuoi percorsi di studio
         </KubeTypography>
-        <KubeTypography 
-          variant="h6" 
-          color="text.secondary" 
+        <KubeTypography
+          variant="h6"
+          color="text.secondary"
           sx={{ maxWidth: 700, mx: 'auto', lineHeight: 1.6 }}
         >
           Esplora la nostra libreria di corsi e roadmap per padroneggiare Kubernetes e l'ecosistema Cloud Native.
@@ -30,25 +30,25 @@ const HomeView = ({ onSelectCourse }) => {
         I Nostri Percorsi
       </KubeTypography>
 
-      <KubeGrid 
+      <KubeGrid
         columns={{
           xs: 1,
           sm: 2,
-          md: 'auto auto auto'
+          md: 3
         }}
         gap={4}
       >
         {courses.filter(c => !c.comingSoon).map((course) => (
-          <Box 
-            key={course.id} 
-            sx={{ 
+          <Box
+            key={course.id}
+            sx={{
               minWidth: 0,
               width: '100%'
             }}
           >
-            <CourseCard 
-              course={course} 
-              onSelect={onSelectCourse} 
+            <CourseCard
+              course={course}
+              onSelect={onSelectCourse}
             />
           </Box>
         ))}
@@ -58,26 +58,26 @@ const HomeView = ({ onSelectCourse }) => {
         Prossimamente
       </KubeTypography>
 
-      <KubeGrid 
+      <KubeGrid
         columns={{
           xs: 1,
           sm: 2,
-          md: 'auto auto auto'
+          md: 3
         }}
         gap={4}
         sx={{ opacity: 0.8 }}
       >
         {courses.filter(c => c.comingSoon).map((course) => (
-          <Box 
-            key={course.id} 
-            sx={{ 
+          <Box
+            key={course.id}
+            sx={{
               minWidth: 0,
               width: '100%'
             }}
           >
-            <CourseCard 
-              course={course} 
-              onSelect={onSelectCourse} 
+            <CourseCard
+              course={course}
+              onSelect={onSelectCourse}
             />
           </Box>
         ))}
