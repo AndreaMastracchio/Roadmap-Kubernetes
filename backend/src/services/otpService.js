@@ -35,6 +35,7 @@ const verifyOTP = async (phone, otp) => {
 
 const sendOTP = async (phone, otp) => {
   const message = `Il tuo codice di verifica KubeStudy è: ${otp}`;
+  let isMock = false;
   
   if (client && twilioPhone) {
     try {
@@ -48,10 +49,13 @@ const sendOTP = async (phone, otp) => {
       console.error('Errore invio SMS Twilio:', error);
       // Fallback su console in caso di errore config
       console.log(`[MOCK SMS] A: ${phone} | Messaggio: ${message}`);
+      isMock = true;
     }
   } else {
     console.log(`[MOCK SMS] A: ${phone} | Messaggio: ${message}`);
+    isMock = true;
   }
+  return isMock;
 };
 
 module.exports = {

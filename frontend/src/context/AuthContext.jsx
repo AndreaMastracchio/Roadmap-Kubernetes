@@ -14,16 +14,16 @@ const authReducer = (state, action) => {
     case 'AUTH_START':
       return { ...state, loading: true, error: null };
     case 'AUTH_SUCCESS':
-      return { 
-        ...state, 
-        loading: false, 
+      return {
+        ...state,
+        loading: false,
         user: {
           ...action.payload,
           purchasedProjects: action.payload.purchasedProjects || [],
           completedModules: action.payload.completedModules || [],
           lastVisitedModules: action.payload.lastVisitedModules || {}
-        }, 
-        error: null 
+        },
+        error: null
       };
     case 'AUTH_FAILURE':
       return { ...state, loading: false, user: null, error: action.payload };
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
       if (data.success) {
         if (data.requiresOTP) {
           dispatch({ type: 'AUTH_FAILURE', payload: null }); // Rimuove errori precedenti
-          return { success: true, requiresOTP: true, phone: data.phone };
+          return { success: true, requiresOTP: true, phone: data.phone, otp: data.otp };
         }
         const meRes = await fetch(API_ENDPOINTS.AUTH.ME, { credentials: 'include' });
         const meData = await meRes.json();
@@ -101,7 +101,7 @@ export const AuthProvider = ({ children }) => {
       if (data.success) {
         if (data.requiresOTP) {
           dispatch({ type: 'AUTH_FAILURE', payload: null });
-          return { success: true, requiresOTP: true, phone: data.phone };
+          return { success: true, requiresOTP: true, phone: data.phone, otp: data.otp };
         }
         dispatch({ type: 'AUTH_SUCCESS', payload: data.user });
         return { success: true };
@@ -178,8 +178,8 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       if (data.success) {
-        dispatch({ 
-          type: 'UPDATE_USER', 
+        dispatch({
+          type: 'UPDATE_USER',
           payload: { purchasedProjects: [...(state.user.purchasedProjects || []), projectId] }
         });
         return { success: true };
@@ -258,8 +258,8 @@ export const AuthProvider = ({ children }) => {
       const data = await response.json();
       if (data.success) {
         if (!state.user.completedModules?.includes(moduleId)) {
-          dispatch({ 
-            type: 'UPDATE_USER', 
+          dispatch({
+            type: 'UPDATE_USER',
             payload: { completedModules: [...(state.user.completedModules || []), moduleId] }
           });
         }
@@ -280,9 +280,9 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       if (data.success) {
-        dispatch({ 
-          type: 'UPDATE_USER', 
-          payload: { 
+        dispatch({
+          type: 'UPDATE_USER',
+          payload: {
             lastVisitedModules: {
               ...(state.user.lastVisitedModules || {}),
               [courseId]: moduleId
@@ -296,14 +296,14 @@ export const AuthProvider = ({ children }) => {
   }, [state.user]);
 
   return (
-    <AuthContext.Provider value={{ 
+    <AuthContext.Provider value={{
       ...state,
-      login, 
-      register, 
-      logout, 
+      login,
+      register,
+      logout,
       verifyOTP,
       resendOTP,
-      hasAccessToProject, 
+      hasAccessToProject,
       buyProject,
       updateProfile,
       changePassword,

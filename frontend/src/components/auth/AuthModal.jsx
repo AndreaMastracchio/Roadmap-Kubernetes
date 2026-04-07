@@ -44,7 +44,12 @@ const AuthModal = ({ open, onClose }) => {
     setMessage('');
     const result = await resendOTP(pendingPhone);
     if (result.success) {
-      setMessage('Codice reinviato con successo');
+      if (result.otp) {
+        setOtp(result.otp);
+        setMessage(`Nuovo codice di test generato: ${result.otp}`);
+      } else {
+        setMessage('Codice reinviato con successo');
+      }
     } else {
       setError(result.message);
     }
@@ -74,6 +79,10 @@ const AuthModal = ({ open, onClose }) => {
         if (result.requiresOTP) {
           setShowOTP(true);
           setPendingPhone(result.phone);
+          if (result.otp) {
+            setOtp(result.otp);
+            setMessage(`Codice di test generato (Modalità Sviluppo): ${result.otp}`);
+          }
         } else {
           onClose();
         }
@@ -86,6 +95,10 @@ const AuthModal = ({ open, onClose }) => {
         if (result.requiresOTP) {
           setShowOTP(true);
           setPendingPhone(result.phone);
+          if (result.otp) {
+            setOtp(result.otp);
+            setMessage(`Codice di test generato (Modalità Sviluppo): ${result.otp}`);
+          }
         } else {
           onClose();
         }
