@@ -65,7 +65,7 @@ const CodingExercise = ({ exercise, onComplete }) => {
                 if (part.startsWith('{{') && part.endsWith('}}')) {
                   const id = part.slice(2, -2);
                   const isFieldCorrect = results[id];
-                  const ansConfig = exercise.answers.find(a => a.id === id);
+                  const ansConfig = exercise.answers?.find(a => a.id === id);
 
                   return (
                     <TextField

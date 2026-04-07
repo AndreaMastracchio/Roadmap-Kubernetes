@@ -34,10 +34,11 @@ const CodingExercises = ({ exercises, onFinish }) => {
 
   if (finished) {
     return (
-      <Box sx={{ mt: 4, p: 4, textAlign: 'center', bgcolor: 'rgba(76, 175, 80, 0.05)', borderRadius: 4, border: '1px dashed #4caf50' }}>
-        <KubeTypography variant="h5" weight="bold" gutterBottom>🎉 Esercitazioni Completate!</KubeTypography>
+      <Box sx={{ mt: 4, p: 4, textAlign: 'center', bgcolor: 'rgba(16, 185, 129, 0.05)', borderRadius: 4, border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+        <KubeTypography variant="h5" weight="bold" sx={{ mb: 2, color: '#065f46' }}>🎉 Esercitazioni Completate!</KubeTypography>
         <KubeTypography variant="body1" sx={{ mb: 3 }}>
           Ottimo lavoro! Hai completato tutte le sfide di coding di questo modulo.
+          Il tuo progresso è stato salvato con successo.
         </KubeTypography>
         <KubeButton variant="contained" onClick={restart}>Ricomincia</KubeButton>
       </Box>

@@ -13,6 +13,7 @@ import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
   QuizOutlined,
+  AssignmentOutlined,
   SignalCellularAlt,
   SignalCellularAlt1Bar,
   SignalCellularAlt2Bar,
@@ -29,12 +30,14 @@ import KubeTypography from '../ui/KubeTypography';
 import { Avatar, Button, Typography, LinearProgress } from '@mui/material';
 
 const SidebarContent = memo(({
-  courses,
+  courses = [],
   activeCourse,
-  modules,
+  modules = [],
+  sections = [],
   activeModule,
   activeSection,
-  questions,
+  questions = [],
+  exercises = [],
   handleCourseSelect,
   handleModuleSelect,
   handleSectionSelect,
@@ -43,7 +46,7 @@ const SidebarContent = memo(({
   isConsoleOpen,
   onOpenAuth,
   isDesktop,
-  drawerOpen // Aggiunto
+  drawerOpen
 }) => {
   const { user, logout } = useAuth();
 
@@ -136,9 +139,9 @@ const SidebarContent = memo(({
                 {Math.round((modules.filter(m => user?.completedModules?.includes(`${activeCourse.id}-${m.id}`) || user?.completedModules?.includes(m.id)).length / (modules.length || 1)) * 100)}%
               </KubeTypography>
            </Box>
-           <LinearProgress 
-              variant="determinate" 
-              value={(modules.filter(m => user?.completedModules?.includes(`${activeCourse.id}-${m.id}`) || user?.completedModules?.includes(m.id)).length / (modules.length || 1)) * 100} 
+           <LinearProgress
+              variant="determinate"
+              value={(modules.filter(m => user?.completedModules?.includes(`${activeCourse.id}-${m.id}`) || user?.completedModules?.includes(m.id)).length / (modules.length || 1)) * 100}
               sx={{ height: 4, borderRadius: 2, bgcolor: '#f1f5f9', '& .MuiLinearProgress-bar': { borderRadius: 2 } }}
            />
         </Box>
@@ -184,13 +187,13 @@ const SidebarContent = memo(({
                 onClick={() => handleModuleSelect(mod)}
                 active={activeModule && activeModule.id === mod.id}
                 hideText={!drawerOpen}
-                icon={React.cloneElement(mod.icon, { 
+                icon={React.cloneElement(mod.icon, {
                   fontSize: 'small',
                   sx: { color: (user?.completedModules?.includes(`${activeCourse.id}-${mod.id}`) || user?.completedModules?.includes(mod.id)) ? '#10b981' : 'inherit' }
                 })}
                 primary={
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, justifyContent: 'space-between', width: '100%' }}>
-                    <Typography variant="body2" sx={{ 
+                    <Typography variant="body2" sx={{
                       fontWeight: (activeModule && activeModule.id === mod.id) ? 700 : 500,
                       fontSize: '0.875rem'
                     }}>
@@ -232,29 +235,29 @@ const SidebarContent = memo(({
 
               <Collapse in={drawerOpen && activeModule && activeModule.id === mod.id} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding sx={{ mb: 1, ml: 2, borderLeft: '1px solid #e5e7eb', my: 0.5 }}>
-                  {mod.sections && mod.sections.map((section) => (
+                  {mod.id === activeModule?.id && exercises.length > 0 && (
                     <KubeListItem
-                      key={section.id}
-                      onClick={() => handleSectionSelect(section.anchor)}
-                      active={activeSection === section.anchor}
-                      primary={section.title}
+                      onClick={() => handleSectionSelect('exercises-section')}
+                      active={activeSection === 'exercises-section'}
+                      icon={<AssignmentOutlined sx={{ fontSize: 16 }} />}
+                      primary="Esercitazioni Pratiche"
                       sx={{ py: 0, '& .MuiListItemButton-root': { py: 0.5, borderRadius: '0 8px 8px 0', ml: 0 } }}
                       primaryTypographyProps={{
                         fontSize: '0.8rem',
-                        color: activeSection === section.anchor ? '#326ce5' : '#6b7280'
+                        color: activeSection === 'exercises-section' ? '#326ce5' : '#6b7280'
                       }}
                     />
-                  ))}
+                  )}
                   {mod.id === activeModule?.id && questions.length > 0 && (
                     <KubeListItem
                       onClick={() => handleSectionSelect('quiz-section')}
                       active={activeSection === 'quiz-section'}
                       icon={<QuizOutlined sx={{ fontSize: 16 }} />}
-                      primary="Quiz di verifica"
+                      primary="Verifica delle Conoscenze"
                       sx={{ py: 0, '& .MuiListItemButton-root': { py: 0.5, borderRadius: '0 8px 8px 0', ml: 0 } }}
                       primaryTypographyProps={{
                         fontSize: '0.8rem',
-                        color: activeSection === 'quiz-section' ? '#326ce5' : '#326ce5'
+                        color: activeSection === 'quiz-section' ? '#326ce5' : '#6b7280'
                       }}
                     />
                   )}
@@ -296,6 +299,7 @@ const Sidebar = memo((props) => {
     startResizing,
     isResizing,
     isDesktop,
+    sections,
     onToggleConsole,
     isConsoleOpen,
     onOpenAuth,
@@ -329,6 +333,7 @@ const Sidebar = memo((props) => {
       >
         <SidebarContent
           {...otherProps}
+          sections={sections}
           onToggleConsole={onToggleConsole}
           isConsoleOpen={isConsoleOpen}
           onOpenAuth={onOpenAuth}
@@ -357,6 +362,7 @@ const Sidebar = memo((props) => {
       >
         <SidebarContent
           {...otherProps}
+          sections={sections}
           onToggleConsole={onToggleConsole}
           isConsoleOpen={isConsoleOpen}
           onOpenAuth={onOpenAuth}

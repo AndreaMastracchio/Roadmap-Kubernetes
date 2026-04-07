@@ -12,8 +12,8 @@ import { QuizOutlined, AssignmentOutlined, Terminal as TerminalIcon } from '@mui
 
 // Config & Hooks
 import { AuthProvider } from './context/AuthContext';
-import { courses } from './config/courses.jsx';
-import { introModule } from './config/modules.jsx';
+import { API_ENDPOINTS } from './config/api';
+import { getIcon } from './utils/iconMapper';
 import { useResizer } from './hooks/useResizer';
 import { useModuleContent } from './hooks/useModuleContent';
 import { useScrollSpy } from './hooks/useScrollSpy';
@@ -32,10 +32,8 @@ import KubeSection from './components/ui/KubeSection';
 import ErrorBoundary from './components/ui/ErrorBoundary';
 import HomeView from './components/course/HomeView';
 import Dashboard from './components/user/Dashboard';
-import Profile from './components/user/Profile'; // Nuovo
-import Quiz from './components/learning/Quiz';
-import CodingExercises from './components/learning/CodingExercises';
-import NavigationButtons from './components/learning/NavigationButtons';
+import Profile from './components/user/Profile';
+import ModuleViewer from './components/learning/ModuleViewer';
 import TerminalConsole from './components/learning/TerminalConsole';
 import AuthModal from './components/auth/AuthModal';
 import PurchaseModal from './components/course/PurchaseModal';
@@ -46,17 +44,47 @@ const DEFAULT_DRAWER_WIDTH = 280;
 function AppContent() {
   const { user, hasAccessToProject, buyProject, completeModule, updateLastVisitedModule } = useAuth();
   const { width: drawerWidth, isResizing, startResizing } = useResizer(DEFAULT_DRAWER_WIDTH);
+  const [courses, setCourses] = useState([]);
   const {
     drawerOpen, mobileOpen, activeCourse, activeModule, isConsoleOpen,
     authModalOpen, purchaseModalOpen, courseToPurchase, view,
     actions
   } = useAppUI();
 
+  // Caricamento corsi dal backend
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch(API_ENDPOINTS.COURSES.LIST);
+        if (!res.ok) throw new Error('Errore caricamento corsi');
+        const data = await res.json();
+
+        if (!Array.isArray(data)) {
+          console.error('Data caricata non è un array:', data);
+          return;
+        }
+
+        const mapped = data.map(c => ({
+          ...c,
+          icon: getIcon(c.icon),
+          modules: (c.modules || []).map(m => ({
+            ...m,
+            icon: getIcon(m.icon)
+          }))
+        }));
+        setCourses(mapped);
+      } catch (err) {
+        console.error('Errore fetch corsi:', err);
+      }
+    };
+    fetchCourses();
+  }, []);
+
   const isDashboardOpen = view === 'dashboard';
   const isProfileOpen = view === 'profile';
 
   // Custom Hooks per la gestione dei dati e dello scroll
-  const { content, questions, exercises, loading } = useModuleContent(activeCourse, activeModule);
+  const { content, sections, questions, exercises, loading } = useModuleContent(activeCourse, activeModule);
   const { activeSection, setActiveSection } = useScrollSpy(content, questions, exercises);
 
   useEffect(() => {
@@ -151,7 +179,11 @@ function AppContent() {
     const virtualIntroCourse = {
       id: 'k8s-fondamentali',
       title: 'Informazioni',
-      modules: [introModule],
+      modules: [{
+        id: 'intro',
+        title: 'Benvenuto',
+        icon: getIcon('SchoolIcon')
+      }],
       isIntro: true
     };
     handleCourseSelect(virtualIntroCourse);
@@ -175,70 +207,27 @@ function AppContent() {
   const mainContent = useMemo(() => {
     if (!activeCourse) {
       if (isDashboardOpen && user) {
-        return <Dashboard onSelectCourse={handleCourseSelect} />;
+        return <Dashboard onSelectCourse={handleCourseSelect} courses={courses} />;
       }
       if (isProfileOpen && user) {
         return <Profile onDashboard={() => handleBackToHome('dashboard')} />;
       }
-      return <HomeView onSelectCourse={handleCourseSelect} />;
+      return <HomeView onSelectCourse={handleCourseSelect} courses={courses} />;
     }
 
     return (
-      <KubeContainer maxWidth="lg">
-        <Fade in={!loading} timeout={400}>
-          <Box>
-            <KubePaper sx={{ mb: 4, minHeight: '60vh', position: 'relative' }}>
-              {loading ? (
-                <KubeLoader message="Caricamento contenuti del modulo..." />
-              ) : (
-                <>
-                  <Box className="markdown-content">
-                    <ReactMarkdown rehypePlugins={[rehypeSlug, rehypeRaw]}>{content}</ReactMarkdown>
-                  </Box>
-
-                  {exercises && exercises.length > 0 && activeModule && (
-                    <KubeSection
-                      id="exercises-section"
-                      title="Esercitazioni Pratiche"
-                      icon={<AssignmentOutlined />}
-                    >
-                      <CodingExercises
-                        exercises={exercises}
-                        key={`${activeModule.id}-exercises`}
-                        onFinish={handleModuleFinish}
-                      />
-                    </KubeSection>
-                  )}
-
-                  {questions.length > 0 && activeModule && (
-                    <KubeSection
-                      id="quiz-section"
-                      title="Quiz di Verifica"
-                      icon={<QuizOutlined />}
-                    >
-                      <Quiz
-                        questions={questions}
-                        key={activeModule.id}
-                        onFinish={handleModuleFinish}
-                      />
-                    </KubeSection>
-                  )}
-
-                  {!activeCourse.isIntro && activeModule && (
-                    <NavigationButtons
-                      currentModule={activeModule}
-                      allModules={activeCourse.modules}
-                      onModuleSelect={handleModuleSelect}
-                    />
-                  )}
-                </>
-              )}
-            </KubePaper>
-          </Box>
-        </Fade>
-      </KubeContainer>
+      <ModuleViewer
+        activeCourse={activeCourse}
+        activeModule={activeModule}
+        content={content}
+        questions={questions}
+        exercises={exercises}
+        loading={loading}
+        handleModuleFinish={handleModuleFinish}
+        handleModuleSelect={handleModuleSelect}
+      />
     );
-  }, [activeCourse, activeModule, content, exercises, questions, loading, handleCourseSelect, handleModuleSelect, isDashboardOpen, isProfileOpen, user]);
+  }, [activeCourse, activeModule, content, exercises, questions, loading, handleCourseSelect, handleModuleSelect, handleModuleFinish, isDashboardOpen, isProfileOpen, user, handleBackToHome, courses]);
 
   return (
     <>
@@ -262,8 +251,10 @@ function AppContent() {
         // Sidebar specific props
         courses={courses}
         modules={activeCourse ? activeCourse.modules : []}
+        sections={sections}
         activeSection={activeSection}
         questions={questions}
+        exercises={exercises}
         handleCourseSelect={handleCourseSelect}
         handleModuleSelect={handleModuleSelect}
         handleSectionSelect={handleSectionSelect}

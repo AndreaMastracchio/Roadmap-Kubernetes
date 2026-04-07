@@ -1,0 +1,70 @@
+{
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Quale driver richiede privilegi di root su Linux?",
+      "options": ["Docker", "VirtualBox", "None", "KVM"],
+      "correct": 2,
+      "explanation": "Il driver 'none' esegue i binari di k8s direttamente sull'host, richiedendo root."
+    },
+    {
+      "id": "q2",
+      "question": "Qual è il comando per vedere i log del cluster Minikube?",
+      "options": ["kubectl logs", "minikube logs", "minikube status --logs", "cat /var/log/minikube"],
+      "correct": 1,
+      "explanation": "minikube logs è fondamentale per il debug dei componenti del control plane."
+    },
+    {
+      "id": "q3",
+      "question": "Se un Ingress non è raggiungibile su macOS, cosa devi probabilmente fare?",
+      "options": ["minikube start --ingress", "minikube tunnel", "kubectl restart ingress", "Disattivare il firewall"],
+      "correct": 1,
+      "explanation": "minikube tunnel è necessario su macOS/Windows per instradare il traffico verso l'IP dell'Ingress."
+    },
+    {
+      "id": "q4",
+      "question": "Come si elimina un profilo specifico senza toccare gli altri?",
+      "options": ["minikube delete --all", "minikube delete -p <name>", "minikube remove profile <name>", "rm -rf ~/.minikube"],
+      "correct": 1,
+      "explanation": "Il flag -p garantisce di operare solo sul profilo selezionato."
+    },
+    {
+      "id": "q5",
+      "question": "Quale addon è necessario per usare 'kubectl top'?",
+      "options": ["dashboard", "metrics-server", "ingress", "storage-provisioner"],
+      "correct": 1,
+      "explanation": "Il metrics-server raccoglie i dati di utilizzo delle risorse."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1",
+      "title": "Configurazione Esame",
+      "hint": "Crea un profilo 'exam-profile' con 4096mb di RAM",
+      "template": ["minikube start -p {{profile}} --memory {{ram}}"],
+      "answers": [
+        { "id": "profile", "accepted": ["exam-profile"], "placeholder": "profilo" },
+        { "id": "ram", "accepted": ["4096"], "placeholder": "memoria" }
+      ]
+    },
+    {
+      "id": "e2",
+      "title": "Esponi e Monitora",
+      "hint": "Attiva l'addon della dashboard",
+      "template": ["minikube addons {{action}} {{name}}"],
+      "answers": [
+        { "id": "action", "accepted": ["enable"], "placeholder": "azione" },
+        { "id": "name", "accepted": ["dashboard"], "placeholder": "nome" }
+      ]
+    },
+    {
+      "id": "e3",
+      "title": "Verifica Finale",
+      "hint": "Controlla lo stato del cluster dell'esame",
+      "template": ["minikube status -p {{profile}}"],
+      "answers": [
+        { "id": "profile", "accepted": ["exam-profile"], "placeholder": "profilo" }
+      ]
+    }
+  ]
+}

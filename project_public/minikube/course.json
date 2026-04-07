@@ -1,0 +1,22 @@
+{
+  "id": "minikube",
+  "title": "Minikube",
+  "icon": "LayersIcon",
+  "color": "#326ce5",
+  "isPrivate": false,
+  "comingSoon": false,
+  "price": 0,
+  "description": "Un percorso completo per dominare Minikube: dall'installazione alla gestione di cluster multi-nodo e ingress controller.",
+  "modules": [
+    { "id": "01-introduzione", "title": "1. Introduzione", "icon": "LayersIcon", "level": "Base", "time": "10 min" },
+    { "id": "02-installazione", "title": "2. Installazione", "icon": "DownloadIcon", "level": "Base", "time": "15 min" },
+    { "id": "03-architettura-e-driver", "title": "3. Architettura e Driver", "icon": "ArchitectureIcon", "level": "Base", "time": "20 min" },
+    { "id": "04-gestione-fondamentale", "title": "4. Gestione Cluster", "icon": "TerminalIcon", "level": "Base", "time": "15 min" },
+    { "id": "05-profili-e-risorse", "title": "5. Profili e Risorse", "icon": "SettingsIcon", "level": "Intermedio", "time": "20 min" },
+    { "id": "06-add-ons-e-dashboard", "title": "6. Add-ons e Dashboard", "icon": "ExtensionIcon", "level": "Intermedio", "time": "20 min" },
+    { "id": "07-ingress-e-tunnel", "title": "7. Ingress e Tunnel", "icon": "DnsIcon", "level": "Intermedio", "time": "25 min" },
+    { "id": "08-cluster-multi-nodo", "title": "8. Cluster Multi-Nodo", "icon": "HubIcon", "level": "Avanzato", "time": "20 min" },
+    { "id": "09-riassunto-comandi", "title": "9. Cheat Sheet", "icon": "InventoryIcon", "level": "Base", "time": "10 min" },
+    { "id": "10-esame-finale", "title": "10. Esame Finale", "icon": "ExamIcon", "level": "Esame", "time": "40 min" }
+  ]
+}

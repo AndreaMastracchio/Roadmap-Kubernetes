@@ -4,7 +4,7 @@ import { Terminal as TerminalIcon, Close as CloseIcon } from '@mui/icons-materia
 import KubeTypography from '../ui/KubeTypography';
 import { API_ENDPOINTS } from '../../config/api';
 
-const TerminalConsole = ({ courses, onClose }) => {
+const TerminalConsole = ({ courses = [], onClose }) => {
   const [history, setHistory] = useState([
     { type: 'info', content: 'Benvenuto nella KubeStudy Interactive Console!' },
     { type: 'info', content: 'Digita "help" per vedere i comandi disponibili.' }

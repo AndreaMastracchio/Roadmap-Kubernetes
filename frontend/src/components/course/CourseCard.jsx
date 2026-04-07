@@ -7,8 +7,8 @@ import { useAuth } from '../../context/AuthContext';
 
 const CourseCard = ({ course, onSelect }) => {
   const { user, hasAccessToProject } = useAuth();
-  const hasAccess = hasAccessToProject(course.id);
   const isPrivate = course.isPrivate;
+  const hasAccess = !isPrivate || hasAccessToProject(course.id);
   const isOwned = user && user.purchasedProjects?.includes(course.id);
 
   const progress = user && course.modules ? 

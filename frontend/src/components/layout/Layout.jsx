@@ -4,13 +4,13 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 
-const Layout = ({ 
-  children, 
-  drawerOpen, 
-  mobileOpen, 
-  handleDrawerToggle, 
-  drawerWidth, 
-  startResizing, 
+const Layout = ({
+  children,
+  drawerOpen,
+  mobileOpen,
+  handleDrawerToggle,
+  drawerWidth,
+  startResizing,
   isResizing,
   activeCourse,
   activeModule,
@@ -25,24 +25,26 @@ const Layout = ({
   // Sidebar specific props
   courses,
   modules,
+  sections,
   activeSection,
   questions,
+  exercises,
   handleCourseSelect,
   handleModuleSelect,
   handleSectionSelect
 }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-  
+
   // Larghezza effettiva della sidebar
   const miniDrawerWidth = 70;
-  const currentWidth = isDesktop 
-    ? (drawerOpen ? drawerWidth : miniDrawerWidth) 
+  const currentWidth = isDesktop
+    ? (drawerOpen ? drawerWidth : miniDrawerWidth)
     : 0;
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
-      <Header 
+      <Header
         drawerOpen={drawerOpen}
         isDesktop={isDesktop}
         handleDrawerToggle={handleDrawerToggle}
@@ -57,15 +59,17 @@ const Layout = ({
         isDashboardOpen={isDashboardOpen}
         isProfileOpen={isProfileOpen}
       />
-      
+
       <Box sx={{ display: 'flex', flex: 1, pt: 8 }}>
-        <Sidebar 
+        <Sidebar
           courses={courses}
           activeCourse={activeCourse}
           modules={modules}
+          sections={sections}
           activeModule={activeModule}
           activeSection={activeSection}
           questions={questions}
+          exercises={exercises}
           handleCourseSelect={handleCourseSelect}
           handleModuleSelect={handleModuleSelect}
           handleSectionSelect={handleSectionSelect}
@@ -81,7 +85,7 @@ const Layout = ({
           isResizing={isResizing}
           isDesktop={isDesktop}
         />
-        
+
         <Box
           component="main"
           sx={{

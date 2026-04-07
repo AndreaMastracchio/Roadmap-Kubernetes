@@ -1,0 +1,48 @@
+{
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Qual è il flag per specificare il numero di nodi all'avvio?",
+      "options": [
+        "-c",
+        "--nodes",
+        "--cluster-size",
+        "-n"
+      ],
+      "correct": 1,
+      "explanation": "--nodes specifica il numero di istanze (container o VM) da avviare per il cluster."
+    },
+    {
+      "id": "q2",
+      "question": "Qual è il comando per aggiungere un nodo a un cluster già attivo?",
+      "options": [
+        "minikube node add",
+        "minikube start --add-node",
+        "kubectl add node",
+        "minikube scale nodes +1"
+      ],
+      "correct": 0,
+      "explanation": "minikube node add crea istantaneamente un nuovo nodo worker nel profilo corrente."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1",
+      "title": "Aggiungi Nodo",
+      "hint": "Espandi il cluster con un nuovo nodo",
+      "template": ["minikube node {{action}}"],
+      "answers": [
+        { "id": "action", "accepted": ["add"], "placeholder": "azione" }
+      ]
+    },
+    {
+      "id": "e2",
+      "title": "Avvio Multi-Nodo",
+      "hint": "Avvia un cluster con 3 nodi",
+      "template": ["minikube start --nodes {{count}}"],
+      "answers": [
+        { "id": "count", "accepted": ["3"], "placeholder": "numero" }
+      ]
+    }
+  ]
+}

@@ -17,6 +17,9 @@ export const API_ENDPOINTS = {
     COMPLETE_MODULE: `${API_BASE}/user/complete-module`,
     CURRENT_MODULE: `${API_BASE}/user/current-module`,
   },
+  COURSES: {
+    LIST: `${API_BASE}/courses`
+  },
   MODULES: (courseId, id) => `${API_BASE}/modules/${courseId}/${id}`,
   MODULES_DATA: (courseId, id) => `${API_BASE}/modules/${courseId}/${id}/data`,
 };

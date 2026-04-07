@@ -1,0 +1,49 @@
+{
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Quale comando apre l'interfaccia grafica ufficiale del cluster?",
+      "options": [
+        "minikube gui",
+        "minikube ui",
+        "minikube dashboard",
+        "minikube console"
+      ],
+      "correct": 2,
+      "explanation": "minikube dashboard avvia il server proxy e apre il browser."
+    },
+    {
+      "id": "q2",
+      "question": "Qual è il comando per abilitare un add-on specifico?",
+      "options": [
+        "minikube add enable <name>",
+        "minikube addons enable <name>",
+        "minikube install <name>",
+        "kubectl enable addon <name>"
+      ],
+      "correct": 1,
+      "explanation": "minikube addons enable <nome> attiva l'estensione scelta."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1",
+      "title": "Abilita Ingress",
+      "hint": "Attiva l'addon per l'ingress controller",
+      "template": ["minikube addons {{action}} {{name}}"],
+      "answers": [
+        { "id": "action", "accepted": ["enable"], "placeholder": "azione" },
+        { "id": "name", "accepted": ["ingress"], "placeholder": "nome" }
+      ]
+    },
+    {
+      "id": "e2",
+      "title": "Lista Addons",
+      "hint": "Mostra tutti gli addons disponibili",
+      "template": ["minikube addons {{command}}"],
+      "answers": [
+        { "id": "command", "accepted": ["list"], "placeholder": "..." }
+      ]
+    }
+  ]
+}

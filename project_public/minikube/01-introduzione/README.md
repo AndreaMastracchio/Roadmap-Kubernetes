@@ -1,16 +1,18 @@
 # 1. Introduzione a Minikube
 
-Minikube è un'implementazione leggera di Kubernetes che crea una VM (o un container) sul tuo computer locale e vi distribuisce un cluster semplice con un solo nodo.
+Minikube è lo strumento standard per chiunque voglia imparare Kubernetes senza dover affittare cluster costosi in cloud (GCP, AWS, Azure). È un'implementazione leggera di Kubernetes che crea un cluster a nodo singolo direttamente sulla tua macchina.
 
-## Architettura di Minikube
-Minikube supporta diversi **driver**:
-- **Docker** (Consigliato): Esegue Kubernetes all'interno di un container Docker.
-- **VirtualBox / VMware**: Esegue Kubernetes in una macchina virtuale.
-- **None**: Esegue i componenti di Kubernetes direttamente sull'host (richiede Linux e privilegi di root).
+## Perché usare Minikube?
+- **Locale**: Non richiede connessione internet (dopo il download iniziale).
+- **Gratuito**: Gira sul tuo hardware.
+- **Veloce**: Avvio in pochi secondi (o minuti, a seconda del driver).
+- **Completo**: Supporta la maggior parte delle funzionalità di Kubernetes (Ingress, DNS, Dashboard, etc.).
 
-## Comandi principali
-- `minikube start`: Avvia il cluster.
-- `minikube status`: Verifica lo stato.
-- `minikube stop`: Ferma il cluster senza cancellare i dati.
-- `minikube delete`: Cancella completamente il cluster.
+## Cosa imparerai in questo corso
+In questo percorso non ci limiteremo ad avviare un cluster. Vedremo come gestire driver diversi, come ottimizzare le risorse, come esporre servizi complessi e come simulare cluster reali con più nodi.
 
+---
+### Prossimo passo
+Nel prossimo modulo vedremo come installare Minikube sul tuo sistema operativo.
+
+<div id="quiz-section"></div>

@@ -1,12 +1,11 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import CourseCard from './CourseCard';
-import { courses } from '../../config/courses';
 import KubeTypography from '../ui/KubeTypography';
 import KubeContainer from '../ui/KubeContainer';
 import KubeGrid from '../ui/KubeGrid';
 
-const HomeView = ({ onSelectCourse }) => {
+const HomeView = ({ courses = [], onSelectCourse }) => {
   return (
     <KubeContainer maxWidth="xl" sx={{ mt: 6, mb: 10 }}>
       <Box sx={{ mb: 8, textAlign: 'center' }}>

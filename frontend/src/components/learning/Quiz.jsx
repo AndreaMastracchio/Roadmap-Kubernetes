@@ -55,12 +55,15 @@ const Quiz = ({ questions, onFinish }) => {
 
   if (finished) {
     return (
-      <Box sx={{ mt: 4, p: 3, textAlign: 'center' }}>
-        <KubeTypography variant="h5" weight="bold" sx={{ mb: 2 }}>🎉 Quiz Completato!</KubeTypography>
+      <Box sx={{ mt: 4, p: 4, textAlign: 'center', bgcolor: 'rgba(16, 185, 129, 0.05)', borderRadius: 4, border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+        <KubeTypography variant="h5" weight="bold" sx={{ mb: 2, color: '#065f46' }}>🎉 Quiz Completato!</KubeTypography>
         <KubeTypography variant="body1" sx={{ mb: 3 }}>
           Hai risposto correttamente a {score} su {questions.length} domande.
+          Il tuo progresso è stato salvato con successo.
         </KubeTypography>
-        <KubeButton variant="contained" onClick={restartQuiz}>Riprova</KubeButton>
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+          <KubeButton variant="contained" onClick={restartQuiz}>Riprova</KubeButton>
+        </Box>
       </Box>
     );
   }

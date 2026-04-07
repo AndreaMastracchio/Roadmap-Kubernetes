@@ -1,0 +1,48 @@
+{
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Quale comando permette di risolvere l'IP dei Service di tipo LoadBalancer in Minikube?",
+      "options": [
+        "minikube bridge",
+        "minikube tunnel",
+        "minikube expose",
+        "minikube loadbalancer"
+      ],
+      "correct": 1,
+      "explanation": "minikube tunnel crea un'interfaccia di rete virtuale tra il tuo computer e il cluster."
+    },
+    {
+      "id": "q2",
+      "question": "Se vuoi aprire un Service specifico nel browser senza configurare un tunnel, cosa usi?",
+      "options": [
+        "minikube open <svc>",
+        "minikube service <svc>",
+        "kubectl open <svc>",
+        "minikube browse <svc>"
+      ],
+      "correct": 1,
+      "explanation": "Il comando 'minikube service <nome>' genera l'URL di accesso e apre il browser."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1",
+      "title": "Avvia Tunnel",
+      "hint": "Crea il tunnel per i LoadBalancer",
+      "template": ["minikube {{command}}"],
+      "answers": [
+        { "id": "command", "accepted": ["tunnel"], "placeholder": "..." }
+      ]
+    },
+    {
+      "id": "e2",
+      "title": "Accedi Servizio",
+      "hint": "Apri il servizio 'web-svc' nel browser",
+      "template": ["minikube service {{name}}"],
+      "answers": [
+        { "id": "name", "accepted": ["web-svc"], "placeholder": "nome-servizio" }
+      ]
+    }
+  ]
+}

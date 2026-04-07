@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback } from 'react';
 import { API_ENDPOINTS } from '../config/api';
-import { courses } from '../config/courses';
 
 const AuthContext = createContext(null);
 
@@ -15,6 +14,7 @@ const authReducer = (state, action) => {
     case 'AUTH_START':
       return { ...state, loading: true, error: null };
     case 'AUTH_SUCCESS':
+      if (!action.payload) return { ...state, loading: false, user: null, error: null };
       return {
         ...state,
         loading: false,
@@ -161,16 +161,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const hasAccessToProject = useCallback((projectId) => {
-    // Troviamo il corso nel config
-    const course = courses.find(c => c.id === projectId);
-    
-    // Se è un corso pubblico (non privato), l'accesso è libero
-    if (course && !course.isPrivate) return true;
-    
-    // Altrimenti, se non c'è l'utente loggato, l'accesso è negato
-    if (!state.user) return false;
-    
+    // Se non c'è l'utente loggato, non ha accesso ai progetti privati (l'acquisto è salvato su utente)
     // Se l'utente è loggato, verifichiamo se l'ha acquistato
+    if (!state.user) return false;
     return state.user.purchasedProjects?.includes(projectId);
   }, [state.user]);
 

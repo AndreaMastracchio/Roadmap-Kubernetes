@@ -1,0 +1,40 @@
+{
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Quale driver di Minikube è considerato il più leggero e veloce?",
+      "options": [
+        "VirtualBox",
+        "VMware",
+        "Docker",
+        "Hyper-V"
+      ],
+      "correct": 2,
+      "explanation": "Docker è il driver consigliato perché evita il sovraccarico di una macchina virtuale completa."
+    },
+    {
+      "id": "q2",
+      "question": "Come si imposta il driver Docker come predefinito per i futuri avvii?",
+      "options": [
+        "minikube set driver docker",
+        "minikube config set driver docker",
+        "minikube start --driver=docker",
+        "minikube init docker"
+      ],
+      "correct": 1,
+      "explanation": "Il comando 'minikube config set driver docker' salva la preferenza in modo persistente."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1",
+      "title": "Configurazione Driver",
+      "hint": "Imposta il driver virtualbox come predefinito",
+      "template": ["minikube config set {{param}} {{value}}"],
+      "answers": [
+        { "id": "param", "accepted": ["driver"], "placeholder": "parametro" },
+        { "id": "value", "accepted": ["virtualbox"], "placeholder": "valore" }
+      ]
+    }
+  ]
+}

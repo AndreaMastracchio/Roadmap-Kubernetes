@@ -1,0 +1,48 @@
+{
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Qual è il comando per entrare in SSH all'interno del nodo Minikube?",
+      "options": [
+        "minikube enter",
+        "minikube ssh",
+        "kubectl ssh",
+        "ssh minikube@localhost"
+      ],
+      "correct": 1,
+      "explanation": "Il comando 'minikube ssh' gestisce automaticamente le chiavi e l'indirizzo IP per l'accesso al nodo."
+    },
+    {
+      "id": "q2",
+      "question": "Qual è la differenza tra 'stop' e 'pause'?",
+      "options": [
+        "Nessuna",
+        "Stop spegne la VM, Pause sospende solo i processi Kubernetes",
+        "Stop cancella i dati, Pause no",
+        "Pause è solo per Windows"
+      ],
+      "correct": 1,
+      "explanation": "Stop interrompe l'host virtuale, mentre Pause mette in pausa i container di sistema senza spegnere l'host."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1",
+      "title": "Verifica Stato",
+      "hint": "Controlla lo stato del cluster",
+      "template": ["minikube {{command}}"],
+      "answers": [
+        { "id": "command", "accepted": ["status"], "placeholder": "..." }
+      ]
+    },
+    {
+      "id": "e2",
+      "title": "Spegni Cluster",
+      "hint": "Ferma il cluster senza cancellare i dati",
+      "template": ["minikube {{command}}"],
+      "answers": [
+        { "id": "command", "accepted": ["stop"], "placeholder": "..." }
+      ]
+    }
+  ]
+}

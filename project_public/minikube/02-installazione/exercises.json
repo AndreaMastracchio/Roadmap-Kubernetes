@@ -1,0 +1,39 @@
+{
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Qual è il comando per verificare la versione installata di Minikube?",
+      "options": [
+        "minikube check",
+        "minikube version",
+        "minikube status",
+        "minikube info"
+      ],
+      "correct": 1,
+      "explanation": "Il comando 'minikube version' stampa la versione del binario installato."
+    },
+    {
+      "id": "q2",
+      "question": "Qual è il gestore pacchetti consigliato per macOS per installare Minikube?",
+      "options": [
+        "Apt",
+        "Homebrew",
+        "Chocolatey",
+        "Snap"
+      ],
+      "correct": 1,
+      "explanation": "Homebrew è lo standard de-facto per la gestione pacchetti su macOS."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1",
+      "title": "Verifica installazione",
+      "hint": "Controlla la versione di minikube",
+      "template": ["minikube {{command}}"],
+      "answers": [
+        { "id": "command", "accepted": ["version"], "placeholder": "..." }
+      ]
+    }
+  ]
+}

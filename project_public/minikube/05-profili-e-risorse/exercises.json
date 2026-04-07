@@ -1,0 +1,48 @@
+{
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Qual è il flag per creare un nuovo cluster con un nome specifico (Profilo)?",
+      "options": [
+        "-n",
+        "--name",
+        "-p",
+        "--profile"
+      ],
+      "correct": 2,
+      "explanation": "-p (o --profile) permette di creare e gestire più cluster indipendenti."
+    },
+    {
+      "id": "q2",
+      "question": "Come si cambia il profilo attivo corrente?",
+      "options": [
+        "minikube switch profile-name",
+        "minikube profile profile-name",
+        "minikube use profile-name",
+        "kubectl set profile profile-name"
+      ],
+      "correct": 1,
+      "explanation": "Il comando 'minikube profile <nome>' imposta il cluster corrente per kubectl."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1",
+      "title": "Crea Profilo",
+      "hint": "Crea un cluster con profilo 'test'",
+      "template": ["minikube start -p {{name}}"],
+      "answers": [
+        { "id": "name", "accepted": ["test"], "placeholder": "nome" }
+      ]
+    },
+    {
+      "id": "e2",
+      "title": "Risorse personalizzate",
+      "hint": "Avvia con 4GB di RAM",
+      "template": ["minikube start --memory {{size}}"],
+      "answers": [
+        { "id": "size", "accepted": ["4096", "4096mb", "4g"], "placeholder": "dimensione" }
+      ]
+    }
+  ]
+}

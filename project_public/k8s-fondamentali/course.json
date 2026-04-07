@@ -1,0 +1,22 @@
+{
+  "id": "k8s-fondamentali",
+  "title": "Kubernetes Fondamentali",
+  "icon": "LayersIcon",
+  "color": "#326ce5",
+  "isPrivate": false,
+  "comingSoon": false,
+  "price": 0,
+  "description": "Il percorso completo per padroneggiare i container e l'orchestrazione con Kubernetes, dai concetti base agli operatori avanzati.",
+  "modules": [
+    { "id": "01", "title": "1. Fondamentali", "icon": "LayersIcon", "level": "Base", "time": "25 min" },
+    { "id": "02", "title": "2. Architettura", "icon": "ArchitectureIcon", "level": "Intermedio", "time": "30 min" },
+    { "id": "03", "title": "3. Risorse Base", "icon": "InventoryIcon", "level": "Base", "time": "25 min" },
+    { "id": "04", "title": "4. Networking", "icon": "NetworkIcon", "level": "Avanzato", "time": "40 min" },
+    { "id": "05", "title": "5. Storage", "icon": "StorageIcon", "level": "Intermedio", "time": "30 min" },
+    { "id": "06", "title": "6. Sicurezza", "icon": "SecurityIcon", "level": "Avanzato", "time": "35 min" },
+    { "id": "07", "title": "7. Helm", "icon": "TerminalIcon", "level": "Intermedio", "time": "20 min" },
+    { "id": "08", "title": "8. Operatori Go", "icon": "CodeIcon", "level": "Avanzato", "time": "60 min" },
+    { "id": "09", "title": "9. Cheat Sheet Comandi", "icon": "TerminalIcon", "level": "Base", "time": "10 min" },
+    { "id": "10", "title": "10. Esame Finale", "icon": "ExamIcon", "level": "Avanzato", "time": "45 min" }
+  ]
+}
