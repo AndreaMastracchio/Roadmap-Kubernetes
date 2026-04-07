@@ -1,74 +1,51 @@
-# Kubernetes Study Roadmap (It)
+# ☸️ Benvenuti in KubeStudy
 
-Benvenuto in questa guida strutturata per lo studio di Kubernetes! Questo repository è progettato per portarti dai fondamentali fino a concetti avanzati come l'estendibilità del cluster tramite Operatori (scritti in Go).
-
-## 🗺️ La Roadmap
-
-La roadmap è suddivisa in moduli progressivi. Per ogni modulo troverai una directory dedicata con approfondimenti ed esempi pratici.
-
-### 1. 🏗️ Fondamentali dei Container
-Prima di K8s, devi conoscere i container.
-- **Docker**: Immagini, Container, Dockerfile, Docker Compose.
-- **Concetti**: Isolamento, Layer, Runtime (containerd).
-
-### 2. 🏛️ Architettura di Kubernetes
-Comprendere come funziona "sotto il cofano".
-- **Control Plane**: API Server, etcd, Scheduler, Controller Manager.
-- **Worker Nodes**: Kubelet, Kube-proxy, Container Runtime.
-- **Strumenti**: `kubectl`, `kubeadm`, `minikube`/`kind`.
-
-### 3. 📦 Risorse di Base
-Gli elementi costitutivi di un'applicazione su K8s.
-- **Pod**: L'unità minima di esecuzione.
-- **ReplicaSet & Deployment**: Gestione del ciclo di vita e scalabilità.
-- **Service**: Networking interno (ClusterIP, NodePort, LoadBalancer).
-- **ConfigMap & Secret**: Gestione della configurazione e dati sensibili.
-
-### 4. 🌐 Networking Avanzato
-Come le app comunicano tra loro e con l'esterno.
-- **Ingress**: Esposizione HTTP/HTTPS esterna.
-- **Network Policies**: Sicurezza del traffico tra i Pod.
-
-### 5. 💾 Storage
-Persistenza dei dati in un mondo effimero.
-- **Volumes**: Storage temporaneo.
-- **PersistentVolumes (PV) & PersistentVolumeClaims (PVC)**: Richiedere storage persistente.
-- **StorageClasses**: Provisioning dinamico.
-
-### 6. 🔒 Sicurezza & Accesso
-- **RBAC (Role-Based Access Control)**: Ruoli e permessi.
-- **Service Accounts**: Identità per i carichi di lavoro.
-- **Secrets Management**: Best practices.
-
-### 7. ☸️ Gestione dei Pacchetti con Helm
-- **Charts**: Struttura e templating.
-- **Release Management**: Installazione e upgrade.
-
-### 8. 🛠️ Estendibilità & Operatori (Go)
-Il livello avanzato per chi vuole costruire sopra Kubernetes.
-- **Custom Resource Definitions (CRDs)**: Estendere l'API di K8s.
-- **Controllers & Operators**: Automatizzare compiti complessi usando Go.
+Benvenuto in **KubeStudy**, la piattaforma interattiva definitiva progettata per guidarti nello studio di Kubernetes, dai fondamentali fino a concetti avanzati come l'estendibilità del cluster tramite Operatori in Go.
 
 ---
 
-## 🚀 Come usare questo repository
-Ogni cartella numerata corrisponde a un modulo della roadmap. Entra nella cartella e leggi il `README.md` specifico per iniziare.
+## 🛠️ Cosa offre questa piattaforma?
+
+KubeStudy non è solo una raccolta di documenti, ma un ambiente di apprendimento completo:
+
+### 1. 🎓 Percorsi Guidati (Roadmap)
+I contenuti sono suddivisi in moduli progressivi, curati per portarti passo dopo passo alla padronanza dell'orchestrazione dei container.
+- **Dalle Basi**: Docker, Architettura, Pod, Service.
+- **All'Avanzato**: Ingress, Network Policies, Helm, Operatori in Go.
+
+### 2. 💻 Console Interattiva (Shell Integrata)
+Metti alla prova i comandi appena imparati direttamente nel browser!
+- **Stile Zsh**: Supporto per autocompletamento intelligente (tasto `Tab`).
+- **Comandi Shell**: Naviga tra i corsi e rispondi alle sfide con una vera interfaccia terminale.
+- **Hint Intelligenti**: Ricevi suggerimenti e placeholder sui parametri corretti (es. `{{pod_name}}`).
+
+### 3. 📝 Quiz & Esercizi di Coding
+Ogni modulo termina con sessioni di verifica:
+- **Quiz Teorici**: Per consolidare i concetti.
+- **Coding Exercises**: Per verificare la tua capacità di scrivere manifest YAML e comandi kubectl.
+
+### 4. 👤 Dashboard & Profilo
+- **Tracciamento Progressi**: La piattaforma ricorda automaticamente dove sei arrivato.
+- **Checkmark di Completamento**: Visualizza istantaneamente quali moduli hai già superato.
+- **Gestione Account**: Personalizza il tuo profilo, carica il tuo avatar e gestisci la sicurezza.
 
 ---
 
-## 🖥️ Piattaforma Web (Docker)
-Per un'esperienza di studio più piacevole, è stata creata un'applicazione frontend che permette di leggere i contenuti in formato corso interattivo.
+## 🏁 Come iniziare?
 
-### Avvio rapido
-Assicurati di avere Docker installato, quindi esegui:
-```bash
-docker-compose up --build
-```
-Una volta avviato, apri il browser su: [http://localhost:8080](http://localhost:8080)
+1. **Esplora i Corsi**: Usa la sidebar a sinistra per navigare tra i moduli.
+2. **Esercitati**: Non limitarti a leggere! Usa la **Console Interattiva** per testare le tue conoscenze.
+3. **Misura i tuoi progressi**: Accedi alla tua **Dashboard** per vedere a che punto sei del percorso.
 
-### Caratteristiche
-- 📱 Design responsive per studiare ovunque.
-- 🌙 Navigazione laterale intuitiva.
-- ⚡ Aggiornamenti in tempo reale dei contenuti tramite Docker Volumes.
+---
 
-Buono studio!
+## 🏗️ Architettura & Stack Tecnologico
+
+KubeStudy è un'applicazione moderna a microservizi:
+- **Frontend**: React + Material UI + Vite.
+- **Backend**: Node.js + Express.
+- **Database**: MySQL 8.0 per la persistenza dei dati.
+- **Cache & Sessioni**: Redis per performance elevate e gestione stati utente.
+- **Infrastruttura**: Completamente Dockerizzata per un'esperienza coerente e portabile.
+
+Buono studio con **KubeStudy**! ☸️🚀

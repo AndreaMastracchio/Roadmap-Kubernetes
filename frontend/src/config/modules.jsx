@@ -18,9 +18,11 @@ export const introModule = {
   file: 'intro.md',
   icon: <SchoolIcon />,
   sections: [
-    { id: 'intro-01', title: 'La Roadmap', anchor: 'la-roadmap' },
-    { id: 'intro-02', title: 'Come Usare', anchor: 'come-usare-questo-repository' },
-    { id: 'intro-04', title: 'Piattaforma Web', anchor: 'piattaforma-web-docker' }
+    { id: 'intro-01', title: 'Cosa offre KubeStudy', anchor: 'cosa-offre-questa-piattaforma' },
+    { id: 'intro-02', title: 'Roadmap', anchor: '1-percorsi-guidati-roadmap' },
+    { id: 'intro-03', title: 'Console Shell', anchor: '2-console-interattiva-shell-integrata' },
+    { id: 'intro-04', title: 'Iniziare', anchor: 'come-iniziare' },
+    { id: 'intro-05', title: 'Architettura', anchor: 'architettura--stack-tecnologico' }
   ]
 };
 

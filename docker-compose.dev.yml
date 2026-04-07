@@ -57,7 +57,7 @@ services:
         condition: service_started
 
   db:
-    image: mysql:8.0
+    image: mariadb:10.11
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -67,9 +67,9 @@ services:
       - "3306:3306"
     volumes:
       - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
-      - mysql_dev_data:/var/lib/mysql
+      - db_dev_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 5s
       timeout: 5s
       retries: 20
@@ -80,4 +80,4 @@ services:
       - "6379:6379"
 
 volumes:
-  mysql_dev_data:
+  db_dev_data:
