@@ -42,10 +42,9 @@ Il progetto utilizza un'architettura a microservizi robusta e moderna, completam
    ```
 
 2. **Prepara l'ambiente**:
-   Copia il file di configurazione e inizializza le cartelle necessarie:
+   Copia il file di configurazione:
    ```bash
    cp .env.example .env
-   mkdir -p project_public project_private
    ```
 
 3. **Inizializzazione**:
@@ -83,7 +82,7 @@ Nella cartella `bin/` trovi strumenti pronti all'uso:
 - **🎓 Roadmap Progressiva**: Da Docker ai container, dall'architettura di K8s al networking avanzato.
 - **📝 Esercitazioni di Coding**: Scrivi ed esegui manifest YAML e comandi `kubectl` simulati.
 - **👤 User Experience**: Gestione profilo (avatar, password), Dashboard dei progressi e ripresa automatica dello studio dall'ultimo modulo non completato.
-- **🔒 Modello Public/Private**: Supporto per contenuti gratuiti (Open Source) e moduli Premium (in `project_private`).
+- **🛡️ Architettura Moderna**: Basata su container, database MariaDB e cache Redis per un'esperienza scalabile.
 
 ---
 

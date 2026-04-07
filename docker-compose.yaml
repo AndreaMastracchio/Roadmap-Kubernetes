@@ -16,8 +16,8 @@ services:
     ports:
       - "5005:5005"
     volumes:
-      - ${PROJECT_PUBLIC_PATH}:/project_public
-      - ${PROJECT_PRIVATE_PATH}:/project_private
+      - ${PROJECT_PUBLIC_PATH:-./project_public}:/project_public
+      # - ${PROJECT_PRIVATE_PATH:-./project_private}:/project_private
     environment:
       - MYSQL_HOST=${MYSQL_HOST}
       - MYSQL_USER=${MYSQL_USER}
