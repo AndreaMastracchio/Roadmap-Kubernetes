@@ -44,7 +44,7 @@ Ogni modulo termina con sessioni di verifica:
 KubeStudy è un'applicazione moderna a microservizi:
 - **Frontend**: React + Material UI + Vite.
 - **Backend**: Node.js + Express.
-- **Database**: MySQL 8.0 per la persistenza dei dati.
+- **Database**: MariaDB 10.11 per la persistenza dei dati.
 - **Cache & Sessioni**: Redis per performance elevate e gestione stati utente.
 - **Infrastruttura**: Completamente Dockerizzata per un'esperienza coerente e portabile.
 

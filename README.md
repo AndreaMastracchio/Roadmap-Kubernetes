@@ -20,7 +20,7 @@ Il progetto utilizza un'architettura a microservizi robusta e moderna, completam
 
 - **🎨 Frontend**: Sviluppato in **React 18** con **Material UI (MUI)** e **Vite**. Un'interfaccia fluida, responsive e dotata di un tema personalizzato in stile Kubernetes.
 - **🧠 Backend**: Un server API in **Node.js + Express** che gestisce l'autenticazione sicura (bcrypt), la gestione delle sessioni e il caricamento dinamico dei contenuti.
-- **🗄️ Database**: **MySQL 8.0** per la persistenza affidabile di utenti, acquisti di corsi premium e progressi.
+- **🗄️ Database**: **MariaDB 10.11** per la persistenza affidabile di utenti, acquisti di corsi premium e progressi.
 - **⚡ Cache & Sessioni**: **Redis 7** per una gestione delle sessioni ultra-veloce e performance ottimizzate.
 
 ---
