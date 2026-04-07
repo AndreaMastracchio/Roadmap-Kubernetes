@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback } from 'react';
 import { API_ENDPOINTS } from '../config/api';
+import { courses } from '../config/courses';
 
 const AuthContext = createContext(null);
 
@@ -160,10 +161,16 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const hasAccessToProject = useCallback((projectId) => {
-    if (projectId === 'k8s-fondamentali' || projectId === 'intro' || projectId.startsWith('0') || projectId === '10') {
-        return true;
-    }
+    // Troviamo il corso nel config
+    const course = courses.find(c => c.id === projectId);
+    
+    // Se è un corso pubblico (non privato), l'accesso è libero
+    if (course && !course.isPrivate) return true;
+    
+    // Altrimenti, se non c'è l'utente loggato, l'accesso è negato
     if (!state.user) return false;
+    
+    // Se l'utente è loggato, verifichiamo se l'ha acquistato
     return state.user.purchasedProjects?.includes(projectId);
   }, [state.user]);
 

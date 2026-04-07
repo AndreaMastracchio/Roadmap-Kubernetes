@@ -51,7 +51,7 @@ const CodingExercise = ({ exercise, onComplete }) => {
   };
 
   const renderCode = () => {
-    const templateArray = Array.isArray(exercise.template) ? exercise.template : [exercise.template];
+    const templateArray = Array.isArray(exercise.template) ? exercise.template : (exercise.template ? [exercise.template] : []);
     return (
       <Box sx={{ bgcolor: '#1e1e1e', p: 3, borderRadius: 3, border: '1px solid #333', boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.2)' }}>
         {templateArray.map((line, lineIdx) => {

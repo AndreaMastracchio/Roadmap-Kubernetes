@@ -135,7 +135,7 @@ const TerminalConsole = ({ courses, onClose }) => {
     const question = questionsList[randomIndex];
 
     // Mostriamo il template con i placeholder evidenziati
-    const templateArray = Array.isArray(question.template) ? question.template : [question.template];
+    const templateArray = Array.isArray(question.template) ? question.template : (question.template ? [question.template] : []);
     let displayTemplate = templateArray.join('\n');
 
     setHistory(prev => [...prev, {
