@@ -1,103 +1,98 @@
-# Kubernetes Study Roadmap (It)
+# ☸️ KubeStudy - Piattaforma di Studio Kubernetes
 
-Benvenuto in questa guida strutturata per lo studio di Kubernetes! Questo repository è progettato per portarti dai fondamentali fino a concetti avanzati come l'estendibilità del cluster tramite Operatori (scritti in Go).
-
-## 🗺️ La Roadmap
-
-La roadmap è suddivisa in moduli progressivi. Per ogni modulo troverai una directory dedicata con approfondimenti ed esempi pratici.
-
-### 1. 🏗️ Fondamentali dei Container
-Prima di K8s, devi conoscere i container.
-- **Docker**: Immagini, Container, Dockerfile, Docker Compose.
-- **Concetti**: Isolamento, Layer, Runtime (containerd).
-
-### 2. 🏛️ Architettura di Kubernetes
-Comprendere come funziona "sotto il cofano".
-- **Control Plane**: API Server, etcd, Scheduler, Controller Manager.
-- **Worker Nodes**: Kubelet, Kube-proxy, Container Runtime.
-- **Strumenti**: `kubectl`, `kubeadm`, `minikube`/`kind`.
-
-### 3. 📦 Risorse di Base
-Gli elementi costitutivi di un'applicazione su K8s.
-- **Pod**: L'unità minima di esecuzione.
-- **ReplicaSet & Deployment**: Gestione del ciclo di vita e scalabilità.
-- **Service**: Networking interno (ClusterIP, NodePort, LoadBalancer).
-- **ConfigMap & Secret**: Gestione della configurazione e dati sensibili.
-
-### 4. 🌐 Networking Avanzato
-Come le app comunicano tra loro e con l'esterno.
-- **Ingress**: Esposizione HTTP/HTTPS esterna.
-- **Network Policies**: Sicurezza del traffico tra i Pod.
-
-### 5. 💾 Storage
-Persistenza dei dati in un mondo effimero.
-- **Volumes**: Storage temporaneo.
-- **PersistentVolumes (PV) & PersistentVolumeClaims (PVC)**: Richiedere storage persistente.
-- **StorageClasses**: Provisioning dinamico.
-
-### 6. 🔒 Sicurezza & Accesso
-- **RBAC (Role-Based Access Control)**: Ruoli e permessi.
-- **Service Accounts**: Identità per i carichi di lavoro.
-- **Secrets Management**: Best practices.
-
-### 7. ☸️ Gestione dei Pacchetti con Helm
-- **Charts**: Struttura e templating.
-- **Release Management**: Installazione e upgrade.
-
-### 8. 🛠️ Estendibilità & Operatori (Go)
-Il livello avanzato per chi vuole costruire sopra Kubernetes.
-- **Custom Resource Definitions (CRDs)**: Estendere l'API di K8s.
-- **Controllers & Operators**: Automatizzare compiti complessi usando Go.
-### 9. 📋 Cheat Sheet Comandi
-Riepilogo finale di tutto il percorso.
-- **Docker & K8s CLI**: I comandi che userai ogni giorno.
-- **Helm & Debug**: Riferimento rapido per chart e risoluzione problemi.
-
-### 🎓 10. Esame Finale
-Verifica le tue competenze.
-- **Mega Quizzone**: 15 domande multidisciplinari.
-- **Sfide di Coding**: 5 esercizi pratici riassuntivi.
+Benvenuto su **KubeStudy**, una piattaforma interattiva progettata per guidarti nello studio di Kubernetes, dai fondamentali fino a concetti avanzati come l'estendibilità del cluster tramite Operatori in Go.
 
 ---
 
-## 🚀 Come usare questo repository
-Ogni cartella numerata (01-10) corrisponde a un modulo della roadmap. Entra nella cartella e leggi il `README.md` specifico per iniziare.
+## 🏗️ Architettura del Progetto
+
+Il progetto segue un'architettura moderna a microservizi (Dockerizzata):
+
+- **Frontend**: React + Material UI + Vite. Interfaccia utente fluida con supporto a temi e componenti personalizzati.
+- **Backend**: Node.js + Express. Gestisce l'autenticazione, il tracciamento dei progressi e il caricamento dinamico dei contenuti.
+- **Database**: MySQL 8.0 per la persistenza di utenti, acquisti e progressi dei corsi.
+- **Cache/Sessioni**: Redis per la gestione delle sessioni utente e performance elevate.
 
 ---
 
-## 🚀 Gestione rapida (CLI)
-Per semplificare la gestione dell'ambiente Docker, puoi usare i seguenti comandi dalla radice del progetto:
+## 🚀 Requisiti
 
-- **Sviluppo (Hot Reload)**: `./bin/dev`
-- **Avviare (Prod)**: `./bin/start`
-- **Fermare**: `./bin/stop`
-- **Riavviare**: `./bin/restart`
-- **Stato**: `./bin/status`
+- **Docker** e **Docker Compose** (V2 raccomandato).
+- **Node.js** (opzionale, solo se si desidera eseguire i servizi localmente senza Docker).
 
 ---
 
-## 🖥️ Piattaforma Web (Docker)
-Per un'esperienza di studio più piacevole, è stata creata un'applicazione frontend che permette di leggere i contenuti in formato corso interattivo.
+## ⚙️ Installazione e Setup
 
-### Avvio rapido
-Per lo sviluppo con ricaricamento a caldo (HMR):
+1. **Clona il repository**:
+   ```bash
+   git clone https://github.com/tuo-utente/kubestudy.git
+   cd kubestudy
+   ```
+
+2. **Configura l'ambiente**:
+   Copia il file di esempio `.env.example` in `.env` e personalizza le variabili se necessario:
+   ```bash
+   cp .env.example .env
+   ```
+
+3. **Prepara i contenuti**:
+   Assicurati che le cartelle `project_public` e `project_private` siano presenti (anche se vuote inizialmente):
+   ```bash
+   mkdir -p project_public project_private
+   ```
+
+---
+
+## 🛠️ Modalità di Esecuzione
+
+### Sviluppo (Consigliata)
+Per avviare l'intero stack con **Hot Reload** (Frontend e Backend si riavviano automaticamente alle modifiche):
 ```bash
 ./bin/dev
 ```
+- **Frontend**: [http://localhost:8080](http://localhost:8080)
+- **Backend**: [http://localhost:5005](http://localhost:5005)
 
-Per l'avvio in modalità produzione:
+### Produzione
+Per avviare i container in modalità ottimizzata:
 ```bash
 ./bin/start
 ```
-O via Docker Compose:
-```bash
-docker-compose up --build
-```
-Una volta avviato, apri il browser su: [http://localhost:8080](http://localhost:8080)
 
-### Caratteristiche
-- 📱 Design responsive per studiare ovunque.
-- 🌙 Navigazione laterale intuitiva.
-- ⚡ Aggiornamenti in tempo reale dei contenuti tramite Docker Volumes.
+### Comandi Rapidi (CLI)
+Nella cartella `bin/` trovi script utili per gestire lo stack:
+- `./bin/status`: Controlla lo stato dei container e degli endpoint.
+- `./bin/stop`: Ferma tutti i servizi.
+- `./bin/restart`: Riavvia l'applicazione.
 
-Buono studio!
+---
+
+## 🖥️ Caratteristiche Principali
+
+- **🎓 Corsi Interattivi**: Contenuti Markdown renderizzati dinamicamente con supporto a evidenziazione sintattica.
+- **💻 Console Interattiva**: Una shell integrata (stile zsh) con autocompletamento (Tab) per esercitarsi sui comandi.
+- **📝 Quiz & Esercizi**: Verifica le tue competenze con quiz a scelta multipla ed esercizi di coding pratici.
+- **👤 Area Personale**: Sistema di login/registrazione, gestione profilo con avatar e dashboard dei progressi.
+- **📊 Tracciamento Progresso**: Il sistema salva automaticamente l'ultimo modulo visitato e i quiz completati.
+- **🔒 Contenuti Privati**: Supporto per corsi "Premium" (in `project_private`) accessibili solo dopo l'attivazione.
+
+---
+
+## 📂 Struttura delle Cartelle
+
+- `frontend/`: Codice sorgente dell'applicazione React.
+- `backend/`: API server, gestione database e logica di business.
+- `project_public/`: Contenuti dei corsi accessibili a tutti (Markdown + JSON).
+- `project_private/`: Contenuti riservati (richiedono login/acquisto).
+- `bin/`: Script di automazione per Docker.
+
+---
+
+## 🤝 Contribuire
+
+Le contribuzioni sono benvenute! Se vuoi aggiungere un modulo o migliorare una funzionalità:
+1. Apri una Issue per discutere il cambiamento.
+2. Invia una Pull Request.
+
+Buono studio con KubeStudy! ☸️🚀
