@@ -1,0 +1,33 @@
+{
+  "exercises": [
+    {
+      "title": "Abilita Ingress",
+      "hint": "Usa il comando minikube addons enable",
+      "template": [
+        "minikube addons enable {{addon}}"
+      ],
+      "answers": [
+        { "id": "addon", "accepted": ["ingress"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Minikube Tunnel",
+      "hint": "Usa il comando tunnel",
+      "template": [
+        "minikube {{command}}"
+      ],
+      "answers": [
+        { "id": "command", "accepted": ["tunnel"], "width": "80px" }
+      ]
+    }
+  ],
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Quale comando permette di vedere tutti gli add-on disponibili?",
+      "options": ["minikube addons list", "minikube addons get", "minikube list addons", "kubectl get addons"],
+      "correct": 0,
+      "explanation": "Il comando 'minikube addons list' elenca tutti gli addon disponibili e indica quali sono attualmente abilitati."
+    }
+  ]
+}

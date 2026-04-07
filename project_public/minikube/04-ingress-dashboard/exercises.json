@@ -1,0 +1,48 @@
+{
+  "quiz": [
+    {
+      "id": "q4_1",
+      "question": "Quale addon abilita l'interfaccia grafica ufficiale in Minikube?",
+      "options": [
+        "dashboard",
+        "ingress",
+        "metrics-server",
+        "registry"
+      ],
+      "correct": 0,
+      "explanation": "Il comando 'minikube dashboard' avvia l'interfaccia grafica ufficiale di Kubernetes nel browser."
+    },
+    {
+      "id": "q4_2",
+      "question": "Quale addon serve per permettere a 'kubectl top' di funzionare?",
+      "options": [
+        "ingress",
+        "metrics-server",
+        "helm",
+        "metallb"
+      ],
+      "correct": 1,
+      "explanation": "metrics-server raccoglie le statistiche di utilizzo CPU e memoria dei nodi e dei pod, necessarie per i comandi di monitoraggio."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ex4_1",
+      "title": "Abilita l'Ingress Controller",
+      "hint": "Usa il comando 'minikube addons enable'",
+      "template": ["minikube addons {{action}} ingress"],
+      "answers": [
+        { "id": "action", "accepted": ["enable"], "width": "100px" }
+      ]
+    },
+    {
+      "id": "ex4_2",
+      "title": "Avvia la Dashboard",
+      "hint": "Il comando principale per la dashboard",
+      "template": ["minikube {{command}}"],
+      "answers": [
+        { "id": "command", "accepted": ["dashboard"], "width": "120px" }
+      ]
+    }
+  ]
+}

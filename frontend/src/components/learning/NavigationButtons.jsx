@@ -5,7 +5,10 @@ import KubeButton from '../ui/KubeButton';
 import KubeTypography from '../ui/KubeTypography';
 
 const NavigationButtons = ({ currentModule, allModules, onModuleSelect }) => {
+  if (!currentModule || !allModules || allModules.length === 0) return null;
+
   const currentIndex = allModules.findIndex((m) => m.id === currentModule.id);
+  if (currentIndex === -1) return null;
   const prevModule = currentIndex > 0 ? allModules[currentIndex - 1] : null;
   const nextModule = currentIndex < allModules.length - 1 ? allModules[currentIndex + 1] : null;
 

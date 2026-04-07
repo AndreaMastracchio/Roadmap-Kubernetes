@@ -95,7 +95,13 @@ app.get('/api/modules/:courseId/:moduleId', async (req, res) => {
       '10': '10-esame-finale/README.md'
     };
 
-    const filePath = moduleMap[moduleId];
+    let filePath = moduleMap[moduleId];
+    
+    // Se non è nella mappa fissa, proviamo a usare l'ID come percorso cartella
+    if (!filePath && moduleId !== 'intro') {
+      filePath = path.join(moduleId, 'README.md');
+    }
+
     if (!filePath) {
       return res.status(404).json({ error: 'Modulo non trovato' });
     }
@@ -130,9 +136,11 @@ app.get('/api/modules/:courseId/:moduleId/data', async (req, res) => {
       '10': '10-esame-finale/exercises.json'
     };
 
-    const filePath = moduleMap[moduleId];
+    let filePath = moduleMap[moduleId];
+
+    // Se non è nella mappa fissa, proviamo a usare l'ID come percorso cartella
     if (!filePath) {
-      return res.json({ quiz: [], exercises: [] });
+      filePath = path.join(moduleId, 'exercises.json');
     }
 
     const fullPath = path.join(modulesPath, filePath);

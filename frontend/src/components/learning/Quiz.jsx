@@ -68,7 +68,7 @@ const Quiz = ({ questions, onFinish }) => {
   const question = questions[currentQuestion];
 
   return (
-    <Box id="quiz-section" sx={{ mt: 8, mb: 6 }}>
+    <Box sx={{ mt: 8, mb: 6 }}>
       <Divider sx={{ mb: 6 }} />
       <KubeTypography variant="h5" weight="bold" sx={{ mb: 3, display: 'flex', alignItems: 'center', gap: 1.5 }}>
         🧠 Quiz di verifica <KubeTypography variant="h6" color="text.secondary" component="span">({currentQuestion + 1}/{questions.length})</KubeTypography>
@@ -92,10 +92,10 @@ const Quiz = ({ questions, onFinish }) => {
                   borderRadius: 3,
                   transition: 'all 0.2s ease',
                   bgcolor: showResult && index === question.correct ? 'rgba(76, 175, 80, 0.08)' :
-                           showResult && selectedOption === index && index !== question.correct ? 'rgba(244, 67, 54, 0.08)' : 
+                           showResult && selectedOption === index && index !== question.correct ? 'rgba(244, 67, 54, 0.08)' :
                            selectedOption === index ? 'rgba(50, 108, 229, 0.04)' : 'transparent',
                   border: showResult && index === question.correct ? '1px solid #4caf50' :
-                          showResult && selectedOption === index && index !== question.correct ? '1px solid #f44336' : 
+                          showResult && selectedOption === index && index !== question.correct ? '1px solid #f44336' :
                           selectedOption === index ? '1px solid #326ce540' : '1px solid #e5e7eb',
                   '&:hover': {
                     bgcolor: showResult ? 'inherit' : 'rgba(50, 108, 229, 0.02)',

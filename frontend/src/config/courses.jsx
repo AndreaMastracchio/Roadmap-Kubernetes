@@ -15,6 +15,7 @@ import {
 
 // Importiamo i moduli esistenti (che ora consideriamo parte del corso "Fondamentali Kubernetes")
 import { modules as k8sModules } from './modules';
+import { minikubeModules } from './minikubeModules';
 
 export const courses = [
   {
@@ -25,6 +26,15 @@ export const courses = [
     icon: <K8sIcon sx={{ fontSize: 40, color: '#326ce5' }} />,
     modules: k8sModules,
     color: '#326ce5'
+  },
+  {
+    id: 'minikube',
+    title: 'Minikube',
+    description: 'Impara a gestire Kubernetes in locale con Minikube. Profili, driver e add-ons per sviluppare come un pro.',
+    duration: '1h 00min',
+    icon: <TerminalIcon sx={{ fontSize: 40, color: '#00b0ff' }} />,
+    modules: minikubeModules,
+    color: '#00b0ff'
   },
   {
     id: 'docker-mastery',

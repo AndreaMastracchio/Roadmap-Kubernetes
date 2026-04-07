@@ -1,0 +1,33 @@
+{
+  "exercises": [
+    {
+      "title": "Nuovo Profilo",
+      "hint": "Usa il flag -p o --profile",
+      "template": [
+        "minikube start -p {{profile}}"
+      ],
+      "answers": [
+        { "id": "profile", "accepted": ["test", "dev", "prod"], "width": "80px" }
+      ]
+    },
+    {
+      "title": "Configurazione Memoria",
+      "hint": "Usa il flag --memory",
+      "template": [
+        "minikube start --memory {{mem}}"
+      ],
+      "answers": [
+        { "id": "mem", "accepted": ["4096", "4096mb", "8192", "8192mb"], "width": "80px" }
+      ]
+    }
+  ],
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Come si visualizza la lista di tutti i profili Minikube?",
+      "options": ["minikube list", "minikube profile list", "minikube get profiles", "kubectl get profiles"],
+      "correct": 1,
+      "explanation": "Il sottocomando 'profile list' mostra tutti i profili creati, lo stato e il driver utilizzato per ciascuno."
+    }
+  ]
+}

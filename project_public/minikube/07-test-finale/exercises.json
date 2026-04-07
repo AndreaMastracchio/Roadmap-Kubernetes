@@ -1,0 +1,84 @@
+{
+  "quiz": [
+    {
+      "id": "qf_1",
+      "question": "Come puoi avviare Minikube usando il driver 'docker' invece di quello predefinito?",
+      "options": [
+        "minikube start --driver=docker",
+        "minikube docker start",
+        "minikube start -d docker",
+        "kubectl start --driver=docker"
+      ],
+      "correct": 0,
+      "explanation": "Il flag '--driver=docker' forza Minikube a creare il cluster come container Docker anziché in una VM."
+    },
+    {
+      "id": "qf_2",
+      "question": "Quale comando permette di accedere direttamente al demone Docker interno a Minikube?",
+      "options": [
+        "eval $(minikube docker-env)",
+        "minikube docker exec",
+        "docker connect minikube",
+        "minikube ssh docker"
+      ],
+      "correct": 0,
+      "explanation": "Caricare l'ambiente con 'docker-env' permette al client Docker locale di comunicare con il demone all'interno del cluster."
+    },
+    {
+      "id": "qf_3",
+      "question": "Qual è il comando per esporre un servizio di tipo LoadBalancer su macOS o Windows?",
+      "options": [
+        "minikube tunnel",
+        "minikube service",
+        "minikube expose",
+        "minikube networking"
+      ],
+      "correct": 0,
+      "explanation": "'minikube tunnel' crea una rete di bridge necessaria per assegnare IP esterni ai servizi LoadBalancer su OS non-Linux."
+    },
+    {
+      "id": "qf_4",
+      "question": "Come si passa da un profilo all'altro?",
+      "options": [
+        "minikube profile <nome>",
+        "minikube use-context <nome>",
+        "minikube start -p <nome>",
+        "minikube switch <nome>"
+      ],
+      "correct": 2,
+      "explanation": "Il flag '-p' (o '--profile') specifica il nome del cluster che si vuole gestire o avviare."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "exf_1",
+      "title": "Aggiungi un nodo al cluster",
+      "hint": "Usa il comando 'node add'",
+      "template": ["minikube node {{action}}"],
+      "answers": [
+        { "id": "action", "accepted": ["add"], "width": "120px" }
+      ]
+    },
+    {
+      "id": "exf_2",
+      "title": "Abilita l'addon Metrics Server",
+      "hint": "Comando 'minikube addons enable'",
+      "template": ["minikube addons {{action}} {{name}}"],
+      "answers": [
+        { "id": "action", "accepted": ["enable"], "width": "100px" },
+        { "id": "name", "accepted": ["metrics-server"], "width": "150px" }
+      ]
+    },
+    {
+      "id": "exf_3",
+      "title": "Configura 4GB di RAM per il profilo predefinito",
+      "hint": "Usa 'minikube config set memory'",
+      "template": ["minikube config {{action}} {{property}} {{value}}"],
+      "answers": [
+        { "id": "action", "accepted": ["set"], "width": "80px" },
+        { "id": "property", "accepted": ["memory"], "width": "100px" },
+        { "id": "value", "accepted": ["4096"], "width": "80px" }
+      ]
+    }
+  ]
+}

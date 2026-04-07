@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeSlug from 'rehype-slug';
+import rehypeRaw from 'rehype-raw';
 import {
   Box,
   CssBaseline,
@@ -28,8 +29,9 @@ import KubeLoader from './components/ui/KubeLoader';
 import KubeSection from './components/ui/KubeSection';
 
 // Feature Components
+import ErrorBoundary from './components/ui/ErrorBoundary';
 import HomeView from './components/course/HomeView';
-import Dashboard from './components/user/Dashboard'; 
+import Dashboard from './components/user/Dashboard';
 import Profile from './components/user/Profile'; // Nuovo
 import Quiz from './components/learning/Quiz';
 import CodingExercises from './components/learning/CodingExercises';
@@ -75,20 +77,20 @@ function AppContent() {
     }
 
     actions.selectCourse(course);
-    
+
     if (course && course.modules && course.modules.length > 0) {
       // Priorità: il primo modulo NON completato nel corso
-      const firstUncompletedModule = course.modules.find(m => 
-        !user?.completedModules?.includes(`${course.id}-${m.id}`) && 
+      const firstUncompletedModule = course.modules.find(m =>
+        !user?.completedModules?.includes(`${course.id}-${m.id}`) &&
         !user?.completedModules?.includes(m.id)
       );
-      
+
       // Se non ci sono moduli incompleti, prendiamo l'ultimo visitato o il primo
       const backendLastModuleId = user?.lastVisitedModules?.[course.id];
       const localLastModuleId = localStorage.getItem(`last-mod-${course.id}`);
       const lastModuleId = backendLastModuleId || localLastModuleId;
       const lastModule = course.modules.find(m => m.id === lastModuleId);
-      
+
       const targetModule = firstUncompletedModule || lastModule || course.modules[0];
       actions.selectModule(targetModule);
 
@@ -191,38 +193,38 @@ function AppContent() {
               ) : (
                 <>
                   <Box className="markdown-content">
-                    <ReactMarkdown rehypePlugins={[rehypeSlug]}>{content}</ReactMarkdown>
+                    <ReactMarkdown rehypePlugins={[rehypeSlug, rehypeRaw]}>{content}</ReactMarkdown>
                   </Box>
 
-                  {exercises && exercises.length > 0 && (
+                  {exercises && exercises.length > 0 && activeModule && (
                     <KubeSection
                       id="exercises-section"
                       title="Esercitazioni Pratiche"
                       icon={<AssignmentOutlined />}
                     >
-                      <CodingExercises 
-                        exercises={exercises} 
-                        key={`${activeModule.id}-exercises`} 
+                      <CodingExercises
+                        exercises={exercises}
+                        key={`${activeModule.id}-exercises`}
                         onFinish={handleModuleFinish}
                       />
                     </KubeSection>
                   )}
 
-                  {questions.length > 0 && (
+                  {questions.length > 0 && activeModule && (
                     <KubeSection
                       id="quiz-section"
                       title="Quiz di Verifica"
                       icon={<QuizOutlined />}
                     >
-                      <Quiz 
-                        questions={questions} 
-                        key={activeModule.id} 
+                      <Quiz
+                        questions={questions}
+                        key={activeModule.id}
                         onFinish={handleModuleFinish}
                       />
                     </KubeSection>
                   )}
 
-                  {!activeCourse.isIntro && (
+                  {!activeCourse.isIntro && activeModule && (
                     <NavigationButtons
                       currentModule={activeModule}
                       allModules={activeCourse.modules}
@@ -291,7 +293,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <AuthProvider>
         <CssBaseline />
-        <AppContent />
+        <ErrorBoundary>
+          <AppContent />
+        </ErrorBoundary>
       </AuthProvider>
     </ThemeProvider>
   );

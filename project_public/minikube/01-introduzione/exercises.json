@@ -1,0 +1,40 @@
+{
+  "exercises": [
+    {
+      "title": "Avvio del Cluster",
+      "hint": "Usa il comando start con il flag --driver",
+      "template": [
+        "minikube start --driver={{driver}}"
+      ],
+      "answers": [
+        { "id": "driver", "accepted": ["docker", "virtualbox", "vmware", "kvm2"], "width": "100px" }
+      ]
+    },
+    {
+      "title": "Verifica Stato",
+      "hint": "Usa il comando status",
+      "template": [
+        "minikube {{command}}"
+      ],
+      "answers": [
+        { "id": "command", "accepted": ["status"], "width": "80px" }
+      ]
+    }
+  ],
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Qual è il driver predefinito consigliato per Minikube su sistemi con Docker installato?",
+      "options": ["Hyper-V", "VirtualBox", "Docker", "None"],
+      "correct": 2,
+      "explanation": "Minikube rileva automaticamente Docker e lo usa come driver predefinito se disponibile, essendo il più efficiente e facile da configurare."
+    },
+    {
+      "id": "q2",
+      "question": "Quale comando permette di fermare il cluster senza eliminarne le configurazioni?",
+      "options": ["minikube delete", "minikube pause", "minikube stop", "minikube exit"],
+      "correct": 2,
+      "explanation": "'minikube stop' arresta la macchina virtuale o il container ma mantiene intatto lo stato del cluster per il prossimo avvio."
+    }
+  ]
+}

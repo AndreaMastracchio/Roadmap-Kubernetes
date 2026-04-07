@@ -135,7 +135,8 @@ const TerminalConsole = ({ courses, onClose }) => {
     const question = questionsList[randomIndex];
 
     // Mostriamo il template con i placeholder evidenziati
-    let displayTemplate = question.template.join('\n');
+    const templateArray = Array.isArray(question.template) ? question.template : [question.template];
+    let displayTemplate = templateArray.join('\n');
 
     setHistory(prev => [...prev, {
       type: 'question',
@@ -175,12 +176,12 @@ const TerminalConsole = ({ courses, onClose }) => {
       return;
     }
 
-    const acceptedAnswers = currentQuestion.answers.map(a => a.accepted);
+    const acceptedAnswers = (currentQuestion.answers || []).map(a => a.accepted);
     const lowerAnswer = answer.toLowerCase();
 
     // Verifichiamo se l'utente ha inserito tutte le parti richieste
     const missingParts = [];
-    acceptedAnswers.forEach((options, index) => {
+    (currentQuestion.answers || []).forEach((options, index) => {
       const found = options.some(opt => lowerAnswer.includes(opt.toLowerCase()));
       if (!found) {
         missingParts.push(currentQuestion.answers[index].id);
