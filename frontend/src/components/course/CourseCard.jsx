@@ -9,7 +9,7 @@ const CourseCard = ({ course, onSelect }) => {
   const { user, hasAccessToProject } = useAuth();
   const hasAccess = hasAccessToProject(course.id);
   const isPrivate = course.isPrivate;
-  const isOwned = user && user.purchasedProjects.includes(course.id);
+  const isOwned = user && user.purchasedProjects?.includes(course.id);
 
   const progress = user && course.modules ? 
     Math.round((course.modules.filter(m => user.completedModules?.includes(`${course.id}-${m.id}`) || user.completedModules?.includes(m.id)).length / (course.modules.length || 1)) * 100) : 0;

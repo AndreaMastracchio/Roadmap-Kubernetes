@@ -45,3 +45,5 @@ docs
 private
 project_private/
 cookies.txt
+cookies_otp.txt
+dev_log.txt

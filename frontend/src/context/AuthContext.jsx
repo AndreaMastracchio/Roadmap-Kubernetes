@@ -14,7 +14,17 @@ const authReducer = (state, action) => {
     case 'AUTH_START':
       return { ...state, loading: true, error: null };
     case 'AUTH_SUCCESS':
-      return { ...state, loading: false, user: action.payload, error: null };
+      return { 
+        ...state, 
+        loading: false, 
+        user: {
+          ...action.payload,
+          purchasedProjects: action.payload.purchasedProjects || [],
+          completedModules: action.payload.completedModules || [],
+          lastVisitedModules: action.payload.lastVisitedModules || {}
+        }, 
+        error: null 
+      };
     case 'AUTH_FAILURE':
       return { ...state, loading: false, user: null, error: action.payload };
     case 'UPDATE_USER':
@@ -61,6 +71,10 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       if (data.success) {
+        if (data.requiresOTP) {
+          dispatch({ type: 'AUTH_FAILURE', payload: null }); // Rimuove errori precedenti
+          return { success: true, requiresOTP: true, phone: data.phone };
+        }
         const meRes = await fetch(API_ENDPOINTS.AUTH.ME, { credentials: 'include' });
         const meData = await meRes.json();
         dispatch({ type: 'AUTH_SUCCESS', payload: meData.user });
@@ -85,6 +99,10 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       if (data.success) {
+        if (data.requiresOTP) {
+          dispatch({ type: 'AUTH_FAILURE', payload: null });
+          return { success: true, requiresOTP: true, phone: data.phone };
+        }
         dispatch({ type: 'AUTH_SUCCESS', payload: data.user });
         return { success: true };
       }
@@ -93,6 +111,42 @@ export const AuthProvider = ({ children }) => {
     } catch (e) {
       dispatch({ type: 'AUTH_FAILURE', payload: 'Errore di connessione al server' });
       return { success: false, message: 'Errore di connessione al server' };
+    }
+  }, []);
+
+  const verifyOTP = useCallback(async (phone, otp, type) => {
+    dispatch({ type: 'AUTH_START' });
+    try {
+      const response = await fetch(API_ENDPOINTS.AUTH.VERIFY_OTP, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, otp, type }),
+        credentials: 'include'
+      });
+      const data = await response.json();
+      if (data.success) {
+        dispatch({ type: 'AUTH_SUCCESS', payload: data.user });
+        return { success: true };
+      }
+      dispatch({ type: 'AUTH_FAILURE', payload: data.message });
+      return { success: false, message: data.message };
+    } catch (e) {
+      dispatch({ type: 'AUTH_FAILURE', payload: 'Errore durante la verifica' });
+      return { success: false, message: 'Errore durante la verifica' };
+    }
+  }, []);
+
+  const resendOTP = useCallback(async (phone) => {
+    try {
+      const response = await fetch(API_ENDPOINTS.AUTH.RESEND_OTP, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone }),
+        credentials: 'include'
+      });
+      return await response.json();
+    } catch (e) {
+      return { success: false, message: 'Errore connessione' };
     }
   }, []);
 
@@ -247,6 +301,8 @@ export const AuthProvider = ({ children }) => {
       login, 
       register, 
       logout, 
+      verifyOTP,
+      resendOTP,
       hasAccessToProject, 
       buyProject,
       updateProfile,

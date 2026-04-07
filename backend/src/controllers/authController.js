@@ -1,38 +1,129 @@
 const bcrypt = require('bcryptjs');
 const db = require('../config/db');
+const otpService = require('../services/otpService');
+const redisClient = require('../config/redis');
 
 exports.register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, phone } = req.body;
 
-  if (!name || !email || !password) {
-    return res.status(400).json({ success: false, message: 'Tutti i campi sono obbligatori' });
+  if (!name || !email || !password || !phone) {
+    return res.status(400).json({ success: false, message: 'Tutti i campi (incluso telefono) sono obbligatori' });
   }
 
   try {
-    // Verifica se l'utente esiste già
-    const [existingUsers] = await db.query('SELECT id FROM users WHERE email = ?', [email]);
+    // Verifica se l'utente esiste già nel DB (per email o telefono)
+    const [existingUsers] = await db.query('SELECT id FROM users WHERE email = ? OR phone = ?', [email, phone]);
     if (existingUsers.length > 0) {
-      return res.status(400).json({ success: false, message: 'Email già registrata' });
+      return res.status(400).json({ success: false, message: 'Email o telefono già registrati' });
     }
 
-    // Hash password
+    // Genera OTP e salva i dati utente temporaneamente in Redis
+    const otp = otpService.generateOTP();
     const hashedPassword = await bcrypt.hash(password, 12);
+    
+    const pendingUser = { name, email, password: hashedPassword, phone };
+    await redisClient.set(`pending_user:${phone}`, JSON.stringify(pendingUser), 'EX', 600); // 10 minuti
+    
+    await otpService.saveOTP(phone, otp);
+    await otpService.sendOTP(phone, otp);
 
-    // Inserisci utente
-    const [result] = await db.query(
-      'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
-      [name, email, hashedPassword]
-    );
-
-    const newUser = { id: result.insertId, name, email, avatar_url: null };
-
-    // Inizializza sessione
-    req.session.user = newUser;
-
-    res.status(201).json({ success: true, user: newUser });
+    res.status(200).json({ 
+      success: true, 
+      message: 'OTP inviato al numero di telefono', 
+      requiresOTP: true, 
+      phone 
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, message: 'Errore durante la registrazione' });
+    res.status(500).json({ success: false, message: 'Errore durante l\'invio dell\'OTP' });
+  }
+};
+
+exports.verifyOTP = async (req, res) => {
+  const { phone, otp, type } = req.body; // type: 'register' o 'login'
+
+  if (!phone || !otp) {
+    return res.status(400).json({ success: false, message: 'Telefono e OTP sono obbligatori' });
+  }
+
+  try {
+    const isValid = await otpService.verifyOTP(phone, otp);
+    if (!isValid) {
+      return res.status(400).json({ success: false, message: 'OTP non valido o scaduto' });
+    }
+
+    if (type === 'register') {
+      const userDataStr = await redisClient.get(`pending_user:${phone}`);
+      if (!userDataStr) {
+        return res.status(400).json({ success: false, message: 'Dati di registrazione non trovati. Riprova la registrazione.' });
+      }
+
+      const { name, email, password } = JSON.parse(userDataStr);
+      
+      // Salva nel DB
+      const [result] = await db.query(
+        'INSERT INTO users (name, email, password, phone, is_phone_verified) VALUES (?, ?, ?, ?, true)',
+        [name, email, password, phone]
+      );
+
+      const newUser = {
+        id: result.insertId,
+        name,
+        email,
+        phone,
+        avatar_url: null,
+        purchasedProjects: [],
+        completedModules: [],
+        lastVisitedModules: {}
+      };
+
+      await redisClient.del(`pending_user:${phone}`);
+      req.session.user = newUser;
+      return res.status(201).json({ success: true, user: newUser });
+
+    } else {
+      // Login flow
+      const userIdStr = await redisClient.get(`pending_auth:${phone}`);
+      if (!userIdStr) {
+        return res.status(400).json({ success: false, message: 'Sessione di login scaduta. Riprova.' });
+      }
+
+      const [users] = await db.query('SELECT * FROM users WHERE id = ?', [parseInt(userIdStr)]);
+      const user = users[0];
+      
+      const userData = { 
+        id: user.id, 
+        name: user.name, 
+        email: user.email, 
+        phone: user.phone,
+        avatar_url: user.avatar_url 
+      };
+      
+      await redisClient.del(`pending_auth:${phone}`);
+      req.session.user = userData;
+      return res.json({ success: true, user: userData });
+    }
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Errore durante la verifica dell\'OTP' });
+  }
+};
+
+exports.resendOTP = async (req, res) => {
+  const { phone } = req.body;
+  if (!phone) {
+    return res.status(400).json({ success: false, message: 'Telefono obbligatorio' });
+  }
+
+  try {
+    const otp = otpService.generateOTP();
+    await otpService.saveOTP(phone, otp);
+    await otpService.sendOTP(phone, otp);
+    res.json({ success: true, message: 'Nuovo OTP inviato' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Errore durante l\'invio del nuovo OTP' });
   }
 };
 
@@ -51,10 +142,34 @@ exports.login = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Credenziali non valide' });
     }
 
-    const userData = { id: user.id, name: user.name, email: user.email, avatar_url: user.avatar_url };
-    req.session.user = userData;
+    // Se l'utente non ha ancora verificato il telefono (dovrebbe essere impossibile col nuovo flusso, ma checkiamo per sicurezza)
+    if (!user.is_phone_verified) {
+      const otp = otpService.generateOTP();
+      await otpService.saveOTP(user.phone, otp);
+      await otpService.sendOTP(user.phone, otp);
+      return res.status(200).json({ 
+        success: true, 
+        message: 'Telefono non verificato. OTP inviato.', 
+        requiresOTP: true, 
+        phone: user.phone,
+        otpType: 'register' // Indica che serve salvare l'utente se non l'abbiamo ancora fatto (ma qui è già nel DB)
+      });
+    }
 
-    res.json({ success: true, user: userData });
+    // Invia OTP per 2FA al login
+    const otp = otpService.generateOTP();
+    await otpService.saveOTP(user.phone, otp);
+    await otpService.sendOTP(user.phone, otp);
+    
+    // Salva il tentativo di login in Redis
+    await redisClient.set(`pending_auth:${user.phone}`, user.id.toString(), 'EX', 600); // 10 minuti
+
+    res.json({ 
+      success: true, 
+      message: 'OTP per 2FA inviato al numero di telefono', 
+      requiresOTP: true, 
+      phone: user.phone 
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: 'Errore durante il login' });

@@ -4,22 +4,13 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const session = require('express-session');
 const RedisStore = require('connect-redis').default;
-const Redis = require('ioredis');
+const redisClient = require('./config/redis');
 const path = require('path');
 const fs = require('fs').promises;
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5005;
-
-// Configurazione Redis
-const redisClient = new Redis({
-  host: process.env.REDIS_HOST || 'localhost',
-  port: process.env.REDIS_PORT || 6379,
-});
-
-redisClient.on('error', (err) => console.error('Redis Client Error:', err));
-redisClient.on('connect', () => console.log('Redis Client Connected'));
 
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -60,7 +51,7 @@ app.use(
 async function getModulesPath(courseId = 'k8s-fondamentali') {
   const publicDir = '/project_public';
   const privateDir = '/project_private';
-  
+
   // Proviamo a vedere se il corso è in public
   let fullPath = path.join(publicDir, courseId);
   try {
