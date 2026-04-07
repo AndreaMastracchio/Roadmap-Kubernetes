@@ -1,0 +1,9 @@
+{
+  "id": "gitops-argo-flux",
+  "title": "GitOps & CI/CD",
+  "description": "Automazione professionale con ArgoCD e Flux per gestire il cluster come codice (IaC).",
+  "icon": "ArchitectureIcon",
+  "price": 39.99,
+  "isPrivate": true,
+  "comingSoon": true
+}

@@ -1,0 +1,9 @@
+{
+  "id": "k8s-developer-ckad",
+  "title": "Kubernetes Developer (CKAD)",
+  "description": "Tutto quello che uno sviluppatore deve sapere per far girare le app in modo efficiente e scalabile.",
+  "icon": "CodeIcon",
+  "price": 44.99,
+  "isPrivate": true,
+  "comingSoon": true
+}
