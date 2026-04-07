@@ -8,7 +8,8 @@ services:
     ports:
       - "8080:3000"
     environment:
-      - VITE_WATCH_USE_POLLING=true
+      - VITE_WATCH_USE_POLLING=${VITE_WATCH_USE_POLLING}
+      - VITE_API_URL=${VITE_API_URL}
     command: >
       sh -c "
       echo '📦 Frontend avviato. Inizio installazione dipendenze...' &&
@@ -28,16 +29,20 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
-      - ./project_public:/project_public
+      - ${PROJECT_PUBLIC_PATH}:/project_public
+      - ${PROJECT_PRIVATE_PATH}:/project_private
     ports:
       - "5005:5005"
     environment:
-      - MYSQL_HOST=db
-      - MYSQL_USER=kubeuser
-      - MYSQL_PASSWORD=kubepassword
-      - MYSQL_DATABASE=kubestudy
-      - REDIS_HOST=redis
-      - SESSION_SECRET=kube-dev-secret
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - PORT=${PORT}
+      - NODE_ENV=${NODE_ENV}
     command: >
       sh -c "
       echo '📦 Backend avviato. Inizio installazione dipendenze...' &&
@@ -54,10 +59,10 @@ services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: kubestudy
-      MYSQL_USER: kubeuser
-      MYSQL_PASSWORD: kubepassword
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3306:3306"
     volumes:

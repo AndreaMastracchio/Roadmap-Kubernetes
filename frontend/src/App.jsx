@@ -54,7 +54,7 @@ function AppContent() {
   const isProfileOpen = view === 'profile';
 
   // Custom Hooks per la gestione dei dati e dello scroll
-  const { content, questions, exercises, loading } = useModuleContent(activeModule);
+  const { content, questions, exercises, loading } = useModuleContent(activeCourse, activeModule);
   const { activeSection, setActiveSection } = useScrollSpy(content, questions, exercises);
 
   useEffect(() => {

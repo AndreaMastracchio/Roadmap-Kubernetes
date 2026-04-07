@@ -4,29 +4,8 @@ services:
       context: ./frontend
     ports:
       - "8080:80"
-    volumes:
-      # Mount dei file markdown per vederli aggiornati in real-time
-      - ./README.md:/usr/share/nginx/html/modules/intro.md:ro
-      - ./project_public/k8s-fondamentali/01-fondamentali/README.md:/usr/share/nginx/html/modules/01.md:ro
-      - ./project_public/k8s-fondamentali/01-fondamentali/exercises.json:/usr/share/nginx/html/modules/01.json:ro
-      - ./project_public/k8s-fondamentali/02-architettura/README.md:/usr/share/nginx/html/modules/02.md:ro
-      - ./project_public/k8s-fondamentali/02-architettura/exercises.json:/usr/share/nginx/html/modules/02.json:ro
-      - ./project_public/k8s-fondamentali/03-risorse-base/README.md:/usr/share/nginx/html/modules/03.md:ro
-      - ./project_public/k8s-fondamentali/03-risorse-base/exercises.json:/usr/share/nginx/html/modules/03.json:ro
-      - ./project_public/k8s-fondamentali/04-networking/README.md:/usr/share/nginx/html/modules/04.md:ro
-      - ./project_public/k8s-fondamentali/04-networking/exercises.json:/usr/share/nginx/html/modules/04.json:ro
-      - ./project_public/k8s-fondamentali/05-storage/README.md:/usr/share/nginx/html/modules/05.md:ro
-      - ./project_public/k8s-fondamentali/05-storage/exercises.json:/usr/share/nginx/html/modules/05.json:ro
-      - ./project_public/k8s-fondamentali/06-sicurezza/README.md:/usr/share/nginx/html/modules/06.md:ro
-      - ./project_public/k8s-fondamentali/06-sicurezza/exercises.json:/usr/share/nginx/html/modules/06.json:ro
-      - ./project_public/k8s-fondamentali/07-helm/README.md:/usr/share/nginx/html/modules/07.md:ro
-      - ./project_public/k8s-fondamentali/07-helm/exercises.json:/usr/share/nginx/html/modules/07.json:ro
-      - ./project_public/k8s-fondamentali/08-operatori-go/README.md:/usr/share/nginx/html/modules/08.md:ro
-      - ./project_public/k8s-fondamentali/08-operatori-go/exercises.json:/usr/share/nginx/html/modules/08.json:ro
-      - ./project_public/k8s-fondamentali/09-comandi-utili/README.md:/usr/share/nginx/html/modules/09.md:ro
-      - ./project_public/k8s-fondamentali/09-comandi-utili/exercises.json:/usr/share/nginx/html/modules/09.json:ro
-      - ./project_public/k8s-fondamentali/10-esame-finale/README.md:/usr/share/nginx/html/modules/10.md:ro
-      - ./project_public/k8s-fondamentali/10-esame-finale/exercises.json:/usr/share/nginx/html/modules/10.json:ro
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
     depends_on:
       - kubestudy-backend
     restart: always
@@ -37,14 +16,18 @@ services:
     ports:
       - "5005:5005"
     volumes:
-      - ./project_public:/project_public
+      - ${PROJECT_PUBLIC_PATH}:/project_public
+      - ${PROJECT_PRIVATE_PATH}:/project_private
     environment:
-      - MYSQL_HOST=db
-      - MYSQL_USER=kubeuser
-      - MYSQL_PASSWORD=kubepassword
-      - MYSQL_DATABASE=kubestudy
-      - REDIS_HOST=redis
-      - SESSION_SECRET=kube-super-secret-session-key
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - PORT=${PORT}
+      - NODE_ENV=${NODE_ENV}
     depends_on:
       db:
         condition: service_healthy
@@ -56,10 +39,10 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: kubestudy
-      MYSQL_USER: kubeuser
-      MYSQL_PASSWORD: kubepassword
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3306:3306"
     volumes:

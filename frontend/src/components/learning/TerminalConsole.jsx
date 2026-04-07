@@ -99,7 +99,7 @@ const TerminalConsole = ({ courses, onClose }) => {
     let questions = [];
     for (const mod of course.modules) {
       try {
-        const res = await fetch(API_ENDPOINTS.MODULES_DATA(mod.id));
+        const res = await fetch(API_ENDPOINTS.MODULES_DATA(course.id, mod.id));
         if (res.ok) {
           const data = await res.json();
           const moduleExercises = Array.isArray(data)

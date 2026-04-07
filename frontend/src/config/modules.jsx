@@ -18,9 +18,8 @@ export const introModule = {
   file: 'intro.md',
   icon: <SchoolIcon />,
   sections: [
-    { id: 'intro-01', title: 'La Roadmap', anchor: 'il-percorso-di-studio' },
+    { id: 'intro-01', title: 'La Roadmap', anchor: 'la-roadmap' },
     { id: 'intro-02', title: 'Come Usare', anchor: 'come-usare-questo-repository' },
-    { id: 'intro-03', title: 'Gestione CLI', anchor: 'gestione-rapida-cli' },
     { id: 'intro-04', title: 'Piattaforma Web', anchor: 'piattaforma-web-docker' }
   ]
 };
@@ -41,7 +40,7 @@ export const modules = [
       { id: '01-05', title: 'Docker e Dockerfile', anchor: 'docker-e-dockerfile' },
       { id: '01-05b', title: 'ENTRYPOINT vs CMD', anchor: 'entrypoint-vs-cmd' },
       { id: '01-05c', title: 'COPY vs ADD', anchor: 'copy-vs-add' },
-      { id: '01-08', title: 'Volumi e Dati', anchor: 'gestione-dei-dati-volumi-e-bind-mounts' },
+      { id: '01-08', title: 'Volumi e Dati', anchor: 'gestione-dei-dati-volumi-bind-mounts-e-tmpfs' },
       { id: '01-09', title: 'Reti Docker', anchor: 'reti-docker' },
       { id: '01-06', title: 'Sicurezza', anchor: 'sicurezza-dei-container' },
       { id: '01-07', title: 'Esercizi Pratici', anchor: 'esercizi-pratici' },

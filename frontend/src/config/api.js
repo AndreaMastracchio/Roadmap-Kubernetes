@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5005/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5005/api';
 
 export const API_ENDPOINTS = {
   AUTH: {
@@ -15,8 +15,8 @@ export const API_ENDPOINTS = {
     COMPLETE_MODULE: `${API_BASE}/user/complete-module`,
     CURRENT_MODULE: `${API_BASE}/user/current-module`,
   },
-  MODULES: (id) => `${API_BASE}/modules/${id}`,
-  MODULES_DATA: (id) => `${API_BASE}/modules/${id}/data`,
+  MODULES: (courseId, id) => `${API_BASE}/modules/${courseId}/${id}`,
+  MODULES_DATA: (courseId, id) => `${API_BASE}/modules/${courseId}/${id}/data`,
 };
 
 export default API_BASE;

@@ -56,23 +56,38 @@ app.use(
   })
 );
 
+// Funzione helper per risolvere il path dei moduli (public o private)
+async function getModulesPath(courseId = 'k8s-fondamentali') {
+  const publicDir = '/project_public';
+  const privateDir = '/project_private';
+  
+  // Proviamo a vedere se il corso è in public
+  let fullPath = path.join(publicDir, courseId);
+  try {
+    await fs.access(fullPath);
+    return fullPath;
+  } catch (e) {
+    // Se non è in public, proviamo in private
+    fullPath = path.join(privateDir, courseId);
+    try {
+      await fs.access(fullPath);
+      return fullPath;
+    } catch (e2) {
+      // Fallback per sviluppo locale senza Docker
+      return path.join(__dirname, '../../project_public', courseId);
+    }
+  }
+}
+
 // Rotte API
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 
-// Route per servire i moduli da project_public/k8s-fondamentali
-app.get('/api/modules/:moduleId', async (req, res) => {
+// Route per servire i moduli in base al corso e modulo
+app.get('/api/modules/:courseId/:moduleId', async (req, res) => {
   try {
-    const { moduleId } = req.params;
-
-    // In Docker usiamo il mount point fisso, in locale usiamo il path relativo
-    let baseDir = '/project_public';
-    try {
-      await fs.access(baseDir);
-    } catch (e) {
-      baseDir = path.join(__dirname, '../../project_public');
-    }
-    const modulesPath = path.join(baseDir, 'k8s-fondamentali');
+    const { courseId, moduleId } = req.params;
+    const modulesPath = await getModulesPath(courseId);
 
     // Mapping dei moduli ai loro percorsi
     const moduleMap = {
@@ -105,19 +120,11 @@ app.get('/api/modules/:moduleId', async (req, res) => {
   }
 });
 
-// Route per servire i JSON dei quiz/esercizi
-app.get('/api/modules/:moduleId/data', async (req, res) => {
+// Route per servire i JSON dei quiz/esercizi in base al corso e modulo
+app.get('/api/modules/:courseId/:moduleId/data', async (req, res) => {
   try {
-    const { moduleId } = req.params;
-
-    // In Docker usiamo il mount point fisso, in locale usiamo il path relativo
-    let baseDir = '/project_public';
-    try {
-      await fs.access(baseDir);
-    } catch (e) {
-      baseDir = path.join(__dirname, '../../project_public');
-    }
-    const modulesPath = path.join(baseDir, 'k8s-fondamentali');
+    const { courseId, moduleId } = req.params;
+    const modulesPath = await getModulesPath(courseId);
 
     const moduleMap = {
       '01': '01-fondamentali/exercises.json',
