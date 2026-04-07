@@ -147,7 +147,7 @@ function AppContent() {
 
   const handleOpenIntro = useCallback(() => {
     const virtualIntroCourse = {
-      id: 'intro',
+      id: 'k8s-fondamentali',
       title: 'Informazioni',
       modules: [introModule],
       isIntro: true
@@ -176,7 +176,7 @@ function AppContent() {
         return <Dashboard onSelectCourse={handleCourseSelect} />;
       }
       if (isProfileOpen && user) {
-        return <Profile />;
+        return <Profile onDashboard={() => handleBackToHome('dashboard')} />;
       }
       return <HomeView onSelectCourse={handleCourseSelect} />;
     }

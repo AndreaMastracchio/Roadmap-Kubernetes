@@ -15,6 +15,10 @@ import {
 import { Close as CloseIcon, PersonAdd, Login as LoginIcon } from '@mui/icons-material';
 import { useAuth } from '../../context/AuthContext';
 
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
+import OTPForm from './OTPForm';
+
 const AuthModal = ({ open, onClose }) => {
   const [tab, setTab] = useState(0);
   const [email, setEmail] = useState('');
@@ -109,99 +113,41 @@ const AuthModal = ({ open, onClose }) => {
           </Tabs>
         )}
 
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-          {message && <Alert severity="success" sx={{ mb: 2 }}>{message}</Alert>}
-          
-          {showOTP ? (
-            <>
-              <Typography variant="body2" sx={{ mb: 2, textAlign: 'center' }}>
-                Inserisci il codice di verifica inviato al numero <strong>{pendingPhone}</strong>
-              </Typography>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                label="Codice OTP (6 cifre)"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                autoFocus
-              />
-              <Button
-                fullWidth
-                variant="text"
-                onClick={handleResend}
-                sx={{ mt: 1, textTransform: 'none' }}
-              >
-                Non hai ricevuto il codice? Reinvia
-              </Button>
-            </>
-          ) : (
-            <>
-              {tab === 1 && (
-                <>
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    label="Nome Completo"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    autoFocus
-                  />
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    label="Numero di Telefono"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="+391234567890"
-                  />
-                </>
-              )}
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                label="Email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                autoFocus={tab === 0}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                label="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </>
-          )}
+        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+        {message && <Alert severity="success" sx={{ mb: 2 }}>{message}</Alert>}
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2, py: 1.5, fontWeight: 'bold' }}
-          >
-            {showOTP ? 'Verifica' : (tab === 0 ? 'Accedi' : 'Crea Account')}
-          </Button>
-          
-          {showOTP && (
-            <Button
-              fullWidth
-              variant="text"
-              onClick={() => setShowOTP(false)}
-              sx={{ mt: 0, textTransform: 'none' }}
-            >
-              Torna al login
-            </Button>
-          )}
-        </Box>
+        {showOTP ? (
+          <OTPForm 
+            otp={otp} 
+            setOtp={setOtp} 
+            phone={pendingPhone} 
+            onVerify={handleSubmit} 
+            onResend={handleResend}
+            onBack={() => setShowOTP(false)}
+          />
+        ) : (
+          tab === 0 ? (
+            <LoginForm 
+              email={email} 
+              setEmail={setEmail} 
+              password={password} 
+              setPassword={setPassword} 
+              onSubmit={handleSubmit}
+            />
+          ) : (
+            <RegisterForm 
+              name={name} 
+              setName={setName} 
+              email={email} 
+              setEmail={setEmail} 
+              password={password} 
+              setPassword={setPassword} 
+              phone={phone} 
+              setPhone={setPhone} 
+              onSubmit={handleSubmit}
+            />
+          )
+        )}
       </DialogContent>
     </Dialog>
   );

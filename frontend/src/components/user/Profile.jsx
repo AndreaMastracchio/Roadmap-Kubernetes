@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import {
   Box,
   TextField,
-  Button,
   Avatar,
   Grid,
   Alert,
@@ -22,10 +21,11 @@ import {
 } from '@mui/icons-material';
 import KubeTypography from '../ui/KubeTypography';
 import KubeCard from '../ui/KubeCard';
+import KubeButton from '../ui/KubeButton';
 import { useAuth } from '../../context/AuthContext';
 import API_BASE from '../../config/api';
 
-const Profile = () => {
+const Profile = ({ onDashboard }) => {
   const { user, updateProfile, changePassword, uploadAvatar } = useAuth();
 
   // Stati per il profilo base
@@ -207,14 +207,14 @@ const Profile = () => {
               <KubeTypography variant="body2" sx={{ mb: 2, opacity: 0.9 }}>
                 Hai completato {user?.completedModules?.length || 0} moduli finora.
               </KubeTypography>
-              <Button
+              <KubeButton
                 variant="outlined"
                 fullWidth
                 sx={{ color: 'white', borderColor: 'white', '&:hover': { borderColor: 'white', bgcolor: 'rgba(255,255,255,0.1)' } }}
-                onClick={() => window.location.hash = '#dashboard'} // Semplificato per ora
+                onClick={onDashboard}
               >
                 Vai alla Dashboard
-              </Button>
+              </KubeButton>
             </KubeCard>
           </Box>
         </Grid>
@@ -263,7 +263,7 @@ const Profile = () => {
                   />
 
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <Button
+                    <KubeButton
                       type="submit"
                       variant="contained"
                       startIcon={profileLoading ? <CircularProgress size={20} color="inherit" /> : <SaveIcon />}
@@ -271,7 +271,7 @@ const Profile = () => {
                       sx={{ px: 4 }}
                     >
                       {profileLoading ? 'Salvataggio...' : 'Salva Modifiche'}
-                    </Button>
+                    </KubeButton>
                   </Box>
                 </Box>
               </form>
@@ -344,7 +344,7 @@ const Profile = () => {
                   </Grid>
 
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <Button
+                    <KubeButton
                       type="submit"
                       variant="contained"
                       color="secondary"
@@ -353,7 +353,7 @@ const Profile = () => {
                       sx={{ px: 4 }}
                     >
                       {passwordLoading ? 'Aggiornamento...' : 'Aggiorna Password'}
-                    </Button>
+                    </KubeButton>
                   </Box>
                 </Box>
               </form>
