@@ -62,20 +62,6 @@ Avvia l'intero stack con **Hot Reload** (le modifiche al codice si riflettono is
 - **Interfaccia Web**: [http://localhost:8080](http://localhost:8080)
 - **API Health Check**: [http://localhost:5005/api/health](http://localhost:5005/api/health)
 
-### 🚢 Kubernetes (Deploy)
-Per avviare i servizi in un cluster Kubernetes:
-
-**Produzione:**
-```bash
-kubectl apply -k ../server/k8s-kubestudy/production/
-```
-
-**Staging:**
-```bash
-kubectl apply -k ../server/k8s-kubestudy/staging/
-```
-Assicurati di aver caricato le immagini `kubestudy-backend:latest` e `kubestudy-frontend:latest` nel tuo cluster (es. `kind load docker-image ...` o tramite un Registry).
-
 ### 🧰 Utility CLI
 Nella cartella `bin/` trovi strumenti pronti all'uso per lo sviluppo locale:
 - `./bin/status`: Monitora la salute dei container Docker Compose.
