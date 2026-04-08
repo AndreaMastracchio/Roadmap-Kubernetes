@@ -1,23 +1,38 @@
 services:
   kubestudy-frontend:
-    build:
-      context: ./frontend
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     ports:
-      - "8080:80"
+      - "8080:3000"
     environment:
+      - VITE_WATCH_USE_POLLING=${VITE_WATCH_USE_POLLING}
       - VITE_API_URL=${VITE_API_URL}
+    command: >
+      sh -c "
+      echo '📦 Frontend avviato. Inizio installazione dipendenze...' &&
+      npm install &&
+      echo '✅ Dipendenze installate con successo!' &&
+      echo '🧹 Pulizia cache di ottimizzazione Vite...' &&
+      rm -rf node_modules/.vite &&
+      echo '🚀 Avvio server di sviluppo Vite su http://localhost:8080...' &&
+      npm run dev -- --host 0.0.0.0 --port 3000 --force"
     depends_on:
-      - kubestudy-backend
-    restart: always
+      kubestudy-backend:
+        condition: service_started
 
   kubestudy-backend:
-    build:
-      context: ./backend
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - ${PROJECT_PUBLIC_PATH:-./project_public}:/project_public
+      - ${PROJECT_PRIVATE_PATH:-./project_private}:/project_private
     ports:
       - "5005:5005"
-    volumes:
-      - ${PROJECT_PUBLIC_PATH:-./project_public}:/project_public
-      # - ${PROJECT_PRIVATE_PATH:-./project_private}:/project_private
     environment:
       - MYSQL_HOST=${MYSQL_HOST}
       - MYSQL_USER=${MYSQL_USER}
@@ -28,16 +43,21 @@ services:
       - SESSION_SECRET=${SESSION_SECRET}
       - PORT=${PORT}
       - NODE_ENV=${NODE_ENV}
+    command: >
+      sh -c "
+      echo '📦 Backend avviato. Inizio installazione dipendenze...' &&
+      npm install &&
+      echo '✅ Dipendenze installate con successo!' &&
+      echo '🚀 Avvio backend in modalità watch su http://localhost:5005...' &&
+      npm run dev"
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_started
-    restart: always
 
   db:
     image: mariadb:10.11
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -47,17 +67,17 @@ services:
       - "3306:3306"
     volumes:
       - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
-      - db_data:/var/lib/mysql
+      - db_dev_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
-      timeout: 20s
-      retries: 10
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   redis:
     image: redis:7-alpine
-    restart: always
     ports:
       - "6379:6379"
 
 volumes:
-  db_data:
+  db_dev_data:

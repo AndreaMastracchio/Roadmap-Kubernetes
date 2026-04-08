@@ -1,9 +1,0 @@
-{
-  "id": "k8s-security-cks",
-  "title": "Kubernetes Security (CKS)",
-  "description": "Hardening del cluster, sicurezza del runtime e gestione sicura dei Secret per esperti di sicurezza.",
-  "icon": "SecurityIcon",
-  "price": 49.99,
-  "isPrivate": true,
-  "comingSoon": true
-}

@@ -1,8 +1,3 @@
 #!/bin/bash
-
-echo "📊 Stato dell'ambiente di Produzione:"
+echo "📊 Stato dell'ambiente:"
 docker compose ps
-
-echo ""
-echo "🛠️  Stato dell'ambiente di Sviluppo:"
-docker compose -f docker-compose.dev.yml ps

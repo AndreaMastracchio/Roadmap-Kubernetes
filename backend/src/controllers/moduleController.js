@@ -75,10 +75,41 @@ exports.getModuleData = async (req, res) => {
       return res.json({ quiz: [], exercises: [] });
     }
 
-    const filePath = path.join(courseDir, moduleFolder, 'exercises.json');
-    const content = await fs.readFile(filePath, 'utf-8');
-    res.json(JSON.parse(content));
+    const results = { quiz: [], exercises: [] };
+
+    // Tenta di leggere exercises.json (poteva contenere entrambi o solo esercizi)
+    try {
+      const exPath = path.join(courseDir, moduleFolder, 'exercises.json');
+      const exContent = await fs.readFile(exPath, 'utf-8');
+      const exData = JSON.parse(exContent);
+
+      if (Array.isArray(exData)) {
+        results.exercises = exData;
+      } else {
+        if (exData.quiz) results.quiz = exData.quiz;
+        if (exData.exercises) results.exercises = exData.exercises;
+      }
+    } catch (e) {}
+
+    // Tenta di leggere quiz.json (se presente separatamente)
+    try {
+      const qzPath = path.join(courseDir, moduleFolder, 'quiz.json');
+      const qzContent = await fs.readFile(qzPath, 'utf-8');
+      const qzData = JSON.parse(qzContent);
+
+      const newQuiz = Array.isArray(qzData) ? qzData : (qzData.quiz || []);
+      // Evitiamo duplicati se quiz era già in exercises.json (anche se raro)
+      const existingQuestions = new Set(results.quiz.map(q => q.question));
+      newQuiz.forEach(q => {
+        if (!existingQuestions.has(q.question)) {
+          results.quiz.push(q);
+        }
+      });
+    } catch (e) {}
+
+    res.json(results);
   } catch (error) {
+    console.error('Errore lettura dati modulo:', error);
     res.json({ quiz: [], exercises: [] });
   }
 };

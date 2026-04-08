@@ -149,7 +149,7 @@ const SidebarContent = memo(({
 
       {!activeCourse ? (
         <>
-          {courses.filter(c => !c.comingSoon && !c.isPrivate).map((course) => (
+          {courses.filter(c => !c.comingSoon && (!c.isPrivate || user?.purchasedProjects?.includes(c.id))).map((course) => (
             <KubeListItem
               key={course.id}
               onClick={() => handleCourseSelect(course)}

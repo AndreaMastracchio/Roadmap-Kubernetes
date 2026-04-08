@@ -11,7 +11,14 @@ exports.purchaseCourse = async (req, res) => {
       'INSERT IGNORE INTO user_purchases (user_id, course_id) VALUES (?, ?)',
       [userId, courseId]
     );
-    res.json({ success: true, message: 'Corso acquistato' });
+
+    // Aggiorna la sessione
+    if (!req.session.user.purchasedProjects) req.session.user.purchasedProjects = [];
+    if (!req.session.user.purchasedProjects.includes(courseId)) {
+      req.session.user.purchasedProjects.push(courseId);
+    }
+
+    res.json({ success: true, message: 'Corso acquistato', user: req.session.user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: 'Errore durante l\'acquisto' });
@@ -28,7 +35,14 @@ exports.completeModule = async (req, res) => {
       'INSERT IGNORE INTO user_progress (user_id, module_key) VALUES (?, ?)',
       [userId, moduleKey]
     );
-    res.json({ success: true, message: 'Modulo completato' });
+
+    // Aggiorna la sessione
+    if (!req.session.user.completedModules) req.session.user.completedModules = [];
+    if (!req.session.user.completedModules.includes(moduleKey)) {
+      req.session.user.completedModules.push(moduleKey);
+    }
+
+    res.json({ success: true, message: 'Modulo completato', user: req.session.user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: 'Errore salvataggio progresso' });
@@ -45,7 +59,12 @@ exports.updateCourseStatus = async (req, res) => {
       'INSERT INTO user_course_status (user_id, course_id, last_module_id) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE last_module_id = ?',
       [userId, courseId, lastModuleId, lastModuleId]
     );
-    res.json({ success: true, message: 'Stato corso aggiornato' });
+
+    // Aggiorna la sessione
+    if (!req.session.user.lastVisitedModules) req.session.user.lastVisitedModules = {};
+    req.session.user.lastVisitedModules[courseId] = lastModuleId;
+
+    res.json({ success: true, message: 'Stato corso aggiornato', user: req.session.user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: 'Errore aggiornamento stato corso' });
