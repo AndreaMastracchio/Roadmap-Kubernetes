@@ -1,0 +1,144 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Trova la sezione Projects",
+        "en": "Find the Projects section"
+      },
+      "description": {
+        "it": "Individua nella UI la sezione Projects e osserva se è presente un progetto vuoto o demo.",
+        "en": "Locate the Projects section in the UI and check whether there is an empty or demo project."
+      },
+      "hint": {
+        "it": "La sezione Projects è accessibile dalla sidebar o dal menu delle viste.",
+        "en": "The Projects section is reachable from the sidebar or the views menu."
+      }
+    },
+    {
+      "title": {
+        "it": "Quando usare un Project",
+        "en": "When to use a Project"
+      },
+      "description": {
+        "it": "Descrivi uno scenario reale in cui creeresti un Project multi-cluster (es. un microservice distribuito).",
+        "en": "Describe a real scenario where you would create a multi-cluster Project (e.g. a distributed microservice)."
+      },
+      "hint": {
+        "it": "Pensa a un'app con componenti in due cluster o namespace diversi.",
+        "en": "Think of an app with components in two clusters or different namespaces."
+      }
+    },
+    {
+      "title": {
+        "it": "Esplora il Plugin Catalog",
+        "en": "Explore the Plugin Catalog"
+      },
+      "description": {
+        "it": "Apri il Plugin Catalog e annota 3 plugin presenti, con una riga su cosa fa ciascuno.",
+        "en": "Open the Plugin Catalog and note 3 plugins present, with one line on what each does."
+      },
+      "hint": {
+        "it": "Il catalog è raggiungibile dalla UI (spesso da una voce dedicata).",
+        "en": "The catalog is reachable from the UI (often from a dedicated entry)."
+      }
+    },
+    {
+      "title": {
+        "it": "Cos'è un CRD e perché qui non serve",
+        "en": "What is a CRD and why it is not needed here"
+      },
+      "description": {
+        "it": "Spiega in due righe perché i Project di Headlamp non richiedono un CRD installato nel cluster.",
+        "en": "Explain in two lines why Headlamp Projects do not require a CRD installed in the cluster."
+      },
+      "hint": {
+        "it": "I dati dei project vivono nella UI, non come risorsa Kubernetes.",
+        "en": "Project data lives in the UI, not as a Kubernetes resource."
+      }
+    },
+    {
+      "title": {
+        "it": "Prerequisito AI",
+        "en": "AI prerequisite"
+      },
+      "description": {
+        "it": "Elenca cosa serve configurare per attivare l'assistente AI in Headlamp e quando conviene invece non attivarlo.",
+        "en": "List what needs to be configured to enable the AI assistant in Headlamp and when it is better not to enable it."
+      },
+      "hint": {
+        "it": "Provider, chiave (se richiesto), valutazione del costo/privacy.",
+        "en": "Provider, key (if required), cost/privacy evaluation."
+      }
+    },
+    {
+      "title": {
+        "it": "Installare e verificare un plugin",
+        "en": "Install and verify a plugin"
+      },
+      "description": {
+        "it": "In ambiente di test installa un plugin semplice dal catalogo, ricarica la UI e verifica che compaia la nuova voce.",
+        "en": "In a test environment install a simple plugin from the catalog, reload the UI and verify the new entry appears."
+      },
+      "hint": {
+        "it": "Dopo l'installazione la nuova sezione appare nella sidebar.",
+        "en": "After installation the new section appears in the sidebar."
+      }
+    },
+    {
+      "title": {
+        "it": "Core, plugin, projects",
+        "en": "Core, plugins, projects"
+      },
+      "description": {
+        "it": "Riporta in una frase l'ordine di apprendimento consigliato e il perché.",
+        "en": "Restate in one sentence the recommended learning order and why."
+      },
+      "hint": {
+        "it": "Core → plugin → projects.",
+        "en": "Core → plugins → projects."
+      }
+    },
+    {
+      "title": {
+        "it": "Ruolo dei plugin nel debug",
+        "en": "Role of plugins in debugging"
+      },
+      "description": {
+        "it": "Nomina un tipo di plugin che renderebbe più rapida la diagnosi di un problema (es. monitoraggio) e spiega perché.",
+        "en": "Name a plugin type that would make problem diagnosis faster (e.g. monitoring) and explain why."
+      },
+      "hint": {
+        "it": "Le metriche arrivano in UI senza dover aprire kubectl top.",
+        "en": "Metrics arrive in the UI without opening kubectl top."
+      }
+    },
+    {
+      "title": {
+        "it": "Sicurezza di un plugin",
+        "en": "Plugin safety"
+      },
+      "description": {
+        "it": "Spiega perché va installato solo plugin di cui ti fidi e cosa potrebbero teoricamente fare nella tua UI.",
+        "en": "Explain why you should only install plugins you trust and what they could theoretically do in your UI."
+      },
+      "hint": {
+        "it": "Un plugin gira dentro la UI e usa le tue credenziali.",
+        "en": "A plugin runs inside the UI and uses your credentials."
+      }
+    },
+    {
+      "title": {
+        "it": "Project demo",
+        "en": "Demo project"
+      },
+      "description": {
+        "it": "Crea un Project di prova che includa un namespace esistente e descrivi cosa mostra la sua vista.",
+        "en": "Create a test Project that includes an existing namespace and describe what its view shows."
+      },
+      "hint": {
+        "it": "La vista del project mostra le risorse del namespace raggruppate.",
+        "en": "The project view shows the namespace's resources grouped."
+      }
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Apri la Home e leggi lo stato",
+        "en": "Open Home and read the state"
+      },
+      "description": {
+        "it": "Apri la Home di Headlamp sul tuo cluster e descrivi in due righe: nome del cluster, stato dei nodi e eventuali warning.",
+        "en": "Open the Headlamp Home on your cluster and describe in two lines: cluster name, node status and any warnings."
+      },
+      "hint": {
+        "it": "Guarda la sezione Cluster e il pannello degli eventi.",
+        "en": "Look at the Cluster section and the events panel."
+      }
+    },
+    {
+      "title": {
+        "it": "Naviga per categoria",
+        "en": "Browse by category"
+      },
+      "description": {
+        "it": "Elenca le sezioni della sidebar (Cluster, Workload, Network, Storage, Config, Custom Resources) e per ognuna indica un esempio di risorsa.",
+        "en": "List the sidebar sections (Cluster, Workload, Network, Storage, Config, Custom Resources) and for each give an example resource."
+      },
+      "hint": {
+        "it": "Deployment (Workload), Service (Network), PVC (Storage)...",
+        "en": "Deployment (Workload), Service (Network), PVC (Storage)..."
+      }
+    },
+    {
+      "title": {
+        "it": "Trova una risorsa con la ricerca",
+        "en": "Find a resource with search"
+      },
+      "description": {
+        "it": "Usa la barra di ricerca per trovare una risorsa (es. un pod di un namespace) e scrivi il percorso che hai usato.",
+        "en": "Use the search bar to find a resource (e.g. a pod in a namespace) and write the path you used."
+      },
+      "hint": {
+        "it": "Cerca per tipo e nome, es. 'pod <nome>'.",
+        "en": "Search by type and name, e.g. 'pod <name>'."
+      }
+    },
+    {
+      "title": {
+        "it": "Leggi la colonna Status",
+        "en": "Read the Status column"
+      },
+      "description": {
+        "it": "In una lista di pod, individua i pod in esecuzione, in attesa e in errore usando le icone dello stato.",
+        "en": "In a pod list, identify running, pending and error pods using the status icons."
+      },
+      "hint": {
+        "it": "Verde = runnning, giallo = pending, rosso = error.",
+        "en": "Green = running, yellow = pending, red = error."
+      }
+    },
+    {
+      "title": {
+        "it": "Esplora il dettaglio di un pod",
+        "en": "Explore a pod's detail"
+      },
+      "description": {
+        "it": "Apri il dettaglio di un pod e annota quali tab sono presenti (Overview, Logs, Event, Exec).",
+        "en": "Open a pod's detail and note which tabs are present (Overview, Logs, Event, Exec)."
+      },
+      "hint": {
+        "it": "Il contenuto dei tab dipende dal tipo di risorsa.",
+        "en": "The tab content depends on the resource type."
+      }
+    },
+    {
+      "title": {
+        "it": "Identifica le azioni di un Deployment",
+        "en": "Identify the actions of a Deployment"
+      },
+      "description": {
+        "it": "Apri il dettaglio di un Deployment ed elenca le azioni disponibili (Scale, Restart, Rollback, Edit, Delete).",
+        "en": "Open a Deployment's detail and list the available actions (Scale, Restart, Rollback, Edit, Delete)."
+      },
+      "hint": {
+        "it": "Sono i pulsanti nell'header del dettaglio.",
+        "en": "They are the buttons in the detail header."
+      }
+    },
+    {
+      "title": {
+        "it": "Picker del cluster",
+        "en": "Cluster picker"
+      },
+      "description": {
+        "it": "Se hai più di un context, usa il selettore cluster in alto per cambiare e annota cosa cambia nella Home.",
+        "en": "If you have more than one context, use the cluster picker on top to switch and note what changes in Home."
+      },
+      "hint": {
+        "it": "Il selettore sta di solito in alto a destra.",
+        "en": "The picker is usually at the top right."
+      }
+    },
+    {
+      "title": {
+        "it": "Trova i Custom Resources",
+        "en": "Find the Custom Resources"
+      },
+      "description": {
+        "it": "Verifica se il tuo cluster ha CRD e dove le trovi nella sidebar.",
+        "en": "Check whether your cluster has CRDs and where you find them in the sidebar."
+      },
+      "hint": {
+        "it": "Cerca la sezione Custom Resources.",
+        "en": "Look for the Custom Resources section."
+      }
+    },
+    {
+      "title": {
+        "it": "Interpreta gli eventi",
+        "en": "Interpret the events"
+      },
+      "description": {
+        "it": "Apri la sezione eventi della Home e interpreta l'evento più recente (cosa è successo, su quale risorsa).",
+        "en": "Open the events section of Home and interpret the most recent event (what happened, on which resource)."
+      },
+      "hint": {
+        "it": "Tipo, Reason e Message sono i campi chiave.",
+        "en": "Type, Reason and Message are the key fields."
+      }
+    },
+    {
+      "title": {
+        "it": "Componenti nascoste da RBAC",
+        "en": "Components hidden by RBAC"
+      },
+      "description": {
+        "it": "Spiega cosa succede alla sidebar se l'utente connesso non ha permessi di lettura su Storage.",
+        "en": "Explain what happens to the sidebar if the connected user has no Storage read permissions."
+      },
+      "hint": {
+        "it": "La sezione sparisce o mostra il blocco permessi.",
+        "en": "The section disappears or shows the permissions block."
+      }
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Lista dei workload",
+        "en": "List of workloads"
+      },
+      "description": {
+        "it": "Dalla sezione Workload della sidebar elenca i tipi di workload presenti (Deployment, Pod, StatefulSet, DaemonSet, CronJob...).",
+        "en": "From the Workload sidebar section list the workload types present (Deployment, Pod, StatefulSet, DaemonSet, CronJob...)."
+      },
+      "hint": {
+        "it": "La sidebar mostra le categorie: clicca su ciascuna per vedere le istanze.",
+        "en": "The sidebar shows the categories: click each to see the instances."
+      }
+    },
+    {
+      "title": {
+        "it": "Apri il dettaglio di un Deployment",
+        "en": "Open a Deployment's detail"
+      },
+      "description": {
+        "it": "Apri il dettaglio di un Deployment esistente e annota: repliche desiderate vs pronte, immagine e azioni disponibili.",
+        "en": "Open the detail of an existing Deployment and note: desired vs ready replicas, image and available actions."
+      },
+      "hint": {
+        "it": "Le repliche sono mostrate nell'Overview; le azioni nell'header.",
+        "en": "Replicas are shown in Overview; actions in the header."
+      }
+    },
+    {
+      "title": {
+        "it": "Come NON si scalano le app",
+        "en": "How NOT to scale apps"
+      },
+      "description": {
+        "it": "Scrivi il comando kubectl equivalente a: portare un Deployment a 3 repliche. Poi confronta con il flusso in Headlamp.",
+        "en": "Write the kubectl command equivalent to: bringing a Deployment to 3 replicas. Then compare with the Headlamp flow."
+      },
+      "hint": {
+        "it": "kubectl scale deployment/<nome> --replicas=3.",
+        "en": "kubectl scale deployment/<name> --replicas=3."
+      }
+    },
+    {
+      "title": {
+        "it": "Simula un rollback",
+        "en": "Simulate a rollback"
+      },
+      "description": {
+        "it": "Identifica nel dettaglio di un Deployment il pulsante Rollback e spiega quando lo useresti.",
+        "en": "Identify the Rollback button in a Deployment's detail and explain when you would use it."
+      },
+      "hint": {
+        "it": "Lo usi quando una nuova immagine/configurazione non funziona.",
+        "en": "You use it when a new image/configuration does not work."
+      }
+    },
+    {
+      "title": {
+        "it": "Leggi le variabili d'ambiente",
+        "en": "Read the environment variables"
+      },
+      "description": {
+        "it": "In un pod, trova nel dettaglio le variabili d'ambiente del primo container e annota due di esse.",
+        "en": "In a pod, find the environment variables of the first container in the detail and note two of them."
+      },
+      "hint": {
+        "it": "Guardano la sezione dei container nell'Overview.",
+        "en": "Look at the containers section in Overview."
+      }
+    },
+    {
+      "title": {
+        "it": "Identifica un Delete bloccato",
+        "en": "Identify a stuck Delete"
+      },
+      "description": {
+        "it": "Spiega due cause per cui una Delete può restare 'in corso' nella UI di Headlamp.",
+        "en": "Explain two causes why a Delete may remain 'in progress' in the Headlamp UI."
+      },
+      "hint": {
+        "it": "Finalizer, terminazione di pod bloccata, volume in uso.",
+        "en": "Finalizers, blocked pod termination, volume in use."
+      }
+    },
+    {
+      "title": {
+        "it": "Edit YAML di un Deployment",
+        "en": "YAML edit of a Deployment"
+      },
+      "description": {
+        "it": "Apri l'editor YAML di un Deployment di test, individua il campo replicas e scrivi dove cambieresti il numero.",
+        "en": "Open the YAML editor of a test Deployment, locate the replicas field and write where you would change the number."
+      },
+      "hint": {
+        "it": "Il campo sta in spec.replicas.",
+        "en": "The field is in spec.replicas."
+      }
+    },
+    {
+      "title": {
+        "it": "Confirma l'immagine",
+        "en": "Confirm the image"
+      },
+      "description": {
+        "it": "Nel dettaglio di un Deployment annota l'immagine dei container e verifica che corrisponda a quanto previsto nel kustomize/helm che lo ha generato.",
+        "en": "In a Deployment detail note the container image and verify it matches what its kustomize/helm expected."
+      },
+      "hint": {
+        "it": "Compare image: con il tag di rilascio.",
+        "en": "Compare image: with the release tag."
+      }
+    },
+    {
+      "title": {
+        "it": "DaemonSet e nodi",
+        "en": "DaemonSet and nodes"
+      },
+      "description": {
+        "it": "Apri un DaemonSet (se presente) e nota il rapporto uno-pod-per-nodo verificando il numero di pod rispetto ai nodi.",
+        "en": "Open a DaemonSet (if present) and note the one-pod-per-node relationship by comparing pod count with nodes."
+      },
+      "hint": {
+        "it": "Il numero di pod di un DaemonSet tende a coincidere con i nodi.",
+        "en": "A DaemonSet's pod count tends to match the nodes."
+      }
+    },
+    {
+      "title": {
+        "it": "Rollout strategy a parole",
+        "en": "Rollout strategy in words"
+      },
+      "description": {
+        "it": "Spiega in una riga perché Restart rispetta la rollout strategy e quindi non crea downtime caotico.",
+        "en": "Explain in one line why Restart respects the rollout strategy and therefore does not create chaotic downtime."
+      },
+      "hint": {
+        "it": "La strategy controlla la sequenza (rolling update, maxUnavailable...).",
+        "en": "The strategy controls the sequence (rolling update, maxUnavailable...)."
+      }
+    }
+  ]
+}

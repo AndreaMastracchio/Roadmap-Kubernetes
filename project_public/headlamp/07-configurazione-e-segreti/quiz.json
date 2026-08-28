@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Dove si gestiscono in Kubernetes le configurazioni non sensibili (variabili, file)?",
+        "en": "Where are non-sensitive configurations (variables, files) managed in Kubernetes?"
+      },
+      "options": [
+        "ConfigMap",
+        "Secret",
+        "PersistentVolume",
+        "Service"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Le configurazioni non sensibili stanno nelle ConfigMap.",
+        "en": "Non-sensitive configurations live in ConfigMaps."
+      },
+      "difficulty": "easy",
+      "domain": "config"
+    },
+    {
+      "question": {
+        "it": "Come vengono mostrati i Secret nei listing di Headlamp per default?",
+        "en": "How are Secrets displayed in Headlamp listings by default?"
+      },
+      "options": [
+        "Offuscati, il valore non appare in chiaro",
+        "In chiaro sempre",
+        "Nascosti del tutto (non si sa se esistono)",
+        "Con un avviso ma visibili"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "I valori dei Secret sono offuscati di default: non compaiono in chiaro nel listing.",
+        "en": "Secret values are obscured by default: they do not appear in plain text in the listing."
+      },
+      "difficulty": "easy",
+      "domain": "config"
+    },
+    {
+      "question": {
+        "it": "Per vedere un Secret in chiaro in Headlamp devi:",
+        "en": "To view a Secret in plain text in Headlamp you must:"
+      },
+      "options": [
+        "Averne i permessi e usare il bottone di reveal",
+        "Inserire la password di root del cluster",
+        "Chiedere all'admin di inviarlo via email",
+        "Non è possibile mai"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il reveal richiede i permessi e una conferma esplicita dell'utente.",
+        "en": "Reveal requires the permissions and an explicit user confirmation."
+      },
+      "difficulty": "medium",
+      "domain": "config"
+    },
+    {
+      "question": {
+        "it": "Può un utente con permessi generici di lettura vedere il valore di un Secret?",
+        "en": "Can a user with generic read permissions see a Secret's value?"
+      },
+      "options": [
+        "No, i permessi di lettura dei Secret sono specifici (get su secrets)",
+        "Sì, sempre",
+        "Sì, ma solo se il Secret è nel namespace default",
+        "No, se la UI è configurata bene"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La lettura del valore richiede il permesso specifico su secrets: RBAC decide chi vede cosa.",
+        "en": "Reading the value requires the specific secrets permission: RBAC decides who sees what."
+      },
+      "difficulty": "hard",
+      "domain": "config"
+    },
+    {
+      "question": {
+        "it": "Quale oggetto rappresenta la richiesta di volume che un utente fa a Kubernetes?",
+        "en": "Which object represents the volume request a user makes to Kubernetes?"
+      },
+      "options": [
+        "PersistentVolumeClaim (PVC)",
+        "PersistentVolume (PV)",
+        "StorageClass",
+        "ConfigMap"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il PVC è la richiesta di storage; viene bindato a un PV.",
+        "en": "The PVC is the storage request; it gets bound to a PV."
+      },
+      "difficulty": "easy",
+      "domain": "storage"
+    },
+    {
+      "question": {
+        "it": "Come si chiama l'oggetto che definisce la policy di provisioning dei volumi dinamici?",
+        "en": "What is the object that defines the provisioning policy for dynamic volumes?"
+      },
+      "options": [
+        "StorageClass",
+        "DynamicVolume",
+        "VolumePolicy",
+        "StorageConfig"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La StorageClass definisce come il sistema provvede (provisions) volumi su richiesta.",
+        "en": "The StorageClass defines how the system provisions volumes on demand."
+      },
+      "difficulty": "easy",
+      "domain": "storage"
+    },
+    {
+      "question": {
+        "it": "Lo stato 'Bound' di un PVC significa:",
+        "en": "The 'Bound' state of a PVC means:"
+      },
+      "options": [
+        "Il PVC è associato a un PV",
+        "Il PVC è stato cancellato",
+        "Il PVC è in attesa di approvazione umana",
+        "Il PVC è rotto"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Bound = il claim è stato legato a un PersistentVolume.",
+        "en": "Bound = the claim has been bound to a PersistentVolume."
+      },
+      "difficulty": "medium",
+      "domain": "storage"
+    },
+    {
+      "question": {
+        "it": "Dove stanno ConfigMap e Secret nella sidebar di Headlamp?",
+        "en": "Where do ConfigMaps and Secrets live in the Headlamp sidebar?"
+      },
+      "options": [
+        "Sezione Config",
+        "Sezione Workload",
+        "Sezione Network",
+        "Sezione Storage"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "ConfigMap e Secret stanno nella sezione Config.",
+        "en": "ConfigMaps and Secrets live in the Config section."
+      },
+      "difficulty": "easy",
+      "domain": "config"
+    },
+    {
+      "question": {
+        "it": "Modificare una ConfigMap ha effetto sui pod che la usano:",
+        "en": "Modifying a ConfigMap affects the pods using it:"
+      },
+      "options": [
+        "Al prossimo restart/recreate del pod",
+        "Immediatamente senza restart",
+        "Mai",
+        "Solo se il pod è stateless"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "I cambi alla ConfigMap si applicano quando il pod viene ricreato; i pod esistenti non la ricaricano da soli.",
+        "en": "ConfigMap changes apply when the pod is recreated; existing pods do not reload it on their own."
+      },
+      "difficulty": "medium",
+      "domain": "config"
+    },
+    {
+      "question": {
+        "it": "Il PV (PersistentVolume) è:",
+        "en": "The PV (PersistentVolume) is:"
+      },
+      "options": [
+        "Il volume vero fornito dallo storage backend",
+        "Una richiesta dell'utente",
+        "Un tipo di Service",
+        "Una policy di rete"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il PV è il volume ottenuto dallo storage; il PVC è la richiesta dell'utente che si lega a un PV.",
+        "en": "The PV is the volume obtained from the storage; the PVC is the user's request that binds to a PV."
+      },
+      "difficulty": "easy",
+      "domain": "storage"
+    },
+    {
+      "question": {
+        "it": "Quale dei seguenti va trattato con la massima cautela in una UI che mostra risorse?",
+        "en": "Which of the following should be handled with the utmost care in a UI that shows resources?"
+      },
+      "options": [
+        "I valori in chiaro dei Secret",
+        "Il numero di repliche",
+        "Il nome delle ConfigMap",
+        "Le dimensioni dei PVC"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "I valori dei Secret sono dati sensibili: la UI li offusca di default e il reveal richiede permessi e conferma.",
+        "en": "Secret values are sensitive data: the UI obscures them by default and reveal requires permissions and confirmation."
+      },
+      "difficulty": "medium",
+      "domain": "config"
+    },
+    {
+      "question": {
+        "it": "Un Secret può contenere:",
+        "en": "A Secret can contain:"
+      },
+      "options": [
+        "Password, token e certificati",
+        "Solo testo libero non sensibile",
+        "Solo immagini",
+        "Solo link a URL"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "I Secret ospitano dati sensibili: password, token, certificati, chiavi.",
+        "en": "Secrets host sensitive data: passwords, tokens, certificates, keys."
+      },
+      "difficulty": "easy",
+      "domain": "config"
+    },
+    {
+      "question": {
+        "it": "Nella vista dello Storage, Headlamp mostra:",
+        "en": "In the Storage view, Headlamp shows:"
+      },
+      "options": [
+        "StorageClass, PV e PVC con stati, capacità e riferimenti",
+        "Solo i nomi dei cluster",
+        "Il traffico di rete",
+        "Le password dei database"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La vista Storage mostra StorageClass, PV e PVC con i relativi dettagli.",
+        "en": "The Storage view shows StorageClass, PV and PVC with their details."
+      },
+      "difficulty": "easy",
+      "domain": "storage"
+    },
+    {
+      "question": {
+        "it": "Il valore di un Secret viene inviato al browser in chiaro quando:",
+        "en": "A Secret's value is sent to the browser in plain text when:"
+      },
+      "options": [
+        "Aggiornamento manuale efficace della vista (importazione in memoria del contenuto decodificato)",
+        "Sempre, anche senza richiesta",
+        "Mai, i Secret non si vedono mai",
+        "Solo sulla app mobile"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il contenuto decodificato arriva al browser solo durante il reveal richiesto dall'utente con permessi.",
+        "en": "The decoded content reaches the browser only during a user-requested reveal with permissions."
+      },
+      "difficulty": "hard",
+      "domain": "config"
+    },
+    {
+      "question": {
+        "it": "Se una ConfigMap usata come env cambia, per applicare il nuovo valore basta:",
+        "en": "If a ConfigMap used as env changes, to apply the new value you just:"
+      },
+      "options": [
+        "Riavviare i pod (Restart)",
+        "Rifare il deploy",
+        "Riconscargli tutto il cluster",
+        "Cambiare namespace"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Un restart dei pod ricrea i container e legge i nuovi valori della ConfigMap.",
+        "en": "Restarting the pods recreates the containers and reads the ConfigMap's new values."
+      },
+      "difficulty": "medium",
+      "domain": "config"
+    }
+  ]
+}

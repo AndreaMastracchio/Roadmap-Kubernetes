@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quali sono i metodi di autenticazione supportati da Headlamp?",
+        "en": "Which authentication methods does Headlamp support?"
+      },
+      "options": [
+        "Solo username/password",
+        "Client certificate, bearer token e OIDC",
+        "Solo chiavi SSH",
+        "Solo token JWT custom"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Headlamp supporta client certificate, bearer token e OIDC, i metodi standard del kubeconfig.",
+        "en": "Headlamp supports client certificates, bearer tokens and OIDC, the standard kubeconfig methods."
+      },
+      "difficulty": "easy",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Quale approccio di autenticazione è CONSIGLIATO per Headlamp?",
+        "en": "Which authentication approach is RECOMMENDED for Headlamp?"
+      },
+      "options": [
+        "cluster-admin condiviso per tutti",
+        "Service Account con permessi mirati e RBAC ristretto",
+        "Password in chiaro nel kubeconfig",
+        "Nessuna autenticazione (accesso aperto)"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Si raccomanda di creare ServiceAccount con permessi RBAC mirati per ogni utente, non cluster-admin condivisi.",
+        "en": "It is recommended to create ServiceAccounts with targeted RBAC permissions for each user, not shared cluster-admins."
+      },
+      "difficulty": "medium",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Il parametro che indica quali namespace mostrare a un utente limitato si chiama:",
+        "en": "The parameter indicating which namespaces to show to a restricted user is called:"
+      },
+      "options": [
+        "allowedNamespaces",
+        "accessibleNamespaces",
+        "visibleNamespaces",
+        "namespaceRegex"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "accessibleNamespaces permette a Headlamp di mostrare i namespace a cui l'utente ha accesso.",
+        "en": "accessibleNamespaces lets Headlamp show the namespaces the user has access to."
+      },
+      "difficulty": "medium",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Cosa legge Headlamp desktop per mostrare i cluster?",
+        "en": "What does Headlamp desktop read to show clusters?"
+      },
+      "options": [
+        "Un file di config proprietario",
+        "Il kubeconfig (es. ~/.kube/config)",
+        "Un database locale",
+        "Le variabili d'ambiente di rete"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Headlamp desktop legge i context dal kubeconfig locale.",
+        "en": "Headlamp desktop reads the contexts from the local kubeconfig."
+      },
+      "difficulty": "easy",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Con il metodo bearer token, come viene presentato il token al server API?",
+        "en": "With the bearer token method, how is the token presented to the API server?"
+      },
+      "options": [
+        "Come parametro nel body della richiesta",
+        "Nell'header Authorization",
+        "Come COOKIE di sessione",
+        "In un header custom X-Token"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il bearer token viene inviato nell'header HTTP Authorization.",
+        "en": "The bearer token is sent in the HTTP Authorization header."
+      },
+      "difficulty": "easy",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Quale flusso usa OIDC per autenticare l'utente?",
+        "en": "Which flow does OIDC use to authenticate the user?"
+      },
+      "options": [
+        "OAuth2 con redirect al provider",
+        "Scambio di chiavi SSH",
+        "Autenticazione LDAP diretta",
+        "Firma digitale locale"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "OIDC usa un flusso OAuth2: la UI redirige al provider d'identità che restituisce i token.",
+        "en": "OIDC uses an OAuth2 flow: the UI redirects to the identity provider which returns the tokens."
+      },
+      "difficulty": "medium",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Perché un utente potrebbe vedere la UI ma non le risorse di un namespace?",
+        "en": "Why might a user see the UI but not a namespace's resources?"
+      },
+      "options": [
+        "Perché Headlamp è rotto",
+        "Perché i permessi RBAC dell'utente non gli consentono l'accesso, o manca accessibleNamespaces",
+        "Perché il browser non supporta le moderne feature",
+        "Perché il cluster è spento"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Headlamp rispetta i permessi: se RBAC non consente la lettura, la UI non mostra le risorse. Spesso serve anche impostare accessibleNamespaces.",
+        "en": "Headlamp respects permissions: if RBAC does not allow read access, the UI does not show resources. Often accessibleNamespaces must also be set."
+      },
+      "difficulty": "hard",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Cosa crea Headlamp quando si aggiunge un cluster manualmente?",
+        "en": "What does Headlamp create when adding a cluster manually?"
+      },
+      "options": [
+        "Un deployment nel cluster",
+        "Un collegamento con URL API server e metodo di autenticazione",
+        "Un nuovo context nel kubeconfig",
+        "Una connessione VPN"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Aggiungere un cluster significa specificare l'URL del server API e il metodo di autenticazione.",
+        "en": "Adding a cluster means specifying the API server URL and the authentication method."
+      },
+      "difficulty": "medium",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Quale ruolo è usato per capire cosa può fare un ServiceAccount in Kubernetes?",
+        "en": "Which mechanism is used to understand what a ServiceAccount can do in Kubernetes?"
+      },
+      "options": [
+        "RBAC (Role/ClusterRole + binding)",
+        "SELinux",
+        "AppArmor",
+        "Capabilities Linux"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "I permessi dei ServiceAccount sono definiti tramite RBAC: ruoli e binding.",
+        "en": "ServiceAccount permissions are defined via RBAC: roles and bindings."
+      },
+      "difficulty": "easy",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Chi usa la web app in-cluster di Headlamp per autenticarsi con OIDC?",
+        "en": "Who authenticates with OIDC on the in-cluster Headlamp web app?"
+      },
+      "options": [
+        "Il singolo utente del team con il proprio account",
+        "Solo l'utente admin globale",
+        "Nessuno, è solo demo",
+        "Un account di servizio condiviso"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La web app assegna l'autenticazione a ogni utente: ognuno usa il proprio account e i propri permessi RBAC.",
+        "en": "The web app assigns authentication to each user: everyone uses their own account and their own RBAC permissions."
+      },
+      "difficulty": "medium",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Dove si imposta di norma accessibleNamespaces rispetto a RBAC?",
+        "en": "Where is accessibleNamespaces normally set relative to RBAC?"
+      },
+      "options": [
+        "In alternativa a RBAC",
+        "Come complemento alla configurazione del cluster/utente",
+        "Nel kernel Linux",
+        "Solo su cluster non-RBAC"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "accessibleNamespaces si impiega insieme a RBAC per dire alla UI quali namespace rendere visibili all'utente.",
+        "en": "accessibleNamespaces is used together with RBAC to tell the UI which namespaces to make visible to the user."
+      },
+      "difficulty": "hard",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Quale tra queste è una pratica da evitare nell'uso di RBAC con Headlamp?",
+        "en": "Which of these is a practice to avoid when using RBAC with Headlamp?"
+      },
+      "options": [
+        "Creare ruoli per ogni utente",
+        "Usare un unico cluster-admin condiviso per tutti",
+        "Limitare i permessi di scrittura",
+        "Usare accessibleNamespaces"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Condividere un cluster-admin per tutti è una pratica da evitare: si viola il principio del minimo privilegio.",
+        "en": "Sharing a single cluster-admin for everyone is a practice to avoid: it violates the principle of least privilege."
+      },
+      "difficulty": "easy",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Quale metodo di autenticazione usa certificate client?",
+        "en": "Which authentication method uses client certificates?"
+      },
+      "options": [
+        "Presentazione di un certificato client firmato da una CA",
+        "Invio di una password",
+        "Scambio di chiavi pubbliche SSH",
+        "Token OTP"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il client si autentica presentando un certificato firmato dalla CA del cluster.",
+        "en": "The client authenticates by presenting a certificate signed by the cluster CA."
+      },
+      "difficulty": "easy",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Se un utente vede la UI ma ottiene 'Access Denied' su una risorsa, il problema è:",
+        "en": "If a user sees the UI but gets 'Access Denied' on a resource, the problem is:"
+      },
+      "options": [
+        "Il cluster è irraggiungibile",
+        "I permessi RBAC o i namespace visibili dell'utente",
+        "La versione di Headlamp",
+        "La connessione internet"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Access Denied su una risorsa indica permessi RBAC insufficienti o namespace non visibili.",
+        "en": "Access Denied on a resource indicates insufficient RBAC permissions or non-visible namespaces."
+      },
+      "difficulty": "medium",
+      "domain": "auth"
+    },
+    {
+      "question": {
+        "it": "Il concetto di minimo privilegio applicato a Headlamp significa:",
+        "en": "The principle of least privilege applied to Headlamp means:"
+      },
+      "options": [
+        "Dare a tutti accesso completo",
+        "Dare a ogni utente solo i permessi che gli servono",
+        "Bloccare Headlamp per tutti",
+        "Usare una sola password per tutti i cluster"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Minimo privilegio = ogni utente e ServiceAccount ha solo i permessi necessari al proprio lavoro.",
+        "en": "Least privilege = each user and ServiceAccount only has the permissions needed for their job."
+      },
+      "difficulty": "easy",
+      "domain": "auth"
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Scarica per macOS",
+        "en": "Download for macOS"
+      },
+      "description": {
+        "it": "Scarica il pacchetto .dmg di Headlamp per macOS dal sito ufficiale e trascinalo in Applicazioni.",
+        "en": "Download the Headlamp .dmg package for macOS from the official site and drag it into Applications."
+      },
+      "hint": {
+        "it": "Il file finisce con .dmg; poi aprilo e trascina l'app in Applicazioni.",
+        "en": "The file ends with .dmg; then open it and drag the app into Applications."
+      }
+    },
+    {
+      "title": {
+        "it": "Gestisci la quarantine (macOS)",
+        "en": "Handle quarantine (macOS)"
+      },
+      "description": {
+        "it": "Se al primo avvio macOS blocca l'app 'non verificata', scrivi il comando xattr corretto e approva l'app.",
+        "en": "If macOS blocks the 'unverified' app at first launch, write the correct xattr command and approve the app."
+      },
+      "hint": {
+        "it": "xattr -dr com.apple.quarantine <percorso app>.",
+        "en": "xattr -dr com.apple.quarantine <app path>."
+      }
+    },
+    {
+      "title": {
+        "it": "Primo avvio e kubeconfig",
+        "en": "First launch and kubeconfig"
+      },
+      "description": {
+        "it": "Avvia Headlamp e verifica quali cluster (context) appaiono nella sidebar. Confrontali con 'kubectl config get-contexts'.",
+        "en": "Launch Headlamp and check which clusters (contexts) appear in the sidebar. Compare them with 'kubectl config get-contexts'."
+      },
+      "hint": {
+        "it": "L'app legge ~/.kube/config: i context mostrati dovrebbero coincidere.",
+        "en": "The app reads ~/.kube/config: the shown contexts should match."
+      }
+    },
+    {
+      "title": {
+        "it": "Prova la modalità headless (porta 4466)",
+        "en": "Try headless mode (port 4466)"
+      },
+      "description": {
+        "it": "Avvia Headlamp in modalità headless e apri la UI dal browser su localhost:4466.",
+        "en": "Run Headlamp in headless mode and open the UI from the browser on localhost:4466."
+      },
+      "hint": {
+        "it": "La porta predefinita della UI è 4466.",
+        "en": "The default UI port is 4466."
+      }
+    },
+    {
+      "title": {
+        "it": "Simula un deploy in-cluster",
+        "en": "Simulate an in-cluster deploy"
+      },
+      "description": {
+        "it": "Scrivi il nome dell'immagine ufficiale Headlamp e la porta da esporre per un futuro deploy in-cluster (non serve eseguirlo ora).",
+        "en": "Write the official Headlamp image name and the port to expose for a future in-cluster deploy (you don't need to run it now)."
+      },
+      "hint": {
+        "it": "ghcr.io/headlamp-k8s/headlamp, porta 4466.",
+        "en": "ghcr.io/headlamp-k8s/headlamp, port 4466."
+      }
+    },
+    {
+      "title": {
+        "it": "Note per Linux",
+        "en": "Linux notes"
+      },
+      "description": {
+        "it": "Se sei su Linux, individua il formato AppImage e spiega il vantaggio in una riga.",
+        "en": "If you are on Linux, identify the AppImage format and explain its advantage in one line."
+      },
+      "hint": {
+        "it": "AppImage non richiede installazione né privilegi particolari.",
+        "en": "AppImage requires no installation and no special privileges."
+      }
+    },
+    {
+      "title": {
+        "it": "Verifica porta di default",
+        "en": "Verify the default port"
+      },
+      "description": {
+        "it": "Controlla che sulla tua macchina la porta 4466 sia libera prima di avviare la modalità headless.",
+        "en": "Check that port 4466 is free on your machine before starting headless mode."
+      },
+      "hint": {
+        "it": "Usa 'lsof -i :4466' su macOS/Linux.",
+        "en": "Use 'lsof -i :4466' on macOS/Linux."
+      }
+    },
+    {
+      "title": {
+        "it": "Scegli il formato giusto",
+        "en": "Choose the right format"
+      },
+      "description": {
+        "it": "Per ognuno dei tre sistemi operativi (macOS, Windows, Linux) indica il formato di pacchetto corretto per installare Headlamp.",
+        "en": "For each of the three operating systems (macOS, Windows, Linux) indicate the correct package format to install Headlamp."
+      },
+      "hint": {
+        "it": "dmg / exe / AppImage.",
+        "en": "dmg / exe / AppImage."
+      }
+    },
+    {
+      "title": {
+        "it": "Cosa protegge il deploy in-cluster",
+        "en": "What protects the in-cluster deploy"
+      },
+      "description": {
+        "it": "Elenca i due accorgimenti minimi da applicare quando si espone Headlamp al browser di un team.",
+        "en": "List the two minimum precautions to apply when exposing Headlamp to a team's browser."
+      },
+      "hint": {
+        "it": "Permessi RBAC e trasporto cifrato (TLS/ingress).",
+        "en": "RBAC permissions and encrypted transport (TLS/ingress)."
+      }
+    },
+    {
+      "title": {
+        "it": "Differenza desktop vs in-cluster",
+        "en": "Desktop vs in-cluster difference"
+      },
+      "description": {
+        "it": "Scrivi una frase che spieghi la differenza tra installazione desktop e installazione in-cluster per l'accesso multiuser.",
+        "en": "Write one sentence explaining the difference between a desktop and an in-cluster install for multi-user access."
+      },
+      "hint": {
+        "it": "Desktop = kubeconfig locale; in-cluster = accesso via browser con RBAC per utente.",
+        "en": "Desktop = local kubeconfig; in-cluster = browser access with per-user RBAC."
+      }
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Identifica i formati di Headlamp",
+        "en": "Identify Headlamp's forms"
+      },
+      "description": {
+        "it": "Elenca i due modi principali in cui può girare Headlamp (desktop e in-cluster) e spiega in una riga la differenza.",
+        "en": "List the two main ways Headlamp can run (desktop and in-cluster) and explain the difference in one line."
+      },
+      "hint": {
+        "it": "Una usa il kubeconfig della tua macchina, l'altra viene installata dentro il cluster.",
+        "en": "One uses your machine's kubeconfig, the other is installed inside the cluster."
+      }
+    },
+    {
+      "title": {
+        "it": "Dove vive il kubeconfig",
+        "en": "Where the kubeconfig lives"
+      },
+      "description": {
+        "it": "Trova il file kubeconfig della tua macchina (di solito ~/.kube/config) e verifica quanti context contiene.",
+        "en": "Find the kubeconfig file on your machine (usually ~/.kube/config) and check how many contexts it contains."
+      },
+      "hint": {
+        "it": "Usa il comando 'kubectl config get-contexts' per vedere i context.",
+        "en": "Use 'kubectl config get-contexts' to see the contexts."
+      }
+    },
+    {
+      "title": {
+        "it": "Vendor-agnostico in pratica",
+        "en": "Vendor-agnostic in practice"
+      },
+      "description": {
+        "it": "Spiega perché Headlamp può gestire cluster da provider diversi (minikube, k3s, EKS, GKE) senza configurazioni specifiche.",
+        "en": "Explain why Headlamp can manage clusters from different providers (minikube, k3s, EKS, GKE) without specific configuration."
+      },
+      "hint": {
+        "it": "Tutti questi cluster espongono la stessa API Kubernetes.",
+        "en": "All these clusters expose the same Kubernetes API."
+      }
+    },
+    {
+      "title": {
+        "it": "RBAC nella UI",
+        "en": "RBAC in the UI"
+      },
+      "description": {
+        "it": "Spiega quando compaiono i bottoni di modifica/eliminazione nella UI di Headlamp per un utente.",
+        "en": "Explain when edit/delete buttons appear in the Headlamp UI for a user."
+      },
+      "hint": {
+        "it": "Dipende dai permessi, non da un flag globale.",
+        "en": "It depends on permissions, not on a global flag."
+      }
+    },
+    {
+      "title": {
+        "it": "Il ruolo del plugin",
+        "en": "The role of plugins"
+      },
+      "description": {
+        "it": "Dai un esempio di funzionalità di Headlamp che arriva da un plugin piuttosto che dal core.",
+        "en": "Give an example of a Headlamp feature that comes from a plugin rather than from the core."
+      },
+      "hint": {
+        "it": "Pensa a ingress, monitoraggio e assistente AI.",
+        "en": "Think of ingress, monitoring and the AI assistant."
+      }
+    },
+    {
+      "title": {
+        "it": "Licenza in una riga",
+        "en": "License in one line"
+      },
+      "description": {
+        "it": "Scrivi il nome della licenza di Headlamp e perché è adatta a progetti enterprise.",
+        "en": "Write the name of Headlamp's license and why it is suitable for enterprise projects."
+      },
+      "hint": {
+        "it": "È una licenza permissiva della Apache Foundation.",
+        "en": "It is a permissive Apache Foundation license."
+      }
+    },
+    {
+      "title": {
+        "it": "Multi-cluster a parole",
+        "en": "Multi-cluster in words"
+      },
+      "description": {
+        "it": "Descrivi il vantaggio di una singola istanza Headlamp con più cluster rispetto a dover aprire più terminali.",
+        "en": "Describe the advantage of a single Headlamp instance with multiple clusters over opening multiple terminals."
+      },
+      "hint": {
+        "it": "Pensa a switch rapido e vista aggregata.",
+        "en": "Think about fast switching and an aggregated view."
+      }
+    },
+    {
+      "title": {
+        "it": "Riconosci lo scenario",
+        "en": "Recognize the scenario"
+      },
+      "description": {
+        "it": "Identifica in quale modalità Headlamp conviene girare per un utente che lavora sul proprio laptop con minikube.",
+        "en": "Identify which Headlamp mode suits a user working on their laptop with minikube."
+      },
+      "hint": {
+        "it": "Desktop è la scelta giusta per il kubeconfig locale.",
+        "en": "Desktop is the right choice for the local kubeconfig."
+      }
+    },
+    {
+      "title": {
+        "it": "Check progetto CNCF",
+        "en": "CNCF project check"
+      },
+      "description": {
+        "it": "Verifica se nel tuo ambiente è già presente Headlamp (es. 'which headlamp' o un Documento di installazione) e segna la risposta.",
+        "en": "Check whether Headlamp is already present in your environment (e.g. 'which headlamp' or an install document) and note the answer."
+      },
+      "hint": {
+        "it": "Se il comando non esiste, Headlamp non è ancora installato.",
+        "en": "If the command does not exist, Headlamp is not installed yet."
+      }
+    },
+    {
+      "title": {
+        "it": "Riepiloga le 3 ragioni",
+        "en": "Summarize the 3 reasons"
+      },
+      "description": {
+        "it": "Scrivi tre ragioni per preferire Headlamp a kubectl puro nell'uso interattivo quotidiano.",
+        "en": "Write three reasons to prefer Headlamp over pure kubectl in daily interactive use."
+      },
+      "hint": {
+        "it": "Vista unificata, permessi UI, log/editor senza sintassi.",
+        "en": "Unified view, UI permissions, logs/editor without syntax."
+      }
+    }
+  ]
+}

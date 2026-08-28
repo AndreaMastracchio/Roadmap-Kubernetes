@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale componente, se assente, lascia vuoti i grafici di CPU/memoria di Headlamp?",
+        "en": "Which component, if absent, leaves the Headlamp CPU/memory charts empty?"
+      },
+      "options": [
+        "Metrics Server",
+        "Prometheus",
+        "kube-state-metrics",
+        "Calico"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "I grafici di utilizzo si basano sulla standard Metrics API, solitamente fornita dal Metrics Server.",
+        "en": "Usage charts rely on the standard Metrics API, usually provided by the Metrics Server."
+      },
+      "difficulty": "easy",
+      "domain": "monitoring"
+    },
+    {
+      "question": {
+        "it": "Se la Home non mostra CPU/memoria, il motivo più probabile è:",
+        "en": "If Home does not show CPU/memory, the most likely reason is:"
+      },
+      "options": [
+        "Il Metrics Server non è installato o non è raggiungibile",
+        "La UI è in modalità scura",
+        "Il cluster è troppo nuovo",
+        "L'utente ha il tema contrasto"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Niente metriche = niente grafici: il problema sta di solito nel Metrics Server.",
+        "en": "No metrics = no charts: the problem is usually in the Metrics Server."
+      },
+      "difficulty": "easy",
+      "domain": "monitoring"
+    },
+    {
+      "question": {
+        "it": "Dove trovi lo stato e la salute dei singoli nodi?",
+        "en": "Where do you find the status and health of individual nodes?"
+      },
+      "options": [
+        "Sezione Cluster > Nodi",
+        "Sezione Network",
+        "Sezione Config",
+        "Solo via kubectl"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Lo stato dei nodi sta nella sezione Cluster, pannello Nodi.",
+        "en": "Node status is in the Cluster section, Nodes panel."
+      },
+      "difficulty": "easy",
+      "domain": "monitoring"
+    },
+    {
+      "question": {
+        "it": "Il selettore per cambiare cluster in Headlamp si trova:",
+        "en": "The cluster switcher in Headlamp is found:"
+      },
+      "options": [
+        "In alto nell'interfaccia, con tutti i context",
+        "Solo nella riga di comando",
+        "Nel tab Config delle risorse",
+        "Non esiste"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il selettore cluster sta in alto e mostra i context del kubeconfig.",
+        "en": "The cluster switcher is at the top and shows the kubeconfig contexts."
+      },
+      "difficulty": "easy",
+      "domain": "multicluster"
+    },
+    {
+      "question": {
+        "it": "Cosa succede alla Home quando cambi cluster dal selettore?",
+        "en": "What happens to Home when you switch clusters from the selector?"
+      },
+      "options": [
+        "Si aggiorna al cluster corrente",
+        "Resta uguale per sempre",
+        "Si chiude l'app",
+        "Mostra un errore"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La vista si aggiorna al cluster selezionato.",
+        "en": "The view updates to the selected cluster."
+      },
+      "difficulty": "easy",
+      "domain": "multicluster"
+    },
+    {
+      "question": {
+        "it": "Un cluster senza Metrics Server mostrerà:",
+        "en": "A cluster without a Metrics Server will show:"
+      },
+      "options": [
+        "Solo una parte della panoramica, senza metriche",
+        "Un errore bloccante",
+        "Metriche inventate",
+        "Nulla, propria UI vuota"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Mancano i dati: la UI mostra il resto ma non le metriche.",
+        "en": "The data is missing: the UI shows the rest but not the metrics."
+      },
+      "difficulty": "medium",
+      "domain": "monitoring"
+    },
+    {
+      "question": {
+        "it": "La sezione Eventi di Headlamp serve a:",
+        "en": "The Headlamp Events section serves to:"
+      },
+      "options": [
+        "Vedere gli eventi del cluster e individuare dove c'è un problema",
+        "Scrivere nuove view",
+        "Configurare la rete",
+        "Gestire le credenziali"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Gli eventi raccolgono i cambi di stato e i warning del cluster.",
+        "en": "Events collect the cluster's state changes and warnings."
+      },
+      "difficulty": "easy",
+      "domain": "monitoring"
+    },
+    {
+      "question": {
+        "it": "Come si configurano più cluster nella web app in-cluster?",
+        "en": "How are multiple clusters configured in the in-cluster web app?"
+      },
+      "options": [
+        "Tramite il config della web app Headlamp",
+        "Non si può",
+        "Con un file locale del browser",
+        "Con un post grezzo nell'API della dashboard"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La web app gestisce più cluster tramite la sua configurazione dedicata.",
+        "en": "The web app manages multiple clusters through its dedicated configuration."
+      },
+      "difficulty": "hard",
+      "domain": "multicluster"
+    },
+    {
+      "question": {
+        "it": "Qual è il vantaggio principale della vista multi-cluster di Headlamp?",
+        "en": "What is the main advantage of Headlamp's multi-cluster view?"
+      },
+      "options": [
+        "Un'unica interfaccia per controllare tutti i cluster senza aprire N terminali",
+        "Accelerare il cluster",
+        "Ridurre il consumo di RAM del cluster",
+        "Sostituire il backup"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La vista unica evita di aprire terminali e URL diversi per ogni cluster.",
+        "en": "The single view avoids opening different terminals and URLs per cluster."
+      },
+      "difficulty": "easy",
+      "domain": "multicluster"
+    },
+    {
+      "question": {
+        "it": "Il selettore cluster della desktop app riflette:",
+        "en": "The desktop app's cluster selector reflects:"
+      },
+      "options": [
+        "I context del kubeconfig locale",
+        "I cluster di un provider random",
+        "I cluster scaricati da internet",
+        "I cluster del team su Slack"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La desktop app legge il kubeconfig locale e mostra i suoi context.",
+        "en": "The desktop app reads the local kubeconfig and shows its contexts."
+      },
+      "difficulty": "easy",
+      "domain": "multicluster"
+    },
+    {
+      "question": {
+        "it": "Un warning in un evento di un nodo significa:",
+        "en": "A warning in a node event means:"
+      },
+      "options": [
+        "Qualcosa di anomalio nel nodo che merita indagine",
+        "Il nodo è spento",
+        "Il cluster va riavviato",
+        "Headlamp va aggiornato"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Gli eventi warning sono segnali da indagare: stato anomalo, problemi di risorse o di scheduling.",
+        "en": "Warning events are signals to investigate: anomalous state, resource problems or scheduling issues."
+      },
+      "difficulty": "medium",
+      "domain": "monitoring"
+    },
+    {
+      "question": {
+        "it": "Nella Home, la salute dei nodi è mostrata:",
+        "en": "In Home, node health is shown:"
+      },
+      "options": [
+        "Con un riassunto e lo stato di ogni nodo",
+        "Solo come un numero",
+        "Non è mostrata",
+        "Solo dopo il pagamento"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La Home offre un riassunto dei nodi con il loro stato.",
+        "en": "Home offers a node summary with their status."
+      },
+      "difficulty": "easy",
+      "domain": "monitoring"
+    },
+    {
+      "question": {
+        "it": "Cambiare cluster nel selettore è analogo a:",
+        "en": "Switching clusters in the selector is analogous to:"
+      },
+      "options": [
+        "kubectl config use-context <nome>",
+        "kubectl get all --all-namespaces",
+        "kubectl apply -f manifest.yaml",
+        "kubectl delete cluster"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il selettore cambia il context corrente della vista, come il comando kubectl use-context.",
+        "en": "The selector changes the current context of the view, like the kubectl use-context command."
+      },
+      "difficulty": "medium",
+      "domain": "multicluster"
+    },
+    {
+      "question": {
+        "it": "Se i grafici mancano su UN solo cluster ma non sugli altri, il problema è:",
+        "en": "If the charts are missing on only ONE cluster but not the others, the problem is:"
+      },
+      "options": [
+        "Quel cluster specifico (es. Metrics Server assente)",
+        "Headlamp globale è rotto",
+        "Il browser è lento",
+        "La lingua della UI"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Una differenza fra cluster indica un problema nel cluster senza metriche, non nell'app.",
+        "en": "A difference between clusters indicates a problem in the cluster without metrics, not in the app."
+      },
+      "difficulty": "medium",
+      "domain": "monitoring"
+    },
+    {
+      "question": {
+        "it": "Come fa Headlamp a riconoscere più cluster se non stai usando la web app?",
+        "en": "How does Headlamp recognize multiple clusters if you are not using the web app?"
+      },
+      "options": [
+        "Leggendo i context del kubeconfig",
+        "Con un QR code",
+        "Con le email degli admin",
+        "Con l'indirizzo IP della macchina"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La desktop app usa il kubeconfig: ogni context è un cluster.",
+        "en": "The desktop app uses the kubeconfig: each context is a cluster."
+      },
+      "difficulty": "easy",
+      "domain": "multicluster"
+    }
+  ]
+}

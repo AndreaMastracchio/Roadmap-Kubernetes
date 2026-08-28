@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Dove trovi i log di un container in Headlamp?",
+        "en": "Where do you find a container's logs in Headlamp?"
+      },
+      "options": [
+        "Tab Log del dettaglio del pod",
+        "Tab Config della risorsa",
+        "Sezione Network",
+        "Nella Home"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "I log di un container stanno nel tab Log del dettaglio del pod.",
+        "en": "A container's logs live in the Log tab of a pod's detail."
+      },
+      "difficulty": "easy",
+      "domain": "logs"
+    },
+    {
+      "question": {
+        "it": "Se un pod ha più container, Headlamp:",
+        "en": "If a pod has multiple containers, Headlamp:"
+      },
+      "options": [
+        "Ti fa scegliere di quale leggere i log",
+        "Mostra i log di tutti fusi insieme",
+        "Mostra solo i log del primo",
+        "Non supporta multi-container"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La UI permette di selezionare il container di cui leggere i log.",
+        "en": "The UI lets you select which container's logs to read."
+      },
+      "difficulty": "medium",
+      "domain": "logs"
+    },
+    {
+      "question": {
+        "it": "Il comando della UI per vedere i log che 'continuano ad arrivare' in tempo reale è:",
+        "en": "The UI command to see logs 'keep arriving' in real time is:"
+      },
+      "options": [
+        "Follow",
+        "Append",
+        "Streaming continuo è automatico e non configurabile",
+        "Refresh manuale"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La modalità Follow aggiorna i log in tempo reale man mano che arrivano.",
+        "en": "Follow mode updates logs in real time as they arrive."
+      },
+      "difficulty": "easy",
+      "domain": "logs"
+    },
+    {
+      "question": {
+        "it": "Quale stato di un pod NON è spiegato direttamente dai log?",
+        "en": "Which pod state is NOT directly explained by the logs?"
+      },
+      "options": [
+        "CrashLoopBackOff (a volte serve anche lo stato e l'exit code)",
+        "Messaggi applicativi di errore",
+        "Errore di connessione a un DB dal punto di vista dell'app",
+        "Warning di prematurità dell'API"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "CrashLoopBackOff richiede spesso di leggere anche lo state, l'exit code e gli eventi, non solo i log.",
+        "en": "CrashLoopBackOff often requires reading the state, the exit code and the events as well, not just the logs."
+      },
+      "difficulty": "hard",
+      "domain": "logs"
+    },
+    {
+      "question": {
+        "it": "Il tab Exec del dettaglio di un pod fornisce:",
+        "en": "The Exec tab of a pod's detail provides:"
+      },
+      "options": [
+        "Una shell interattiva nel container",
+        "Una console di amministrazione del nodo",
+        "Un editor YAML",
+        "Un pannello di metriche"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Exec apre una shell nel container selezionato (sh/bash se presenti).",
+        "en": "Exec opens a shell in the selected container (sh/bash if present)."
+      },
+      "difficulty": "easy",
+      "domain": "exec"
+    },
+    {
+      "question": {
+        "it": "Se il tab Exec non è disponibile, la causa più probabile è:",
+        "en": "If the Exec tab is not available, the most likely cause is:"
+      },
+      "options": [
+        "L'utente non ha il permesso pods/exec",
+        "Il cluster è lento",
+        "La UI è obsoleta",
+        "Il container è tutti i container nello stesso tempo"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Exec richiede il permesso Kubernetes pods/exec: senza, il tab non appare.",
+        "en": "Exec requires the Kubernetes pods/exec permission: without it, the tab does not appear."
+      },
+      "difficulty": "medium",
+      "domain": "exec"
+    },
+    {
+      "question": {
+        "it": "Quale sequenza ti aiuta di più quando un pod non parte?",
+        "en": "Which sequence helps the most when a pod does not start?"
+      },
+      "options": [
+        "Stato del pod → Log → Eventi → (se serve) Terminale",
+        "Log → Delete → Log",
+        "Terminale subito senza guardare altro",
+        "Eventi → riavvio blindato"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Lei ordina: prima il quadro (state e log), poi gli eventi, e solo per conferma tutto con il terminale.",
+        "en": "First the picture (state and logs), then the events, and only to confirm everything with the terminal."
+      },
+      "difficulty": "medium",
+      "domain": "logs"
+    },
+    {
+      "question": {
+        "it": "I log mostrati da Headlamp includono i timestamp?",
+        "en": "Do the logs shown by Headlamp include timestamps?"
+      },
+      "options": [
+        "Sì, utili per correlare con gli eventi del cluster",
+        "No, mai",
+        "Solo su abbonamento",
+        "Solo in modalità headless"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "I log includono timestamp, utili per correlare con eventi e stato del cluster.",
+        "en": "Logs include timestamps, useful for correlating with events and cluster state."
+      },
+      "difficulty": "easy",
+      "domain": "logs"
+    },
+    {
+      "question": {
+        "it": "Cosa puoi fare con una shell in un container via Exec?",
+        "en": "What can you do with a shell in a container via Exec?"
+      },
+      "options": [
+        "Controllare file, processi, env e rete dentro il pod",
+        "Eliminare il nodo",
+        "Modificare i permessi RBAC globali",
+        "Installare pacchetti sul cluster"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La shell del container serve a ispezionare l'ambiente del container: file, processi, variabili e rete.",
+        "en": "The container shell serves to inspect the container environment: files, processes, variables and network."
+      },
+      "difficulty": "medium",
+      "domain": "exec"
+    },
+    {
+      "question": {
+        "it": "In modalità Follow, la UI:",
+        "en": "In Follow mode, the UI:"
+      },
+      "options": [
+        "Aggiorna automaticamente i log in tempo reale",
+        "Blocca i log",
+        "Scarica i log su file",
+        "Manda i log per email"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Follow aggiorna i log in tempo reale senza ricaricare la pagina.",
+        "en": "Follow updates logs in real time without reloading the page."
+      },
+      "difficulty": "easy",
+      "domain": "logs"
+    },
+    {
+      "question": {
+        "it": "Il tab Event del dettaglio di un pod mostra:",
+        "en": "The Event tab of a pod's detail shows:"
+      },
+      "options": [
+        "Cosa Kubernetes ha fatto alla risorsa (create, pull, kill, warning...)",
+        "Il contenuto dei volumi",
+        "La configurazione di rete esterna",
+        "Una chat del team"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Gli eventi mostrano le azioni di Kubernetes sulla risorsa, come pull dell'immagine, kill, warning.",
+        "en": "Events show Kubernetes' actions on the resource, such as image pull, kill, warnings."
+      },
+      "difficulty": "medium",
+      "domain": "logs"
+    },
+    {
+      "question": {
+        "it": "Quando conviene entrare con il terminale invece di fidarsi solo dei log?",
+        "en": "When should you enter with the terminal instead of trusting only the logs?"
+      },
+      "options": [
+        "Quando devi confermare ipotesi sui file/processi che i log non spiegano",
+        "Mai, il terminale non serve",
+        "Sempre, a prescindere",
+        "Solo di notte"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il terminale serve per confermare ipotesi non visibili nei log (config, file mancante, stato dei processi).",
+        "en": "The terminal serves to confirm hypotheses not visible in the logs (config, missing file, process state)."
+      },
+      "difficulty": "medium",
+      "domain": "exec"
+    },
+    {
+      "question": {
+        "it": "CrashLoopBackOff significa che il pod:",
+        "en": "CrashLoopBackOff means the pod:"
+      },
+      "options": [
+        "Crasha e riparte più volte con backoff crescente",
+        "È in attesa di rete",
+        "È terminato correttamente",
+        "È sospeso dall'utente"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "CrashLoopBackOff: il container esce con errore e Kubernetes lo riavvia con backoff crescente.",
+        "en": "CrashLoopBackOff: the container exits with an error and Kubernetes restarts it with increasing backoff."
+      },
+      "difficulty": "easy",
+      "domain": "logs"
+    },
+    {
+      "question": {
+        "it": "La vista dei log ti permette di:",
+        "en": "The logs view lets you:"
+      },
+      "options": [
+        "Cambiare la quantità di linee mostrate e follow",
+        "Modificare il codice dell'app",
+        "Aggiornare l'immagine del container",
+        "Spegnere il pod"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La vista log permette di scegliere quante righe mostrare e attivare il follow.",
+        "en": "The logs view lets you choose how many lines to show and enable follow."
+      },
+      "difficulty": "easy",
+      "domain": "logs"
+    },
+    {
+      "question": {
+        "it": "Cosa NON puoi fare dal tab Exec?",
+        "en": "What can you NOT do from the Exec tab?"
+      },
+      "options": [
+        "Persistenza: i file modificati si perdono se il container non ha volume",
+        "Eseguire comandi shell",
+        "Listare i file",
+        "Controllare le variabili d'ambiente"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Le modifiche via shell non sono persistenti senza un volume: è una sessione nel container, non un filesystem di servizio.",
+        "en": "Shell changes are not persistent without a volume: it is a session in the container, not a service filesystem."
+      },
+      "difficulty": "hard",
+      "domain": "exec"
+    }
+  ]
+}

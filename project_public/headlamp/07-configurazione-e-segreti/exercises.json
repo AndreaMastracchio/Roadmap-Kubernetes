@@ -1,0 +1,144 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Dove stanno ConfigMap e Secret",
+        "en": "Where ConfigMaps and Secrets live"
+      },
+      "description": {
+        "it": "Dalla sidebar individua la sezione Config e annota quante ConfigMap e quanti Secret ci sono nel tuo cluster.",
+        "en": "From the sidebar locate the Config section and note how many ConfigMaps and Secrets there are in your cluster."
+      },
+      "hint": {
+        "it": "La sezione Config è nel menu laterale.",
+        "en": "The Config section is in the side menu."
+      }
+    },
+    {
+      "title": {
+        "it": "Leggi le key di una ConfigMap",
+        "en": "Read a ConfigMap's keys"
+      },
+      "description": {
+        "it": "Apri una ConfigMap esistente e annota due data key con i loro valori (non sensibili).",
+        "en": "Open an existing ConfigMap and note two data keys with their (non-sensitive) values."
+      },
+      "hint": {
+        "it": "Le key appaiono nel dettaglio della ConfigMap.",
+        "en": "The keys appear in the ConfigMap's detail."
+      }
+    },
+    {
+      "title": {
+        "it": "I segreti sono offuscati?",
+        "en": "Are secrets obscured?"
+      },
+      "description": {
+        "it": "Apri la lista dei Secret e verifica che i valori non appaiano in chiaro nel listing.",
+        "en": "Open the Secrets list and verify that values do not appear in plain text in the listing."
+      },
+      "hint": {
+        "it": "Dovresti vedere nomi di key ma non i valori.",
+        "en": "You should see key names but not values."
+      }
+    },
+    {
+      "title": {
+        "it": "Reveal con cognizione",
+        "en": "Reveal knowingly"
+      },
+      "description": {
+        "it": "Prova il flusso di reveal di un Secret NON sensibile nel tuo ambiente di test e annota i passaggi richiesti.",
+        "en": "Try the reveal flow of a NON-sensitive Secret in your test environment and note the required steps."
+      },
+      "hint": {
+        "it": "Serve il permesso e una conferma esplicita.",
+        "en": "It requires the permission and an explicit confirmation."
+      }
+    },
+    {
+      "title": {
+        "it": "Stato dello Storage",
+        "en": "Storage state"
+      },
+      "description": {
+        "it": "Apri la sezione Storage e annota: quante StorageClass esistono, quanti PV e PVC e i loro stati.",
+        "en": "Open the Storage section and note: how many StorageClasses exist, how many PVs and PVCs and their states."
+      },
+      "hint": {
+        "it": "Cerca colonne Stato e Bound.",
+        "en": "Look for State and Bound columns."
+      }
+    },
+    {
+      "title": {
+        "it": "Modifica e verifica una ConfigMap",
+        "en": "Edit and verify a ConfigMap"
+      },
+      "description": {
+        "it": "In ambiente di test, modifica tramite l'editor YAML il valore di una key di una ConfigMap e verifica l'aggiornamento.",
+        "en": "In a test environment, use the YAML editor to change a ConfigMap key's value and verify the update."
+      },
+      "hint": {
+        "it": "Usa Edit dal dettaglio della ConfigMap.",
+        "en": "Use Edit from the ConfigMap's detail."
+      }
+    },
+    {
+      "title": {
+        "it": "RBAC sui segreti",
+        "en": "RBAC on secrets"
+      },
+      "description": {
+        "it": "Spiega con un esempio perché un utente di sola lettura generica non deve poter leggere il valore di un Secret.",
+        "en": "Explain with an example why a generic read-only user must not be able to read a Secret's value."
+      },
+      "hint": {
+        "it": "Pensa al minimo privilegio e alla differenza tra 'esiste' e 'posso leggerlo'.",
+        "en": "Think about least privilege and the difference between 'exists' and 'I can read it'."
+      }
+    },
+    {
+      "title": {
+        "it": "ConfigMap in volume vs env",
+        "en": "ConfigMap in volume vs env"
+      },
+      "description": {
+        "it": "Descrivi la differenza tra montare una ConfigMap come volume e usarla come env per quanto riguarda gli aggiornamenti.",
+        "en": "Describe the difference between mounting a ConfigMap as a volume and using it as env regarding updates."
+      },
+      "hint": {
+        "it": "I volumi possono vedere aggiornamenti via sync, le env richiedono il restart del pod.",
+        "en": "Volumes can see updates via sync, envs require a pod restart."
+      }
+    },
+    {
+      "title": {
+        "it": "Comando equivalente per i secret",
+        "en": "Equivalent command for secrets"
+      },
+      "description": {
+        "it": "Scrivi il comando kubectl per vedere i metadati di un secret senza esporre il valore.",
+        "en": "Write the kubectl command to see a secret's metadata without exposing the value."
+      },
+      "hint": {
+        "it": "kubectl get secret <nome>.",
+        "en": "kubectl get secret <name>."
+      }
+    },
+    {
+      "title": {
+        "it": "Importanza dello stato Bound",
+        "en": "Importance of the Bound state"
+      },
+      "description": {
+        "it": "Spiega perché un PVC resta 'Pending' se non esiste una StorageClass o un PV compatibile.",
+        "en": "Explain why a PVC stays 'Pending' if no compatible StorageClass or PV exists."
+      },
+      "hint": {
+        "it": "Il controller di volume deve trovare qualcosa da bindare.",
+        "en": "The volume controller must find something to bind."
+      }
+    }
+  ]
+}

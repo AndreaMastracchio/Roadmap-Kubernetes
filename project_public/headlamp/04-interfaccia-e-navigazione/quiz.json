@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Cosa mostra la Home (Overview) di Headlamp?",
+        "en": "What does the Headlamp Home (Overview) show?"
+      },
+      "options": [
+        "Solo il nome del cluster",
+        "CPU/memoria aggregate, stato nodi, eventi recenti e collegamenti rapidi",
+        "Una lista di tutti i comandi disponibili",
+        "La configurazione di rete del laptop"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "La Home offre una panoramica del cluster: risorse CPU/memoria, stato dei nodi, eventi e link rapidi.",
+        "en": "Home gives a cluster overview: CPU/memory usage, node status, events and quick links."
+      },
+      "difficulty": "easy",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "Se l'API Metrics non è disponibile, cosa succede ai grafici di CPU/memoria in Home?",
+        "en": "If the Metrics API is unavailable, what happens to the CPU/memory charts in Home?"
+      },
+      "options": [
+        "Continuano a funzionare con dati finti",
+        "Non vengono mostrati (non ci sono dati)",
+        "Vengono sostituiti da stime manuali",
+        "Bloccano l'intera app"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Senza Metrics API non ci sono dati di utilizzo: Headlamp non mostra i grafici piuttosto che inventarli.",
+        "en": "Without the Metrics API there is no usage data: Headlamp does not show the charts rather than fake them."
+      },
+      "difficulty": "medium",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "Quale colonna di una tabella risorse ti indica subito lo stato di un pod?",
+        "en": "Which column of a resource table quickly shows a pod's status?"
+      },
+      "options": [
+        "Il nome",
+        "Status/Restart con icone colorate",
+        "Il namespace",
+        "L'ultimo commit"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "La colonna Status/Restart usa icone colorate per indicare running, pending o error.",
+        "en": "The Status/Restart column uses colored icons to indicate running, pending or error."
+      },
+      "difficulty": "easy",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "Cliccando su un pod si apre una pagina con i tab:",
+        "en": "Clicking a pod opens a page with the tabs:"
+      },
+      "options": [
+        "Overview, Logs, Event e (se abilitato) Exec",
+        "Query, DDL, Graph",
+        "Code, Test, Deploy",
+        "Service, Ingress, Policy"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il dettaglio di un pod ha tipicamente Overview, Logs, Event e talvolta Exec per il terminale.",
+        "en": "A pod's detail page typically has Overview, Logs, Event and sometimes Exec for the terminal."
+      },
+      "difficulty": "easy",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "Dove trovi i nodi e i namespace nella sidebar?",
+        "en": "Where do you find nodes and namespaces in the sidebar?"
+      },
+      "options": [
+        "Sezione Cluster",
+        "Sezione Workload",
+        "Sezione Network",
+        "Sezione Storage"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Nodi e namespace stanno nella sezione Cluster.",
+        "en": "Nodes and namespaces are in the Cluster section."
+      },
+      "difficulty": "easy",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "A cosa serve la barra di ricerca di Headlamp?",
+        "en": "What is the Headlamp search bar for?"
+      },
+      "options": [
+        "A cercare risorse per nome e tipo su tutto il cluster",
+        "A cercare documenti sul sito ufficiale",
+        "A cercare in internet",
+        "A cercare appunti personali"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La ricerca trova risorse per nome e tipo senza navigare categoria per categoria.",
+        "en": "Search finds resources by name and type without browsing category by category."
+      },
+      "difficulty": "easy",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "Queste azioni consentite variano in base a cosa?",
+        "en": "The allowed actions vary based on what?"
+      },
+      "options": [
+        "Al tipo di risorsa e ai permessi dell'utente",
+        "Al tema dell'app",
+        "All'ora del giorno",
+        "Alla lingua della UI"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Le azioni dipendono dal tipo di risorsa e dai permessi RBAC dell'utente.",
+        "en": "Actions depend on the resource type and the user's RBAC permissions."
+      },
+      "difficulty": "medium",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "La vista di dettaglio di un Deployment permette di:",
+        "en": "The detail view of a Deployment allows you to:"
+      },
+      "options": [
+        "Scale, Restart, Rollback e Edit",
+        "Solo vedere i log",
+        "Solo eliminare",
+        "Solo cambiare la label"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Per i Deployment la UI di Headlamp espone Scale, Restart, Rollback ed Edit.",
+        "en": "For Deployments the Headlamp UI exposes Scale, Restart, Rollback and Edit."
+      },
+      "difficulty": "medium",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "Nella sezione Network della sidebar trovi:",
+        "en": "In the sidebar Network section you find:"
+      },
+      "options": [
+        "Servizi, Ingress e policy di rete",
+        "Pod e deployment",
+        "ConfigMap e Secret",
+        "Nodi e namespace"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Network raggruppa servizi, ingress e policy di rete.",
+        "en": "Network groups services, ingresses and network policies."
+      },
+      "difficulty": "easy",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "Dove trovi i Custom Resources definiti tramite CRD?",
+        "en": "Where do you find Custom Resources defined via CRD?"
+      },
+      "options": [
+        "Sezione Custom Resources della sidebar",
+        "Sezione Cluster",
+        "Sezione Config",
+        "Non sono mai visibili"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Headlamp mostra le risorse CRD in una sezione dedicata.",
+        "en": "Headlamp shows CRD resources in a dedicated section."
+      },
+      "difficulty": "medium",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "Il tab Event di un pod mostra:",
+        "en": "The Events tab of a pod shows:"
+      },
+      "options": [
+        "Gli eventi Kubernetes legati alla risorsa (start, kill, warning...)",
+        "I log applicativi della shell",
+        "Le variabili d'ambiente",
+        "Il traffico di rete"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il tab Event mostra gli eventi Kubernetes della risorsa: cambi di stato, scalate, warning.",
+        "en": "The Events tab shows the Kubernetes events of the resource: state changes, scaling, warnings."
+      },
+      "difficulty": "medium",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "Come si accede all'editor YAML di una risorsa?",
+        "en": "How do you access the YAML editor of a resource?"
+      },
+      "options": [
+        "Dal pulsante Edit nel dettaglio della risorsa",
+        "Cambiando tema dell'app",
+        "Attraverso il tab Log",
+        "Solo da riga di comando"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il pulsante Edit del dettaglio apre l'editor YAML della risorsa.",
+        "en": "The Edit button in the resource detail opens its YAML editor."
+      },
+      "difficulty": "easy",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "La sezione Storage della sidebar contiene:",
+        "en": "The Storage sidebar section contains:"
+      },
+      "options": [
+        "StorageClass, PersistentVolume e PersistentVolumeClaim",
+        "Image e layer registry",
+        "Backup programmati",
+        "Certificati TLS"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Storage raggruppa StorageClass, PV e PVC.",
+        "en": "Storage groups StorageClass, PV and PVC."
+      },
+      "difficulty": "easy",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "Se la sidebar non mostra una categoria, la causa più probabile è:",
+        "en": "If the sidebar does not show a category, the most likely cause is:"
+      },
+      "options": [
+        "Un bug grafico",
+        "L'utente non ha permessi per quelle risorse e la sezione è nascosta",
+        "Il cluster ha troppi pod",
+        "La UI è in modalità light"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Headlamp nasconde le sezioni per cui l'utente non ha permessi di lettura.",
+        "en": "Headlamp hides sections for which the user has no read permissions."
+      },
+      "difficulty": "hard",
+      "domain": "ui"
+    },
+    {
+      "question": {
+        "it": "Quale convenzione usi per passare rapidamente da una risorsa all'altra?",
+        "en": "Which convention do you use to switch quickly from one resource to another?"
+      },
+      "options": [
+        "La barra di ricerca globale",
+        "Il bottone indietro del browser",
+        "Riavviare Headlamp",
+        "Cambiare context"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La ricerca globale saltare da una risorsa all'altra è la via più rapida.",
+        "en": "The global search jumping from one resource to another is the quickest way."
+      },
+      "difficulty": "medium",
+      "domain": "ui"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "id": "headlamp",
+  "title": {
+    "it": "Headlamp: la dashboard Kubernetes",
+    "en": "Headlamp: The Kubernetes Dashboard"
+  },
+  "icon": "LayersIcon",
+  "color": "#0b7285",
+  "isPrivate": false,
+  "comingSoon": false,
+  "price": 0,
+  "description": {
+    "it": "Impara a usare Headlamp, la web UI open source per Kubernetes: installazione, collegamento dei cluster, gestione di workload, log, plugin e vista applicativa.",
+    "en": "Learn to use Headlamp, the open source Kubernetes web UI: installation, cluster connections, workload management, logs, plugins and the application-centric view."
+  },
+  "modules": [
+    {
+      "id": "01-introduzione",
+      "title": {
+        "it": "1. Introduzione",
+        "en": "1. Introduction"
+      },
+      "icon": "LayersIcon",
+      "level": "Base",
+      "time": "10 min"
+    },
+    {
+      "id": "02-installazione",
+      "title": {
+        "it": "2. Installazione",
+        "en": "2. Installation"
+      },
+      "icon": "CodeIcon",
+      "level": "Base",
+      "time": "15 min"
+    },
+    {
+      "id": "03-autenticazione-e-cluster",
+      "title": {
+        "it": "3. Autenticazione e Cluster",
+        "en": "3. Authentication and Clusters"
+      },
+      "icon": "SecurityIcon",
+      "level": "Base",
+      "time": "20 min"
+    },
+    {
+      "id": "04-interfaccia-e-navigazione",
+      "title": {
+        "it": "4. Interfaccia e Navigazione",
+        "en": "4. Interface and Navigation"
+      },
+      "icon": "ArchitectureIcon",
+      "level": "Base",
+      "time": "20 min"
+    },
+    {
+      "id": "05-workloads",
+      "title": {
+        "it": "5. Workload",
+        "en": "5. Workloads"
+      },
+      "icon": "TerminalIcon",
+      "level": "Intermedio",
+      "time": "25 min"
+    },
+    {
+      "id": "06-log-e-terminale",
+      "title": {
+        "it": "6. Log e Terminale",
+        "en": "6. Logs and Terminal"
+      },
+      "icon": "StorageIcon",
+      "level": "Intermedio",
+      "time": "20 min"
+    },
+    {
+      "id": "07-configurazione-e-segreti",
+      "title": {
+        "it": "7. Configurazione e Segreti",
+        "en": "7. Configuration and Secrets"
+      },
+      "icon": "SettingsIcon",
+      "level": "Intermedio",
+      "time": "20 min"
+    },
+    {
+      "id": "08-monitoraggio-e-multicluster",
+      "title": {
+        "it": "8. Monitoraggio e Multicluster",
+        "en": "8. Monitoring and Multi-cluster"
+      },
+      "icon": "NetworkIcon",
+      "level": "Avanzato",
+      "time": "25 min"
+    },
+    {
+      "id": "09-projects-e-plugin",
+      "title": {
+        "it": "9. Projects e Plugin",
+        "en": "9. Projects and Plugins"
+      },
+      "icon": "ExtensionIcon",
+      "level": "Avanzato",
+      "time": "25 min"
+    },
+    {
+      "id": "10-esame-finale",
+      "title": {
+        "it": "10. Esame Finale",
+        "en": "10. Final Exam"
+      },
+      "icon": "ExamIcon",
+      "level": "Esame",
+      "time": "40 min"
+    }
+  ],
+  "duration": {
+    "it": "3 ore e 30 min",
+    "en": "3.5 hours"
+  },
+  "languages": [
+    "it"
+  ],
+  "name": {
+    "it": "Headlamp",
+    "en": "Headlamp"
+  },
+  "group": "devops"
+}

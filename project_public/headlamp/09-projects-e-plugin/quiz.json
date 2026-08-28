@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Cos'è un Project in Headlamp?",
+        "en": "What is a Project in Headlamp?"
+      },
+      "options": [
+        "Un raggruppamento di risorse di un'applicazione, anche su più namespace o cluster",
+        "Un namespace Kubernetes",
+        "Una StorageClass",
+        "Un plugin"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Un Project raggruppa le risorse di una stessa applicazione, anche distribuite su più namespace o cluster.",
+        "en": "A Project groups the resources of one application, even spread across multiple namespaces or clusters."
+      },
+      "difficulty": "medium",
+      "domain": "projects"
+    },
+    {
+      "question": {
+        "it": "I Project in Headlamp sono implementati come:",
+        "en": "Projects in Headlamp are implemented as:"
+      },
+      "options": [
+        "Feature nativa della UI, non un CRD",
+        "Un CRD Kubernetes",
+        "Un ConfigMap speciale",
+        "Un namespace"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "I Project sono una funzionalità nativa: non richiedono CRD né componenti installati.",
+        "en": "Projects are a native feature: they require no CRD or installed components."
+      },
+      "difficulty": "hard",
+      "domain": "projects"
+    },
+    {
+      "question": {
+        "it": "Da dove si gestiscono i Plugin in Headlamp?",
+        "en": "Where are plugins managed in Headlamp?"
+      },
+      "options": [
+        "Dal Plugin Catalog nella UI",
+        "Solo modificando il codice sorgente",
+        "Da un file PHP",
+        "Non sono gestibili"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il Plugin Catalog permette installare, aggiornare e rimuovere plugin dalla UI.",
+        "en": "The Plugin Catalog lets you install, update and remove plugins from the UI."
+      },
+      "difficulty": "easy",
+      "domain": "plugins"
+    },
+    {
+      "question": {
+        "it": "Quale dei seguenti è un esempio di ciò che un plugin può aggiungere?",
+        "en": "Which of these is an example of what a plugin can add?"
+      },
+      "options": [
+        "Nuove sezioni, dettagli custom e integrazioni (ingress, monitoraggio, CD)",
+        "Una nuova versione del kernel",
+        "Un nuovo filesystem",
+        "La firma dei certificati del cluster"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "I plugin estendono la UI: sezioni, viste custom, azioni e integrazioni.",
+        "en": "Plugins extend the UI: sections, custom views, actions and integrations."
+      },
+      "difficulty": "easy",
+      "domain": "plugins"
+    },
+    {
+      "question": {
+        "it": "La funzionalità AI di Headlamp:",
+        "en": "Headlamp's AI feature:"
+      },
+      "options": [
+        "È opzionale: il core funziona anche offline e senza AI",
+        "È obbligatoria per avviare la UI",
+        "Sostituisce kubectl",
+        "Richiede sempre un abbonamento"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "L'AI è un'opzione configurabile: senza, Headlamp funziona normalmente.",
+        "en": "AI is an optional configuration: without it Headlamp works normally."
+      },
+      "difficulty": "medium",
+      "domain": "ai"
+    },
+    {
+      "question": {
+        "it": "Dove vengono di solito pubblicati i plugin di Headlamp?",
+        "en": "Where are Headlamp plugins usually published?"
+      },
+      "options": [
+        "Su registri compatibili con Artifact Hub e nel catalogo della UI",
+        "Solo su npm privato",
+        "Su un archivio FTP",
+        "Non esiste una pubblicazione standard"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "I plugin usano registri in stile Artifact Hub e sono esposti nel catalogo della UI.",
+        "en": "Plugins use Artifact Hub-style registries and are exposed in the UI catalog."
+      },
+      "difficulty": "medium",
+      "domain": "plugins"
+    },
+    {
+      "question": {
+        "it": "Un Project multi-cluster serve a:",
+        "en": "A multi-cluster Project serves to:"
+      },
+      "options": [
+        "Vedere insieme le risorse di un'app distribuita su cluster diversi",
+        "Unire i cluster in uno solo",
+        "Fare backup",
+        "Migliorare la latenza di rete"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il Project unifica la vista di un'app distribuita su più cluster.",
+        "en": "The Project unifies the view of an app spread across multiple clusters."
+      },
+      "difficulty": "medium",
+      "domain": "projects"
+    },
+    {
+      "question": {
+        "it": "Qual è l'ordine di apprendimento consigliato per Headlamp?",
+        "en": "What is the recommended learning order for Headlamp?"
+      },
+      "options": [
+        "Core → Plugin → Projects",
+        "Projects → Core → Plugin",
+        "Plugin prima del core",
+        "Solo AI"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Prima il core, poi i plugin, infine i Projects: costruisci su fondamenta solide.",
+        "en": "First the core, then the plugins, finally the Projects: build on solid foundations."
+      },
+      "difficulty": "medium",
+      "domain": "basics"
+    },
+    {
+      "question": {
+        "it": "Cosa aggiunge il progetto Headlamp rispetto a una lista piatta di risorse?",
+        "en": "What does the Project view add over a flat resource list?"
+      },
+      "options": [
+        "Una vista applicativa con relazioni e raggruppamenti",
+        "Un elenco in ordine alfabetico",
+        "Una console sql",
+        "Solo più colori"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il Project dà la filosofia 'application-centric': relazioni e stato dell'app, non singoli oggetti.",
+        "en": "The Project gives the 'application-centric' philosophy: relations and app status, not single objects."
+      },
+      "difficulty": "medium",
+      "domain": "projects"
+    },
+    {
+      "question": {
+        "it": "L'assistente AI di Headlamp può aiutarti a:",
+        "en": "Headlamp's AI assistant can help you:"
+      },
+      "options": [
+        "Spiegare risorse e suggerire fix",
+        "Firmare il kubeconfig",
+        "Gestire i pagamenti",
+        "Compilare il kernel"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "L'AI aiuta a capire e a risolvere: spiega risorse, eventi e suggerisce correzioni.",
+        "en": "The AI helps understand and fix: it explains resources, events and suggests corrections."
+      },
+      "difficulty": "medium",
+      "domain": "ai"
+    },
+    {
+      "question": {
+        "it": "Se installi un plugin che crea una nuova sezione, per vederla:",
+        "en": "If you install a plugin that creates a new section, to see it:"
+      },
+      "options": [
+        "In molti casi basta riavviare/ricaricare la UI per vedere la nuova voce",
+        "Devi reinstallare il cluster",
+        "Non è possibile",
+        "Devi cambiare browser"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Dopo l'installazione di solito si ricarica la UI e la nuova sezione appare in sidebar.",
+        "en": "After installation you usually reload the UI and the new section appears in the sidebar."
+      },
+      "difficulty": "easy",
+      "domain": "plugins"
+    },
+    {
+      "question": {
+        "it": "Da cosa è composto un Project in Headlamp?",
+        "en": "What does a Project consist of in Headlamp?"
+      },
+      "options": [
+        "Da quali namespace e cluster includere e le relative risorse",
+        "Da una password",
+        "Da un solo pod",
+        "Da un file di log"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Un Project definisce quali namespace e cluster raggruppare.",
+        "en": "A Project defines which namespaces and clusters to group."
+      },
+      "difficulty": "medium",
+      "domain": "projects"
+    },
+    {
+      "question": {
+        "it": "Un plugin di monitoraggio probabilmente aggiunge:",
+        "en": "A monitoring plugin probably adds:"
+      },
+      "options": [
+        "Viste di metriche e integrazione con servizi di observability",
+        "La gestione dei pagamenti del cluster",
+        "Un editor di immagini",
+        "Un client FTP"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "I plugin di monitoraggio portano metriche e integrazioni col mondo observability.",
+        "en": "Monitoring plugins bring metrics and observability integrations."
+      },
+      "difficulty": "easy",
+      "domain": "plugins"
+    },
+    {
+      "question": {
+        "it": "Perché Projects è considerata la 'vista applicativa'?",
+        "en": "Why is Projects considered the 'application view'?"
+      },
+      "options": [
+        "Perché ragiona per applicazione, non per singolo oggetto",
+        "Perché mostra solo i grafi",
+        "Perché è un'app separata",
+        "Perché richiede plugin a pagamento"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Projects aggrega tutto ciò che serve a un'app, dal deployment alla service, in un'unica vista.",
+        "en": "Projects aggregates everything an app needs, from deployment to service, in one view."
+      },
+      "difficulty": "medium",
+      "domain": "projects"
+    },
+    {
+      "question": {
+        "it": "L'AI di Headlamp richiede per funzionare:",
+        "en": "Headlamp's AI requires to work:"
+      },
+      "options": [
+        "Una configurazione (provider e, a seconda del caso, chiave)",
+        "Nessuna configurazione, sempre",
+        "Un account Kubernetes",
+        "Un plugin a pagamento obbligatorio"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Le funzionalità AI vanno configurate: servono provider e, nel caso, una chiave.",
+        "en": "AI features must be configured: a provider is needed and, depending on the case, a key."
+      },
+      "difficulty": "hard",
+      "domain": "ai"
+    }
+  ]
+}

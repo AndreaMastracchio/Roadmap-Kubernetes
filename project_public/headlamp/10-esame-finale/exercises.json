@@ -1,0 +1,166 @@
+{
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Qual è il metodo più sicuro per connettere Headlamp a un cluster senza ottenere i permessi da admin del cluster?",
+      "options": [
+        "Creare un ServiceAccount dedicato con un Role legato ai soli namespace di interesse",
+        "Usare la kubeconfig di root del cluster",
+        "Disabilitare l'autenticazione",
+        "Usare una chiave SSH del worker"
+      ],
+      "correct": 0,
+      "explanation": "Il ServiceAccount con RBAC limitato segue il principio del minimo privilegio e limita i danni in caso di utilizzo."
+    },
+    {
+      "id": "q2",
+      "question": "Vuoi vedere in Headlamp i log di un container. Oltre a leggere il Pod devi poter:",
+      "options": [
+        "Eseguire pods/log (il subsresource log del Pod)",
+        "Leggere i Service",
+        "Creare una ConfigMap",
+        "Leggere i namespace"
+      ],
+      "correct": 0,
+      "explanation": "I log arrivano dall'API: serve il permesso sul subsresource logs del Pod."
+    },
+    {
+      "id": "q3",
+      "question": "La Home non mostra l'utilizzo di CPU/memoria. Qual è la prima ipotesi da verificare?",
+      "options": [
+        "Il cluster non ha un Metrics Server che espone la Metrics API",
+        "La rete del cluster è lenta",
+        "La lingua della UI è sbagliata",
+        "Headlamp è in versione vecchia e non supporta i grafici"
+      ],
+      "correct": 0,
+      "explanation": "Senza Metrics Server niente dati di utilizzo: verifica i pod del componente in kube-system."
+    },
+    {
+      "id": "q4",
+      "question": "Il tuo team ha un'app distribuita su tre namespace dello stesso cluster. Come la rappresenti al meglio in Headlamp?",
+      "options": [
+        "Con un Project che raggruppa le applicazioni per namespace",
+        "Con tre browser diversi",
+        "Con un Secret che contiene i nomi dei namespace",
+        "Installando tre plugin diversi"
+      ],
+      "correct": 0,
+      "explanation": "I Project unificano le risorse di un'app in una vista applicativa, anche su più namespace o cluster."
+    },
+    {
+      "id": "q5",
+      "question": "Un membro del team vuole poter riavviare i pod ma non leggere il contenuto dei Secret. Cosa deve limitare l'RBAC?",
+      "options": [
+        "Il permesso di aggiornare/cancellare risorse, negando l'accesso in lettura ai Secret",
+        "Il permesso di leggere i Log",
+        "Il permesso di vedere i nomi delle ConfigMap",
+        "Il permesso di usare la UI"
+      ],
+      "correct": 0,
+      "explanation": "Separare i permessi per tipo di risorsa: operare sui workload sì, esporre i segreti no."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1",
+      "title": "Connessione sicura con ServiceAccount",
+      "hint": "Crea l'identità dedicata, legala a un namespace specifico e non concedere la lettura del contenuto dei Secret.",
+      "template": [
+        "ServiceAccount da creare: {{user}}",
+        "Namespace con accesso limitato: {{namespace}}",
+        "Il contenuto dei Secret è leggibile? {{secret_read}}",
+        "Test: dal selettore cluster la vista mostra solo il namespace consentito"
+      ],
+      "answers": [
+        {
+          "id": "user",
+          "accepted": [
+            "headlamp-operator",
+            "headlamp-viewer"
+          ],
+          "placeholder": "nome SA"
+        },
+        {
+          "id": "namespace",
+          "accepted": [
+            "sviluppo",
+            "demo"
+          ],
+          "placeholder": "namespace"
+        },
+        {
+          "id": "secret_read",
+          "accepted": [
+            "no"
+          ],
+          "placeholder": "si/no"
+        }
+      ]
+    },
+    {
+      "id": "e2",
+      "title": "Operare un Deployment dalla UI",
+      "hint": "Usa la sezione Workload > Deployments, il dettaglio e la voce Restart.",
+      "template": [
+        "Deployment di riferimento: {{deploy}}",
+        "Namespace del Deployment: {{namespace}}",
+        "Azione della UI usata per riavviare: {{action}}",
+        "Verifica: i nuovi pod risultano Running"
+      ],
+      "answers": [
+        {
+          "id": "deploy",
+          "accepted": [
+            "nginx"
+          ],
+          "placeholder": "nome deploy"
+        },
+        {
+          "id": "namespace",
+          "accepted": [
+            "default",
+            "app"
+          ],
+          "placeholder": "namespace"
+        },
+        {
+          "id": "action",
+          "accepted": [
+            "restart"
+          ],
+          "placeholder": "azione"
+        }
+      ]
+    },
+    {
+      "id": "e3",
+      "title": "Vista applicativa e estensione",
+      "hint": "Costruisci la vista per il tuo team: raggruppa i namespace in un Project e installa l'estensione dal catalogo.",
+      "template": [
+        "Nome del Project creato: {{project}}",
+        "Sezione della UI da cui si installano le estensioni: {{catalog}}",
+        "Verifica: la nuova sezione del plugin compare nella sidebar"
+      ],
+      "answers": [
+        {
+          "id": "project",
+          "accepted": [
+            "shop",
+            "app-team"
+          ],
+          "placeholder": "nome project"
+        },
+        {
+          "id": "catalog",
+          "accepted": [
+            "plugin catalog",
+            "Plugin Catalog",
+            "catalogo plugin"
+          ],
+          "placeholder": "sezione UI"
+        }
+      ]
+    }
+  ]
+}

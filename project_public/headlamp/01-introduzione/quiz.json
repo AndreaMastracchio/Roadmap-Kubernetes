@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Cos'è Headlamp?",
+        "en": "What is Headlamp?"
+      },
+      "options": [
+        "Un plugin per kubectl",
+        "Una web UI open source per Kubernetes",
+        "Una distribuzione di Kubernetes",
+        "Un monitor di rete"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Headlamp è una web UI per Kubernetes: un'applicazione open source che permette di vedere e gestire i cluster da browser o app desktop.",
+        "en": "Headlamp is a Kubernetes web UI: an open source application to view and manage clusters from the browser or a desktop app."
+      },
+      "difficulty": "easy",
+      "domain": "basics"
+    },
+    {
+      "question": {
+        "it": "Sotto quale licenza è rilasciato Headlamp?",
+        "en": "Which license is Headlamp released under?"
+      },
+      "options": [
+        "MIT",
+        "GPL-3.0",
+        "Apache 2.0",
+        "BSD-2-Clause"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Headlamp è rilasciato sotto licenza Apache 2.0.",
+        "en": "Headlamp is released under the Apache 2.0 license."
+      },
+      "difficulty": "medium",
+      "domain": "basics"
+    },
+    {
+      "question": {
+        "it": "Quale organizzazione mantiene oggi il progetto Headlamp?",
+        "en": "Which organization maintains the Headlamp project today?"
+      },
+      "options": [
+        "Red Hat",
+        "Cloud Native Computing Foundation (CNCF)",
+        "Hashicorp",
+        "Kubernetes core team"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Headlamp è un progetto CNCF Sandbox, originariamente sviluppato da Kinvolk.",
+        "en": "Headlamp is a CNCF Sandbox project, originally developed by Kinvolk."
+      },
+      "difficulty": "medium",
+      "domain": "basics"
+    },
+    {
+      "question": {
+        "it": "Headlamp è legato a uno specifico cloud provider?",
+        "en": "Is Headlamp tied to a specific cloud provider?"
+      },
+      "options": [
+        "Sì, funziona solo su GKE",
+        "Sì, funziona solo su EKS",
+        "No, è vendor-agnostico e funziona con qualsiasi cluster Kubernetes",
+        "Sì, funziona solo con minikube"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Headlamp è vendor-agnostico: funziona con qualsiasi cluster conforme a Kubernetes.",
+        "en": "Headlamp is vendor-agnostic: it works with any Kubernetes-conformant cluster."
+      },
+      "difficulty": "easy",
+      "domain": "basics"
+    },
+    {
+      "question": {
+        "it": "In quali modalità principali può girare Headlamp?",
+        "en": "Which are the main modes Headlamp can run in?"
+      },
+      "options": [
+        "Solo in cloud",
+        "Applicazione desktop e web app in-cluster",
+        "Solo come CLI",
+        "Solo come container su Docker"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Headlamp può girare come app desktop (macOS, Windows, Linux) o come web app installata dentro il cluster.",
+        "en": "Headlamp can run as a desktop app (macOS, Windows, Linux) or as a web app installed inside the cluster."
+      },
+      "difficulty": "easy",
+      "domain": "basics"
+    },
+    {
+      "question": {
+        "it": "Quale dei seguenti NON è un vantaggio di usare Headlamp?",
+        "en": "Which of the following is NOT an advantage of using Headlamp?"
+      },
+      "options": [
+        "Vista unificata su più cluster",
+        "Log, terminale ed editor YAML nella UI",
+        "UI che rispetta i permessi RBAC",
+        "Sostituisce completamente kubectl in ogni scenario"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Headlamp non sostituisce kubectl in ogni scenario: per automazione, scripting e casi avanzati kubectl resta necessario. Headlamp semplifica l'uso interattivo.",
+        "en": "Headlamp does not replace kubectl in every scenario: for automation, scripting and advanced cases kubectl remains necessary. Headlamp simplifies interactive use."
+      },
+      "difficulty": "medium",
+      "domain": "basics"
+    },
+    {
+      "question": {
+        "it": "Come si comporta la UI di Headlamp rispetto ai permessi RBAC?",
+        "en": "How does the Headlamp UI behave with respect to RBAC permissions?"
+      },
+      "options": [
+        "Mostra sempre tutti i bottoni e segnala errori al click",
+        "Mostra solo le azioni che l'utente ha il permesso di eseguire",
+        "Ignora completamente RBAC",
+        "Richiede sempre l'utente admin"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "La UI riflette i permessi: i bottoni di modifica/eliminazione compaiono solo se l'utente ha i permessi RBAC per quell'azione.",
+        "en": "The UI reflects permissions: edit/delete buttons appear only if the user has the RBAC permissions for that action."
+      },
+      "difficulty": "medium",
+      "domain": "rbac"
+    },
+    {
+      "question": {
+        "it": "Da quale organizzazione è nato Headlamp prima di diventare CNCF?",
+        "en": "Which organization originally created Headlamp before it became CNCF?"
+      },
+      "options": [
+        "Kinvolk",
+        "Red Hat",
+        "SUSE",
+        "Canonical"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Headlamp è stato originariamente sviluppato da Kinvolk.",
+        "en": "Headlamp was originally developed by Kinvolk."
+      },
+      "difficulty": "hard",
+      "domain": "basics"
+    },
+    {
+      "question": {
+        "it": "Qual è la porta predefinita usata in modalità headless?",
+        "en": "Which is the default port used in headless mode?"
+      },
+      "options": [
+        "8080",
+        "4466",
+        "3000",
+        "6443"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "In modalità headless Headlamp espone la UI su localhost:4466.",
+        "en": "In headless mode Headlamp exposes the UI on localhost:4466."
+      },
+      "difficulty": "medium",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Headlamp supporta più cluster contemporaneamente?",
+        "en": "Does Headlamp support multiple clusters at once?"
+      },
+      "options": [
+        "Sì, tramite una sola istanza che mostra tutti i cluster configurati",
+        "No, un'istanza per un solo cluster",
+        "Solo in modalità enterprise a pagamento",
+        "Sì, ma solo attraverso plugin a pagamento"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Headlamp è multi-cluster: una singola istanza mostra tutti i cluster configurati (dal kubeconfig o dalla web app) con un vista aggregata e la possibilità di passare da uno all'altro.",
+        "en": "Headlamp is multi-cluster: a single instance shows all configured clusters (from kubeconfig or the web app) with an aggregated view and the ability to switch between them."
+      },
+      "difficulty": "easy",
+      "domain": "multicluster"
+    },
+    {
+      "question": {
+        "it": "Quali sistemi operativi supporta l'applicazione desktop di Headlamp?",
+        "en": "Which operating systems does the Headlamp desktop app support?"
+      },
+      "options": [
+        "Solo Windows",
+        "Solo Linux",
+        "macOS, Windows e Linux",
+        "Solo macOS"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "L'app desktop di Headlamp è disponibile per macOS, Windows e Linux.",
+        "en": "The Headlamp desktop app is available for macOS, Windows and Linux."
+      },
+      "difficulty": "easy",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Perché Headlamp è considerato 'vendor-agnostico'?",
+        "en": "Why is Headlamp considered 'vendor-agnostic'?"
+      },
+      "options": [
+        "Perché non è legato a nessun cloud provider o distribuzione",
+        "Perché funziona solo con cluster propri",
+        "Perché è gratuito",
+        "Perché non usa Kubernetes"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "È vendor-agnostico perché funziona con qualsiasi cluster conforme a Kubernetes, indipendentemente dal provider.",
+        "en": "It is vendor-agnostic because it works with any Kubernetes-conformant cluster, regardless of provider."
+      },
+      "difficulty": "easy",
+      "domain": "basics"
+    },
+    {
+      "question": {
+        "it": "Come si estende Headlamp con funzionalità aggiuntive?",
+        "en": "How can Headlamp be extended with additional features?"
+      },
+      "options": [
+        "Riscrivendo il codice sorgente",
+        "Tramite plugin scaricabili dal catalogo",
+        "Solo tramite kubectl",
+        "Non è estensibile"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Headlamp è estensibile tramite plugin: ingress, monitoraggio e altre funzionalità arrivano dal catalogo di plugin.",
+        "en": "Headlamp is extensible via plugins: ingress, monitoring and other features come from the plugin catalog."
+      },
+      "difficulty": "easy",
+      "domain": "plugins"
+    },
+    {
+      "question": {
+        "it": "Quale licenza permette di usare Headlamp in gran parte dei progetti enterprise senza costi di licenza?",
+        "en": "Which license allows using Headlamp in most enterprise projects without license costs?"
+      },
+      "options": [
+        "GPL (copyleft rigido)",
+        "Apache 2.0",
+        "Proprietaria commerciale",
+        "AGPL"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Apache 2.0 è una licenza permissiva, adatta anche all'uso enterprise.",
+        "en": "Apache 2.0 is a permissive license, suitable even for enterprise use."
+      },
+      "difficulty": "medium",
+      "domain": "basics"
+    },
+    {
+      "question": {
+        "it": "Cosa può fare un utente che NON ha permessi di modifica su un workload?",
+        "en": "What can a user who does NOT have modification permissions on a workload do?"
+      },
+      "options": [
+        "Modificarlo comunque, ignorando RBAC",
+        "Vederlo ma non editarlo o eliminarlo dalla UI",
+        "Eliminarlo e poi ricevere un errore",
+        "Non può nemmeno vederlo"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "L'utente può vedere la risorsa, ma i controlli di modifica/eliminazione non compaiono nella UI perché Headlamp rispetta RBAC.",
+        "en": "The user can view the resource, but edit/delete controls do not appear in the UI because Headlamp respects RBAC."
+      },
+      "difficulty": "hard",
+      "domain": "rbac"
+    }
+  ]
+}

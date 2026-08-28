@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale workload Headlamp permette di scalare direttamente dalla UI?",
+        "en": "Which workload does Headlamp let you scale directly from the UI?"
+      },
+      "options": [
+        "Deployment e StatefulSet in forma controllata",
+        "Solo ReplicaSet raw (senza astrazione)",
+        "Solo Jobs",
+        "Nessuno, si scala solo via kubectl"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Dalla UI si può cambiare il numero di repliche di Deployment (e, tramite edit, di altri controller supportati).",
+        "en": "From the UI you can change the replica count of Deployments (and, via edit, of other supported controllers)."
+      },
+      "difficulty": "easy",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "Cosa fa l'azione Restart su un Deployment?",
+        "en": "What does the Restart action do on a Deployment?"
+      },
+      "options": [
+        "Riavvio il cluster",
+        "Ricrea i pod rispettando la rollout strategy",
+        "Elimina definitivamente i pod",
+        "Cambia l'immagine dei container"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Restart fa ripartire i pod del Deployment rispettando l'ordine e la strategy di rollout.",
+        "en": "Restart restarts the Deployment's pods respecting the rollout strategy and order."
+      },
+      "difficulty": "easy",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "A cosa serve il Rollback di Headlamp?",
+        "en": "What is Headlamp's Rollback for?"
+      },
+      "options": [
+        "A tornare a una revisione precedente del workload",
+        "A cancellare i log",
+        "A riavviare lo scheduler",
+        "A cambiare l'utente"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Rollback riporta il workload a una revisione stabile precedente.",
+        "en": "Rollback brings the workload back to a previous stable revision."
+      },
+      "difficulty": "easy",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "Che tipo di editor apre il pulsante Edit di una risorsa?",
+        "en": "What kind of editor does the Edit button of a resource open?"
+      },
+      "options": [
+        "Un editor YAML con help e documentazione integrata",
+        "Un editor HTML",
+        "Un editor di immagini",
+        "Una console SQL"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Edit apre l'editor YAML di Headlamp, con documentazione e suggerimenti sui campi.",
+        "en": "Edit opens Headlamp's YAML editor, with documentation and guidance on fields."
+      },
+      "difficulty": "easy",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "Un'operazione Delete che resta 'in corso' indica:",
+        "en": "A Delete operation stuck 'in progress' indicates:"
+      },
+      "options": [
+        "Il cluster è lento",
+        "Il pod (o la sua terminazione) sta bloccando la rimozione, spesso per finalizer",
+        "Un bug grafico da ignorare",
+        "La rete è via"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Headlamp mostra le operazioni in corso (cancellabili): una delete appesa spesso segnala finalizer o una terminazione bloccata.",
+        "en": "Headlamp shows in-progress (cancellable) operations: a stuck delete often signals finalizers or a blocked termination."
+      },
+      "difficulty": "hard",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "Quali informazioni trovi nel dettaglio di un container di un pod?",
+        "en": "Which info do you find in a pod container's detail?"
+      },
+      "options": [
+        "Image, env, volumi montati e quote",
+        "Solo il nome del container",
+        "Solo il PID di sistema",
+        "Il codice sorgente dell'app"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Nel dettaglio del container trovi immagine, variabili d'ambiente, volume mounts e quote richieste.",
+        "en": "In the container detail you find image, environment variables, volume mounts and requested quotas."
+      },
+      "difficulty": "medium",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "La scalatura del numero di replica si fa tipicamente:",
+        "en": "Scaling the replica count is typically done:"
+      },
+      "options": [
+        "Dall'azioni del dettaglio del Deployment (Scale)",
+        "Modificando la password del cluster",
+        "Riavviando Headlamp",
+        "Con un post su un canale Slack"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Scale è un'azione del dettaglio del workload: imposti il numero e Headlamp applica la modifica.",
+        "en": "Scale is a detail action of the workload: you set the number and Headlamp applies the change."
+      },
+      "difficulty": "easy",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "StatefulSet si distingue da Deployment per:",
+        "en": "A StatefulSet differs from a Deployment by:"
+      },
+      "options": [
+        "Identità stabile e ordine di scalata",
+        "Non poter essere modificato in YAML",
+        "Supportare solo app stateless",
+        "Non supporta PVC"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "StatefulSet garantisce identità stabile (nomi ordinati) e release/scale ordinale, utile per DB e servizi con stato.",
+        "en": "StatefulSet guarantees stable identity (ordered names) and ordinal release/scale, useful for databases and stateful services."
+      },
+      "difficulty": "medium",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "DaemonSet garantisce:",
+        "en": "DaemonSet guarantees:"
+      },
+      "options": [
+        "Un pod su ogni nodo del cluster",
+        "Una replica esattamente per namespace",
+        "Zero repliche",
+        "Repliche solo sui nodi con GPU"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "DaemonSet esegue un pod per ogni nodo: ideale per agenti, monitoraggi e log.",
+        "en": "DaemonSet runs one pod per node: ideal for agents, monitoring and logging."
+      },
+      "difficulty": "easy",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "Dopo un rollout fallito, la sequenza consigliata in Headlamp è:",
+        "en": "After a failed rollout, the recommended sequence in Headlamp is:"
+      },
+      "options": [
+        "Rollback/Restart per ripristinare, poi indagine con Log ed Event",
+        "Cancellare tutto subito e ricreare da zero",
+        "Spegnere il cluster",
+        "Cambiare provider"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Prima si riporta lo stato con Rollback/Restart, poi si diagnostica con Log ed Event.",
+        "en": "First restore the state with Rollback/Restart, then diagnose with Logs and Events."
+      },
+      "difficulty": "medium",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "In quale tab del dettaglio di un pod trovi le variabili d'ambiente?",
+        "en": "Which tab of a pod's detail has the environment variables?"
+      },
+      "options": [
+        "Overview",
+        "Exec",
+        "Log",
+        "Event"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Le variabili d'ambiente stanno nella sezione Overview dei container.",
+        "en": "Environment variables live in the containers' Overview section."
+      },
+      "difficulty": "medium",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "L'editor YAML di Headlamp, a differenza di un semplice textarea, offre:",
+        "en": "Unlike a plain textarea, Headlamp's YAML editor offers:"
+      },
+      "options": [
+        "Documentazione e suggerimenti sui campi",
+        "Correzione automatica del codice dell'app",
+        "Compilazione della lingua",
+        "Traduzione inglese-italiano"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "L'editor è un resource editor con documentazione: aiuta l'utente a scrivere una risorsa valida.",
+        "en": "The editor is a resource editor with documentation: it helps the user write a valid resource."
+      },
+      "difficulty": "medium",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "Quali workload batch sono visibili nella sezione Workload?",
+        "en": "Which batch workloads are visible in the Workload section?"
+      },
+      "options": [
+        "Job e CronJob",
+        "Solo DaemonSet",
+        "Solo Service",
+        "Nessuno"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Job (esecuzione singola) e CronJob (programmata) sono gestibili dalla UI.",
+        "en": "Jobs (single run) and CronJobs (scheduled) are manageable from the UI."
+      },
+      "difficulty": "easy",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "Il pulsante Delete di una risorsa:",
+        "en": "The Delete button of a resource:"
+      },
+      "options": [
+        "Chiede conferma e avvia l'eliminazione (tracciata nella UI)",
+        "Elimina subito senza conferma",
+        "Elimina anche tutto il namespace",
+        "Prevede una password separata"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Delete chiede conferma, avvia l'eliminazione e ne mostra lo stato tra le operazioni in corso.",
+        "en": "Delete asks for confirmation, starts the deletion and shows its state among the in-progress operations."
+      },
+      "difficulty": "easy",
+      "domain": "workloads"
+    },
+    {
+      "question": {
+        "it": "Se non vedi le azioni Scale/Restart su un Deployment, probabilmente:",
+        "en": "If you do not see Scale/Restart actions on a Deployment, probably:"
+      },
+      "options": [
+        "Non hai i permessi RBAC di scrittura su quel workload",
+        "Il cluster è in sola lettura globale",
+        "Headlamp non li supporta",
+        "Devi prima installare un plugin"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Headlamp nasconde le azioni di scrittura quando l'utente non ha i permessi per eseguirle.",
+        "en": "Headlamp hides write actions when the user has no permission to perform them."
+      },
+      "difficulty": "hard",
+      "domain": "workloads"
+    }
+  ]
+}

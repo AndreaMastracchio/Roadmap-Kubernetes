@@ -1,0 +1,144 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Leggi la panoramica cluster",
+        "en": "Read the cluster overview"
+      },
+      "description": {
+        "it": "Dalla Home annota: nome del cluster, numero di nodi, stato (Ready/NotReady) e eventuali warning negli eventi.",
+        "en": "From Home note: cluster name, number of nodes, status (Ready/NotReady) and any warnings in the events."
+      },
+      "hint": {
+        "it": "La Home mostra un riassunto: nodi, eventi e metriche.",
+        "en": "Home shows a summary: nodes, events and metrics."
+      }
+    },
+    {
+      "title": {
+        "it": "Nodi e metriche",
+        "en": "Nodes and metrics"
+      },
+      "description": {
+        "it": "Apri la sezione Nodi e verifica per ogni nodo: stato, versione kubelet e, se il Metrics Server esiste, utilizzo CPU/memoria.",
+        "en": "Open the Nodes section and verify for each node: status, kubelet version and, if the Metrics Server exists, CPU/memory usage."
+      },
+      "hint": {
+        "it": "Senza Metrics Server le colonne di utilizzo restano vuote.",
+        "en": "Without the Metrics Server the usage columns stay empty."
+      }
+    },
+    {
+      "title": {
+        "it": "Verifica il Metrics Server",
+        "en": "Verify the Metrics Server"
+      },
+      "description": {
+        "it": "Scrivi il comando kubectl per verificare se il Metrics Server è deployato nel cluster e controlla i suoi pod.",
+        "en": "Write the kubectl command to verify whether the Metrics Server is deployed in the cluster and check its pods."
+      },
+      "hint": {
+        "it": "kubectl get pods -n kube-system | grep metrics.",
+        "en": "kubectl get pods -n kube-system | grep metrics."
+      }
+    },
+    {
+      "title": {
+        "it": "Passa tra i cluster",
+        "en": "Switch between clusters"
+      },
+      "description": {
+        "it": "Se hai più cluster nel kubeconfig, passa da uno all'altro col selettore e annota come cambia la Home.",
+        "en": "If you have multiple clusters in the kubeconfig, switch between them with the selector and note how Home changes."
+      },
+      "hint": {
+        "it": "Il selettore è in alto nell'interfaccia.",
+        "en": "The selector is at the top of the interface."
+      }
+    },
+    {
+      "title": {
+        "it": "Il contesto del kubectl",
+        "en": "The kubectl context"
+      },
+      "description": {
+        "it": "Verifica qual è il context attivo di kubectl (kubectl config current-context) e controlla che coincida con il cluster mostrato da Headlamp.",
+        "en": "Check the active kubectl context (kubectl config current-context) and verify it matches the cluster Headlamp shows."
+      },
+      "hint": {
+        "it": "Entrambi condividono il kubeconfig.",
+        "en": "Both share the kubeconfig."
+      }
+    },
+    {
+      "title": {
+        "it": "Interpreta un evento di nodo",
+        "en": "Interpret a node event"
+      },
+      "description": {
+        "it": "Apri gli eventi e individua l'evento più recente relativo a un nodo; interpretane Tipo, Reason e Message.",
+        "en": "Open the events and find the most recent one about a node; interpret its Type, Reason and Message."
+      },
+      "hint": {
+        "it": "Reason e Message spiegano lo stato (es. NodeReady, OutOfDisk...).",
+        "en": "Reason and Message explain the state (e.g. NodeReady, OutOfDisk...)."
+      }
+    },
+    {
+      "title": {
+        "it": "Cluster senza metriche",
+        "en": "Cluster without metrics"
+      },
+      "description": {
+        "it": "Descrivi come ti accorgi dalla Home che un cluster non ha Metrics Server.",
+        "en": "Describe how you notice from Home that a cluster has no Metrics Server."
+      },
+      "hint": {
+        "it": "Assenza di numeri di utilizzo CPU/memoria.",
+        "en": "Absence of CPU/memory usage numbers."
+      }
+    },
+    {
+      "title": {
+        "it": "Compara più cluster",
+        "en": "Compare multiple clusters"
+      },
+      "description": {
+        "it": "Se hai almeno due cluster, confronta il numero di nodi e di pod totale tra i due e scrivi la differenza.",
+        "en": "If you have at least two clusters, compare node count and total pods between them and write the difference."
+      },
+      "hint": {
+        "it": "Conta le righe nelle liste Nodi e Pod di ciascun cluster.",
+        "en": "Count the rows in each cluster's Nodes and Pods lists."
+      }
+    },
+    {
+      "title": {
+        "it": "Eventi come prima linea",
+        "en": "Events as first line"
+      },
+      "description": {
+        "it": "Spiega perché guardare la sezione Eventi prima di aprire una singola risorsa ti fa risparmiare tempo.",
+        "en": "Explain why looking at the Events section before opening a single resource saves you time."
+      },
+      "hint": {
+        "it": "Gli eventi segnalano il problema senza dover aprire ogni pod.",
+        "en": "Events flag the problem without opening every pod."
+      }
+    },
+    {
+      "title": {
+        "it": "Selettore = use-context",
+        "en": "Selector = use-context"
+      },
+      "description": {
+        "it": "Scrivi il comando kubectl equivalente al cambio di cluster fatto dal selettore di Headlamp.",
+        "en": "Write the kubectl command equivalent to changing clusters done with the Headlamp selector."
+      },
+      "hint": {
+        "it": "kubectl config use-context <nome>.",
+        "en": "kubectl config use-context <name>."
+      }
+    }
+  ]
+}

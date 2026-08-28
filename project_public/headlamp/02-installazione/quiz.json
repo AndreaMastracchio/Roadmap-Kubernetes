@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale estensione ha il pacchetto di installazione di Headlamp per macOS?",
+        "en": "Which extension does the Headlamp installation package for macOS have?"
+      },
+      "options": [
+        ".exe",
+        ".dmg",
+        ".AppImage",
+        ".deb"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Su macOS Headlamp si installa con un file .dmg.",
+        "en": "On macOS Headlamp installs from a .dmg file."
+      },
+      "difficulty": "easy",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Quale estensione ha il pacchetto Linux mostrato come AppImage?",
+        "en": "Which extension does the Linux package shown as AppImage have?"
+      },
+      "options": [
+        ".dmg",
+        ".exe",
+        ".AppImage",
+        ".apk"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Su Linux Headlamp è disponibile come .AppImage (e .tar.gz).",
+        "en": "On Linux Headlamp is available as an .AppImage (and .tar.gz)."
+      },
+      "difficulty": "easy",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Perché macOS mostra un warning quando si installa Headlamp?",
+        "en": "Why does macOS show a warning when installing Headlamp?"
+      },
+      "options": [
+        "Perché Headlamp è un programma malevolo",
+        "Perché l'app non è firmata/notarizzata",
+        "Perché richiede privilegi di root",
+        "Perché è un'app a pagamento"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "L'app desktop non è firmata/notarizzata, quindi macOS avvisa che 'developer cannot be verified'. Basta approvare da Privacy e Sicurezza o rimuovere la quarantine.",
+        "en": "The desktop app is not signed/notarized, so macOS warns that the 'developer cannot be verified'. Just approve from Privacy & Security or remove the quarantine."
+      },
+      "difficulty": "medium",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Quale comando rimuove la quarantine di macOS dall'app Headlamp?",
+        "en": "Which command removes the macOS quarantine flag from the Headlamp app?"
+      },
+      "options": [
+        "chmod +x /Applications/Headlamp.app",
+        "xattr -dr com.apple.quarantine /Applications/Headlamp.app",
+        "sudo rm /Applications/Headlamp.app",
+        "brew autoremove"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "xattr -dr com.apple.quarantine rimuove il flag di quarantena: Headlamp viene visto come app legittima.",
+        "en": "xattr -dr com.apple.quarantine removes the quarantine flag: Headlamp is then seen as a legitimate app."
+      },
+      "difficulty": "medium",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Su quale porta è disponibile la UI di Headlamp in modalità headless?",
+        "en": "On which port is the Headlamp UI available in headless mode?"
+      },
+      "options": [
+        "8080",
+        "3000",
+        "4466",
+        "443"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "In modalità headless la UI si apre su localhost:4466.",
+        "en": "In headless mode the UI opens on localhost:4466."
+      },
+      "difficulty": "medium",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Quale immagine container usa il deploy in-cluster di Headlamp?",
+        "en": "Which container image does the in-cluster deploy of Headlamp use?"
+      },
+      "options": [
+        "nginxinc/nginx",
+        "ghcr.io/headlamp-k8s/headlamp",
+        "docker.io/library/headlamp",
+        "k8s.gcr.io/dashboard"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il deploy in-cluster usa l'immagine ufficiale ghcr.io/headlamp-k8s/headlamp.",
+        "en": "The in-cluster deploy uses the official ghcr.io/headlamp-k8s/headlamp image."
+      },
+      "difficulty": "medium",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Dove legge Headlamp desktop i cluster da mostrare inizialmente?",
+        "en": "Where does Headlamp desktop initially read the clusters to display?"
+      },
+      "options": [
+        "Da un file JSON proprietario",
+        "Dal kubeconfig della macchina (es. ~/.kube/config)",
+        "Da una chiamata HTTP a un API esterno",
+        "Da un database remoto"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "L'app desktop usa il kubeconfig locale (~/.kube/config) per mostrare i context configurati.",
+        "en": "The desktop app uses the local kubeconfig (~/.kube/config) to show the configured contexts."
+      },
+      "difficulty": "easy",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Quale strumento di packaging è tipico per installare Headlamp su Linux desktop?",
+        "en": "Which packaging format is typical for installing Headlamp on Linux desktop?"
+      },
+      "options": [
+        "AppImage",
+        ".msi",
+        ".ipa",
+        ".snapx"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Su Linux Headlamp è distribuito come AppImage, eseguibile senza dipendenze particolari.",
+        "en": "On Linux Headlamp is distributed as an AppImage, executable without special dependencies."
+      },
+      "difficulty": "easy",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Cosa conviene aggiungere a un deploy Headlamp in produzione esposto al browser del team?",
+        "en": "What should be added to a Headlamp production deploy exposed to the team's browser?"
+      },
+      "options": [
+        "Niente, è sicuro per default",
+        "Permessi RBAC restrittivi e ingress/TLS",
+        "Una password semplice in chiaro",
+        "Esposizione diretta della porta 4466 su internet"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "In produzione si protegge Headlamp con permessi RBAC restrittivi e lo si espone tramite ingress con TLS.",
+        "en": "In production Headlamp is protected with restrictive RBAC permissions and exposed via an ingress with TLS."
+      },
+      "difficulty": "medium",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Quale comando su macOS permette di aprire Headlamp dopo aver superato il warning di sicurezza?",
+        "en": "Which macOS command lets you open Headlamp after bypassing the security warning?"
+      },
+      "options": [
+        "open -a Headlamp",
+        "xattr +q /Applications/Headlamp.app",
+        "sudo spctl --enable",
+        "chown root /Applications/Headlamp.app"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Dopo aver gestito la quarantine, si apre normalmente con 'open -a Headlamp'.",
+        "en": "After handling the quarantine, you open it normally with 'open -a Headlamp'."
+      },
+      "difficulty": "hard",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Quale dei seguenti NON è un modo valido di eseguire Headlamp?",
+        "en": "Which of the following is NOT a valid way to run Headlamp?"
+      },
+      "options": [
+        "Applicazione desktop",
+        "Modalità headless con browser",
+        "Deploy in-cluster",
+        "Esecuzione esclusivamente da app mobile iOS"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Non esiste un'app mobile dedicata: Headlamp gira come desktop, headless o in-cluster.",
+        "en": "There is no dedicated mobile app: Headlamp runs as desktop, headless or in-cluster."
+      },
+      "difficulty": "easy",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Cosa rende l'installazione desktop più comoda per un singolo sviluppatore?",
+        "en": "What makes the desktop install more convenient for a single developer?"
+      },
+      "options": [
+        "Non serve un cluster per avviarla",
+        "Usa automaticamente il kubeconfig locale senza configurazione",
+        "Funziona a batteria molto a lungo",
+        "Si installa in un secondo senza download"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "L'app desktop legge il kubeconfig locale: i tuoi cluster appaiono subito, senza configurare URL o token a mano.",
+        "en": "The desktop app reads the local kubeconfig: your clusters appear immediately, without configuring URLs or tokens by hand."
+      },
+      "difficulty": "medium",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Quale vantaggio ha il deploy in-cluster rispetto al desktop?",
+        "en": "Which advantage does the in-cluster deploy have over desktop?"
+      },
+      "options": [
+        "E' più veloce da installare",
+        "Permette a più utenti di accedere via browser con i propri permessi",
+        "Non richiede Kubernetes per funzionare",
+        "Non richiede RBAC"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "In-cluster, il team accede via browser e ogni utente vede solo ciò che i suoi permessi RBAC consentono.",
+        "en": "In-cluster, the team accesses via browser and each user only sees what their RBAC permissions allow."
+      },
+      "difficulty": "medium",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Cosa si verifica subito al primo avvio della desktop app?",
+        "en": "What is checked right away at the first launch of the desktop app?"
+      },
+      "options": [
+        "La versione di Node.js",
+        "I cluster nel kubeconfig locale",
+        "La disponibilità di GPU",
+        "Lo stato del servizio di posta"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Al primo avvio Headlamp legge il kubeconfig e mostra i context disponibili.",
+        "en": "At first launch Headlamp reads the kubeconfig and shows the available contexts."
+      },
+      "difficulty": "easy",
+      "domain": "installation"
+    },
+    {
+      "question": {
+        "it": "Quale immagine/porta si usa per testare Headlamp da un container singolo?",
+        "en": "Which image/port is used to test Headlamp from a single container?"
+      },
+      "options": [
+        "nope/headlamp su :80",
+        "ghcr.io/headlamp-k8s/headlamp con porta 4466",
+        "redis su :6379",
+        "postgres su :5432"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "L'immagine ufficiale con la porta 4466 è il modo rapido di provare Headlamp da container.",
+        "en": "The official image with port 4466 is the quick way to try Headlamp from a container."
+      },
+      "difficulty": "medium",
+      "domain": "installation"
+    }
+  ]
+}

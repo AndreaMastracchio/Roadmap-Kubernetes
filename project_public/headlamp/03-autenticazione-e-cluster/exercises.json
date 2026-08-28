@@ -1,0 +1,144 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Elenca i metodi di autenticazione",
+        "en": "List the authentication methods"
+      },
+      "description": {
+        "it": "Elenca i tre metodi di autenticazione supportati da Headlamp e per ognuno scrivi una riga di spiegazione.",
+        "en": "List the three authentication methods supported by Headlamp and write one line of explanation for each."
+      },
+      "hint": {
+        "it": "Client certificate, bearer token, OIDC.",
+        "en": "Client certificate, bearer token, OIDC."
+      }
+    },
+    {
+      "title": {
+        "it": "Collega un cluster al desktop",
+        "en": "Connect a cluster to desktop"
+      },
+      "description": {
+        "it": "Con la desktop app, verifica che i context del tuo kubeconfig locale appaiano nella sidebar.",
+        "en": "With the desktop app, verify that the contexts from your local kubeconfig appear in the sidebar."
+      },
+      "hint": {
+        "it": "Headlamp desktop legge automaticamente ~/.kube/config.",
+        "en": "Headlamp desktop automatically reads ~/.kube/config."
+      }
+    },
+    {
+      "title": {
+        "it": "Crea un ServiceAccount di lettura",
+        "en": "Create a read-only ServiceAccount"
+      },
+      "description": {
+        "it": "Scrivi il comando kubectl per creare un ServiceAccount 'headlamp-reader' nel namespace 'default'.",
+        "en": "Write the kubectl command to create a 'headlamp-reader' ServiceAccount in the 'default' namespace."
+      },
+      "hint": {
+        "it": "kubectl create serviceaccount headlamp-reader -n default.",
+        "en": "kubectl create serviceaccount headlamp-reader -n default."
+      }
+    },
+    {
+      "title": {
+        "it": "Isola il token del ServiceAccount",
+        "en": "Extract the ServiceAccount token"
+      },
+      "description": {
+        "it": "Scrivi il comando per vedere il token di un ServiceAccount appena creato (per usarlo come bearer token).",
+        "en": "Write the command to view the token of a newly created ServiceAccount (to use it as a bearer token)."
+      },
+      "hint": {
+        "it": "Es. kubectl get secret <nome> -o jsonpath='{.data.token}' | base64 -d.",
+        "en": "E.g. kubectl get secret <name> -o jsonpath='{.data.token}' | base64 -d."
+      }
+    },
+    {
+      "title": {
+        "it": "Diagnosi Access Denied",
+        "en": "Access Denied diagnosis"
+      },
+      "description": {
+        "it": "Un utente vede la UI ma non le risorse di un namespace. Elenca le tre cause più probabili.",
+        "en": "A user sees the UI but not a namespace's resources. List the three most likely causes."
+      },
+      "hint": {
+        "it": "RBAC, accessibleNamespaces, context sbagliato.",
+        "en": "RBAC, accessibleNamespaces, wrong context."
+      }
+    },
+    {
+      "title": {
+        "it": "Confronta i context",
+        "en": "Compare the contexts"
+      },
+      "description": {
+        "it": "Confronta l'elenco dei cluster visibili in Headlamp con 'kubectl config get-contexts' e segna differenze.",
+        "en": "Compare the list of clusters visible in Headlamp with 'kubectl config get-contexts' and note differences."
+      },
+      "hint": {
+        "it": "Se manca un context, probabilmente non è nel kubeconfig letto dall'app.",
+        "en": "If a context is missing, it is probably not in the kubeconfig read by the app."
+      }
+    },
+    {
+      "title": {
+        "it": "Limita i namespace visibili",
+        "en": "Restrict the visible namespaces"
+      },
+      "description": {
+        "it": "Spiega come accessibleNamespaces aiuta un utente con permessi limitati a non vedere namespace che non può leggere.",
+        "en": "Explain how accessibleNamespaces helps a user with restricted permissions avoid seeing namespaces they cannot read."
+      },
+      "hint": {
+        "it": "La UI mostra solo i namespace elencati nel parametro.",
+        "en": "The UI only shows the namespaces listed in the parameter."
+      }
+    },
+    {
+      "title": {
+        "it": "Minimo privilegio in pratica",
+        "en": "Least privilege in practice"
+      },
+      "description": {
+        "it": "Per un team di 3 persone (admin, sviluppatore, auditor) definisci il livello di permesso minimo per ciascuno.",
+        "en": "For a 3-person team (admin, developer, auditor) define the minimum permission level for each."
+      },
+      "hint": {
+        "it": "Admin scrive tutto, sviluppatore scrive sui suoi namespace, auditor legge.",
+        "en": "Admin writes everything, developer writes in their namespaces, auditor reads."
+      }
+    },
+    {
+      "title": {
+        "it": "Quando usare OIDC",
+        "en": "When to use OIDC"
+      },
+      "description": {
+        "it": "Descrivi in una riga lo scenario in cui conviene usare OIDC al posto di un token statico.",
+        "en": "Describe in one line the scenario where OIDC is preferable to a static token."
+      },
+      "hint": {
+        "it": "Molti utenti che devono essere revocati/gestiti in un unico posto.",
+        "en": "Many users who must be revoked/managed in one place."
+      }
+    },
+    {
+      "title": {
+        "it": "Verifica il context attivo",
+        "en": "Verify the active context"
+      },
+      "description": {
+        "it": "Scrivi il comando per verificare quale context usa kubectl e controlla se è lo stesso che mostra Headlamp.",
+        "en": "Write the command to verify which context kubectl uses and check if it is the same one Headlamp shows."
+      },
+      "hint": {
+        "it": "kubectl config current-context.",
+        "en": "kubectl config current-context."
+      }
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Leggi i log di un pod",
+        "en": "Read a pod's logs"
+      },
+      "description": {
+        "it": "Apri il tab Log di un pod in esecuzione e annota le ultime 3 righe prodotte dall'applicazione.",
+        "en": "Open the Log tab of a running pod and note the last 3 lines produced by the application."
+      },
+      "hint": {
+        "it": "Il tab Log è nel dettaglio del pod.",
+        "en": "The Log tab is in the pod's detail."
+      }
+    },
+    {
+      "title": {
+        "it": "Attiva il follow",
+        "en": "Enable follow"
+      },
+      "description": {
+        "it": "Attiva la modalità Follow sui log di un pod che produce output e osserva le nuove righe arrivare in tempo reale.",
+        "en": "Enable Follow mode on a pod's logs that produces output and observe new lines arriving in real time."
+      },
+      "hint": {
+        "it": "Il controllo del follow è in alto nella vista log.",
+        "en": "The follow control is at the top of the logs view."
+      }
+    },
+    {
+      "title": {
+        "it": "Distinguere i container",
+        "en": "Distinguish the containers"
+      },
+      "description": {
+        "it": "Se il cluster ha un pod multi-container, scegli il container di cui leggere i log e spiega perché.",
+        "en": "If the cluster has a multi-container pod, choose which container's logs to read and explain why."
+      },
+      "hint": {
+        "it": "Il selettore dei container è nella vista log.",
+        "en": "The container selector is in the logs view."
+      }
+    },
+    {
+      "title": {
+        "it": "Interpreta CrashLoopBackOff",
+        "en": "Interpret CrashLoopBackOff"
+      },
+      "description": {
+        "it": "Identifica un pod in CrashLoopBackOff (se presente) e individua nei log l'errore applicativo che lo causa.",
+        "en": "Identify a pod in CrashLoopBackOff (if present) and locate in the logs the application error causing it."
+      },
+      "hint": {
+        "it": "Guarda le righe finali dei log e l'exit code.",
+        "en": "Look at the final log lines and the exit code."
+      }
+    },
+    {
+      "title": {
+        "it": "Entra nel container",
+        "en": "Enter the container"
+      },
+      "description": {
+        "it": "Usa il tab Exec per aprire una shell in un pod e controlla il file /etc/profile (se esiste) o elenca la directory di lavoro.",
+        "en": "Use the Exec tab to open a shell in a pod and check /etc/profile (if it exists) or list the working directory."
+      },
+      "hint": {
+        "it": "Comandi utili: pwd, ls, cat /etc/os-release.",
+        "en": "Useful commands: pwd, ls, cat /etc/os-release."
+      }
+    },
+    {
+      "title": {
+        "it": "Correla log ed eventi",
+        "en": "Correlate logs and events"
+      },
+      "description": {
+        "it": "Prendi un timestamp nei log di un pod e verifica negli eventi della stessa risorsa cosa stava facendo Kubernetes in quel momento.",
+        "en": "Take a timestamp in a pod's logs and check in that resource's events what Kubernetes was doing at that moment."
+      },
+      "hint": {
+        "it": "Confronta i timestamp dei tab Log ed Event.",
+        "en": "Compare the timestamps of the Log and Event tabs."
+      }
+    },
+    {
+      "title": {
+        "it": "Comando equivalente kubectl",
+        "en": "Equivalent kubectl command"
+      },
+      "description": {
+        "it": "Scrivi il comando kubectl per vedere i log di un pod, confrontandolo con la stessa operazione fatta dalla UI.",
+        "en": "Write the kubectl command to view a pod's logs, comparing it with the same operation done in the UI."
+      },
+      "hint": {
+        "it": "kubectl logs <pod>.",
+        "en": "kubectl logs <pod>."
+      }
+    },
+    {
+      "title": {
+        "it": "Verifica i permessi exec",
+        "en": "Verify exec permissions"
+      },
+      "description": {
+        "it": "Controlla se il tab Exec è presente per un pod del tuo utente e spiega cosa significa la sua eventuale assenza.",
+        "en": "Check whether the Exec tab is present for a pod of your user and explain what its absence would mean."
+      },
+      "hint": {
+        "it": "Assente = permessi pods/exec non concessi al tuo utente.",
+        "en": "Absent = pods/exec permission not granted to your user."
+      }
+    },
+    {
+      "title": {
+        "it": "Perché i log non bastano",
+        "en": "Why logs are not enough"
+      },
+      "description": {
+        "it": "Descrivi un caso in cui il terminale va usato perché i log non spiegano il problema (file missing, env sbagliata, processo).",
+        "en": "Describe a case where the terminal is needed because the logs do not explain the problem (missing file, wrong env, process)."
+      },
+      "hint": {
+        "it": "Esempio: l'app non si avvia per una env mancante che i log non mostrano.",
+        "en": "Example: the app does not start due to a missing env that the logs do not show."
+      }
+    },
+    {
+      "title": {
+        "it": "Sessione non persistente",
+        "en": "Non-persistent session"
+      },
+      "description": {
+        "it": "Spiega cosa succede a un file creato via Exec in un container senza volume quando il pod viene ricreato.",
+        "en": "Explain what happens to a file created via Exec in a container without a volume when the pod is recreated."
+      },
+      "hint": {
+        "it": "Il filesystem del container è usa-e-getta.",
+        "en": "The container filesystem is throwaway."
+      }
+    }
+  ]
+}
