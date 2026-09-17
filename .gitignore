@@ -47,3 +47,6 @@ project_private/
 cookies.txt
 cookies_otp.txt
 dev_log.txt
+
+# Playwright MCP artifacts
+.playwright-mcp/
