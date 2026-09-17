@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Grid, LinearProgress, Chip } from '@mui/material';
 import {
   School as SchoolIcon,
@@ -11,14 +12,12 @@ import { useAuth } from '../../context/AuthContext';
 
 const Dashboard = ({ onSelectCourse, courses = [] }) => {
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   if (!user) return null;
 
   // Filtriamo solo i corsi che l'utente può vedere (pubblici + privati acquistati)
-  const userCourses = courses.filter(course =>
-    !course.comingSoon &&
-    (!course.isPrivate || user.purchasedProjects?.includes(course.id))
-  );
+  const userCourses = courses.filter(course => !course.comingSoon);
 
   const calculateProgress = (course) => {
     if (!course.modules || course.modules.length === 0) return 0;
@@ -34,10 +33,10 @@ const Dashboard = ({ onSelectCourse, courses = [] }) => {
       <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
         <Box>
           <KubeTypography variant="h4" weight="bold" sx={{ color: '#1e293b', mb: 1 }}>
-            La tua Dashboard 🚀
+            {t('dashboard.title')}
           </KubeTypography>
           <KubeTypography color="text.secondary">
-            Bentornato {user.name}, ecco i tuoi progressi attuali.
+            {t('dashboard.welcomeBack', { name: user.name })}
           </KubeTypography>
         </Box>
         <Box sx={{ display: 'flex', gap: 2 }}>
@@ -47,7 +46,7 @@ const Dashboard = ({ onSelectCourse, courses = [] }) => {
               </Box>
               <Box>
                 <KubeTypography variant="h6" weight="bold">{userCourses.length}</KubeTypography>
-                <KubeTypography variant="caption" color="text.secondary">Corsi Attivi</KubeTypography>
+                <KubeTypography variant="caption" color="text.secondary">{t('dashboard.activeCourses')}</KubeTypography>
               </Box>
            </KubeCard>
            <KubeCard sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 2, minWidth: 160 }}>
@@ -56,7 +55,7 @@ const Dashboard = ({ onSelectCourse, courses = [] }) => {
               </Box>
               <Box>
                 <KubeTypography variant="h6" weight="bold">{user.completedModules?.length || 0}</KubeTypography>
-                <KubeTypography variant="caption" color="text.secondary">Moduli Completati</KubeTypography>
+                <KubeTypography variant="caption" color="text.secondary">{t('dashboard.modulesCompleted')}</KubeTypography>
               </Box>
            </KubeCard>
         </Box>
@@ -66,7 +65,7 @@ const Dashboard = ({ onSelectCourse, courses = [] }) => {
         {/* Corsi dell'utente */}
         <Grid item xs={12}>
           <KubeTypography variant="h6" weight="bold" sx={{ mb: 3, display: 'flex', alignItems: 'center', gap: 1 }}>
-            <ProgressIcon sx={{ color: '#326ce5' }} /> I tuoi corsi
+            <ProgressIcon sx={{ color: '#326ce5' }} /> {t('dashboard.yourCourses')}
           </KubeTypography>
 
           <Grid container spacing={3}>
@@ -94,12 +93,12 @@ const Dashboard = ({ onSelectCourse, courses = [] }) => {
                                 <Box>
                                   <KubeTypography weight="bold">{course.title}</KubeTypography>
                                   <KubeTypography variant="caption" color="text.secondary">
-                                    {progress === 100 ? 'Completato!' : (resumeModule ? `Prossimo: ${resumeModule.title}` : `${course.modules?.length || 0} Moduli`)}
+                                     {progress === 100 ? t('dashboard.completed') + '!' : (resumeModule ? `${t('dashboard.next')} ${resumeModule.title}` : `${course.modules?.length || 0} ${t('dashboard.modules')}`)}
                                   </KubeTypography>
                                 </Box>
                              </Box>
                              <Chip
-                              label={progress === 100 ? 'Completato' : `${progress}%`}
+                              label={progress === 100 ? t('dashboard.completed') : `${progress}%`}
                               color={progress === 100 ? 'success' : 'primary'}
                               size="small"
                               variant={progress === 100 ? 'filled' : 'outlined'}
@@ -107,7 +106,7 @@ const Dashboard = ({ onSelectCourse, courses = [] }) => {
                           </Box>
                           <Box sx={{ mt: 2 }}>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                               <KubeTypography variant="caption" color="text.secondary">Progresso</KubeTypography>
+                               <KubeTypography variant="caption" color="text.secondary">{t('dashboard.progress')}</KubeTypography>
                                <KubeTypography variant="caption" weight="bold">{progress}%</KubeTypography>
                             </Box>
                             <LinearProgress
@@ -124,7 +123,7 @@ const Dashboard = ({ onSelectCourse, courses = [] }) => {
             ) : (
               <Grid item xs={12}>
                 <KubeCard sx={{ p: 4, textAlign: 'center', bgcolor: '#f8fafc' }}>
-                  <KubeTypography color="text.secondary">Non hai ancora corsi attivi. Inizia esplorando la Home!</KubeTypography>
+                  <KubeTypography color="text.secondary">{t('dashboard.noCourses')}</KubeTypography>
                 </KubeCard>
               </Grid>
             )}

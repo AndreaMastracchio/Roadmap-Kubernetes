@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/material';
 import CodingExercise from './CodingExercise';
 import KubeButton from '../ui/KubeButton';
 import KubeTypography from '../ui/KubeTypography';
+import { useAuth } from '../../context/AuthContext';
 
 const CodingExercises = ({ exercises, onFinish }) => {
+  const { user } = useAuth();
+  const { t } = useTranslation();
   const [currentIdx, setCurrentIdx] = useState(0);
   const [completedExercises, setCompletedExercises] = useState([]);
   const [finished, setFinished] = useState(false);
@@ -35,12 +39,14 @@ const CodingExercises = ({ exercises, onFinish }) => {
   if (finished) {
     return (
       <Box sx={{ mt: 4, p: 4, textAlign: 'center', bgcolor: 'rgba(16, 185, 129, 0.05)', borderRadius: 4, border: '1px solid rgba(16, 185, 129, 0.2)' }}>
-        <KubeTypography variant="h5" weight="bold" sx={{ mb: 2, color: '#065f46' }}>🎉 Esercitazioni Completate!</KubeTypography>
+        <KubeTypography variant="h5" weight="bold" sx={{ mb: 2, color: '#065f46' }}>{t('exercises.completedTitle')}</KubeTypography>
         <KubeTypography variant="body1" sx={{ mb: 3 }}>
-          Ottimo lavoro! Hai completato tutte le sfide di coding di questo modulo.
-          Il tuo progresso è stato salvato con successo.
+          {t('exercises.greatWork')}
+          {user
+            ? t('exercises.progressSaved')
+            : t('exercises.signInToSave')}
         </KubeTypography>
-        <KubeButton variant="contained" onClick={restart}>Ricomincia</KubeButton>
+        <KubeButton variant="contained" onClick={restart}>{t('exercises.restart')}</KubeButton>
       </Box>
     );
   }
@@ -51,7 +57,7 @@ const CodingExercises = ({ exercises, onFinish }) => {
   return (
     <Box sx={{ mt: 4, mb: 4 }}>
       <KubeTypography variant="subtitle1" weight="medium" sx={{ mb: 2, color: 'text.secondary' }}>
-        Sfida {currentIdx + 1} di {exercises.length}
+        {t('exercises.challenge')} {currentIdx + 1} {t('exercises.of')} {exercises.length}
       </KubeTypography>
       
       <CodingExercise 
@@ -67,7 +73,7 @@ const CodingExercises = ({ exercises, onFinish }) => {
             color="primary"
             sx={{ px: 4 }}
           >
-            {currentIdx + 1 < exercises.length ? "Prossima Sfida" : "Termina Sfide"}
+            {currentIdx + 1 < exercises.length ? t('exercises.nextChallenge') : t('exercises.finishChallenges')}
           </KubeButton>
         </Box>
       )}

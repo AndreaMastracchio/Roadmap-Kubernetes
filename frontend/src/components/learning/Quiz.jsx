@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Radio,
@@ -15,6 +16,7 @@ import KubePaper from '../ui/KubePaper';
 import KubeTypography from '../ui/KubeTypography';
 
 const Quiz = ({ questions, onFinish }) => {
+  const { t } = useTranslation();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showResult, setShowResult] = useState(false);
@@ -56,13 +58,13 @@ const Quiz = ({ questions, onFinish }) => {
   if (finished) {
     return (
       <Box sx={{ mt: 4, p: 4, textAlign: 'center', bgcolor: 'rgba(16, 185, 129, 0.05)', borderRadius: 4, border: '1px solid rgba(16, 185, 129, 0.2)' }}>
-        <KubeTypography variant="h5" weight="bold" sx={{ mb: 2, color: '#065f46' }}>🎉 Quiz Completato!</KubeTypography>
+        <KubeTypography variant="h5" weight="bold" sx={{ mb: 2, color: '#065f46' }}>{t('quiz.completedTitle')}</KubeTypography>
         <KubeTypography variant="body1" sx={{ mb: 3 }}>
-          Hai risposto correttamente a {score} su {questions.length} domande.
-          Il tuo progresso è stato salvato con successo.
+          {t('quiz.completedMessage', { score, total: questions.length })}
+          {' '}{t('exercises.progressSaved')}
         </KubeTypography>
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
-          <KubeButton variant="contained" onClick={restartQuiz}>Riprova</KubeButton>
+          <KubeButton variant="contained" onClick={restartQuiz}>{t('quiz.retry')}</KubeButton>
         </Box>
       </Box>
     );
@@ -74,7 +76,7 @@ const Quiz = ({ questions, onFinish }) => {
     <Box sx={{ mt: 8, mb: 6 }}>
       <Divider sx={{ mb: 6 }} />
       <KubeTypography variant="h5" weight="bold" sx={{ mb: 3, display: 'flex', alignItems: 'center', gap: 1.5 }}>
-        🧠 Quiz di verifica <KubeTypography variant="h6" color="text.secondary" component="span">({currentQuestion + 1}/{questions.length})</KubeTypography>
+        🧠 {t('quiz.title')} <KubeTypography variant="h6" color="text.secondary" component="span">({currentQuestion + 1}/{questions.length})</KubeTypography>
       </KubeTypography>
       <KubePaper sx={{ p: 4, bgcolor: '#ffffff', borderRadius: 4 }}>
         <KubeTypography variant="h6" weight="semibold" sx={{ mb: 3, color: '#111827' }}>
@@ -117,12 +119,12 @@ const Quiz = ({ questions, onFinish }) => {
               sx={{ borderRadius: 3, border: '1px solid', borderColor: selectedOption === question.correct ? '#4caf5030' : '#f4433630' }}
             >
               <KubeTypography weight="bold" variant="subtitle2" sx={{ mb: 0.5 }}>
-                {selectedOption === question.correct ? "Ottimo lavoro!" : "Quasi corretto!"}
+                {selectedOption === question.correct ? t('exercises.greatJob') : t('quiz.almostCorrect')}
               </KubeTypography>
               <KubeTypography variant="body2">{question.explanation}</KubeTypography>
             </Alert>
             <KubeButton variant="contained" sx={{ mt: 3 }} onClick={handleNextQuestion}>
-              {currentQuestion + 1 < questions.length ? "Prossima domanda" : "Vedi risultati"}
+              {currentQuestion + 1 < questions.length ? t('quiz.nextQuestion') : t('quiz.viewResults')}
             </KubeButton>
           </Box>
         )}
@@ -134,7 +136,7 @@ const Quiz = ({ questions, onFinish }) => {
             sx={{ mt: 4, minWidth: 160 }}
             onClick={handleNext}
           >
-            Verifica risposta
+            {t('quiz.verifyAnswer')}
           </KubeButton>
         )}
       </KubePaper>

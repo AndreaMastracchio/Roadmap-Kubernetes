@@ -6,11 +6,8 @@ export const API_ENDPOINTS = {
     LOGIN: `${API_BASE}/auth/login`,
     REGISTER: `${API_BASE}/auth/register`,
     LOGOUT: `${API_BASE}/auth/logout`,
-    VERIFY_OTP: `${API_BASE}/auth/verify-otp`,
-    RESEND_OTP: `${API_BASE}/auth/resend-otp`,
   },
   USER: {
-    PURCHASE: `${API_BASE}/user/purchase`,
     PROFILE: `${API_BASE}/user/profile`,
     CHANGE_PASSWORD: `${API_BASE}/user/change-password`,
     UPLOAD_AVATAR: `${API_BASE}/user/upload-avatar`,

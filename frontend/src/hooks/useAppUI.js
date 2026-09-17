@@ -7,8 +7,6 @@ const initialState = {
   activeModule: null,
   isConsoleOpen: false,
   authModalOpen: false,
-  purchaseModalOpen: false,
-  courseToPurchase: null,
   view: 'home', // 'home', 'dashboard', 'profile', 'course'
 };
 
@@ -34,10 +32,6 @@ const appReducer = (state, action) => {
       return { ...state, authModalOpen: true, mobileOpen: false };
     case 'CLOSE_AUTH':
       return { ...state, authModalOpen: false };
-    case 'OPEN_PURCHASE':
-      return { ...state, purchaseModalOpen: true, courseToPurchase: action.payload };
-    case 'CLOSE_PURCHASE':
-      return { ...state, purchaseModalOpen: false, courseToPurchase: null };
     default:
       return state;
   }
@@ -56,9 +50,6 @@ export const useAppUI = () => {
   const toggleConsole = useCallback(() => dispatch({ type: 'TOGGLE_CONSOLE' }), []);
   const openAuth = useCallback(() => dispatch({ type: 'OPEN_AUTH' }), []);
   const closeAuth = useCallback(() => dispatch({ type: 'CLOSE_AUTH' }), []);
-  const openPurchase = useCallback((course) => dispatch({ type: 'OPEN_PURCHASE', payload: course }), []);
-  const closePurchase = useCallback(() => dispatch({ type: 'CLOSE_PURCHASE' }), []);
-
   const actions = useMemo(() => ({
     toggleDrawer,
     setMobileOpen,
@@ -69,13 +60,10 @@ export const useAppUI = () => {
     selectModule,
     toggleConsole,
     openAuth,
-    closeAuth,
-    openPurchase,
-    closePurchase
+    closeAuth
   }), [
     toggleDrawer, setMobileOpen, openHome, openDashboard, openProfile,
-    selectCourse, selectModule, toggleConsole, openAuth, closeAuth,
-    openPurchase, closePurchase
+    selectCourse, selectModule, toggleConsole, openAuth, closeAuth
   ]);
 
   return {

@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Box, Paper, Typography, InputBase, Fade, IconButton } from '@mui/material';
 import { Terminal as TerminalIcon, Close as CloseIcon } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 import KubeTypography from '../ui/KubeTypography';
 import { API_ENDPOINTS } from '../../config/api';
 
 const TerminalConsole = ({ courses = [], onClose }) => {
+  const { t } = useTranslation();
   const [history, setHistory] = useState([
-    { type: 'info', content: 'Benvenuto nella KubeStudy Interactive Console!' },
-    { type: 'info', content: 'Digita "help" per vedere i comandi disponibili.' }
+    { type: 'info', content: t('console.welcome') },
+    { type: 'info', content: t('console.helpHint') }
   ]);
   const [input, setInput] = useState('');
   const [currentCourse, setCurrentCourse] = useState(null);
@@ -68,19 +70,19 @@ const TerminalConsole = ({ courses = [], onClose }) => {
     }
 
     if (trimmedCmd === 'help') {
-      setHistory(prev => [...prev, { type: 'info', content: 'Comandi disponibili:\n- list: Mostra i corsi disponibili\n- use <id>: Seleziona un corso\n- clear: Pulisce la console\n- exit: Chiudi la console' }]);
+      setHistory(prev => [...prev, { type: 'info', content: t('console.helpCommands') }]);
     } else if (trimmedCmd === 'list') {
       const availableCourses = courses.filter(c => !c.comingSoon);
       const courseList = availableCourses.map(c => `- ${c.id}: ${c.title}`).join('\n');
-      setHistory(prev => [...prev, { type: 'info', content: `Corsi disponibili:\n${courseList}` }]);
+      setHistory(prev => [...prev, { type: 'info', content: `${t('console.availableCourses')}\n${courseList}` }]);
     } else if (trimmedCmd.startsWith('use ')) {
       const courseId = trimmedCmd.split(' ')[1];
       const course = courses.find(c => c.id === courseId && !c.comingSoon);
       if (course) {
-        setHistory(prev => [...prev, { type: 'success', content: `Corso "${course.title}" selezionato. Caricamento domande...` }]);
+        setHistory(prev => [...prev, { type: 'success', content: t('console.courseSelected', { title: course.title }) }]);
         await loadCourseQuestions(course);
       } else {
-        setHistory(prev => [...prev, { type: 'error', content: `Corso "${courseId}" non trovato o non disponibile. Digita "list" per vedere gli ID validi.` }]);
+        setHistory(prev => [...prev, { type: 'error', content: t('console.courseNotFound', { id: courseId }) }]);
       }
     } else if (trimmedCmd === 'clear') {
       setHistory([]);
@@ -89,7 +91,7 @@ const TerminalConsole = ({ courses = [], onClose }) => {
     } else if (trimmedCmd === '') {
       // Do nothing
     } else {
-      setHistory(prev => [...prev, { type: 'error', content: `Comando sconosciuto: ${trimmedCmd}. Digita "help" per assistenza.` }]);
+      setHistory(prev => [...prev, { type: 'error', content: t('console.unknownCommand', { cmd: trimmedCmd }) }]);
     }
 
     setInput('');
@@ -118,14 +120,14 @@ const TerminalConsole = ({ courses = [], onClose }) => {
       setCurrentCourse(course);
       askNextQuestion(questions);
     } else {
-      setHistory(prev => [...prev, { type: 'error', content: 'Nessun comando trovato per questo corso.' }]);
+      setHistory(prev => [...prev, { type: 'error', content: t('console.noCommands') }]);
     }
   };
 
   const askNextQuestion = (questionsList = allQuestions) => {
     if (questionsList.length === 0) {
-      setHistory(prev => [...prev, { type: 'success', content: 'Ottimo lavoro! Hai completato tutti i comandi per questo corso.' }]);
-      setHistory(prev => [...prev, { type: 'info', content: 'Digita "use <id>" per un altro corso o "exit" per uscire.' }]);
+      setHistory(prev => [...prev, { type: 'success', content: t('console.allDone') }]);
+      setHistory(prev => [...prev, { type: 'info', content: t('console.useAnother') }]);
       setCurrentCourse(null);
       setCurrentQuestion(null);
       return;
@@ -140,15 +142,15 @@ const TerminalConsole = ({ courses = [], onClose }) => {
 
     setHistory(prev => [...prev, {
       type: 'question',
-      content: `\n--- PROSSIMA SFIDA ---`
+      content: `\n${t('console.nextChallenge')}`
     }]);
     setHistory(prev => [...prev, {
       type: 'info',
-      content: `Modulo: ${question.moduleTitle}\nObiettivo: ${question.title}\nHint: ${question.hint}`
+      content: t('console.moduleInfo', { module: question.moduleTitle, objective: question.title, hint: question.hint })
     }]);
     setHistory(prev => [...prev, {
       type: 'question',
-      content: `Comando da completare:\n${displayTemplate}`
+      content: t('console.commandToComplete', { template: displayTemplate })
     }]);
 
     setCurrentQuestion(question);
@@ -157,19 +159,19 @@ const TerminalConsole = ({ courses = [], onClose }) => {
 
   const checkAnswer = (answer) => {
     if (answer.toLowerCase() === 'skip') {
-      setHistory(prev => [...prev, { type: 'info', content: 'Domanda saltata.' }]);
+      setHistory(prev => [...prev, { type: 'info', content: t('console.questionSkipped') }]);
       askNextQuestion();
       return;
     }
 
     if (answer.toLowerCase() === 'hint') {
-      let hintMsg = `Suggerimento: ${currentQuestion.hint}`;
+      let hintMsg = `${t('exercises.showHint')}: ${currentQuestion.hint}`;
 
       if (currentQuestion.answers && currentQuestion.answers.length > 0) {
         const paramsInfo = currentQuestion.answers
           .map(a => `- {{${a.id}}}: es. ${a.accepted[0]}`)
           .join('\n');
-        hintMsg += `\n\nParametri richiesti:\n${paramsInfo}`;
+        hintMsg += `\n\n${t('console.requiredParams')}\n${paramsInfo}`;
       }
 
       setHistory(prev => [...prev, { type: 'info', content: hintMsg }]);
@@ -189,11 +191,11 @@ const TerminalConsole = ({ courses = [], onClose }) => {
     });
 
     if (missingParts.length === 0) {
-      setHistory(prev => [...prev, { type: 'success', content: '✓ Eccellente! Comando corretto.' }]);
+      setHistory(prev => [...prev, { type: 'success', content: t('console.correct') }]);
       askNextQuestion();
     } else {
       const missingHint = missingParts.map(p => `{{${p}}}`).join(', ');
-      setHistory(prev => [...prev, { type: 'error', content: `✗ Non è del tutto corretto. Parametri mancanti o errati: ${missingHint}. Riprova o digita "hint".` }]);
+      setHistory(prev => [...prev, { type: 'error', content: t('console.incorrect', { missing: missingHint }) }]);
     }
   };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TextField, Box } from '@mui/material';
 import KubeButton from '../ui/KubeButton';
 
@@ -6,16 +7,16 @@ const RegisterForm = ({
   name, setName,
   email, setEmail,
   password, setPassword,
-  phone, setPhone,
   onSubmit
 }) => {
+  const { t } = useTranslation();
   return (
     <Box component="form" onSubmit={onSubmit} sx={{ mt: 1 }}>
       <TextField
         margin="normal"
         required
         fullWidth
-        label="Nome Completo"
+        label={t('auth.fullName')}
         autoComplete="name"
         value={name}
         onChange={(e) => setName(e.target.value)}
@@ -25,7 +26,7 @@ const RegisterForm = ({
         margin="normal"
         required
         fullWidth
-        label="Email"
+        label={t('auth.email')}
         type="email"
         autoComplete="email"
         value={email}
@@ -35,17 +36,7 @@ const RegisterForm = ({
         margin="normal"
         required
         fullWidth
-        label="Numero di Telefono"
-        autoComplete="tel"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        placeholder="+391234567890"
-      />
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        label="Password"
+        label={t('auth.passwordMin8')}
         type="password"
         autoComplete="new-password"
         value={password}
@@ -57,7 +48,7 @@ const RegisterForm = ({
         variant="contained"
         sx={{ mt: 3, mb: 2, py: 1.5 }}
       >
-        Crea Account
+        {t('auth.createAccount')}
       </KubeButton>
     </Box>
   );

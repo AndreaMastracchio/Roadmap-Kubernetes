@@ -1,0 +1,153 @@
+{
+  "brand": {
+    "name": "KubeStudy",
+    "tagline": "Plataforma gratuita e de código aberto para dominar o desenvolvimento de software moderno através de trilhas estruturadas e exercícios interativos."
+  },
+  "nav": {
+    "home": "Início",
+    "about": "O que é este projeto?",
+    "loginSignup": "Entrar / Cadastrar-se",
+    "dashboard": "Painel",
+    "profile": "Perfil"
+  },
+  "header": {
+    "defaultStudent": "Estudante"
+  },
+  "auth": {
+    "loginTab": "Entrar",
+    "registerTab": "Cadastrar-se",
+    "loginTitle": "Entrar",
+    "registerTitle": "Criar conta",
+    "fullName": "Nome completo",
+    "email": "Email",
+    "password": "Senha",
+    "passwordMin8": "Senha (mínimo 8 caracteres)",
+    "newPassword": "Nova senha",
+    "oldPassword": "Senha atual",
+    "confirmNewPassword": "Confirmar nova senha",
+    "createAccount": "Criar conta",
+    "connectionError": "Não foi possível contatar o servidor",
+    "verifyError": "Falha na verificação",
+    "notAuthenticated": "Não autenticado",
+    "loginRequired": "Você precisa estar logado para continuar.",
+    "logoutSuccess": "Desconectado"
+  },
+  "sidebar": {
+    "home": "Voltar ao início",
+    "practicalExercises": "Exercícios práticos",
+    "courseContent": "CONTEÚDO DO CURSO",
+    "explorePaths": "TRILHAS",
+    "yourProgress": "Seu progresso"
+  },
+  "home": {
+    "heroTitle": "Suas trilhas de aprendizado",
+    "heroSubtitle": "Explore nossa biblioteca de cursos e trilhas — de Kubernetes a Laravel e além.",
+    "ourCourses": "Nossos cursos",
+    "comingSoon": "Em breve"
+  },
+  "courseCard": {
+    "details": "Detalhes",
+    "resume": "Continuar:",
+    "owned": "Adquirido",
+    "privateProject": "Projeto privado",
+    "comingSoon": "Em breve",
+    "hours": "horas"
+  },
+  "module": {
+    "loading": "Carregando conteúdo do módulo...",
+    "completed": "Você completou este módulo. Ótimo trabalho!",
+    "markComplete": "Marcar como concluído",
+    "breadcrumbIntro": "Bem-vindo",
+    "guestWarning": "Você não está logado. Seu progresso não será salvo no servidor.",
+    "finishedReading": "Terminou a leitura?"
+  },
+  "exercises": {
+    "completedTitle": "🎉 Exercícios concluídos!",
+    "greatWork": "Ótimo trabalho! Você completou todos os desafios de codificação deste módulo.",
+    "progressSaved": " Seu progresso foi salvo.",
+    "signInToSave": " Crie uma conta para salvar seu progresso.",
+    "restart": "Reiniciar",
+    "nextChallenge": "Próximo desafio",
+    "finishChallenges": "Finalizar desafios",
+    "almostCorrect": "Quase!",
+    "showHint": "Dica",
+    "challenge": "Desafio",
+    "of": "de",
+    "codingExercise": "Exercício de codificação:",
+    "checkSolution": "Verificar solução",
+    "greatJob": "Bom trabalho!",
+    "tryAgain": "Algo está errado. Tente novamente!"
+  },
+  "quiz": {
+    "title": "Verificação de conhecimentos",
+    "completedTitle": "🎉 Quiz concluído!",
+    "completedMessage": "Você acertou {{score}} de {{total}} perguntas.",
+    "retry": "Tentar novamente",
+    "verifyAnswer": "Verificar resposta",
+    "nextQuestion": "Próxima pergunta",
+    "viewResults": "Ver resultados",
+    "almostCorrect": "Quase correto!"
+  },
+  "console": {
+    "title": "Console interativo",
+    "welcome": "Bem-vindo ao console interativo do KubeStudy!",
+    "helpHint": "Digite \"help\" para ver os comandos disponíveis.",
+    "helpCommands": "Comandos disponíveis:\n- list: mostrar cursos disponíveis\n- use <id>: selecionar um curso\n- clear: limpar o console\n- exit: fechar o console",
+    "availableCourses": "Cursos disponíveis:",
+    "courseSelected": "Curso \"{{title}}\" selecionado. Carregando perguntas...",
+    "courseNotFound": "Curso \"{{id}}\" não encontrado ou indisponível. Digite \"list\" para ver IDs válidos.",
+    "unknownCommand": "Comando desconhecido: {{cmd}}. Digite \"help\" para obter ajuda.",
+    "commandToComplete": "Comando para completar:\n{{template}}",
+    "questionSkipped": "Pergunta pulada.",
+    "correct": "✓ Excelente! Comando correto.",
+    "incorrect": "✗ Não exatamente. Parâmetros faltando ou incorretos: {{missing}}. Tente novamente ou digite \"hint\".",
+    "allDone": "Bom trabalho! Você completou todos os comandos deste curso.",
+    "useAnother": "Digite \"use <id>\" para outro curso ou \"exit\" para sair.",
+    "nextChallenge": "--- PRÓXIMO DESAFIO ---",
+    "moduleInfo": "Módulo: {{module}}\nObjetivo: {{objective}}\nDica: {{hint}}",
+    "noCommands": "Nenhum comando encontrado para este curso.",
+    "requiredParams": "Parâmetros obrigatórios:"
+  },
+  "dashboard": {
+    "title": "Seu painel 🚀",
+    "welcomeBack": "Bem-vindo de volta {{name}}, aqui está seu progresso atual.",
+    "yourCourses": "Seus cursos",
+    "activeCourses": "Cursos ativos",
+    "modulesCompleted": "Módulos concluídos",
+    "completed": "Concluído",
+    "next": "Próximo:",
+    "modules": "Módulos",
+    "progress": "Progresso",
+    "noCourses": "Nenhum curso ativo ainda. Comece explorando o início!"
+  },
+  "profile": {
+    "title": "Seu perfil",
+    "manageInfo": "Gerencie suas informações pessoais e a segurança da conta.",
+    "emailHelper": "Este email está vinculado à sua conta e não pode ser alterado.",
+    "updateSuccess": "Perfil atualizado com sucesso!",
+    "passwordsMismatch": "As senhas não coincidem.",
+    "passwordMin6": "A nova senha deve ter pelo menos 6 caracteres.",
+    "passwordUpdated": "Senha atualizada com sucesso!",
+    "passwordError": "Falha ao alterar a senha.",
+    "avatarUpdated": "Foto do perfil atualizada!",
+    "avatarError": "Falha ao fazer upload da imagem.",
+    "avatarTooLarge": "A imagem deve ter menos de 2MB.",
+    "accountStatus": "Status da conta",
+    "active": "Ativa",
+    "progressTitle": "Progresso",
+    "modulesCompletedCount": "Você completou {{count}} módulos até agora.",
+    "goToDashboard": "Ir ao painel",
+    "personalInfo": "Informações pessoais",
+    "saving": "Salvando...",
+    "saveChanges": "Salvar alterações",
+    "accountSecurity": "Segurança da conta",
+    "newPassword": "Nova senha",
+    "updating": "Atualizando...",
+    "updatePassword": "Atualizar senha"
+  },
+  "footer": {
+    "freeMessage": "Todos os cursos são gratuitos. Se te ajudam, nos compre um café:",
+    "coffeeButton": "Comprar um café",
+    "copyright": "© {{year}} Nightmare. Feito para a comunidade."
+  }
+}

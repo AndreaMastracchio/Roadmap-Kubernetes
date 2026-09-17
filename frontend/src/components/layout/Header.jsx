@@ -1,4 +1,6 @@
 import React, { memo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import i18n from 'i18next';
 import { AppBar, Toolbar, IconButton, Box, Avatar, Menu, MenuItem, ListItemIcon, Divider } from '@mui/material';
 import { 
   Menu as MenuIcon, 
@@ -6,11 +8,21 @@ import {
   Person as PersonIcon,
   Logout as LogoutIcon,
   Dashboard as DashboardIcon,
-  Settings as SettingsIcon
+  Settings as SettingsIcon,
+  Language as LanguageIcon
 } from '@mui/icons-material';
 import KubeTypography from '../ui/KubeTypography';
 import { useAuth } from '../../context/AuthContext';
 import API_BASE from '../../config/api';
+
+const LANGUAGES = [
+  { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'it', label: 'Italiano', flag: '🇮🇹' },
+  { code: 'fr', label: 'Français', flag: '🇫🇷' },
+  { code: 'es', label: 'Español', flag: '🇪🇸' },
+  { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+  { code: 'pt', label: 'Português', flag: '🇵🇹' }
+];
 
 const Header = memo(({ 
   drawerOpen, 
@@ -22,14 +34,18 @@ const Header = memo(({
   isResizing,
   onBackToHome,
   onOpenIntro,
-  onOpenAuth, // Nuovo: per aprire il modale login se non loggato
-  onOpenProfile, // Nuovo: per aprire il profilo
+  onOpenAuth,
+  onOpenProfile,
   isDashboardOpen,
   isProfileOpen
 }) => {
   const { user, logout } = useAuth();
+  const { t, i18n } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [langAnchorEl, setLangAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const langOpen = Boolean(langAnchorEl);
+  const currentLang = LANGUAGES.find(l => l.code === i18n.language?.split('-')[0]) || LANGUAGES[0];
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -99,8 +115,7 @@ const Header = memo(({
             }}
             onClick={onBackToHome}
           >
-            Home
-          </KubeTypography>
+            {t('nav.home')}          </KubeTypography>
           {activeCourse && (
             <>
               <ChevronRightIcon sx={{ fontSize: 16, color: 'text.disabled' }} />
@@ -115,7 +130,7 @@ const Header = memo(({
                   '&:hover': { color: 'primary.main', bgcolor: '#326ce510' },
                   cursor: 'pointer'
                 }}
-                onClick={() => {}} // Could go back to course root
+                onClick={onOpenIntro}
               >
                 {activeCourse.title}
               </KubeTypography>
@@ -135,7 +150,7 @@ const Header = memo(({
                   borderRadius: 1,
                 }}
               >
-                Dashboard
+                {t('nav.dashboard')}
               </KubeTypography>
             </>
           )}
@@ -153,7 +168,7 @@ const Header = memo(({
                   borderRadius: 1,
                 }}
               >
-                Profilo
+                {t('nav.profile')}
               </KubeTypography>
             </>
           )}
@@ -177,7 +192,7 @@ const Header = memo(({
 
         <Box sx={{ flexGrow: 1 }} />
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <KubeTypography 
             variant="body2" 
             weight="medium"
@@ -192,8 +207,69 @@ const Header = memo(({
             }}
             onClick={onOpenIntro}
           >
-            Cos'è questo progetto?
+            {t('nav.about')}
           </KubeTypography>
+
+          <Box
+            onClick={(e) => setLangAnchorEl(e.currentTarget)}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.5,
+              px: 1,
+              py: 0.5,
+              borderRadius: 1,
+              border: '1px solid #e2e8f0',
+              cursor: 'pointer',
+              '&:hover': { bgcolor: '#f8fafc' }
+            }}
+          >
+            <span style={{ fontSize: '1rem' }}>{currentLang.flag}</span>
+            <LanguageIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
+          </Box>
+          <Menu
+            anchorEl={langAnchorEl}
+            open={langOpen}
+            onClose={() => setLangAnchorEl(null)}
+            onClick={() => setLangAnchorEl(null)}
+            PaperProps={{
+              elevation: 0,
+              sx: {
+                overflow: 'visible',
+                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.15))',
+                mt: 1.5,
+                '& .MuiAvatar-root': { width: 32, height: 32, ml: -0.5, mr: 1 },
+                '&:before': {
+                  content: '""',
+                  display: 'block',
+                  position: 'absolute',
+                  top: 0,
+                  right: 14,
+                  width: 10,
+                  height: 10,
+                  bgcolor: 'background.paper',
+                  transform: 'translateY(-50%) rotate(45deg)',
+                  zIndex: 0,
+                },
+              },
+            }}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          >
+            {LANGUAGES.map((lng) => (
+              <MenuItem
+                key={lng.code}
+                onClick={() => i18n.changeLanguage(lng.code)}
+                selected={i18n.language?.split('-')[0] === lng.code}
+                sx={{ gap: 1.5 }}
+              >
+                <span style={{ fontSize: '1.2rem' }}>{lng.flag}</span>
+                <KubeTypography variant="body2" weight={i18n.language?.split('-')[0] === lng.code ? 'bold' : 'normal'}>
+                  {lng.label}
+                </KubeTypography>
+              </MenuItem>
+            ))}
+          </Menu>
 
           <Divider orientation="vertical" flexItem sx={{ mx: 1, height: 24, alignSelf: 'center' }} />
 
@@ -246,7 +322,7 @@ const Header = memo(({
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
               >
                 <Box sx={{ px: 2, py: 1.5 }}>
-                  <KubeTypography weight="bold" variant="body2">{user.name || 'Studente'}</KubeTypography>
+                  <KubeTypography weight="bold" variant="body2">{user.name || t('header.defaultStudent')}</KubeTypography>
                   <KubeTypography variant="caption" color="text.secondary">{user.email}</KubeTypography>
                 </Box>
                 <Divider />
@@ -254,20 +330,20 @@ const Header = memo(({
                   <ListItemIcon>
                     <DashboardIcon fontSize="small" />
                   </ListItemIcon>
-                  Dashboard
+                  {t('nav.dashboard')}
                 </MenuItem>
                 <MenuItem onClick={handleProfile}>
                   <ListItemIcon>
                     <PersonIcon fontSize="small" />
                   </ListItemIcon>
-                  Profilo
+                  {t('nav.profile')}
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={handleLogout}>
                   <ListItemIcon>
                     <LogoutIcon fontSize="small" color="error" />
                   </ListItemIcon>
-                  <KubeTypography variant="body2" sx={{ color: 'error.main' }}>Esci</KubeTypography>
+                  <KubeTypography variant="body2" sx={{ color: 'error.main' }}>{t('auth.logoutSuccess')}</KubeTypography>
                 </MenuItem>
               </Menu>
             </>
@@ -287,7 +363,7 @@ const Header = memo(({
               }}
               onClick={onOpenAuth}
             >
-              Accedi / Registrati
+              {t('nav.loginSignup')}
             </KubeTypography>
           )}
         </Box>

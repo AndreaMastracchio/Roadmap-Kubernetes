@@ -1,15 +1,17 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TextField, Box } from '@mui/material';
 import KubeButton from '../ui/KubeButton';
 
 const LoginForm = ({ email, setEmail, password, setPassword, onSubmit }) => {
+  const { t } = useTranslation();
   return (
     <Box component="form" onSubmit={onSubmit} sx={{ mt: 1 }}>
       <TextField
         margin="normal"
         required
         fullWidth
-        label="Email"
+        label={t('auth.email')}
         type="email"
         autoComplete="email"
         value={email}
@@ -20,7 +22,7 @@ const LoginForm = ({ email, setEmail, password, setPassword, onSubmit }) => {
         margin="normal"
         required
         fullWidth
-        label="Password"
+        label={t('auth.password')}
         type="password"
         autoComplete="current-password"
         value={password}
@@ -32,7 +34,7 @@ const LoginForm = ({ email, setEmail, password, setPassword, onSubmit }) => {
         variant="contained"
         sx={{ mt: 3, mb: 2, py: 1.5 }}
       >
-        Accedi
+        {t('auth.loginTitle')}
       </KubeButton>
     </Box>
   );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   TextField,
@@ -12,6 +13,7 @@ import KubePaper from '../ui/KubePaper';
 import KubeTypography from '../ui/KubeTypography';
 
 const CodingExercise = ({ exercise, onComplete }) => {
+  const { t } = useTranslation();
   const [inputs, setInputs] = useState({});
   const [results, setResults] = useState({});
   const [isCorrect, setIsCorrect] = useState(false);
@@ -122,7 +124,7 @@ const CodingExercise = ({ exercise, onComplete }) => {
       <Divider sx={{ mb: 4 }} />
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <KubeTypography variant="h5" weight="bold" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          💻 Esercizio di Coding: {exercise.title}
+          💻 {t('exercises.codingExercise')} {exercise.title}
         </KubeTypography>
         <IconButton onClick={() => setShowHint(!showHint)} color="primary" size="small" sx={{ bgcolor: showHint ? '#326ce515' : 'transparent' }}>
           <Lightbulb fontSize="small" />
@@ -144,16 +146,16 @@ const CodingExercise = ({ exercise, onComplete }) => {
           disabled={submitted && isCorrect}
           sx={{ minWidth: 160 }}
         >
-          Verifica Soluzione
+          {t('exercises.checkSolution')}
         </KubeButton>
         {submitted && isCorrect && (
           <KubeTypography sx={{ color: '#2e7d32', display: 'flex', alignItems: 'center', gap: 1, fontWeight: 'bold' }}>
-            <CheckCircle fontSize="small" /> Ottimo lavoro!
+            <CheckCircle fontSize="small" /> {t('exercises.greatJob')}
           </KubeTypography>
         )}
         {submitted && !isCorrect && (
           <KubeTypography sx={{ color: '#d32f2f', display: 'flex', alignItems: 'center', gap: 1, fontWeight: 'bold' }}>
-            <Error fontSize="small" /> Qualcosa non va. Riprova!
+            <Error fontSize="small" /> {t('exercises.tryAgain')}
           </KubeTypography>
         )}
       </Box>

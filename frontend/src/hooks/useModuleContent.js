@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import i18n from 'i18next';
 import { API_ENDPOINTS } from '../config/api';
 
 const extractSections = (markdown) => {
@@ -55,15 +56,16 @@ export const useModuleContent = (activeCourse, activeModule) => {
 
     const loadContent = async () => {
       try {
+        const lang = i18n.language || 'it';
         // Fetch Markdown dal backend
-        const mdRes = await fetch(API_ENDPOINTS.MODULES(courseId, activeModule.id));
+        const mdRes = await fetch(`${API_ENDPOINTS.MODULES(courseId, activeModule.id)}?lang=${lang}`);
         if (!mdRes.ok) throw new Error('Modulo non trovato');
         const mdText = await mdRes.text();
 
         // Fetch Data (Quiz & Exercises) dal backend
         let data = { quiz: [], exercises: [] };
         try {
-          const jsonRes = await fetch(API_ENDPOINTS.MODULES_DATA(courseId, activeModule.id));
+          const jsonRes = await fetch(`${API_ENDPOINTS.MODULES_DATA(courseId, activeModule.id)}?lang=${lang}`);
           if (jsonRes.ok) {
             const rawData = await jsonRes.json();
             if (Array.isArray(rawData)) {
@@ -101,7 +103,7 @@ export const useModuleContent = (activeCourse, activeModule) => {
     return () => {
       isMounted = false;
     };
-  }, [activeCourse, activeModule]);
+  }, [activeCourse, activeModule, i18n.language]);
 
   return { content, sections, questions, exercises, loading, error };
 };

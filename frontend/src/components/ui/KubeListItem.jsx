@@ -56,12 +56,14 @@ const KubeListItem = ({
             secondary={secondary}
             primaryTypographyProps={{
               variant: 'body2',
+              component: 'div',
               fontWeight: active ? 700 : 500,
               fontSize: '0.875rem',
               ...primaryTypographyProps
             }}
             secondaryTypographyProps={{
               variant: 'caption',
+              component: 'div',
               sx: { mt: 0.5, display: 'block' }
             }}
           />

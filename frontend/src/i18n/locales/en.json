@@ -1,0 +1,153 @@
+{
+  "brand": {
+    "name": "KubeStudy",
+    "tagline": "Free, open-source platform to master modern software development through structured paths and interactive exercises."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "What is this project?",
+    "loginSignup": "Sign in / Sign up",
+    "dashboard": "Dashboard",
+    "profile": "Profile"
+  },
+  "header": {
+    "defaultStudent": "Student"
+  },
+  "auth": {
+    "loginTab": "Login",
+    "registerTab": "Sign up",
+    "loginTitle": "Sign in",
+    "registerTitle": "Sign up",
+    "fullName": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "passwordMin8": "Password (minimum 8 characters)",
+    "newPassword": "New Password",
+    "oldPassword": "Current Password",
+    "confirmNewPassword": "Confirm New Password",
+    "createAccount": "Create Account",
+    "connectionError": "Could not reach the server",
+    "verifyError": "Verification failed",
+    "notAuthenticated": "Not authenticated",
+    "loginRequired": "You must be signed in to continue.",
+    "logoutSuccess": "Signed out"
+  },
+  "sidebar": {
+    "home": "Back to Home",
+    "practicalExercises": "Practical Exercises",
+    "courseContent": "COURSE CONTENT",
+    "explorePaths": "EXPLORE PATHS",
+    "yourProgress": "Your progress"
+  },
+  "home": {
+    "heroTitle": "Your learning paths",
+    "heroSubtitle": "Explore our library of courses and roadmaps — from Kubernetes to Laravel and beyond.",
+    "ourCourses": "Our courses",
+    "comingSoon": "Coming Soon"
+  },
+  "courseCard": {
+    "details": "Details",
+    "resume": "Resume:",
+    "owned": "Owned",
+    "privateProject": "Private Project",
+    "comingSoon": "Coming Soon",
+    "hours": "hours"
+  },
+  "module": {
+    "loading": "Loading module contents...",
+    "completed": "You completed this module. Great job!",
+    "markComplete": "Mark as completed",
+    "breadcrumbIntro": "Welcome",
+    "guestWarning": "You are not signed in. Your progress will not be saved on the server.",
+    "finishedReading": "Finished reading?"
+  },
+  "exercises": {
+    "completedTitle": "🎉 Exercises completed!",
+    "greatWork": "Great job! You finished every coding challenge in this module.",
+    "progressSaved": " Your progress has been saved.",
+    "signInToSave": " Create an account to save your progress.",
+    "restart": "Start over",
+    "nextChallenge": "Next Challenge",
+    "finishChallenges": "Finish Challenges",
+    "almostCorrect": "Almost there!",
+    "showHint": "Hint",
+    "challenge": "Challenge",
+    "of": "of",
+    "codingExercise": "Coding Exercise:",
+    "checkSolution": "Check Solution",
+    "greatJob": "Great job!",
+    "tryAgain": "Something is wrong. Try again!"
+  },
+  "console": {
+    "title": "Interactive Console",
+    "welcome": "Welcome to the KubeStudy Interactive Console!",
+    "helpHint": "Type \"help\" to see the available commands.",
+    "helpCommands": "Available commands:\n- list: show available courses\n- use <id>: select a course\n- clear: clear the console\n- exit: close the console",
+    "availableCourses": "Available courses:",
+    "courseSelected": "Course \"{{title}}\" selected. Loading questions...",
+    "courseNotFound": "Course \"{{id}}\" not found or unavailable. Type \"list\" to see valid IDs.",
+    "unknownCommand": "Unknown command: {{cmd}}. Type \"help\" for assistance.",
+    "commandToComplete": "Command to complete:\n{{template}}",
+    "questionSkipped": "Question skipped.",
+    "correct": "✓ Excellent! Command correct.",
+    "incorrect": "✗ Not quite right. Missing or wrong parameters: {{missing}}. Try again or type \"hint\".",
+    "allDone": "Great work! You completed every command for this course.",
+    "useAnother": "Type \"use <id>\" for another course or \"exit\" to quit.",
+    "nextChallenge": "--- NEXT CHALLENGE ---",
+    "moduleInfo": "Module: {{module}}\nObjective: {{objective}}\nHint: {{hint}}",
+    "noCommands": "No commands found for this course.",
+    "requiredParams": "Required parameters:"
+  },
+    "dashboard": {
+    "title": "Your Dashboard 🚀",
+    "welcomeBack": "Welcome back {{name}}, here is your current progress.",
+    "yourCourses": "Your courses",
+    "activeCourses": "Active Courses",
+    "modulesCompleted": "Modules Completed",
+    "completed": "Completed",
+    "next": "Next:",
+    "modules": "Modules",
+    "progress": "Progress",
+    "noCourses": "No active courses yet. Start by exploring the Home!"
+  },
+  "profile": {
+    "title": "Your Profile",
+    "manageInfo": "Manage your personal information and account security.",
+    "emailHelper": "This email is tied to your account and cannot be changed.",
+    "updateSuccess": "Profile updated successfully!",
+    "passwordsMismatch": "Passwords do not match.",
+    "passwordMin6": "The new password must be at least 6 characters.",
+    "passwordUpdated": "Password updated successfully!",
+    "passwordError": "Failed to change password.",
+    "avatarUpdated": "Profile picture updated!",
+    "avatarError": "Failed to upload the image.",
+    "avatarTooLarge": "Image must be under 2MB.",
+    "accountStatus": "Account Status",
+    "active": "Active",
+    "progressTitle": "Progress",
+    "modulesCompletedCount": "You have completed {{count}} modules so far.",
+    "goToDashboard": "Go to Dashboard",
+    "personalInfo": "Personal Information",
+    "saving": "Saving...",
+    "saveChanges": "Save Changes",
+    "accountSecurity": "Account Security",
+    "newPassword": "New Password",
+    "updating": "Updating...",
+    "updatePassword": "Update Password"
+  },
+  "quiz": {
+    "title": "Knowledge Check",
+    "completedTitle": "🎉 Quiz Completed!",
+    "completedMessage": "You answered {{score}} out of {{total}} questions correctly.",
+    "retry": "Retry",
+    "verifyAnswer": "Check Answer",
+    "nextQuestion": "Next question",
+    "viewResults": "See results",
+    "almostCorrect": "Almost correct!"
+  },
+  "footer": {
+    "freeMessage": "Every course is free. If it helps you, buy us a coffee:",
+    "coffeeButton": "Buy us a coffee",
+    "copyright": "© {{year}} Nightmare. Built for the community."
+  }
+}

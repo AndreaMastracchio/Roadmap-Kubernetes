@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Divider,
@@ -16,12 +17,12 @@ import {
   AssignmentOutlined,
   SignalCellularAlt,
   SignalCellularAlt1Bar,
+  School as SchoolIcon,
   SignalCellularAlt2Bar,
   HomeOutlined,
   Terminal as TerminalIcon,
   Person as PersonIcon,
   Logout as LogoutIcon,
-  ShoppingBagOutlined as ShopIcon,
   CheckCircle as CheckCircleIcon,
 } from '@mui/icons-material';
 import { useAuth } from '../../context/AuthContext';
@@ -49,6 +50,7 @@ const SidebarContent = memo(({
   drawerOpen
 }) => {
   const { user, logout } = useAuth();
+  const { t } = useTranslation();
 
   return (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: '#ffffff', borderRight: '1px solid #f1f5f9', overflow: 'hidden' }}>
@@ -71,11 +73,7 @@ const SidebarContent = memo(({
               height: 32
             }}
           >
-            <img
-              src="https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.svg"
-              alt="K8s Logo"
-              style={{ width: 20, height: 20, filter: 'brightness(0) invert(1)', flexShrink: 0 }}
-            />
+            <SchoolIcon sx={{ width: 20, height: 20, color: '#fff', flexShrink: 0 }} />
           </Box>
           {drawerOpen && (
             <KubeTypography weight="bold" variant="h6" sx={{ color: '#1e293b', fontSize: '1.25rem', letterSpacing: '-0.02em', whiteSpace: 'nowrap' }}>
@@ -115,7 +113,7 @@ const SidebarContent = memo(({
               <TerminalIcon sx={{ fontSize: 18 }} />
             </Box>
           }
-          primary="Console Interattiva"
+          primary={t('console.title')}
           sx={{ mb: 2, mt: 0, bgcolor: 'rgba(0,0,0,0.02)' }}
         />
         <Divider sx={{ my: 2, mx: drawerOpen ? 2 : 1, opacity: 0.5 }} />
@@ -127,14 +125,14 @@ const SidebarContent = memo(({
           color="text.secondary"
           sx={{ px: 2, mt: 1, mb: 1, display: 'block', letterSpacing: 1.5, fontSize: '0.65rem', opacity: 0.8 }}
         >
-          {activeCourse ? 'CONTENUTO CORSO' : 'ESPLORA PERCORSI'}
+          {activeCourse ? t('sidebar.courseContent') : t('sidebar.explorePaths')}
         </KubeTypography>
       )}
 
       {drawerOpen && activeCourse && !activeCourse.isIntro && (
         <Box sx={{ px: 2, mb: 2 }}>
            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-              <KubeTypography variant="caption" color="text.secondary">Il tuo progresso</KubeTypography>
+              <KubeTypography variant="caption" color="text.secondary">{t('sidebar.yourProgress')}</KubeTypography>
               <KubeTypography variant="caption" weight="bold">
                 {Math.round((modules.filter(m => user?.completedModules?.includes(`${activeCourse.id}-${m.id}`) || user?.completedModules?.includes(m.id)).length / (modules.length || 1)) * 100)}%
               </KubeTypography>
@@ -149,7 +147,7 @@ const SidebarContent = memo(({
 
       {!activeCourse ? (
         <>
-          {courses.filter(c => !c.comingSoon && (!c.isPrivate || user?.purchasedProjects?.includes(c.id))).map((course) => (
+          {courses.filter(c => !c.comingSoon).map((course) => (
             <KubeListItem
               key={course.id}
               onClick={() => handleCourseSelect(course)}
@@ -176,7 +174,7 @@ const SidebarContent = memo(({
             onClick={() => handleCourseSelect(null)}
             hideText={!drawerOpen}
             icon={<HomeOutlined fontSize="small" />}
-            primary="Torna alla Home"
+            primary={t('sidebar.home')}
             sx={{ mb: 2, mt: 1 }}
           />
           <Divider sx={{ my: 1, mx: drawerOpen ? 2 : 1, opacity: 0.5 }} />
@@ -240,7 +238,7 @@ const SidebarContent = memo(({
                       onClick={() => handleSectionSelect('exercises-section')}
                       active={activeSection === 'exercises-section'}
                       icon={<AssignmentOutlined sx={{ fontSize: 16 }} />}
-                      primary="Esercitazioni Pratiche"
+                      primary={t('sidebar.practicalExercises')}
                       sx={{ py: 0, '& .MuiListItemButton-root': { py: 0.5, borderRadius: '0 8px 8px 0', ml: 0 } }}
                       primaryTypographyProps={{
                         fontSize: '0.8rem',
@@ -253,7 +251,7 @@ const SidebarContent = memo(({
                       onClick={() => handleSectionSelect('quiz-section')}
                       active={activeSection === 'quiz-section'}
                       icon={<QuizOutlined sx={{ fontSize: 16 }} />}
-                      primary="Verifica delle Conoscenze"
+                      primary={t('quiz.title')}
                       sx={{ py: 0, '& .MuiListItemButton-root': { py: 0.5, borderRadius: '0 8px 8px 0', ml: 0 } }}
                       primaryTypographyProps={{
                         fontSize: '0.8rem',

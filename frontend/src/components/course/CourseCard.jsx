@@ -1,15 +1,14 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Chip, Tooltip, LinearProgress } from '@mui/material';
-import { AccessTime as TimeIcon, ChevronRight as ArrowIcon, LockOutlined as LockIcon, CheckCircle as OwnedIcon } from '@mui/icons-material';
+import { AccessTime as TimeIcon, ChevronRight as ArrowIcon } from '@mui/icons-material';
 import KubeCard from '../ui/KubeCard';
 import KubeTypography from '../ui/KubeTypography';
 import { useAuth } from '../../context/AuthContext';
 
 const CourseCard = ({ course, onSelect }) => {
-  const { user, hasAccessToProject } = useAuth();
-  const isPrivate = course.isPrivate;
-  const hasAccess = !isPrivate || hasAccessToProject(course.id);
-  const isOwned = user && user.purchasedProjects?.includes(course.id);
+  const { t } = useTranslation();
+  const { user } = useAuth();
 
   const progress = user && course.modules ? 
     Math.round((course.modules.filter(m => user.completedModules?.includes(`${course.id}-${m.id}`) || user.completedModules?.includes(m.id)).length / (course.modules.length || 1)) * 100) : 0;
@@ -44,20 +43,6 @@ const CourseCard = ({ course, onSelect }) => {
         cursor: course.comingSoon ? 'default' : 'pointer'
       }}
     >
-      {isPrivate && (
-        <Box sx={{ position: 'absolute', top: 12, right: 12 }}>
-          {isOwned ? (
-            <Tooltip title="Acquistato">
-              <OwnedIcon sx={{ color: 'success.main', fontSize: 20 }} />
-            </Tooltip>
-          ) : (
-            <Tooltip title="Progetto Privato">
-              <LockIcon sx={{ color: 'text.disabled', fontSize: 20 }} />
-            </Tooltip>
-          )}
-        </Box>
-      )}
-
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
         <Box 
           sx={{ 
@@ -102,31 +87,21 @@ const CourseCard = ({ course, onSelect }) => {
 
         {course.comingSoon ? (
           <Chip label="Coming Soon" size="small" variant="outlined" color="secondary" sx={{ fontSize: '0.6rem', height: 18 }} />
-        ) : isPrivate && !isOwned ? (
-           <Box sx={{ display: 'flex', alignItems: 'center', color: 'primary.main' }}>
-            <KubeTypography variant="button" weight="bold" sx={{ fontSize: '0.65rem', mr: 0.5 }}>
-              {course.price}
-            </KubeTypography>
-            <KubeTypography variant="button" weight="bold" sx={{ fontSize: '0.65rem', textTransform: 'uppercase' }}>
-              Acquista
-            </KubeTypography>
-            <ArrowIcon sx={{ fontSize: '0.9rem' }} />
-          </Box>
         ) : (
           <Box sx={{ display: 'flex', alignItems: 'center', color: course.color }}>
             <KubeTypography variant="button" weight="bold" sx={{ fontSize: '0.65rem', textTransform: 'uppercase' }}>
-              Dettagli
+              {t('courseCard.details')}
             </KubeTypography>
             <ArrowIcon sx={{ fontSize: '0.9rem' }} />
           </Box>
         )}
       </Box>
 
-      {(user && hasAccess && !course.comingSoon) && (
+      {(user && !course.comingSoon) && (
         <Box sx={{ mt: 2 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
             <KubeTypography variant="caption" color="text.secondary" sx={{ maxWidth: '80%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              {progress === 100 ? 'Corso Completato!' : (resumeModule ? `Riprendi: ${resumeModule.title}` : 'Inizia il corso')}
+              {progress === 100 ? t('module.completed') : (resumeModule ? `${t('courseCard.resume')} ${resumeModule.title}` : 'Start course')}
             </KubeTypography>
             <KubeTypography variant="caption" weight="bold">{progress}%</KubeTypography>
           </Box>

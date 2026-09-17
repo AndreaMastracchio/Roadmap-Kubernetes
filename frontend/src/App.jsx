@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeSlug from 'rehype-slug';
 import rehypeRaw from 'rehype-raw';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   CssBaseline,
@@ -36,18 +37,18 @@ import Profile from './components/user/Profile';
 import ModuleViewer from './components/learning/ModuleViewer';
 import TerminalConsole from './components/learning/TerminalConsole';
 import AuthModal from './components/auth/AuthModal';
-import PurchaseModal from './components/course/PurchaseModal';
 import { useAuth } from './context/AuthContext';
 
 const DEFAULT_DRAWER_WIDTH = 280;
 
 function AppContent() {
-  const { user, hasAccessToProject, buyProject, completeModule, updateLastVisitedModule } = useAuth();
+  const { user, completeModule, updateLastVisitedModule } = useAuth();
+  const { i18n } = useTranslation();
   const { width: drawerWidth, isResizing, startResizing } = useResizer(DEFAULT_DRAWER_WIDTH);
   const [courses, setCourses] = useState([]);
   const {
     drawerOpen, mobileOpen, activeCourse, activeModule, isConsoleOpen,
-    authModalOpen, purchaseModalOpen, courseToPurchase, view,
+    authModalOpen, view,
     actions
   } = useAppUI();
 
@@ -55,7 +56,7 @@ function AppContent() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await fetch(API_ENDPOINTS.COURSES.LIST);
+        const res = await fetch(`${API_ENDPOINTS.COURSES.LIST}?lang=${i18n.language}`);
         if (!res.ok) throw new Error('Errore caricamento corsi');
         const data = await res.json();
 
@@ -78,7 +79,7 @@ function AppContent() {
       }
     };
     fetchCourses();
-  }, []);
+  }, [i18n.language]);
 
   const isDashboardOpen = view === 'dashboard';
   const isProfileOpen = view === 'profile';
@@ -99,11 +100,6 @@ function AppContent() {
   }, [actions]);
 
   const handleCourseSelect = useCallback((course) => {
-    if (course && course.isPrivate && !hasAccessToProject(course.id)) {
-      actions.openPurchase(course);
-      return;
-    }
-
     actions.selectCourse(course);
 
     if (course && course.modules && course.modules.length > 0) {
@@ -129,17 +125,7 @@ function AppContent() {
     } else {
       actions.selectModule(null);
     }
-  }, [hasAccessToProject, user, actions, updateLastVisitedModule]);
-
-  const handleConfirmPurchase = useCallback(async () => {
-    if (courseToPurchase) {
-      const result = await buyProject(courseToPurchase.id);
-      if (result.success) {
-        actions.closePurchase();
-        handleCourseSelect(courseToPurchase);
-      }
-    }
-  }, [courseToPurchase, buyProject, handleCourseSelect, actions]);
+  }, [user, actions, updateLastVisitedModule]);
 
   const handleModuleSelect = useCallback((mod) => {
     actions.selectModule(mod);
@@ -176,8 +162,9 @@ function AppContent() {
   }, [activeCourse, activeModule, completeModule]);
 
   const handleOpenIntro = useCallback(() => {
+    const courseId = activeCourse?.id || 'k8s-fondamentali';
     const virtualIntroCourse = {
-      id: 'k8s-fondamentali',
+      id: courseId,
       title: 'Informazioni',
       modules: [{
         id: 'intro',
@@ -187,7 +174,7 @@ function AppContent() {
       isIntro: true
     };
     handleCourseSelect(virtualIntroCourse);
-  }, [handleCourseSelect]);
+  }, [handleCourseSelect, activeCourse]);
 
   const handleSectionSelect = useCallback((anchor) => {
     const element = document.getElementById(anchor);
@@ -268,13 +255,6 @@ function AppContent() {
         />
       )}
       <AuthModal open={authModalOpen} onClose={actions.closeAuth} />
-      <PurchaseModal
-        open={purchaseModalOpen}
-        onClose={actions.closePurchase}
-        course={courseToPurchase}
-        onPurchase={handleConfirmPurchase}
-        onOpenAuth={actions.openAuth}
-      />
     </>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   TextField,
@@ -27,6 +28,7 @@ import API_BASE from '../../config/api';
 
 const Profile = ({ onDashboard }) => {
   const { user, updateProfile, changePassword, uploadAvatar } = useAuth();
+  const { t } = useTranslation();
 
   // Stati per il profilo base
   const [name, setName] = useState(user?.name || '');
@@ -57,9 +59,9 @@ const Profile = ({ onDashboard }) => {
     setProfileLoading(true);
     const res = await updateProfile({ name });
     if (res.success) {
-      showMessage('success', 'Profilo aggiornato con successo!');
+      showMessage('success', t('profile.updateSuccess'));
     } else {
-      showMessage('error', res.message || 'Errore durante l\'aggiornamento.');
+      showMessage('error', res.message || t('profile.passwordError'));
     }
     setProfileLoading(false);
   };
@@ -67,21 +69,21 @@ const Profile = ({ onDashboard }) => {
   const handleChangePassword = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      return showMessage('error', 'Le password non coincidono.');
+      return showMessage('error', t('profile.passwordsMismatch'));
     }
     if (newPassword.length < 6) {
-      return showMessage('error', 'La nuova password deve essere di almeno 6 caratteri.');
+      return showMessage('error', t('profile.passwordMin6'));
     }
 
     setPasswordLoading(true);
     const res = await changePassword(oldPassword, newPassword);
     if (res.success) {
-      showMessage('success', 'Password aggiornata con successo!');
+      showMessage('success', t('profile.passwordUpdated'));
       setOldPassword('');
       setNewPassword('');
       setConfirmPassword('');
     } else {
-      showMessage('error', res.message || 'Errore durante il cambio password.');
+      showMessage('error', res.message || t('profile.passwordError'));
     }
     setPasswordLoading(false);
   };
@@ -95,15 +97,15 @@ const Profile = ({ onDashboard }) => {
     if (!file) return;
 
     if (file.size > 2 * 1024 * 1024) {
-      return showMessage('error', 'L\'immagine deve essere inferiore a 2MB.');
+      return showMessage('error', t('profile.avatarTooLarge'));
     }
 
     setAvatarLoading(true);
     const res = await uploadAvatar(file);
     if (res.success) {
-      showMessage('success', 'Immagine del profilo aggiornata!');
+      showMessage('success', t('profile.avatarUpdated'));
     } else {
-      showMessage('error', res.message || 'Errore durante il caricamento dell\'immagine.');
+      showMessage('error', res.message || t('profile.avatarError'));
     }
     setAvatarLoading(false);
   };
@@ -116,10 +118,10 @@ const Profile = ({ onDashboard }) => {
     <Box sx={{ p: { xs: 2, md: 4 }, maxWidth: 1000, mx: 'auto' }}>
       <Box sx={{ mb: 4 }}>
         <KubeTypography variant="h4" weight="bold">
-          Il Tuo Profilo
+          {t('profile.title')}
         </KubeTypography>
         <KubeTypography variant="body1" color="text.secondary">
-          Gestisci le tue informazioni personali e la sicurezza dell'account.
+          {t('profile.manageInfo')}
         </KubeTypography>
       </Box>
 
@@ -191,21 +193,21 @@ const Profile = ({ onDashboard }) => {
 
               <Box sx={{ textAlign: 'left' }}>
                 <KubeTypography variant="caption" color="text.secondary" weight="bold" sx={{ textTransform: 'uppercase' }}>
-                  Stato Account
+                  {t('profile.accountStatus')}
                 </KubeTypography>
                 <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, gap: 1 }}>
                   <Box sx={{ width: 10, height: 10, bgcolor: 'success.main', borderRadius: '50%' }} />
-                  <KubeTypography variant="body2">Attivo</KubeTypography>
+                  <KubeTypography variant="body2">{t('profile.active')}</KubeTypography>
                 </Box>
               </Box>
             </KubeCard>
 
             <KubeCard sx={{ p: 3, bgcolor: 'primary.main', color: 'white' }}>
               <KubeTypography variant="h6" weight="bold" sx={{ mb: 1 }}>
-                Progressi
+                {t('profile.progressTitle')}
               </KubeTypography>
               <KubeTypography variant="body2" sx={{ mb: 2, opacity: 0.9 }}>
-                Hai completato {user?.completedModules?.length || 0} moduli finora.
+                {t('profile.modulesCompletedCount', { count: user?.completedModules?.length || 0 })}
               </KubeTypography>
               <KubeButton
                 variant="outlined"
@@ -213,7 +215,7 @@ const Profile = ({ onDashboard }) => {
                 sx={{ color: 'white', borderColor: 'white', '&:hover': { borderColor: 'white', bgcolor: 'rgba(255,255,255,0.1)' } }}
                 onClick={onDashboard}
               >
-                Vai alla Dashboard
+                {t('profile.goToDashboard')}
               </KubeButton>
             </KubeCard>
           </Box>
@@ -226,13 +228,13 @@ const Profile = ({ onDashboard }) => {
             <KubeCard sx={{ p: 3 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
                 <PersonIcon color="primary" />
-                <KubeTypography variant="h6" weight="bold">Informazioni Personali</KubeTypography>
+                <KubeTypography variant="h6" weight="bold">{t('profile.personalInfo')}</KubeTypography>
               </Box>
 
               <form onSubmit={handleUpdateProfile}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                   <TextField
-                    label="Nome Completo"
+                    label={t('auth.fullName')}
                     fullWidth
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -252,7 +254,7 @@ const Profile = ({ onDashboard }) => {
                     value={user?.email}
                     disabled
                     variant="outlined"
-                    helperText="L'indirizzo email è collegato al tuo account e non può essere modificato."
+                    helperText={t('profile.emailHelper')}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -270,7 +272,7 @@ const Profile = ({ onDashboard }) => {
                       disabled={profileLoading || name === user?.name}
                       sx={{ px: 4 }}
                     >
-                      {profileLoading ? 'Salvataggio...' : 'Salva Modifiche'}
+                      {profileLoading ? t('profile.saving') : t('profile.saveChanges')}
                     </KubeButton>
                   </Box>
                 </Box>
@@ -281,13 +283,13 @@ const Profile = ({ onDashboard }) => {
             <KubeCard sx={{ p: 3 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
                 <LockIcon color="primary" />
-                <KubeTypography variant="h6" weight="bold">Sicurezza Account</KubeTypography>
+                <KubeTypography variant="h6" weight="bold">{t('profile.accountSecurity')}</KubeTypography>
               </Box>
 
               <form onSubmit={handleChangePassword}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                   <TextField
-                    label="Vecchia Password"
+                    label={t('auth.oldPassword')}
                     type={showOldPassword ? 'text' : 'password'}
                     fullWidth
                     value={oldPassword}
@@ -306,13 +308,13 @@ const Profile = ({ onDashboard }) => {
                   />
 
                   <Divider sx={{ my: 1 }}>
-                    <KubeTypography variant="caption" color="text.secondary">Nuova Password</KubeTypography>
+                    <KubeTypography variant="caption" color="text.secondary">{t('profile.newPassword')}</KubeTypography>
                   </Divider>
 
                   <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                       <TextField
-                        label="Nuova Password"
+                        label={t('auth.newPassword')}
                         type={showNewPassword ? 'text' : 'password'}
                         fullWidth
                         value={newPassword}
@@ -332,7 +334,7 @@ const Profile = ({ onDashboard }) => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField
-                        label="Conferma Nuova Password"
+                        label={t('auth.confirmNewPassword')}
                         type={showNewPassword ? 'text' : 'password'}
                         fullWidth
                         value={confirmPassword}
@@ -352,7 +354,7 @@ const Profile = ({ onDashboard }) => {
                       disabled={passwordLoading || !oldPassword || !newPassword}
                       sx={{ px: 4 }}
                     >
-                      {passwordLoading ? 'Aggiornamento...' : 'Aggiorna Password'}
+                      {passwordLoading ? t('profile.updating') : t('profile.updatePassword')}
                     </KubeButton>
                   </Box>
                 </Box>

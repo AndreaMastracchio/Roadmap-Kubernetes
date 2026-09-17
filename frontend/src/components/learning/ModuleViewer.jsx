@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import rehypeSlug from 'rehype-slug';
 import rehypeRaw from 'rehype-raw';
@@ -27,6 +28,7 @@ const ModuleViewer = ({
   handleModuleSelect
 }) => {
   const { user } = useAuth();
+  const { t } = useTranslation();
   if (!activeCourse) return null;
 
   const moduleKey = activeModule ? `${activeCourse.id}-${activeModule.id}` : null;
@@ -38,14 +40,14 @@ const ModuleViewer = ({
         <Box>
           <KubePaper sx={{ mb: 4, minHeight: '60vh', position: 'relative' }}>
             {loading ? (
-              <KubeLoader message="Caricamento contenuti del modulo..." />
+              <KubeLoader message={t('module.loading')} />
             ) : (
               <>
                 {!user && (
                    <Box sx={{ mb: 4, p: 2, bgcolor: 'rgba(255, 152, 0, 0.1)', borderRadius: 2, display: 'flex', alignItems: 'center', gap: 2, border: '1px solid #ff980040' }}>
                       <WarningAmber sx={{ color: '#ff9800' }} />
                       <KubeTypography variant="body2" color="text.secondary">
-                        Non sei loggato. Il tuo progresso non verrà salvato sul server. <KubeButton size="small" variant="text" sx={{ ml: 1, p: 0, minWidth: 0, verticalAlign: 'baseline', textTransform: 'none' }}>Accedi ora</KubeButton>
+                        {t('module.guestWarning')} <KubeButton size="small" variant="text" sx={{ ml: 1, p: 0, minWidth: 0, verticalAlign: 'baseline', textTransform: 'none' }}>{t('auth.loginTab')}</KubeButton>
                       </KubeTypography>
                    </Box>
                 )}
@@ -54,7 +56,7 @@ const ModuleViewer = ({
                    <Box sx={{ mb: 4, p: 2, bgcolor: 'rgba(16, 185, 129, 0.1)', borderRadius: 2, display: 'flex', alignItems: 'center', gap: 2, border: '1px solid #10b98140' }}>
                       <CheckCircle sx={{ color: '#10b981' }} />
                       <KubeTypography variant="body2" weight="bold" sx={{ color: '#065f46' }}>
-                        Hai completato questo modulo! Ottimo lavoro.
+                        {t('module.completed')}
                       </KubeTypography>
                    </Box>
                 )}
@@ -66,7 +68,7 @@ const ModuleViewer = ({
                 {exercises && exercises.length > 0 && activeModule && (
                   <KubeSection
                     id="exercises-section"
-                    title="Esercitazioni Pratiche"
+                    title={t('sidebar.practicalExercises')}
                     icon={<AssignmentOutlined />}
                   >
                     <CodingExercises
@@ -80,7 +82,7 @@ const ModuleViewer = ({
                 {questions && questions.length > 0 && activeModule && (
                   <KubeSection
                     id="quiz-section"
-                    title="Quiz di Verifica"
+                    title={t('quiz.title')}
                     icon={<QuizOutlined />}
                   >
                     <Quiz
@@ -93,9 +95,9 @@ const ModuleViewer = ({
 
                 {!isCompleted && !activeCourse.isIntro && user && questions.length === 0 && exercises.length === 0 && (
                    <Box sx={{ mt: 6, p: 4, textAlign: 'center', bgcolor: '#f8fafc', borderRadius: 4, border: '1px dashed #cbd5e1' }}>
-                      <KubeTypography variant="h6" sx={{ mb: 2 }}>Hai terminato la lettura?</KubeTypography>
-                      <KubeButton variant="contained" onClick={handleModuleFinish}>
-                        Segna come completato
+                       <KubeTypography variant="h6" sx={{ mb: 2 }}>{t('module.finishedReading')}</KubeTypography>
+                       <KubeButton variant="contained" onClick={handleModuleFinish}>
+                         {t('module.markComplete')}
                       </KubeButton>
                    </Box>
                 )}

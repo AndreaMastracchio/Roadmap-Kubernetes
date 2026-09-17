@@ -20,7 +20,6 @@ const authReducer = (state, action) => {
         loading: false,
         user: {
           ...action.payload,
-          purchasedProjects: action.payload.purchasedProjects || [],
           completedModules: action.payload.completedModules || [],
           lastVisitedModules: action.payload.lastVisitedModules || {}
         },
@@ -72,10 +71,6 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       if (data.success) {
-        if (data.requiresOTP) {
-          dispatch({ type: 'AUTH_FAILURE', payload: null }); // Rimuove errori precedenti
-          return { success: true, requiresOTP: true, phone: data.phone, otp: data.otp };
-        }
         const meRes = await fetch(API_ENDPOINTS.AUTH.ME, { credentials: 'include' });
         const meData = await meRes.json();
         dispatch({ type: 'AUTH_SUCCESS', payload: meData.user });
@@ -100,10 +95,6 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       if (data.success) {
-        if (data.requiresOTP) {
-          dispatch({ type: 'AUTH_FAILURE', payload: null });
-          return { success: true, requiresOTP: true, phone: data.phone, otp: data.otp };
-        }
         dispatch({ type: 'AUTH_SUCCESS', payload: data.user });
         return { success: true };
       }
@@ -115,42 +106,6 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const verifyOTP = useCallback(async (phone, otp, type) => {
-    dispatch({ type: 'AUTH_START' });
-    try {
-      const response = await fetch(API_ENDPOINTS.AUTH.VERIFY_OTP, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, otp, type }),
-        credentials: 'include'
-      });
-      const data = await response.json();
-      if (data.success) {
-        dispatch({ type: 'AUTH_SUCCESS', payload: data.user });
-        return { success: true };
-      }
-      dispatch({ type: 'AUTH_FAILURE', payload: data.message });
-      return { success: false, message: data.message };
-    } catch (e) {
-      dispatch({ type: 'AUTH_FAILURE', payload: 'Errore durante la verifica' });
-      return { success: false, message: 'Errore durante la verifica' };
-    }
-  }, []);
-
-  const resendOTP = useCallback(async (phone) => {
-    try {
-      const response = await fetch(API_ENDPOINTS.AUTH.RESEND_OTP, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone }),
-        credentials: 'include'
-      });
-      return await response.json();
-    } catch (e) {
-      return { success: false, message: 'Errore connessione' };
-    }
-  }, []);
-
   const logout = useCallback(async () => {
     try {
       await fetch(API_ENDPOINTS.AUTH.LOGOUT, { method: 'POST', credentials: 'include' });
@@ -159,36 +114,6 @@ export const AuthProvider = ({ children }) => {
       console.error("Errore logout:", e);
     }
   }, []);
-
-  const hasAccessToProject = useCallback((projectId) => {
-    // Se non c'è l'utente loggato, non ha accesso ai progetti privati (l'acquisto è salvato su utente)
-    // Se l'utente è loggato, verifichiamo se l'ha acquistato
-    if (!state.user) return false;
-    return state.user.purchasedProjects?.includes(projectId);
-  }, [state.user]);
-
-  const buyProject = useCallback(async (projectId) => {
-    if (!state.user) return { success: false, message: 'Devi essere loggato' };
-    try {
-      const response = await fetch(API_ENDPOINTS.USER.PURCHASE, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ courseId: projectId }),
-        credentials: 'include'
-      });
-      const data = await response.json();
-      if (data.success) {
-        dispatch({
-          type: 'UPDATE_USER',
-          payload: { purchasedProjects: [...(state.user.purchasedProjects || []), projectId] }
-        });
-        return { success: true };
-      }
-      return { success: false, message: data.message };
-    } catch (e) {
-      return { success: false, message: 'Errore durante l\'acquisto' };
-    }
-  }, [state.user]);
 
   const updateProfile = useCallback(async (updatedData) => {
     if (!state.user) return { success: false, message: 'Devi essere loggato' };
@@ -301,10 +226,6 @@ export const AuthProvider = ({ children }) => {
       login,
       register,
       logout,
-      verifyOTP,
-      resendOTP,
-      hasAccessToProject,
-      buyProject,
       updateProfile,
       changePassword,
       uploadAvatar,

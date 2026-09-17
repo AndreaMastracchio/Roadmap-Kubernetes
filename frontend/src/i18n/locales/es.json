@@ -1,0 +1,153 @@
+{
+  "brand": {
+    "name": "KubeStudy",
+    "tagline": "Plataforma gratuita y de código abierto para dominar el desarrollo de software moderno a través de rutas estructuradas y ejercicios interactivos."
+  },
+  "nav": {
+    "home": "Inicio",
+    "about": "¿Qué es este proyecto?",
+    "loginSignup": "Iniciar sesión / Registrarse",
+    "dashboard": "Panel",
+    "profile": "Perfil"
+  },
+  "header": {
+    "defaultStudent": "Estudiante"
+  },
+  "auth": {
+    "loginTab": "Iniciar sesión",
+    "registerTab": "Registrarse",
+    "loginTitle": "Iniciar sesión",
+    "registerTitle": "Crear cuenta",
+    "fullName": "Nombre completo",
+    "email": "Email",
+    "password": "Contraseña",
+    "passwordMin8": "Contraseña (mínimo 8 caracteres)",
+    "newPassword": "Nueva contraseña",
+    "oldPassword": "Contraseña actual",
+    "confirmNewPassword": "Confirmar nueva contraseña",
+    "createAccount": "Crear cuenta",
+    "connectionError": "No se pudo contactar al servidor",
+    "verifyError": "Error de verificación",
+    "notAuthenticated": "No autenticado",
+    "loginRequired": "Debes iniciar sesión para continuar.",
+    "logoutSuccess": "Sesión cerrada"
+  },
+  "sidebar": {
+    "home": "Volver al inicio",
+    "practicalExercises": "Ejercicios prácticos",
+    "courseContent": "CONTENIDO DEL CURSO",
+    "explorePaths": "RUTAS",
+    "yourProgress": "Tu progreso"
+  },
+  "home": {
+    "heroTitle": "Tus rutas de aprendizaje",
+    "heroSubtitle": "Explora nuestra biblioteca de cursos y rutas — desde Kubernetes hasta Laravel y más allá.",
+    "ourCourses": "Nuestros cursos",
+    "comingSoon": "Próximamente"
+  },
+  "courseCard": {
+    "details": "Detalles",
+    "resume": "Continuar:",
+    "owned": "Adquirido",
+    "privateProject": "Proyecto privado",
+    "comingSoon": "Próximamente",
+    "hours": "horas"
+  },
+  "module": {
+    "loading": "Cargando contenido del módulo...",
+    "completed": "Completaste este módulo. ¡Excelente trabajo!",
+    "markComplete": "Marcar como completado",
+    "breadcrumbIntro": "Bienvenido",
+    "guestWarning": "No has iniciado sesión. Tu progreso no se guardará en el servidor.",
+    "finishedReading": "Terminaste de leer?"
+  },
+  "exercises": {
+    "completedTitle": "🎉 ¡Ejercicios completados!",
+    "greatWork": "¡Excelente trabajo! Terminaste todos los desafíos de codificación de este módulo.",
+    "progressSaved": " Tu progreso ha sido guardado.",
+    "signInToSave": " Crea una cuenta para guardar tu progreso.",
+    "restart": "Empezar de nuevo",
+    "nextChallenge": "Siguiente desafío",
+    "finishChallenges": "Terminar desafíos",
+    "almostCorrect": "¡Casi!",
+    "showHint": "Pista",
+    "challenge": "Desafío",
+    "of": "de",
+    "codingExercise": "Ejercicio de codificación:",
+    "checkSolution": "Verificar solución",
+    "greatJob": "¡Bien hecho!",
+    "tryAgain": "Algo está mal. ¡Inténtalo de nuevo!"
+  },
+  "quiz": {
+    "title": "Verificación de conocimientos",
+    "completedTitle": "🎉 ¡Cuestionario completado!",
+    "completedMessage": "Respondiste correctamente {{score}} de {{total}} preguntas.",
+    "retry": "Reintentar",
+    "verifyAnswer": "Verificar respuesta",
+    "nextQuestion": "Siguiente pregunta",
+    "viewResults": "Ver resultados",
+    "almostCorrect": "¡Casi correcto!"
+  },
+  "console": {
+    "title": "Consola interactiva",
+    "welcome": "¡Bienvenido a la consola interactiva de KubeStudy!",
+    "helpHint": "Escribe \"help\" para ver los comandos disponibles.",
+    "helpCommands": "Comandos disponibles:\n- list: mostrar cursos disponibles\n- use <id>: seleccionar un curso\n- clear: limpiar la consola\n- exit: cerrar la consola",
+    "availableCourses": "Cursos disponibles:",
+    "courseSelected": "Curso \"{{title}}\" seleccionado. Cargando preguntas...",
+    "courseNotFound": "Curso \"{{id}}\" no encontrado o no disponible. Escribe \"list\" para ver IDs válidos.",
+    "unknownCommand": "Comando desconocido: {{cmd}}. Escribe \"help\" para obtener ayuda.",
+    "commandToComplete": "Comando a completar:\n{{template}}",
+    "questionSkipped": "Pregunta omitida.",
+    "correct": "¡✓ Excelente! Comando correcto.",
+    "incorrect": "✗ No del todo. Parámetros faltantes o incorrectos: {{missing}}. Inténtalo de nuevo o escribe \"hint\".",
+    "allDone": "¡Bien hecho! Completaste todos los comandos de este curso.",
+    "useAnother": "Escribe \"use <id>\" para otro curso o \"exit\" para salir.",
+    "nextChallenge": "--- SIGUIENTE DESAFÍO ---",
+    "moduleInfo": "Módulo: {{module}}\nObjetivo: {{objective}}\nPista: {{hint}}",
+    "noCommands": "No se encontraron comandos para este curso.",
+    "requiredParams": "Parámetros requeridos:"
+  },
+  "dashboard": {
+    "title": "Tu panel 🚀",
+    "welcomeBack": "Bienvenido de nuevo {{name}}, aquí está tu progreso actual.",
+    "yourCourses": "Tus cursos",
+    "activeCourses": "Cursos activos",
+    "modulesCompleted": "Módulos completados",
+    "completed": "Completado",
+    "next": "Siguiente:",
+    "modules": "Módulos",
+    "progress": "Progreso",
+    "noCourses": "Aún no hay cursos activos. ¡Empieza explorando el inicio!"
+  },
+  "profile": {
+    "title": "Tu perfil",
+    "manageInfo": "Administra tu información personal y la seguridad de tu cuenta.",
+    "emailHelper": "Este email está vinculado a tu cuenta y no se puede cambiar.",
+    "updateSuccess": "¡Perfil actualizado correctamente!",
+    "passwordsMismatch": "Las contraseñas no coinciden.",
+    "passwordMin6": "La nueva contraseña debe tener al menos 6 caracteres.",
+    "passwordUpdated": "¡Contraseña actualizada correctamente!",
+    "passwordError": "Error al cambiar la contraseña.",
+    "avatarUpdated": "¡Foto de perfil actualizada!",
+    "avatarError": "Error al subir la imagen.",
+    "avatarTooLarge": "La imagen debe ser menor a 2MB.",
+    "accountStatus": "Estado de la cuenta",
+    "active": "Activa",
+    "progressTitle": "Progreso",
+    "modulesCompletedCount": "Has completado {{count}} módulos hasta ahora.",
+    "goToDashboard": "Ir al panel",
+    "personalInfo": "Información personal",
+    "saving": "Guardando...",
+    "saveChanges": "Guardar cambios",
+    "accountSecurity": "Seguridad de la cuenta",
+    "newPassword": "Nueva contraseña",
+    "updating": "Actualizando...",
+    "updatePassword": "Actualizar contraseña"
+  },
+  "footer": {
+    "freeMessage": "Todos los cursos son gratuitos. Si te ayudan, invítanos un café:",
+    "coffeeButton": "Invitarnos un café",
+    "copyright": "© {{year}} Nightmare. Construido para la comunidad."
+  }
+}

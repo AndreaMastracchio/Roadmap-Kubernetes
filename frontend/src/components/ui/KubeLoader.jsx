@@ -1,8 +1,11 @@
 import React from 'react';
 import { Box, CircularProgress } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import KubeTypography from './KubeTypography';
 
-const KubeLoader = ({ message = 'Caricamento...', py = 20 }) => {
+const KubeLoader = ({ message, py = 20 }) => {
+  const { t } = useTranslation();
+  const displayMessage = message || t('module.loading');
   return (
     <Box sx={{
       display: 'flex',
@@ -23,7 +26,7 @@ const KubeLoader = ({ message = 'Caricamento...', py = 20 }) => {
         color="text.secondary"
         weight="medium"
       >
-        {message}
+        {displayMessage}
       </KubeTypography>
     </Box>
   );
