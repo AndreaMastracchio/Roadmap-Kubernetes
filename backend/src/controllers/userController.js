@@ -1,32 +1,7 @@
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 
-exports.purchaseCourse = async (req, res) => {
-  if (!req.session.user) return res.status(401).json({ success: false, message: 'Login richiesto' });
-  const { courseId } = req.body;
-  const userId = req.session.user.id;
-
-  try {
-    await db.query(
-      'INSERT IGNORE INTO user_purchases (user_id, course_id) VALUES (?, ?)',
-      [userId, courseId]
-    );
-
-    // Aggiorna la sessione
-    if (!req.session.user.purchasedProjects) req.session.user.purchasedProjects = [];
-    if (!req.session.user.purchasedProjects.includes(courseId)) {
-      req.session.user.purchasedProjects.push(courseId);
-    }
-
-    res.json({ success: true, message: 'Corso acquistato', user: req.session.user });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: 'Errore durante l\'acquisto' });
-  }
-};
-
 exports.completeModule = async (req, res) => {
-  if (!req.session.user) return res.status(401).json({ success: false, message: 'Login richiesto' });
   const { moduleKey } = req.body;
   const userId = req.session.user.id;
 
@@ -50,7 +25,6 @@ exports.completeModule = async (req, res) => {
 };
 
 exports.updateCourseStatus = async (req, res) => {
-  if (!req.session.user) return res.status(401).json({ success: false, message: 'Login richiesto' });
   const { courseId, lastModuleId } = req.body;
   const userId = req.session.user.id;
 
@@ -72,7 +46,6 @@ exports.updateCourseStatus = async (req, res) => {
 };
 
 exports.updateProfile = async (req, res) => {
-  if (!req.session.user) return res.status(401).json({ success: false, message: 'Login richiesto' });
   const { name } = req.body;
   const userId = req.session.user.id;
 
@@ -87,7 +60,6 @@ exports.updateProfile = async (req, res) => {
 };
 
 exports.changePassword = async (req, res) => {
-  if (!req.session.user) return res.status(401).json({ success: false, message: 'Login richiesto' });
   const { oldPassword, newPassword } = req.body;
   const userId = req.session.user.id;
 
@@ -109,7 +81,6 @@ exports.changePassword = async (req, res) => {
 };
 
 exports.uploadAvatar = async (req, res) => {
-  if (!req.session.user) return res.status(401).json({ success: false, message: 'Login richiesto' });
   if (!req.file) return res.status(400).json({ success: false, message: 'Nessun file caricato' });
 
   const userId = req.session.user.id;

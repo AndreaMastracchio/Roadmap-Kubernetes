@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
 const upload = require('../middleware/upload');
+const requireAuth = require('../middleware/requireAuth');
 
-router.post('/purchase', userController.purchaseCourse);
+router.use(requireAuth);
+
 router.post('/complete-module', userController.completeModule);
 router.post('/current-module', userController.updateCourseStatus);
 router.patch('/profile', userController.updateProfile);

@@ -19,7 +19,7 @@ const courseRoutes = require('./routes/courseRoutes');
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:8080', 'http://localhost:3000'],
+  origin: ['http://localhost:5173', 'http://localhost:8080', 'http://localhost:3000', 'http://localhost:3100'],
   credentials: true
 }));
 app.use(morgan('dev'));
@@ -29,6 +29,11 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Sessioni con Redis
+const sessionSecret = process.env.SESSION_SECRET;
+if (process.env.NODE_ENV === 'production' && !sessionSecret) {
+  console.error('FATAL: SESSION_SECRET mancante in produzione. Interrompo l\'avvio.');
+  process.exit(1);
+}
 app.use(
   session({
     store: new RedisStore({
@@ -36,7 +41,7 @@ app.use(
       prefix: 'kubesess:',
     }),
     name: 'kubesid',
-    secret: process.env.SESSION_SECRET || 'secret',
+    secret: sessionSecret || 'dev-insecure-secret',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -57,6 +62,13 @@ app.use('/api/courses', courseRoutes);
 // Route temporanea per health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Backend is running' });
+});
+
+// Error handler globale: risponde sempre JSON, mai HTML
+app.use((err, req, res, next) => {
+  console.error('Errore non gestito:', err.message);
+  const status = err.status || (err.code === 'EBADCSRFTOKEN' ? 403 : 500);
+  res.status(status).json({ success: false, message: status === 500 ? 'Errore interno del server' : err.message });
 });
 
 // Avvio server

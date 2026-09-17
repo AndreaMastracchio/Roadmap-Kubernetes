@@ -1,13 +1,41 @@
 const path = require('path');
 const fs = require('fs').promises;
 
+const SUPPORTED_LANGS = ['it', 'en', 'es', 'fr', 'de', 'pt'];
+const DEFAULT_LANG = 'it';
+
+function getLang(req) {
+  const lang = req.query.lang || DEFAULT_LANG;
+  return SUPPORTED_LANGS.includes(lang) ? lang : DEFAULT_LANG;
+}
+
+function resolveLocalizedField(field, lang) {
+  if (!field || typeof field !== 'object') return field;
+  if (field[lang]) return field[lang];
+  if (field[DEFAULT_LANG]) return field[DEFAULT_LANG];
+  return Object.values(field)[0] || '';
+}
+
+function localizeCourse(course, lang) {
+  return {
+    ...course,
+    title: resolveLocalizedField(course.title, lang),
+    description: resolveLocalizedField(course.description, lang),
+    duration: resolveLocalizedField(course.duration, lang),
+    modules: course.modules?.map(m => ({
+      ...m,
+      title: resolveLocalizedField(m.title, lang)
+    })) || []
+  };
+}
+
 exports.getAllCourses = async (req, res) => {
   try {
+    const lang = getLang(req);
     const publicDir = '/project_public';
     const privateDir = '/project_private';
     const localDir = path.join(__dirname, '../../project_public');
 
-    // Proviamo a determinare quale directory usare
     let targetDir = publicDir;
     try {
       await fs.access(targetDir);
@@ -24,16 +52,10 @@ exports.getAllCourses = async (req, res) => {
         await fs.access(courseJsonPath);
         const data = await fs.readFile(courseJsonPath, 'utf-8');
         const course = JSON.parse(data);
-
-        // Se l'utente non ha accesso ai corsi privati e il corso lo è, lo gestiamo
-        // (La logica di acquisto rimane nel frontend/AuthContext)
-        courses.push(course);
-      } catch (e) {
-        // Se non c'è course.json, saltiamo la cartella
-      }
+        courses.push(localizeCourse(course, lang));
+      } catch (e) {}
     }
 
-    // Aggiungiamo anche i corsi in private se disponibili
     let privDir = privateDir;
     try {
       await fs.access(privDir);
@@ -43,7 +65,8 @@ exports.getAllCourses = async (req, res) => {
         try {
           await fs.access(courseJsonPath);
           const data = await fs.readFile(courseJsonPath, 'utf-8');
-          courses.push(JSON.parse(data));
+          const course = JSON.parse(data);
+          courses.push(localizeCourse(course, lang));
         } catch (e) {}
       }
     } catch (e) {}
