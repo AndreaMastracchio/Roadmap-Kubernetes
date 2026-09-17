@@ -1,0 +1,304 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Creare un Dockerfile base per un'applicazione Node.js",
+        "en": "Create a basic Dockerfile for a Node.js application"
+      },
+      "description": {
+        "it": "Creare un Dockerfile per un'applicazione Node.js che segua le best practices di caching",
+        "en": "Create a Dockerfile for a Node.js application following caching best practices"
+      },
+      "task": "1. Crea un file Dockerfile nella directory corrente\n2. Usa node:18-alpine come base image\n3. Imposta WORKDIR su /app\n4. Copia package.json e package-lock.json prima di npm install\n5. Esegui npm ci per installare le dipendenze\n6. Copia il resto del codice sorgente\n7. Esponi la porta 3000\n8. Imposta CMD per eseguire npm start",
+      "hints": [
+        "Usa COPY package*.json per copiare entrambi i file in un colpo",
+        "npm ci è preferibile a npm install per ambienti CI/CD",
+        "Ricorda di usare WORKDIR prima delle operazioni"
+      ],
+      "solution": "cat > Dockerfile << 'EOF'\nFROM node:18-alpine\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nEXPOSE 3000\nCMD [\"npm\", \"start\"]\nEOF",
+      "validation": "docker build -t node-app-test . && echo 'Build successful'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un Pod con init container",
+        "en": "Create a Pod with an init container"
+      },
+      "description": {
+        "it": "Creare un Pod con un init container che scarica un file prima che il container principale avvii",
+        "en": "Create a Pod with an init container that downloads a file before the main container starts"
+      },
+      "task": "1. Crea un Pod YAML chiamato 'init-demo'\n2. Il container principale usa nginx:alpine\n3. L'init container usa busybox e scarica una pagina HTML in /data/index.html\n4. Monta un volume emptyDir condiviso tra init e container principale\n5. Il container principale serve il file scaricato dall'init container",
+      "hints": [
+        "Usa un volume emptyDir per condividere i dati",
+        "L'init container scrive, il container principale legge",
+        "Il nome del volume deve essere lo stesso in entrambi i container"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: init-demo\nspec:\n  initContainers:\n  - name: init\n    image: busybox\n    command: ['sh', '-c', 'wget -O /data/index.html https://kubernetes.io']\n    volumeMounts:\n    - name: data\n      mountPath: /data\n  containers:\n  - name: nginx\n    image: nginx:alpine\n    volumeMounts:\n    - name: data\n      mountPath: /usr/share/nginx/html\n  volumes:\n  - name: data\n    emptyDir: {}\nEOF",
+      "validation": "kubectl wait --for=condition=Ready pod/init-demo --timeout=60s && kubectl exec init-demo -- cat /usr/share/nginx/html/index.html | head -5",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare il sidecar pattern per log forwarding",
+        "en": "Implement the sidecar pattern for log forwarding"
+      },
+      "description": {
+        "it": "Creare un Pod con un sidecar container che legge i log dell'applicazione principale",
+        "en": "Create a Pod with a sidecar container that reads logs from the main application"
+      },
+      "task": "1. Crea un Pod chiamato 'log-sidecar'\n2. Il container principale esegue un'applicazione che scrive log su file\n3. Il sidecar container legge il file di log e lo stampa su stdout\n4. Entrambi i container condividono un volume con i log\n5. Verifica che i log siano visibili dal sidecar",
+      "hints": [
+        "Usa emptyDir per il volume di log",
+        "Il container principale scrive in /var/log/app.log",
+        "Il sidecar usa tail -f per seguire il file"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: log-sidecar\nspec:\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'while true; do echo \"$(date) - Log message\" >> /var/log/app.log; sleep 1; done']\n    volumeMounts:\n    - name: logs\n      mountPath: /var/log\n  - name: sidecar\n    image: busybox\n    command: ['sh', '-c', 'tail -f /var/log/app.log']\n    volumeMounts:\n    - name: logs\n      mountPath: /var/log\n  volumes:\n  - name: logs\n    emptyDir: {}\nEOF",
+      "validation": "kubectl wait --for=condition=Ready pod/log-sidecar --timeout=30s && kubectl logs log-sidecar -c sidecar | head -3",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare una build multi-stage",
+        "en": "Create a multi-stage build"
+      },
+      "description": {
+        "it": "Creare un Dockerfile multi-stage per un'applicazione Go",
+        "en": "Create a multi-stage Dockerfile for a Go application"
+      },
+      "task": "1. Crea un Dockerfile multi-stage\n2. Il primo stage compila l'applicazione Go\n3. Il secondo stage copia solo il binario compilato\n4. Usa scratch come base image finale\n5. Verifica che l'immagine finale sia minimale",
+      "hints": [
+        "Usa AS per nominare gli stage",
+        "COPY --from=builder per copiare dallo stage di build",
+        "Il binario Go deve essere compilato in modo statico"
+      ],
+      "solution": "cat > Dockerfile << 'EOF'\n# Build stage\nFROM golang:1.21-alpine AS builder\nWORKDIR /app\nCOPY go.* ./\nRUN go mod download\nCOPY . .\nRUN CGO_ENABLED=0 GOOS=linux go build -o main .\n\n# Final stage\nFROM scratch\nCOPY --from=builder /app/main /main\nENTRYPOINT [\"/main\"]\nEOF",
+      "validation": "docker build -t go-multi . && docker images go-multi --format '{{.Size}}'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare l'adapter pattern",
+        "en": "Implement the adapter pattern"
+      },
+      "description": {
+        "it": "Creare un Pod con un adapter container che converte i log in formato JSON",
+        "en": "Create a Pod with an adapter container that converts logs to JSON format"
+      },
+      "task": "1. Crea un Pod chiamato 'adapter-demo'\n2. Il container principale genera log in formato testo\n3. L'adapter container legge i log e li converte in JSON\n4. I log formattati sono scritti su un volume condiviso\n5. Verifica che i log JSON siano validi",
+      "hints": [
+        "Usa jq o uno script Python per la conversione",
+        "L'output deve avere campi timestamp, level, message",
+        "Il file di input e output devono essere su volumi diversi"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: adapter-demo\nspec:\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'while true; do echo \"$(date) [INFO] Application message\" >> /logs/app.log; sleep 2; done']\n    volumeMounts:\n    - name: logs\n      mountPath: /logs\n  - name: adapter\n    image: busybox\n    command: ['sh', '-c', 'while true; do while IFS= read -r line; do ts=$(echo $line | cut -d\" \" -f1-2); msg=$(echo $line | cut -d\" \" -f3-); echo \"{\\\"timestamp\\\":\\\"$ts\\\",\\\"level\\\":\\\"INFO\\\",\\\"message\\\":\\\"$msg\\\"}\"; done < /logs/app.log >> /output/formatted.json; sleep 2; done']\n    volumeMounts:\n    - name: logs\n      mountPath: /logs\n    - name: output\n      mountPath: /output\n  volumes:\n  - name: logs\n    emptyDir: {}\n  - name: output\n    emptyDir: {}\nEOF",
+      "validation": "kubectl wait --for=condition=Ready pod/adapter-demo --timeout=30s && sleep 5 && kubectl exec adapter-demo -c adapter -- cat /output/formatted.json | head -2",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un .dockerignore efficace",
+        "en": "Create an effective .dockerignore file"
+      },
+      "description": {
+        "it": "Creare un file .dockerignore che escluda file non necessari dalla build",
+        "en": "Create a .dockerignore file that excludes unnecessary files from the build"
+      },
+      "task": "1. Crea un file .dockerignore nella directory corrente\n2. Escludi directory come .git, node_modules, __pycache__\n3. Escludi file di log, file temporanei e file di IDE\n4. Escludi i file di test\n5. Verifica la dimensione del contesto di build",
+      "hints": [
+        "Usa pattern come *.log per i file di log",
+        "Aggiungi .env per evitare di includere secrets",
+        "Non dimenticare i file nascosti come .DS_Store"
+      ],
+      "solution": "cat > .dockerignore << 'EOF'\n# Version control\n.git\n.gitignore\n\n# Dependencies\nnode_modules\nvendor\n__pycache__\n*.pyc\n\n# IDE and editors\n.idea\n.vscode\n*.swp\n*.swo\n*~\n\n# Logs and temp files\n*.log\n*.tmp\n*.temp\n\n# Environment and secrets\n.env\n.env.*\n*.pem\n*.key\n\n# Tests\ntest\ntests\n*_test.go\n*_test.py\n*_test.js\n\n# Documentation\n*.md\n!README.md\ndocs/\n\n# OS files\n.DS_Store\nThumbs.db\nEOF",
+      "validation": "docker build -f Dockerfile --no-cache -t test-build . 2>&1 | grep 'Sending build context'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare l'ambassador pattern per proxy Redis",
+        "en": "Implement the ambassador pattern to proxy Redis"
+      },
+      "description": {
+        "it": "Creare un Pod con un ambassador container che gestisce la connessione a Redis",
+        "en": "Create a Pod with an ambassador container that manages the Redis connection"
+      },
+      "task": "1. Crea un Pod chiamato 'redis-ambassador'\n2. Il container principale è un'applicazione che si connette a localhost:6379\n3. L'ambassador container inoltra le connessioni a un Redis remoto\n4. Usa haproxy o socat per il forwarding\n5. Verifica la connettività",
+      "hints": [
+        "socat è più leggero di haproxy per questo caso",
+        "Il Redis remoto può essere simulato con un Pod",
+        "L'app principale vede solo localhost"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: redis-ambassador\nspec:\n  containers:\n  - name: app\n    image: redis:alpine\n    command: ['redis-cli', '-p', '6379', 'ping']\n  - name: ambassador\n    image: alpine/socat\n    command: ['socat', 'TCP-LISTEN:6379,fork', 'TCP:redis-service:6379']\nEOF",
+      "validation": "kubectl wait --for=condition=Ready pod/redis-ambassador --timeout=30s",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un Pod con limits e requests",
+        "en": "Create a Pod with limits and requests"
+      },
+      "description": {
+        "it": "Creare un Pod con resource requests e limits appropriati",
+        "en": "Create a Pod with appropriate resource requests and limits"
+      },
+      "task": "1. Crea un Pod chiamato 'resource-demo'\n2. Imposta requests: 100m CPU e 128Mi memoria\n3. Imposta limits: 500m CPU e 256Mi memoria\n4. Usa nginx:alpine come immagine\n5. Verifica che il Pod sia schedulato correttamente",
+      "hints": [
+        "requests è per la schedulazione, limits per l'esecuzione",
+        "100m significa 0.1 CPU cores",
+        "I valori sono nella sezione resources del container"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: resource-demo\nspec:\n  containers:\n  - name: nginx\n    image: nginx:alpine\n    resources:\n      requests:\n        cpu: 100m\n        memory: 128Mi\n      limits:\n        cpu: 500m\n        memory: 256Mi\nEOF",
+      "validation": "kubectl wait --for=condition=Ready pod/resource-demo --timeout=30s && kubectl describe pod resource-demo | grep -A 5 'Limits\\|Requests'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Debug di un Pod con container fallito",
+        "en": "Debug a Pod with a failed container"
+      },
+      "description": {
+        "it": "Diagnosticare e risolvere problemi con un init container fallito",
+        "en": "Diagnose and fix issues with a failed init container"
+      },
+      "task": "1. Crea un Pod con un init container che fallisce\n2. Verifica lo stato del Pod\n3. Controlla i log dell'init container\n4. Correggi il problema e riapplica\n5. Verifica che il Pod avvii correttamente",
+      "hints": [
+        "Usa kubectl describe per vedere gli eventi",
+        "kubectl logs -c specifica il container",
+        "L'init container fallisce perché il comando non esiste"
+      ],
+      "solution": "# Pod iniziale con init container che fallisce\nkubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: debug-init\nspec:\n  initContainers:\n  - name: init\n    image: busybox\n    command: ['false']  # Questo fallisce\n  containers:\n  - name: app\n    image: nginx\nEOF\n\n# Diagnosi\nkubectl describe pod debug-init | grep -A 5 'Init Containers'\n\n# Correzione\nkubectl delete pod debug-init\nkubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: debug-init\nspec:\n  initContainers:\n  - name: init\n    image: busybox\n    command: ['true']  # Corretto\n  containers:\n  - name: app\n    image: nginx\nEOF",
+      "validation": "kubectl wait --for=condition=Ready pod/debug-init --timeout=30s && kubectl get pod debug-init -o jsonpath='{.status.phase}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un Dockerfile con HEALTHCHECK",
+        "en": "Create a Dockerfile with HEALTHCHECK"
+      },
+      "description": {
+        "it": "Aggiungere un HEALTHCHECK al Dockerfile per il monitoring",
+        "en": "Add a HEALTHCHECK to the Dockerfile for monitoring"
+      },
+      "task": "1. Crea un Dockerfile con un'applicazione Python Flask\n2. Aggiungi un HEALTHCHECK che verifica /health endpoint\n3. Imposta intervallo di 30 secondi\n4. Imposta timeout di 3 secondi\n5. Imposta retries a 3",
+      "hints": [
+        "HEALTHCHECK --interval --timeout --retries",
+        "Usa curl per verificare l'endpoint",
+        "Il formato è CMD exec o CMD shell"
+      ],
+      "solution": "cat > Dockerfile << 'EOF'\nFROM python:3.11-slim\nWORKDIR /app\nCOPY app.py .\nRUN pip install flask\nEXPOSE 5000\nHEALTHCHECK --interval=30s --timeout=3s --retries=3 \\\n  CMD curl -f http://localhost:5000/health || exit 1\nCMD [\"python\", \"app.py\"]\nEOF",
+      "validation": "echo 'from flask import Flask; app = Flask(__name__); @app.route(\"/health\"); def health(): return \"OK\"' > app.py && docker build -t healthcheck-demo . && docker inspect healthcheck-demo --format='{{.Config.Healthcheck}}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un Pod multi-container con volume condiviso",
+        "en": "Create a multi-container Pod with shared volume"
+      },
+      "description": {
+        "it": "Creare un Pod con due container che condividono un volume",
+        "en": "Create a Pod with two containers sharing a volume"
+      },
+      "task": "1. Crea un Pod chiamato 'shared-volume'\n2. Il primo container scrive un timestamp ogni secondo\n3. Il secondo container legge e stampa i timestamp\n4. Usano un volume emptyDir condiviso\n5. Verifica che i dati siano condivisi",
+      "hints": [
+        "Il primo container scrive, il secondo legge con tail -f",
+        "Usa lo stesso nome di volume in entrambi i container",
+        "Il mountPath può essere diverso nei due container"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: shared-volume\nspec:\n  containers:\n  - name: producer\n    image: busybox\n    command: ['sh', '-c', 'while true; do date >> /data/timestamps.txt; sleep 1; done']\n    volumeMounts:\n    - name: data\n      mountPath: /data\n  - name: consumer\n    image: busybox\n    command: ['tail', '-f', '/logs/timestamps.txt']\n    volumeMounts:\n    - name: data\n      mountPath: /logs\n  volumes:\n  - name: data\n    emptyDir: {}\nEOF",
+      "validation": "kubectl wait --for=condition=Ready pod/shared-volume --timeout=30s && kubectl logs shared-volume -c consumer | head -3",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Analizzare un Dockerfile esistente",
+        "en": "Analyze an existing Dockerfile"
+      },
+      "description": {
+        "it": "Analizzare un Dockerfile problematico e identificare le issue",
+        "en": "Analyze a problematic Dockerfile and identify issues"
+      },
+      "task": "1. Analizza il seguente Dockerfile problematico\n2. Identifica almeno 5 problemi\n3. Crea una versione corretta\n4. Documenta le modifiche fatte",
+      "hints": [
+        "Controlla l'ordine delle istruzioni per la cache",
+        "Verifica se ci sono package manager non puliti",
+        "Guarda se usa base image appropriate"
+      ],
+      "solution": "# Dockerfile problematico:\n# FROM ubuntu:latest\n# RUN apt-get update\n# RUN apt-get install -y python3\n# RUN apt-get install -y pip\n# COPY . /app\n# RUN pip install -r requirements.txt\n# CMD python3 app.py\n\n# Dockerfile corretto:\ncat > Dockerfile << 'EOF'\nFROM python:3.11-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\nCOPY . .\nRUN useradd -m appuser && chown -R appuser:appuser /app\nUSER appuser\nEXPOSE 8000\nCMD [\"python\", \"-m\", \"gunicorn\", \"app:app\"]\nEOF",
+      "validation": "echo 'Problemi identificati: 1) Base image troppo grande 2) apt separati 3) Nessuna pulizia cache 4) requirements copiato dopo il codice 5) Nessun utente non-root'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare init container con timeout",
+        "en": "Create init container with timeout"
+      },
+      "description": {
+        "it": "Creare un init container con un timeout usando un sidecar",
+        "en": "Create an init container with a timeout using a sidecar"
+      },
+      "task": "1. Crea un Pod con init container che potrebbe bloccarsi\n2. Usa un timeout di 30 secondi\n3. L'init container deve fallire se supera il timeout\n4. Gestisci il fallimento con un messaggio appropriato",
+      "hints": [
+        "Usa timeout command o uno script con sleep",
+        "Il comando timeout è in coreutils",
+        "busybox ha timeout disponibile"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: init-timeout\nspec:\n  initContainers:\n  - name: init\n    image: busybox\n    command: ['sh', '-c', 'timeout 30s sh -c \"while ! nslookup myservice; do sleep 2; done\" || exit 1']\n    env:\n    - name: TIMEOUT_SECONDS\n      value: \"30\"\n  containers:\n  - name: app\n    image: nginx:alpine\nEOF",
+      "validation": "kubectl get pod init-timeout -w --timeout=45s",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un container con variabili d'ambiente",
+        "en": "Create a container with environment variables"
+      },
+      "description": {
+        "it": "Creare un Pod con variabili d'ambiente multiple",
+        "en": "Create a Pod with multiple environment variables"
+      },
+      "task": "1. Crea un Pod chiamato 'env-demo'\n2. Imposta 3 variabili d'ambiente: APP_ENV, LOG_LEVEL, PORT\n3. Una variabile deve essere presa da un campo del Pod (downward API)\n4. Verifica che le variabili siano impostate correttamente",
+      "hints": [
+        "Usa env per la lista di variabili",
+        "Per downward API usa fieldRef",
+        "kubectl exec per verificare"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: env-demo\nspec:\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'env && sleep 3600']\n    env:\n    - name: APP_ENV\n      value: \"production\"\n    - name: LOG_LEVEL\n      value: \"info\"\n    - name: PORT\n      value: \"8080\"\n    - name: POD_NAME\n      valueFrom:\n        fieldRef:\n          fieldPath: metadata.name\n    - name: POD_NAMESPACE\n      valueFrom:\n        fieldRef:\n          fieldPath: metadata.namespace\nEOF",
+      "validation": "kubectl wait --for=condition=Ready pod/env-demo --timeout=30s && kubectl exec env-demo -- env | grep -E 'APP_ENV|LOG_LEVEL|PORT|POD_NAME'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un Dockerfile ottimizzato per produzione",
+        "en": "Create a production-optimized Dockerfile"
+      },
+      "description": {
+        "it": "Creare un Dockerfile ottimizzato seguendo tutte le best practices",
+        "en": "Create an optimized Dockerfile following all best practices"
+      },
+      "task": "1. Crea un Dockerfile per un'applicazione Python\n2. Implementa tutte le best practices: multi-stage, utente non-root, HEALTHCHECK\n3. Minimizza i layer e ottimizza la cache\n4. Aggiungi labels standard\n5. Verifica le dimensioni dell'immagine finale",
+      "hints": [
+        "Usa LABEL per metadata come maintainer, version",
+        "Usa COPY --chown per evitare RUN chown",
+        "Aggiungi security scanning"
+      ],
+      "solution": "cat > Dockerfile << 'EOF'\n# syntax=docker/dockerfile:1\nFROM python:3.11-slim AS builder\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install --no-cache-dir --user -r requirements.txt\n\nFROM python:3.11-slim\nLABEL maintainer=\"team@example.com\" \\\n      version=\"1.0.0\" \\\n      description=\"Production-ready Python app\"\nRUN useradd --create-home --shell /bin/bash appuser\nWORKDIR /app\nCOPY --from=builder /root/.local /home/appuser/.local\nCOPY --chown=appuser:appuser . .\nENV PATH=/home/appuser/.local/bin:$PATH \\\n    PYTHONUNBUFFERED=1\nUSER appuser\nEXPOSE 8000\nHEALTHCHECK --interval=30s --timeout=3s --retries=3 \\\n  CMD curl -f http://localhost:8000/health || exit 1\nCMD [\"gunicorn\", \"--bind\", \"0.0.0.0:8000\", \"app:app\"]\nEOF",
+      "validation": "docker build -t prod-app . && docker images prod-app --format 'Size: {{.Size}}' && docker inspect prod-app --format 'User: {{.Config.User}}'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    }
+  ]
+}

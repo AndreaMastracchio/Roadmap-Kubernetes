@@ -1,0 +1,200 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Installare ArgoCD su un cluster Kubernetes",
+        "en": "Install ArgoCD on a Kubernetes cluster"
+      },
+      "description": {
+        "it": "Installazione base di ArgoCD utilizzando i manifest ufficiali.",
+        "en": "Basic ArgoCD installation using official manifests."
+      },
+      "task": "1. Crea il namespace argocd\n2. Applica i manifest di installazione\n3. Verifica che i pod siano in esecuzione\n4. Attendi che tutti i componenti siano pronti",
+      "hints": [
+        "kubectl create namespace argocd",
+        "I manifest sono su GitHub argoproj/argo-cd",
+        "Usa kubectl get pods -n argocd -w per osservare"
+      ],
+      "solution": "kubectl create namespace argocd\nkubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml\nkubectl wait --for=condition=available --timeout=600s deployment/argocd-server -n argocd",
+      "validation": "kubectl get pods -n argocd deve mostrare tutti i pod Running",
+      "difficulty": "easy",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Installare la CLI di ArgoCD",
+        "en": "Install ArgoCD CLI"
+      },
+      "description": {
+        "it": "Installare lo strumento a riga di comando per interagire con ArgoCD.",
+        "en": "Install the command-line tool to interact with ArgoCD."
+      },
+      "task": "1. Scarica l'ultima versione della CLI\n2. Rendi l'eseguibile eseguibile\n3. Sposta in /usr/local/bin\n4. Verifica l'installazione con argocd version",
+      "hints": [
+        "Su Mac: brew install argocd",
+        "Su Linux: curl -sSL https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64",
+        "Verifica con argocd version --client"
+      ],
+      "solution": "# macOS\nbrew install argocd\n\n# Linux\ncurl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64\nchmod +x argocd\nsudo mv argocd /usr/local/bin/argocd",
+      "validation": "argocd version --client deve restituire la versione",
+      "difficulty": "easy",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Accedere all'interfaccia web di ArgoCD",
+        "en": "Access ArgoCD web UI"
+      },
+      "description": {
+        "it": "Configurare l'accesso all'interfaccia web tramite port-forward.",
+        "en": "Configure access to the web UI via port-forward."
+      },
+      "task": "1. Esegui port-forward del servizio argocd-server\n2. Recupera la password iniziale\n3. Accedi all'interfaccia web\n4. Cambia la password",
+      "hints": [
+        "La password iniziale è nel secret argocd-initial-admin-secret",
+        "Port-forward sulla porta 8080",
+        "Username: admin"
+      ],
+      "solution": "kubectl port-forward svc/argocd-server -n argocd 8080:443 &\nkubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | base64 -d\nargocd login localhost:8080 --insecure\nargocd account update-password",
+      "validation": "Accesso a https://localhost:8080 con nuove credenziali",
+      "difficulty": "easy",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare un repository Git",
+        "en": "Configure a Git repository"
+      },
+      "description": {
+        "it": "Aggiungere un repository Git come sorgente per le applicazioni.",
+        "en": "Add a Git repository as source for applications."
+      },
+      "task": "1. Genera una chiave SSH per il repository\n2. Aggiungi la chiave pubblica al repository\n3. Registra il repository in ArgoCD\n4. Verifica la connessione",
+      "hints": [
+        "Usa argocd repo add con --ssh-private-key-path",
+        "Per GitHub, aggiungi la chiave nelle impostazioni del repository",
+        "Verifica con argocd repo list"
+      ],
+      "solution": "ssh-keygen -t ed25519 -C \"argocd\" -f ~/.ssh/argocd_key\nargocd repo add git@github.com:user/repo.git --ssh-private-key-path ~/.ssh/argocd_key",
+      "validation": "argocd repo list deve mostrare il repository con status Successful",
+      "difficulty": "medium",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare RBAC per un team",
+        "en": "Configure RBAC for a team"
+      },
+      "description": {
+        "it": "Impostare ruoli e permessi per utenti e gruppi.",
+        "en": "Set up roles and permissions for users and groups."
+      },
+      "task": "1. Crea un ConfigMap con policy RBAC\n2. Definisci ruoli personalizzati\n3. Assegna permessi a gruppi\n4. Verifica i permessi applicati",
+      "hints": [
+        "Modifica argocd-rbac-cm ConfigMap",
+        "Usa policy in formato CSV",
+        "I ruoli sono: readonly, operator, admin"
+      ],
+      "solution": "kubectl edit configmap argocd-rbac-cm -n argocd\n# Aggiungi:\ndata:\n  policy.csv: |\n    p, role:readonly, applications, get, */*, allow\n    g, dev-team, role:readonly",
+      "validation": "argocd account can-i get applications '*' deve restituire yes per l'utente",
+      "difficulty": "hard",
+      "timeEstimate": "25 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare SSO con Dex",
+        "en": "Configure SSO with Dex"
+      },
+      "description": {
+        "it": "Integrare ArgoCD con un provider OIDC tramite Dex.",
+        "en": "Integrate ArgoCD with an OIDC provider via Dex."
+      },
+      "task": "1. Configura il provider OIDC in argocd-cm\n2. Aggiorna la ConfigMap di Dex\n3. Riavvia il pod di Dex\n4. Verifica il login SSO",
+      "hints": [
+        "Modifica argocd-cm per aggiungere url OIDC",
+        "Dex usa connectors per i provider",
+        "Supporta GitHub, GitLab, Google, Okta"
+      ],
+      "solution": "kubectl edit configmap argocd-cm -n argocd\n# Aggiungi:\ndata:\n  url: https://argocd.example.com\n  oidc.config: |\n    name: Okta\n    issuer: https://okta.example.com\n    clientID: xxx\n    clientSecret: xxx",
+      "validation": "Verifica login tramite provider SSO configurato",
+      "difficulty": "hard",
+      "timeEstimate": "30 minuti"
+    },
+    {
+      "title": {
+        "it": "Esplorare la struttura delle risorse ArgoCD",
+        "en": "Explore ArgoCD resource structure"
+      },
+      "description": {
+        "it": "Analizzare le risorse Kubernetes create da ArgoCD.",
+        "en": "Analyze Kubernetes resources created by ArgoCD."
+      },
+      "task": "1. Elenca tutte le CRD installate\n2. Esamina la CRD Application\n3. Visualizza i ConfigMap creati\n4. Identifica i Secrets",
+      "hints": [
+        "kubectl get crd | grep argoproj",
+        "kubectl describe crd applications.argoproj.io",
+        "kubectl get cm,secret -n argocd"
+      ],
+      "solution": "kubectl get crd | grep argoproj\nkubectl describe crd applications.argoproj.io\nkubectl get configmaps,secrets -n argocd",
+      "validation": "Verifica presenza di CRD: Application, AppProject, ApplicationSet",
+      "difficulty": "easy",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un Progetto ArgoCD",
+        "en": "Create an ArgoCD Project"
+      },
+      "description": {
+        "it": "Definire un progetto per isolare applicazioni e permessi.",
+        "en": "Define a project to isolate applications and permissions."
+      },
+      "task": "1. Crea un file YAML per AppProject\n2. Definisci i repository permessi\n3. Limita i namespace destinazione\n4. Applica e verifica",
+      "hints": [
+        "AppProject è una CRD argoproj.io/v1alpha1",
+        "Usa sourceRepos per limitare i repository",
+        "Usa destinations per limitare i namespace"
+      ],
+      "solution": "cat > project.yaml << 'EOF'\napiVersion: argoproj.io/v1alpha1\nkind: AppProject\nmetadata:\n  name: my-project\n  namespace: argocd\nspec:\n  description: My project\n  sourceRepos:\n  - 'https://github.com/myorg/*'\n  destinations:\n  - namespace: 'my-app-*'\n    server: 'https://kubernetes.default.svc'\nEOF\nkubectl apply -f project.yaml",
+      "validation": "argocd proj list deve mostrare il progetto",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare l'accesso multi-cluster",
+        "en": "Configure multi-cluster access"
+      },
+      "description": {
+        "it": "Registrare un cluster aggiuntivo in ArgoCD.",
+        "en": "Register an additional cluster in ArgoCD."
+      },
+      "task": "1. Ottieni il kubeconfig del cluster target\n2. Registra il cluster con argocd cluster add\n3. Verifica la connessione\n4. Crea un'applicazione sul nuovo cluster",
+      "hints": [
+        "argocd cluster add richiede il contesto kubeconfig",
+        "Il cluster deve essere accessibile dalla rete di ArgoCD",
+        "Verifica con argocd cluster list"
+      ],
+      "solution": "# KUBECONFIG punta al cluster target\nargocd cluster add <context-name> --name staging\nargocd cluster list",
+      "validation": "argocd cluster list deve mostrare il cluster con status Successful",
+      "difficulty": "hard",
+      "timeEstimate": "25 minuti"
+    },
+    {
+      "title": {
+        "it": "Monitorare i log di ArgoCD",
+        "en": "Monitor ArgoCD logs"
+      },
+      "task": "1. Visualizza i log del application controller\n2. Filtra i log per applicazione\n3. Identifica errori di sincronizzazione\n4. Documenta i problemi trovati",
+      "hints": [
+        "kubectl logs -n argocd deployment/argocd-application-controller",
+        "Usa -f per seguire i log in tempo reale",
+        "grep ERROR per trovare problemi"
+      ],
+      "solution": "kubectl logs -n argocd deployment/argocd-application-controller -f | grep -E \"ERROR|WARN\"\nkubectl logs -n argocd deployment/argocd-repo-server -f",
+      "validation": "Verifica assenza di errori nei log",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    }
+  ]
+}

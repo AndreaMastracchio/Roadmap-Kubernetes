@@ -1,0 +1,204 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Configurare GitRepository con SSH",
+        "en": "Configure GitRepository with SSH"
+      },
+      "description": {
+        "it": "Autenticare un GitRepository Flux con chiave SSH",
+        "en": "Authenticate a Flux GitRepository with an SSH key"
+      },
+      "task": "1. Genera una coppia di chiavi SSH\n2. Crea un Secret Kubernetes con la chiave privata\n3. Crea un GitRepository che usa l'autenticazione SSH\n4. Verifica la connessione",
+      "hints": [
+        "ssh-keygen -t ed25519 genera una chiave moderna",
+        "Il Secret deve avere il tipo Opaque con campo identity",
+        "flux get sources git mostra lo stato"
+      ],
+      "solution": "ssh-keygen -t ed25519 -C 'flux'\nkubectl create secret generic flux-ssh \\\n  --from-file=identity=~/.ssh/id_ed25519\nflux create source git my-repo \\\n  --url=git@github.com:user/repo \\\n  --secret-ref=flux-ssh \\\n  --branch=main",
+      "validation": "flux get sources git my-repo mostra READY=True",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare HelmRepository",
+        "en": "Configure HelmRepository"
+      },
+      "description": {
+        "it": "Aggiungere un repository di chart Helm a Flux",
+        "en": "Add a Helm chart repository to Flux"
+      },
+      "task": "1. Crea una HelmRepository per Bitnami\n2. Verifica che il repository sia disponibile\n3. Cerca i chart disponibili",
+      "hints": [
+        "flux create source helm è il comando",
+        "L'URL deve puntare al repository Helm",
+        "helm search repo mostra i chart dopo l'aggiunta"
+      ],
+      "solution": "flux create source helm bitnami \\\n  --url=https://charts.bitnami.com/bitnami \\\n  --interval=10m\nflux get sources helm",
+      "validation": "flux get sources helm bitnami mostra READY=True",
+      "difficulty": "easy",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare dipendenze tra Kustomization",
+        "en": "Create dependencies between Kustomizations"
+      },
+      "description": {
+        "it": "Configurare Flux per applicare le risorse in ordine",
+        "en": "Configure Flux to apply resources in order"
+      },
+      "task": "1. Crea una Kustomization per i namespace\n2. Crea una Kustomization per le app che dipende dalla prima\n3. Verifica l'ordine di applicazione",
+      "hints": [
+        "Il campo dependsOn definisce la dipendenza",
+        "La prima Kustomization deve completare prima",
+        "flux get kustomizations mostra lo stato"
+      ],
+      "solution": "flux create kustomization namespaces \\\n  --source=GitRepository/my-repo \\\n  --path=./namespaces\nflux create kustomization apps \\\n  --source=GitRepository/my-repo \\\n  --path=./apps \\\n  --depends-on=namespaces",
+      "validation": "flux get kustomizations mostra entrambe READY=True",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare OCIRepository",
+        "en": "Configure OCIRepository"
+      },
+      "description": {
+        "it": "Usare un registry OCI come fonte per Flux",
+        "en": "Use an OCI registry as a source for Flux"
+      },
+      "task": "1. Crea un Secret per l'accesso al registry\n2. Crea un OCIRepository che punta al tuo manifest\n3. Crea un Kustomization che usa l'OCIRepository\n4. Verifica l'applicazione",
+      "hints": [
+        "Il Secret deve contenere le credenziali del registry",
+        "Il URL deve specificare il tag dell'immagine",
+        "Le OCI image devono essere Helm charts o manifest YAML"
+      ],
+      "solution": "kubectl create secret docker-registry oci-creds \\\n  --docker-server=ghcr.io \\\n  --docker-username=user \\\n  --docker-password=token\nflux create source oci my-oci \\\n  --url=oci://ghcr.io/user/repo \\\n  --provider=generic \\\n  --secret-ref=oci-creds",
+      "validation": "flux get sources oci mostra lo stato",
+      "difficulty": "hard",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare Bucket source S3",
+        "en": "Configure S3 Bucket source"
+      },
+      "description": {
+        "it": "Usare un bucket S3 come fonte per i manifest Kubernetes",
+        "en": "Use an S3 bucket as a source for Kubernetes manifests"
+      },
+      "task": "1. Crea un Secret con le credenziali AWS\n2. Crea una Bucket source che punta al bucket\n3. Configura l'intervallo di sincronizzazione\n4. Verifica che i manifest vengano recuperati",
+      "hints": [
+        "Il Secret deve avere accessKey e secretKey",
+        "L'endpoint può essere S3, GCS o Azure Blob",
+        "bucketName specifica il nome del bucket"
+      ],
+      "solution": "kubectl create secret generic s3-creds \\\n  --from-literal=accessKey=AKIAxxx \\\n  --from-literal=secretKey=xxxxx\nflux create source bucket my-bucket \\\n  --endpoint=s3.amazonaws.com \\\n  --bucketName=my-k8s-manifests \\\n  --region=us-east-1 \\\n  --secret-ref=s3-creds \\\n  --interval=5m",
+      "validation": "flux get sources bucket my-bucket mostra READY=True",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare health checks in Kustomization",
+        "en": "Configure health checks in Kustomization"
+      },
+      "description": {
+        "it": "Aggiungere controlli di salute per verificare il deploy",
+        "en": "Add health checks to verify deployment success"
+      },
+      "task": "1. Crea una Kustomization con healthChecks\n2. Configura il controllo su un Deployment\n3. Aggiungi timeout appropriato\n4. Verifica che Flux attenda la readiness",
+      "hints": [
+        "healthChecks specifica risorse da monitorare",
+        "type: Deployment, name: nome-risorsa, namespace: ns",
+        "Il timeout predefinito è 5 minuti"
+      ],
+      "solution": "flux create kustomization my-app \\\n  --source=GitRepository/my-repo \\\n  --path=./apps/my-app \\\n  --health-check=Deployment/my-app.default \\\n  --health-check-timeout=3m",
+      "validation": "flux get kustomization my-app mostra health check completati",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Abilitare garbage collection con prune",
+        "en": "Enable garbage collection with prune"
+      },
+      "description": {
+        "it": "Configurare Flux per rimuovere automaticamente le risorse cancellate dal Git",
+        "en": "Configure Flux to automatically remove resources deleted from Git"
+      },
+      "task": "1. Crea una Kustomization con prune abilitato\n2. Aggiungi una risorsa nel Git\n3. Verifica che venga creata\n4. Rimuovi la risorsa dal Git e verifica che venga eliminata",
+      "hints": [
+        "--prune=true abilita il garbage collection",
+        "La risorsa deve avere label per il tracking",
+        "flux logs -f mostra le operazioni di prune"
+      ],
+      "solution": "flux create kustomization apps \\\n  --source=GitRepository/my-repo \\\n  --path=./apps \\\n  --prune=true \\\n  --interval=5m",
+      "validation": "Dopo aver cancellato una risorsa dal Git, kubectl get mostra che è stata rimossa",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Verificare la firma di un GitRepository",
+        "en": "Verify GitRepository signature"
+      },
+      "description": {
+        "it": "Configurare Flux per verificare le firme GPG dei commit",
+        "en": "Configure Flux to verify GPG signatures on commits"
+      },
+      "task": "1. Ottieni la chiave pubblica GPG del repository\n2. Crea un Secret con la chiave pubblica\n3. Configura verification nel GitRepository\n4. Verifica che i commit firmati vengano accettati",
+      "hints": [
+        "Il Secret deve contenere key.pub con la chiave pubblica",
+        "verification.mode: git richiede firma GPG",
+        "Commit non firmati vengono rifiutati"
+      ],
+      "solution": "kubectl create secret generic gpg-pub \\\n  --from-file=key.pub=./public.key\nflux create source git my-repo \\\n  --url=https://github.com/user/repo \\\n  --verification-mode=git \\\n  --secret-ref=gpg-pub",
+      "validation": "flux get sources git my-repo mostra READY=True solo se verification passa",
+      "difficulty": "hard",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Monitorare lo stato delle fonti Flux",
+        "en": "Monitor Flux source status"
+      },
+      "description": {
+        "it": "Utilizzare Flux CLI e kubectl per verificare lo stato delle fonti",
+        "en": "Use Flux CLI and kubectl to check source status"
+      },
+      "task": "1. Elenca tutte le fonti configurate\n2. Verifica lo stato di readiness\n3. Controlla l'ultima sincronizzazione\n4. Esamina gli eventi in caso di errore",
+      "hints": [
+        "flux get sources all mostra tutte le fonti",
+        "kubectl get gitrepository -o yaml mostra status",
+        "kubectl describe mostra gli eventi"
+      ],
+      "solution": "flux get sources all\nflux get sources git my-repo\nkubectl get gitrepository my-repo -o yaml\nkubectl describe gitrepository my-repo",
+      "validation": "Tutti i comandi mostrano lo stato corrente senza errori",
+      "difficulty": "easy",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare HelmRelease con valori personalizzati",
+        "en": "Configure HelmRelease with custom values"
+      },
+      "description": {
+        "it": "Creare una HelmRelease che usa un chart con valori personalizzati",
+        "en": "Create a HelmRelease using a chart with custom values"
+      },
+      "task": "1. Crea una HelmRepository se non esiste\n2. Crea una HelmRelease con valori inline\n3. Configura valuesFrom per un ConfigMap esterno\n4. Verifica il deploy della release",
+      "hints": [
+        "spec.values inline per valori semplici",
+        "valuesFrom per riferimenti esterni",
+        "helm list nel cluster mostra le release"
+      ],
+      "solution": "flux create helmrelease my-nginx \\\n  --source=HelmRepository/bitnami \\\n  --chart=nginx \\\n  --set=service.type=LoadBalancer \\\n  --set=replicaCount=3",
+      "validation": "flux get helmrelease my-nginx mostra READY=True e la release è installata",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    }
+  ]
+}

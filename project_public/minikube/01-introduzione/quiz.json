@@ -1,0 +1,124 @@
+{
+  "quiz": [
+    {
+      "question": {"it": "Cos'è Minikube?", "en": "What is Minikube?"},
+      "options": ["Un orchestratore di container per produzione", "Un tool per creare cluster Kubernetes locali a singolo nodo", "Un'alternativa a Docker Desktop", "Un sistema operativo per container"],
+      "correct": 1,
+      "explanation": {"it": "Minikube è un tool che permette di eseguire un cluster Kubernetes a singolo nodo sulla macchina locale, ideale per sviluppo e test.", "en": "Minikube is a tool that allows you to run a single-node Kubernetes cluster on your local machine, ideal for development and testing."},
+      "difficulty": "easy",
+      "domain": "basics"
+    },
+    {
+      "question": {"it": "Quando è appropriato usare Minikube?", "en": "When is it appropriate to use Minikube?"},
+      "options": ["Per carichi di lavoro produttivi ad alta disponibilità", "Per sviluppo locale, test e apprendimento di Kubernetes", "Per deploy multi-cluster in cloud", "Per orchestrazione di migliaia di container"],
+      "correct": 1,
+      "explanation": {"it": "Minikube è progettato per sviluppo locale, test e apprendimento. Non è adatto per ambienti produttivi che richiedono alta disponibilità.", "en": "Minikube is designed for local development, testing, and learning. It's not suitable for production environments requiring high availability."},
+      "difficulty": "easy",
+      "domain": "use-cases"
+    },
+    {
+      "question": {"it": "Quale alternativa a Minikube usa container Docker come nodi?", "en": "Which Minikube alternative uses Docker containers as nodes?"},
+      "options": ["kubeadm", "kind", "k3s", "kops"],
+      "correct": 1,
+      "explanation": {"it": "Kind (Kubernetes in Docker) crea cluster Kubernetes usando container Docker come nodi, rendendolo molto veloce da avviare.", "en": "Kind (Kubernetes in Docker) creates Kubernetes clusters using Docker containers as nodes, making it very fast to start."},
+      "difficulty": "medium",
+      "domain": "alternatives"
+    },
+    {
+      "question": {"it": "Quale tool è una versione leggera di Kubernetes distribuita come singolo binario?", "en": "Which tool is a lightweight Kubernetes distribution packaged as a single binary?"},
+      "options": ["kind", "k3d", "k3s", "microk8s"],
+      "correct": 2,
+      "explanation": {"it": "K3s è una distribuzione Kubernetes leggera di Rancher, impacchettata come singolo binario da meno di 100MB, ideale per edge e IoT.", "en": "K3s is a lightweight Kubernetes distribution from Rancher, packaged as a single binary under 100MB, ideal for edge and IoT."},
+      "difficulty": "medium",
+      "domain": "alternatives"
+    },
+    {
+      "question": {"it": "Qual è il vantaggio principale di k3d rispetto a Minikube?", "en": "What is the main advantage of k3d over Minikube?"},
+      "options": ["Migliore supporto per Windows", "Avvio più rapido grazie all'uso di container per i nodi", "Interfaccia grafica integrata", "Supporto nativo per GPU"],
+      "correct": 1,
+      "explanation": {"it": "k3d usa container Docker per i nodi (come kind) ma basati su k3s, offrendo avvio molto rapido e basso consumo di risorse.", "en": "k3d uses Docker containers for nodes (like kind) but based on k3s, offering very fast startup and low resource consumption."},
+      "difficulty": "medium",
+      "domain": "alternatives"
+    },
+    {
+      "question": {"it": "Minikube supporta cluster multi-nodo?", "en": "Does Minikube support multi-node clusters?"},
+      "options": ["No, solo singolo nodo", "Sì, nativamente dalla versione 1.10+", "Sì, ma solo su Linux", "Solo con plugin a pagamento"],
+      "correct": 1,
+      "explanation": {"it": "Minikube supporta cluster multi-nodo dalla versione 1.10+ con il flag --nodes, utile per testare distribuzioni reali.", "en": "Minikube supports multi-node clusters from version 1.10+ with the --nodes flag, useful for testing real deployments."},
+      "difficulty": "medium",
+      "domain": "features"
+    },
+    {
+      "question": {"it": "Quale alternativa Canonical offre Kubernetes su Ubuntu?", "en": "Which Canonical alternative offers Kubernetes on Ubuntu?"},
+      "options": ["k3s", "kind", "microk8s", "k3d"],
+      "correct": 2,
+      "explanation": {"it": "MicroK8s è mantenuto da Canonical e ottimizzato per Ubuntu, con installazione snap e add-on facili da attivare.", "en": "MicroK8s is maintained by Canonical and optimized for Ubuntu, with snap installation and easy-to-enable add-ons."},
+      "difficulty": "easy",
+      "domain": "alternatives"
+    },
+    {
+      "question": {"it": "Perché Minikube è ideale per imparare Kubernetes?", "en": "Why is Minikube ideal for learning Kubernetes?"},
+      "options": ["Ha la documentazione più completa", "Offre un ambiente isolato e riproducibile con setup semplice", "È l'unico tool gratuito", "Viene installato di default con Docker"],
+      "correct": 1,
+      "explanation": {"it": "Minikube offre un ambiente locale isolato, facile da installare e riproducibile, perfetto per sperimentare senza rischi.", "en": "Minikube offers an isolated local environment, easy to install and reproducible, perfect for experimenting without risks."},
+      "difficulty": "easy",
+      "domain": "use-cases"
+    },
+    {
+      "question": {"it": "Minikube può essere usato per CI/CD?", "en": "Can Minikube be used for CI/CD?"},
+      "options": ["No, mai", "Sì, è comunemente usato in pipeline CI per test", "Solo con licenza enterprise", "Solo su GitHub Actions"],
+      "correct": 1,
+      "explanation": {"it": "Minikube è molto usato in pipeline CI/CD per test automatizzati, grazie al supporto per ambienti headless e script.", "en": "Minikube is widely used in CI/CD pipelines for automated testing, thanks to headless environment and scripting support."},
+      "difficulty": "medium",
+      "domain": "use-cases"
+    },
+    {
+      "question": {"it": "Quale comando verifica se Minikube è installato?", "en": "Which command checks if Minikube is installed?"},
+      "options": ["kubectl version", "minikube version", "docker info", "minikube status"],
+      "correct": 1,
+      "explanation": {"it": "'minikube version' mostra la versione installata. 'minikube status' invece mostra lo stato del cluster.", "en": "'minikube version' shows the installed version. 'minikube status' instead shows the cluster state."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale tool è meglio per testare manifest Kubernetes in CI?", "en": "Which tool is better for testing Kubernetes manifests in CI?"},
+      "options": ["k3s in produzione", "kind per la velocità di avvio container", "Docker Swarm", "Minikube con GUI"],
+      "correct": 1,
+      "explanation": {"it": "Kind è spesso preferito in CI per l'avvio rapido dei nodi come container, ma anche Minikube è molto usato.", "en": "Kind is often preferred in CI for fast node startup as containers, but Minikube is also widely used."},
+      "difficulty": "medium",
+      "domain": "use-cases"
+    },
+    {
+      "question": {"it": "Minikube richiede Docker Desktop?", "en": "Does Minikube require Docker Desktop?"},
+      "options": ["Sì, obbligatoriamente", "No, può usare vari driver inclusi Hyperkit, VirtualBox, o Docker", "Solo su Windows", "Solo su macOS"],
+      "correct": 1,
+      "explanation": {"it": "Minikube può usare diversi driver: Docker (che può essere Docker Desktop o Rancher Desktop), Hyperkit, VirtualBox, Hyper-V, ecc.", "en": "Minikube can use various drivers: Docker (which can be Docker Desktop or Rancher Desktop), Hyperkit, VirtualBox, Hyper-V, etc."},
+      "difficulty": "medium",
+      "domain": "drivers"
+    },
+    {
+      "question": {"it": "Quale è un limite di Minikube rispetto a un cluster produttivo?", "en": "What is a limitation of Minikube compared to a production cluster?"},
+      "options": ["Non supporta container Linux", "Nessuna alta disponibilità nel cluster base", "Non può usare immagini Docker", "Non ha interfaccia a riga di comando"],
+      "correct": 1,
+      "explanation": {"it": "Il cluster Minikube base è a singolo nodo (salvo configurazione multi-nodo), quindi non simula HA di produzione.", "en": "The basic Minikube cluster is single-node (unless multi-node configured), so it doesn't simulate production HA."},
+      "difficulty": "medium",
+      "domain": "limitations"
+    },
+    {
+      "question": {"it": "Come si confronta Minikube con kubeadm?", "en": "How does Minikube compare to kubeadm?"},
+      "options": ["kubeadm è più semplice per principianti", "Minikube è per sviluppo locale, kubeadm per setup cluster produttivi", "Sono la stessa cosa", "Minikube sostituisce kubeadm"],
+      "correct": 1,
+      "explanation": {"it": "Minikube è ottimizzato per sviluppo locale con setup automatizzato. Kubeadm è per creare cluster 'reali' su VM o bare metal.", "en": "Minikube is optimized for local development with automated setup. Kubeadm is for creating 'real' clusters on VMs or bare metal."},
+      "difficulty": "hard",
+      "domain": "alternatives"
+    },
+    {
+      "question": {"it": "Quale scenario è IDEALE per Minikube?", "en": "Which scenario is IDEAL for Minikube?"},
+      "options": ["Deploy di microservizi in produzione multi-cloud", "Sviluppo locale di applicazioni Kubernetes con test rapidi", "Gestione di cluster edge su dispositivi IoT", "Orchestrazione di job batch su supercomputer"],
+      "correct": 1,
+      "explanation": {"it": "Minikube eccelle nello sviluppo locale: iterazione rapida, test di manifest, debug di applicazioni senza impattare ambienti condivisi.", "en": "Minikube excels at local development: rapid iteration, manifest testing, application debugging without impacting shared environments."},
+      "difficulty": "easy",
+      "domain": "use-cases"
+    }
+  ]
+}

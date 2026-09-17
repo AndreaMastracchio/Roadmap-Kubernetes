@@ -1,0 +1,384 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale comando kubectl viene utilizzato per visualizzare i log di un pod?",
+        "en": "Which kubectl command is used to view pod logs?"
+      },
+      "options": [
+        "kubectl describe pod <name>",
+        "kubectl logs <pod-name>",
+        "kubectl get logs <pod-name>",
+        "kubectl exec <pod-name> -- logs"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl logs è il comando dedicato per visualizzare i log stdout/stderr di un container nel pod.",
+        "en": "kubectl logs is the dedicated command to view stdout/stderr logs of a container in the pod."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si visualizzano i log di un container precedente dopo un riavvio?",
+        "en": "How do you view logs from a previous container after a restart?"
+      },
+      "options": [
+        "kubectl logs <pod> --restart",
+        "kubectl logs <pod> --previous",
+        "kubectl logs <pod> -o old",
+        "kubectl logs <pod> --last"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il flag --previous permette di vedere i log del container che è stato sostituito, utile per debuggare crash.",
+        "en": "The --previous flag lets you see logs from the container that was replaced, useful for debugging crashes."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra l'utilizzo delle risorse in tempo reale?",
+        "en": "Which command shows resource usage in real-time?"
+      },
+      "options": [
+        "kubectl describe nodes",
+        "kubectl top pods",
+        "kubectl get nodes -o wide",
+        "kubectl stats pods"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl top pods/nodes mostra CPU e memoria utilizzate, ma richiede Metrics Server installato.",
+        "en": "kubectl top pods/nodes shows CPU and memory used, but requires Metrics Server installed."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Cosa indica uno stato CrashLoopBackOff?",
+        "en": "What does a CrashLoopBackOff state indicate?"
+      },
+      "options": [
+        "Il pod è in attesa di essere schedulato",
+        "Il container si sta riavviando ripetutamente dopo crash",
+        "Il pod non ha risorse sufficienti",
+        "L'immagine non può essere scaricata"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "CrashLoopBackOff indica che il container crasha ripetutamente e Kubernetes smette di riavviarlo temporaneamente (back-off).",
+        "en": "CrashLoopBackOff indicates the container crashes repeatedly and Kubernetes temporarily stops restarting it (back-off)."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale comando permette di eseguire un comando in un pod in esecuzione?",
+        "en": "Which command allows executing a command in a running pod?"
+      },
+      "options": [
+        "kubectl run <pod> --command",
+        "kubectl exec <pod> -- <command>",
+        "kubectl shell <pod> -- <command>",
+        "kubectl attach <pod> -- <command>"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl exec permette di eseguire comandi all'interno di un container in esecuzione, simile a docker exec.",
+        "en": "kubectl exec allows running commands inside a running container, similar to docker exec."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Cosa causa l'errore ImagePullBackOff?",
+        "en": "What causes ImagePullBackOff error?"
+      },
+      "options": [
+        "Il container crasha immediatamente",
+        "L'immagine non può essere scaricata dal registry",
+        "Non ci sono risorse sufficienti",
+        "Il pod non ha permessi RBAC"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ImagePullBackOff significa che Kubernetes non riesce a scaricare l'immagine (nome errato, credenziali, registry irraggiungibile).",
+        "en": "ImagePullBackOff means Kubernetes cannot pull the image (wrong name, credentials, unreachable registry)."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si ottiene una shell interattiva in un pod?",
+        "en": "How do you get an interactive shell in a pod?"
+      },
+      "options": [
+        "kubectl exec -it <pod> -- sh",
+        "kubectl shell <pod>",
+        "kubectl run -it <pod> -- sh",
+        "kubectl connect <pod>"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "kubectl exec -it esegue un comando interattivo con tty. 'sh' apre una shell nel container.",
+        "en": "kubectl exec -it runs an interactive command with tty. 'sh' opens a shell in the container."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra gli eventi recenti del cluster?",
+        "en": "Which command shows recent cluster events?"
+      },
+      "options": [
+        "kubectl describe cluster",
+        "kubectl get events",
+        "kubectl logs --events",
+        "kubectl status"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl get events mostra gli eventi del namespace corrente. --sort-by='.lastTimestamp' ordina per tempo.",
+        "en": "kubectl get events shows events for the current namespace. --sort-by='.lastTimestamp' sorts by time."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si visualizzano i log di un container specifico in un pod multi-container?",
+        "en": "How do you view logs from a specific container in a multi-container pod?"
+      },
+      "options": [
+        "kubectl logs <pod> --container=<name>",
+        "kubectl logs <pod>/<container>",
+        "kubectl logs <pod> -c <container>",
+        "Entrambe A e C sono corrette"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Sia -c che --container= sono forme valide per specificare il container in un pod multi-container.",
+        "en": "Both -c and --container= are valid forms to specify the container in a multi-container pod."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale è la causa comune di OOMKilled?",
+        "en": "What is a common cause of OOMKilled?"
+      },
+      "options": [
+        "Il container usa più memoria del limit",
+        "Il container non ha requests definite",
+        "Il pod è in pending da troppo tempo",
+        "L'immagine è corrotta"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "OOMKilled (Out Of Memory) avviene quando il container supera il memory limit. Il kernel termina il processo.",
+        "en": "OOMKilled (Out Of Memory) occurs when the container exceeds the memory limit. The kernel terminates the process."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale flag segue i log in tempo reale (tail -f)?",
+        "en": "Which flag follows logs in real-time (tail -f)?"
+      },
+      "options": [
+        "kubectl logs <pod> --follow",
+        "kubectl logs <pod> -f",
+        "kubectl logs <pod> --tail=-1",
+        "Sia A che B sono corrette"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Sia -f che --follow tengono aperto il flusso di log mostrando nuovi messaggi in tempo reale.",
+        "en": "Both -f and --follow keep the log stream open showing new messages in real-time."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Cosa sono gli ephemeral containers?",
+        "en": "What are ephemeral containers?"
+      },
+      "options": [
+        "Container temporanei per debug senza modificare il pod",
+        "Container che girano solo una volta",
+        "Container con risorse minime",
+        "Container inizializzatori"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Gli ephemeral containers sono container temporanei che si possono aggiungere a un pod per debugging, senza rebuild.",
+        "en": "Ephemeral containers are temporary containers that can be added to a pod for debugging without rebuild."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si limita il numero di righe di log mostrate?",
+        "en": "How do you limit the number of log lines shown?"
+      },
+      "options": [
+        "kubectl logs <pod> --max-lines=100",
+        "kubectl logs <pod> --tail=100",
+        "kubectl logs <pod> --limit=100",
+        "kubectl logs <pod> | head -100"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "--tail=N mostra le ultime N righe. Utile per log voluminosi.",
+        "en": "--tail=N shows the last N lines. Useful for voluminous logs."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra i log da un deployment?",
+        "en": "Which command shows logs from a deployment?"
+      },
+      "options": [
+        "kubectl logs deployment/<name>",
+        "kubectl logs <deployment-name>",
+        "kubectl get pods -l app=<name> -o name | xargs kubectl logs",
+        "kubectl logs <name> --type=deployment"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "kubectl logs deployment/<name> raccoglie i log da tutti i pod del deployment.",
+        "en": "kubectl logs deployment/<name> collects logs from all pods in the deployment."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Cosa indica uno stato Pending prolungato?",
+        "en": "What does a prolonged Pending state indicate?"
+      },
+      "options": [
+        "Il container crasha",
+        "Problemi di scheduling (risorse, node selector, affinity)",
+        "L'immagine sta venendo scaricata",
+        "Il pod è in fase di update"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Pending prolungato indica che lo scheduler non trova un nodo adatto: risorse insufficienti, vincoli, taints.",
+        "en": "Prolonged Pending indicates the scheduler can't find a suitable node: insufficient resources, constraints, taints."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale è il comando corretto per aggiungere un ephemeral container?",
+        "en": "What is the correct command to add an ephemeral container?"
+      },
+      "options": [
+        "kubectl add ephemeral <pod> --image=busybox",
+        "kubectl debug <pod> -it --image=busybox",
+        "kubectl attach <pod> --ephemeral --image=busybox",
+        "kubectl run --ephemeral <pod> --image=busybox"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl debug è il comando dedicato per creare container ephemeral per debugging.",
+        "en": "kubectl debug is the dedicated command to create ephemeral containers for debugging."
+      },
+      "difficulty": "hard",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si visualizzano i log con timestamp?",
+        "en": "How do you view logs with timestamps?"
+      },
+      "options": [
+        "kubectl logs <pod> --timestamps",
+        "kubectl logs <pod> --show-time",
+        "kubectl logs <pod> -o jsonpath='{.log}'",
+        "kubectl logs <pod> --time"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "--timestamps aggiunge il timestamp di Kubernetes a ogni riga di log.",
+        "en": "--timestamps adds Kubernetes timestamp to each log line."
+      },
+      "difficulty": "hard",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa Kubernetes memorizza gli eventi?",
+        "en": "Which Kubernetes resource stores events?"
+      },
+      "options": [
+        "EventLog",
+        "Events",
+        "ClusterEvent",
+        "AuditLog"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Events è una risorsa core che registra cosa succede nel cluster. Sono conservati per 1 ora di default.",
+        "en": "Events is a core resource that records what happens in the cluster. They're retained for 1 hour by default."
+      },
+      "difficulty": "hard",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si filtra per timestamp nei log?",
+        "en": "How do you filter logs by timestamp?"
+      },
+      "options": [
+        "kubectl logs <pod> --since=1h",
+        "kubectl logs <pod> --from=1h",
+        "kubectl logs <pod> --time-window=1h",
+        "kubectl logs <pod> --start=now-1h"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "--since=1h mostra solo i log dell'ultima ora. Si può usare anche --since-time con timestamp ISO.",
+        "en": "--since=1h shows only logs from the last hour. You can also use --since-time with ISO timestamp."
+      },
+      "difficulty": "hard",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Cosa causa ImagePullBackOff con immagine esistente?",
+        "en": "What causes ImagePullBackOff with an existing image?"
+      },
+      "options": [
+        "Solo nome immagine errato",
+        "Credenziali errate o mancanti per registry privato",
+        "Il nodo non ha spazio disco",
+        "La versione di Kubernetes è incompatibile"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Per registry privati servono imagePullSecrets con credenziali corrette. Senza, anche l'immagine giusta non viene scaricata.",
+        "en": "Private registries need imagePullSecrets with correct credentials. Without them, even the correct image won't be pulled."
+      },
+      "difficulty": "hard",
+      "domain": "Application Resources and Scheduling"
+    }
+  ]
+}

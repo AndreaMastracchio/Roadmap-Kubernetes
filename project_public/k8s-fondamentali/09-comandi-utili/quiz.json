@@ -1,0 +1,214 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale flag mostra i Pod con IP e nodo?",
+        "en": "Which flag shows Pods with IP and node?"
+      },
+      "options": ["-o wide", "-o yaml", "--show-all", "--details"],
+      "correct": 0,
+      "explanation": {
+        "it": "-o wide mostra informazioni extra come IP del Pod e nodo.",
+        "en": "-o wide shows extra info like Pod IP and node."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Come segui i log di un Pod in tempo reale?",
+        "en": "How do you follow Pod logs in real-time?"
+      },
+      "options": ["kubectl logs --watch", "kubectl logs -f", "kubectl logs --stream", "kubectl logs --tail"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl logs -f segue i log in tempo reale.",
+        "en": "kubectl logs -f follows logs in real-time."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Come esegui una shell in un Pod?",
+        "en": "How do you run a shell in a Pod?"
+      },
+      "options": ["kubectl shell <pod>", "kubectl exec -it <pod> -- sh", "kubectl run shell <pod>", "kubectl attach <pod>"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl exec -it <pod> -- sh esegue una shell interattiva.",
+        "en": "kubectl exec -it <pod> -- sh runs an interactive shell."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Quale flag mostra risorse in tutti i namespace?",
+        "en": "Which flag shows resources in all namespaces?"
+      },
+      "options": ["--global", "--everywhere", "-A o --all-namespaces", "--cluster-wide"],
+      "correct": 2,
+      "explanation": {
+        "it": "-A è l'abbreviazione di --all-namespaces.",
+        "en": "-A is the shorthand for --all-namespaces."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Come visualizzi l'uso di CPU/RAM dei Pod?",
+        "en": "How do you view Pod CPU/RAM usage?"
+      },
+      "options": ["kubectl stats", "kubectl top pods", "kubectl resources", "kubectl usage"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl top pods mostra l'uso attuale di risorse.",
+        "en": "kubectl top pods shows current resource usage."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra gli eventi del cluster?",
+        "en": "Which command shows cluster events?"
+      },
+      "options": ["kubectl logs events", "kubectl get events", "kubectl show events", "kubectl describe events"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl get events mostra gli eventi recenti del cluster.",
+        "en": "kubectl get events shows recent cluster events."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Come applichi modifiche a una risorsa?",
+        "en": "How do you apply changes to a resource?"
+      },
+      "options": ["kubectl update -f file.yaml", "kubectl apply -f file.yaml", "kubectl modify -f file.yaml", "kubectl change -f file.yaml"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl apply applica modifiche in modo dichiarativo.",
+        "en": "kubectl apply applies changes declaratively."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra la documentazione di un campo?",
+        "en": "Which command shows field documentation?"
+      },
+      "options": ["kubectl help <resource>", "kubectl explain <resource>.<field>", "kubectl docs <resource>", "kubectl info <resource>"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl explain mostra la documentazione integrata.",
+        "en": "kubectl explain shows built-in documentation."
+      },
+      "difficulty": "medium",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Come crei un Deployment imperativo?",
+        "en": "How do you create a Deployment imperatively?"
+      },
+      "options": ["kubectl run nginx --image=nginx", "kubectl create deployment nginx --image=nginx", "kubectl deploy nginx --image=nginx", "kubectl make deployment nginx --image=nginx"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl create deployment crea un Deployment imperativo.",
+        "en": "kubectl create deployment creates a Deployment imperatively."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Come esponi un Deployment come Service?",
+        "en": "How do you expose a Deployment as a Service?"
+      },
+      "options": ["kubectl service <deployment>", "kubectl expose deployment <name> --port=80", "kubectl create service <deployment>", "kubectl publish deployment <name>"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl expose deployment crea un Service per il Deployment.",
+        "en": "kubectl expose deployment creates a Service for the Deployment."
+      },
+      "difficulty": "medium",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Come mostri le label dei Pod?",
+        "en": "How do you show Pod labels?"
+      },
+      "options": ["kubectl get pods --labels", "kubectl get pods --show-labels", "kubectl get pods -l", "kubectl get pods --with-labels"],
+      "correct": 1,
+      "explanation": {
+        "it": "--show-labels mostra tutte le label dei Pod.",
+        "en": "--show-labels shows all Pod labels."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Come mostri i log di un container specifico?",
+        "en": "How do you show logs for a specific container?"
+      },
+      "options": ["kubectl logs <pod> <container>", "kubectl logs <pod> -c <container>", "kubectl logs <pod> --container=<container>", "kubectl logs <pod>/<container>"],
+      "correct": 1,
+      "explanation": {
+        "it": "-c specifica il container in un Pod multi-container.",
+        "en": "-c specifies the container in a multi-container Pod."
+      },
+      "difficulty": "medium",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Come elimini un Pod forzatamente?",
+        "en": "How do you forcefully delete a Pod?"
+      },
+      "options": ["kubectl delete pod <pod> --force", "kubectl delete pod <pod> --force --grace-period=0", "kubectl kill pod <pod>", "kubectl delete pod <pod> --immediate"],
+      "correct": 1,
+      "explanation": {
+        "it": "--force --grace-period=0 elimina senza graceful shutdown.",
+        "en": "--force --grace-period=0 deletes without graceful shutdown."
+      },
+      "difficulty": "hard",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Quale output format mostra solo i nomi?",
+        "en": "Which output format shows only names?"
+      },
+      "options": ["-o yaml", "-o json", "-o name", "-o wide"],
+      "correct": 2,
+      "explanation": {
+        "it": "-o name mostra solo i nomi delle risorse.",
+        "en": "-o name shows only resource names."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Come applichi una patch a una risorsa?",
+        "en": "How do you apply a patch to a resource?"
+      },
+      "options": ["kubectl apply patch", "kubectl patch <resource> <name> -p '<json>'", "kubectl update <resource> <name>", "kubectl modify <resource> <name>"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl patch applica modifiche parziali in JSON.",
+        "en": "kubectl patch applies partial changes in JSON."
+      },
+      "difficulty": "hard",
+      "domain": "kubectl"
+    }
+  ]
+}

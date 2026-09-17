@@ -1,0 +1,384 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale risorsa Kubernetes rappresenta l'astrazione dello storage?",
+        "en": "Which Kubernetes resource represents storage abstraction?"
+      },
+      "options": [
+        "Volume",
+        "PersistentVolume",
+        "StorageClass",
+        "PersistentVolumeClaim"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "PersistentVolume (PV) è la risorsa che rappresenta l'astrazione dello storage fisico nel cluster.",
+        "en": "PersistentVolume (PV) is the resource representing the abstraction of physical storage in the cluster."
+      },
+      "difficulty": "easy",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa permette a un pod di richiedere storage?",
+        "en": "Which resource allows a pod to request storage?"
+      },
+      "options": [
+        "PersistentVolume",
+        "Volume",
+        "PersistentVolumeClaim",
+        "StorageRequest"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "PersistentVolumeClaim (PVC) è la richiesta di storage da parte di un utente o pod.",
+        "en": "PersistentVolumeClaim (PVC) is the storage request from a user or pod."
+      },
+      "difficulty": "easy",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Quale modalità di accesso permette il mount come read-write da un singolo nodo?",
+        "en": "Which access mode allows read-write mount by a single node?"
+      },
+      "options": [
+        "ReadOnlyMany",
+        "ReadWriteMany",
+        "ReadWriteOnce",
+        "ReadWriteOncePod"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "ReadWriteOnce (RWO) permette il mount in lettura-scrittura da un solo nodo alla volta.",
+        "en": "ReadWriteOnce (RWO) allows read-write mount by only one node at a time."
+      },
+      "difficulty": "easy",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Quale StorageClass è creata di default in molti cluster?",
+        "en": "Which StorageClass is created by default in many clusters?"
+      },
+      "options": [
+        "default",
+        "standard",
+        "gp2",
+        "local-path"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "gp2 è la StorageClass predefinita su AWS EKS. local-path è comune su k3s.",
+        "en": "gp2 is the default StorageClass on AWS EKS. local-path is common on k3s."
+      },
+      "difficulty": "easy",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa definisce come viene provisionato il PV dinamico?",
+        "en": "Which resource defines how dynamic PV is provisioned?"
+      },
+      "options": [
+        "PersistentVolume",
+        "PersistentVolumeClaim",
+        "StorageClass",
+        "VolumeAttachment"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "StorageClass definisce il provisioner, parametri e reclaim policy per PV dinamici.",
+        "en": "StorageClass defines provisioner, parameters, and reclaim policy for dynamic PVs."
+      },
+      "difficulty": "easy",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Quale policy di reclaim elimina il PV e lo storage associato quando il PVC viene cancellato?",
+        "en": "Which reclaim policy deletes the PV and associated storage when the PVC is deleted?"
+      },
+      "options": [
+        "Retain",
+        "Delete",
+        "Recycle",
+        "Archive"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Delete rimuove PV e storage quando il PVC viene cancellato. Retain mantiene i dati.",
+        "en": "Delete removes PV and storage when PVC is deleted. Retain keeps the data."
+      },
+      "difficulty": "easy",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Come si chiama il volume usato per inizializzare un PV prima che il pod principale giri?",
+        "en": "What's the name of the volume used to initialize a PV before the main pod runs?"
+      },
+      "options": [
+        "StartupVolume",
+        "InitContainer volume",
+        "emptyDir",
+        "Init container con volume mount"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Gli init container possono montare volumi e eseguire operazioni di setup prima del container principale.",
+        "en": "Init containers can mount volumes and perform setup operations before the main container."
+      },
+      "difficulty": "easy",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di StatefulSet gestisce storage con identificativi stabili?",
+        "en": "Which StatefulSet type manages storage with stable identifiers?"
+      },
+      "options": [
+        "StatefulSet senza serviceName",
+        "StatefulSet con volumeClaimTemplate",
+        "Deployment con PVC",
+        "ReplicaSet con storage"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "volumeClaimTemplate in StatefulSet crea un PVC per ogni replica con identificativo stabile.",
+        "en": "volumeClaimTemplate in StatefulSet creates a PVC for each replica with stable identifier."
+      },
+      "difficulty": "easy",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Cosa succede ai dati su un emptyDir quando il pod viene cancellato?",
+        "en": "What happens to data on an emptyDir when the pod is deleted?"
+      },
+      "options": [
+        "I dati vengono persi",
+        "I dati vengono salvati in un PVC",
+        "I dati vengono copiati su S3",
+        "I dati persistono fino al prossimo pod"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "emptyDir è temporaneo: i dati vengono persi quando il pod viene cancellato o il nodo fallisce.",
+        "en": "emptyDir is temporary: data is lost when the pod is deleted or the node fails."
+      },
+      "difficulty": "easy",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra lo stato di un PVC?",
+        "en": "Which command shows PVC status?"
+      },
+      "options": [
+        "kubectl describe pv",
+        "kubectl get pvc",
+        "kubectl status pvc",
+        "kubectl show storage"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl get pvc mostra lo stato (Pending, Bound) e la capacità del claim.",
+        "en": "kubectl get pvc shows the status (Pending, Bound) and claim capacity."
+      },
+      "difficulty": "medium",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Quale modalità di accesso è supportata solo da pochi storage backend?",
+        "en": "Which access mode is supported only by few storage backends?"
+      },
+      "options": [
+        "ReadWriteOnce",
+        "ReadOnlyMany",
+        "ReadWriteMany",
+        "ReadWriteOncePod"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "ReadWriteMany (RWX) permette mount multiplo in scrittura, supportato solo da NFS, CephFS, ecc.",
+        "en": "ReadWriteMany (RWX) allows multiple read-write mount, supported only by NFS, CephFS, etc."
+      },
+      "difficulty": "medium",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Come si specifica una StorageClass specifica per un PVC?",
+        "en": "How do you specify a specific StorageClass for a PVC?"
+      },
+      "options": [
+        "spec.type",
+        "spec.storageClassName",
+        "spec.class",
+        "metadata.annotations.storageclass"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "spec.storageClassName specifica la StorageClass da usare per il provisioning.",
+        "en": "spec.storageClassName specifies the StorageClass to use for provisioning."
+      },
+      "difficulty": "medium",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Quale volume permette di montare un secret come file?",
+        "en": "Which volume allows mounting a secret as a file?"
+      },
+      "options": [
+        "configMap volume",
+        "secret volume",
+        "hostPath",
+        "emptyDir"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il volume secret monta il Secret come file nel percorso specificato.",
+        "en": "The secret volume mounts the Secret as files at the specified path."
+      },
+      "difficulty": "medium",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Cosa indica uno stato Pending su un PVC?",
+        "en": "What does a Pending status on a PVC indicate?"
+      },
+      "options": [
+        "Il PVC è in uso",
+        "Il PV non è stato ancora bound",
+        "Lo storage è pieno",
+        "Il pod non è ancora creato"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Pending significa che il PVC è in attesa di essere bound a un PV (statico o dinamico).",
+        "en": "Pending means the PVC is waiting to be bound to a PV (static or dynamic)."
+      },
+      "difficulty": "medium",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Quale volume monta un percorso dal nodo?",
+        "en": "Which volume mounts a path from the node?"
+      },
+      "options": [
+        "emptyDir",
+        "hostPath",
+        "local",
+        "persistentVolume"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "hostPath monta un file o directory dal filesystem del nodo nel pod.",
+        "en": "hostPath mounts a file or directory from the node's filesystem into the pod."
+      },
+      "difficulty": "medium",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Quale volume mode permette di accedere direttamente al block device?",
+        "en": "Which volume mode allows direct block device access?"
+      },
+      "options": [
+        "Filesystem",
+        "Block",
+        "Raw",
+        "Device"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "volumeMode: Block presenta il volume come block device grezzo invece che come filesystem.",
+        "en": "volumeMode: Block presents the volume as a raw block device instead of a filesystem."
+      },
+      "difficulty": "hard",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Come si usa un PVC esistente in un pod?",
+        "en": "How do you use an existing PVC in a pod?"
+      },
+      "options": [
+        "spec.volumes[].persistentVolumeClaim.claimName",
+        "spec.volumes[].pvc.name",
+        "spec.storage.claimName",
+        "spec.persistentVolumeClaim.name"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "persistentVolumeClaim.claimName nel volume specifica il PVC da montare.",
+        "en": "persistentVolumeClaim.claimName in the volume specifies the PVC to mount."
+      },
+      "difficulty": "hard",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Cosa fa volumeClaimTemplate in uno StatefulSet?",
+        "en": "What does volumeClaimTemplate do in a StatefulSet?"
+      },
+      "options": [
+        "Crea un PV condiviso da tutte le repliche",
+        "Crea un PVC per ogni replica con identificativo stabile",
+        "Condivide il PVC tra repliche",
+        "Crea PV statici per ogni replica"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "volumeClaimTemplate crea PVC <pvc-name>-<statefulset-name>-<ordinal> per ogni replica.",
+        "en": "volumeClaimTemplate creates PVC <pvc-name>-<statefulset-name>-<ordinal> for each replica."
+      },
+      "difficulty": "hard",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Quale policy permette di mantenere i dati quando un PVC viene cancellato?",
+        "en": "Which policy allows keeping data when a PVC is deleted?"
+      },
+      "options": [
+        "Delete",
+        "Retain",
+        "Recycle",
+        "Preserve"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Retain mantiene il PV e i dati dopo la cancellazione del PVC, permettendo recupero manuale.",
+        "en": "Retain keeps the PV and data after PVC deletion, allowing manual recovery."
+      },
+      "difficulty": "hard",
+      "domain": "Application Storage and Networking"
+    },
+    {
+      "question": {
+        "it": "Come si specifica un PVC ReadWriteMany?",
+        "en": "How do you specify a ReadWriteMany PVC?"
+      },
+      "options": [
+        "spec.accessModes: [\"RWX\"]",
+        "spec.accessModes: [\"ReadWriteMany\"]",
+        "spec.mode: ReadWriteMany",
+        "spec.access: [\"many\"]"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "accessModes accetta i nomi completi: ReadWriteOnce, ReadOnlyMany, ReadWriteMany.",
+        "en": "accessModes accepts full names: ReadWriteOnce, ReadOnlyMany, ReadWriteMany."
+      },
+      "difficulty": "hard",
+      "domain": "Application Storage and Networking"
+    }
+  ]
+}

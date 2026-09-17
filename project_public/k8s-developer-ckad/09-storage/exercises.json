@@ -1,0 +1,305 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Creare un PVC di base",
+        "en": "Create a basic PVC"
+      },
+      "description": {
+        "it": "Richiedere storage con un PersistentVolumeClaim",
+        "en": "Request storage with a PersistentVolumeClaim"
+      },
+      "task": "1. Crea un PVC chiamato 'data-pvc'\n2. Richiedi 1Gi di storage\n3. Usa la StorageClass predefinita\n4. Specifica modalità di accesso ReadWriteOnce",
+      "hints": [
+        "kubectl create è limitato per PVC, usa manifest YAML",
+        "spec.resources.requests.storage per la dimensione",
+        "spec.accessModes per la modalità di accesso"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: PersistentVolumeClaim\nmetadata:\n  name: data-pvc\nspec:\n  accessModes:\n  - ReadWriteOnce\n  resources:\n    requests:\n      storage: 1Gi\nEOF",
+      "validation": "kubectl get pvc data-pvc -o jsonpath='{.spec.resources.requests.storage}'",
+      "difficulty": "easy",
+      "timeEstimate": "4 minuti"
+    },
+    {
+      "title": {
+        "it": "Usare un PVC in un pod",
+        "en": "Use a PVC in a pod"
+      },
+      "description": {
+        "it": "Montare un volume persistente in un container",
+        "en": "Mount a persistent volume in a container"
+      },
+      "task": "1. Crea un pod che monta il PVC 'data-pvc'\n2. Monta il volume su /data\n3. Verifica che il volume sia montato correttamente\n4. Scrivi un file di test",
+      "hints": [
+        "spec.volumes[].persistentVolumeClaim.claimName",
+        "spec.containers[].volumeMounts per il mount",
+        "kubectl exec per scrivere il file"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: storage-pod\nspec:\n  volumes:\n  - name: data\n    persistentVolumeClaim:\n      claimName: data-pvc\n  containers:\n  - name: app\n    image: nginx\n    volumeMounts:\n    - name: data\n      mountPath: /data\nEOF\n\nkubectl exec storage-pod -- touch /data/test.txt\nkubectl exec storage-pod -- ls /data/",
+      "validation": "kubectl exec storage-pod -- ls /data/test.txt",
+      "difficulty": "easy",
+      "timeEstimate": "6 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un PV statico",
+        "en": "Create a static PV"
+      },
+      "description": {
+        "it": "Definire manualmente un PersistentVolume",
+        "en": "Manually define a PersistentVolume"
+      },
+      "task": "1. Crea un PV 'local-pv' con capacity 5Gi\n2. Usa accessMode ReadWriteOnce\n3. Imposta hostPath su /mnt/data\n4. Crea un PVC che lo binda",
+      "hints": [
+        "PV è risorsa cluster (no namespace)",
+        "spec.capacity.storage per la capacità",
+        "spec.hostPath per storage locale"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: PersistentVolume\nmetadata:\n  name: local-pv\nspec:\n  capacity:\n    storage: 5Gi\n  accessModes:\n  - ReadWriteOnce\n  hostPath:\n    path: /mnt/data\n---\napiVersion: v1\nkind: PersistentVolumeClaim\nmetadata:\n  name: local-pvc\nspec:\n  accessModes:\n  - ReadWriteOnce\n  resources:\n    requests:\n      storage: 5Gi\nEOF",
+      "validation": "kubectl get pv local-pv -o jsonpath='{.status.phase}'",
+      "difficulty": "easy",
+      "timeEstimate": "6 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare una StorageClass",
+        "en": "Create a StorageClass"
+      },
+      "description": {
+        "it": "Definire una classe di storage per provisioning dinamico",
+        "en": "Define a storage class for dynamic provisioning"
+      },
+      "task": "1. Crea una StorageClass 'fast-storage'\n2. Usa provisioner kubernetes.io/no-provisioner (simula)\n3. Imposta reclaim policy Delete\n4. Crea un PVC che la usa",
+      "hints": [
+        "apiVersion: storage.k8s.io/v1",
+        "provisioner specifica il CSI/plugin",
+        "reclaimPolicy: Delete o Retain"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: storage.k8s.io/v1\nkind: StorageClass\nmetadata:\n  name: fast-storage\nprovisioner: kubernetes.io/no-provisioner\nreclaimPolicy: Delete\nvolumeBindingMode: WaitForFirstConsumer\nEOF\n\ncat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: PersistentVolumeClaim\nmetadata:\n  name: fast-pvc\nspec:\n  storageClassName: fast-storage\n  accessModes:\n  - ReadWriteOnce\n  resources:\n    requests:\n      storage: 2Gi\nEOF",
+      "validation": "kubectl get storageclass fast-storage -o jsonpath='{.provisioner}'",
+      "difficulty": "easy",
+      "timeEstimate": "6 minuti"
+    },
+    {
+      "title": {
+        "it": "Volume emptyDir",
+        "en": "emptyDir volume"
+      },
+      "description": {
+        "it": "Usare storage temporaneo condiviso",
+        "en": "Use shared temporary storage"
+      },
+      "task": "1. Crea un pod con due container\n2. Condividi un emptyDir tra i container\n3. Il primo container scrive un file\n4. Il secondo container legge il file",
+      "hints": [
+        "emptyDir è cancellato al pod restart",
+        "I container devono montare lo stesso volume",
+        "Usa command per automatizzare la scrittura"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: shared-pod\nspec:\n  volumes:\n  - name: shared\n    emptyDir: {}\n  containers:\n  - name: writer\n    image: busybox\n    command: ['sh', '-c', 'echo \"Hello from writer\" > /data/message.txt && sleep 3600']\n    volumeMounts:\n    - name: shared\n      mountPath: /data\n  - name: reader\n    image: busybox\n    command: ['sh', '-c', 'sleep 5 && cat /data/message.txt && sleep 3600']\n    volumeMounts:\n    - name: shared\n      mountPath: /data\nEOF\n\nkubectl logs shared-pod -c reader",
+      "validation": "kubectl logs shared-pod -c reader | grep -q 'Hello'",
+      "difficulty": "easy",
+      "timeEstimate": "7 minuti"
+    },
+    {
+      "title": {
+        "it": "StatefulSet con storage",
+        "en": "StatefulSet with storage"
+      },
+      "description": {
+        "it": "Creare deployment con storage persistente per replica",
+        "en": "Create deployment with persistent storage per replica"
+      },
+      "task": "1. Crea uno StatefulSet 'web-db' con 2 repliche\n2. Usa volumeClaimTemplate per 1Gi storage per replica\n3. Verifica che ogni replica abbia il suo PVC\n4. Controlla i nomi dei PVC",
+      "hints": [
+        "volumeClaimTemplate crea PVC automatici",
+        "I PVC sono nominati: <template-name>-<statefulset-name>-<ordinal>",
+        "spec.serviceName è obbligatorio"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  name: web-db\nspec:\n  serviceName: web-db\n  replicas: 2\n  selector:\n    matchLabels:\n      app: web-db\n  template:\n    metadata:\n      labels:\n        app: web-db\n    spec:\n      containers:\n      - name: nginx\n        image: nginx\n        volumeMounts:\n        - name: data\n          mountPath: /data\n  volumeClaimTemplates:\n  - metadata:\n      name: data\n    spec:\n      accessModes: [\"ReadWriteOnce\"]\n      resources:\n        requests:\n          storage: 1Gi\nEOF\n\nkubectl get pvc | grep data-web-db",
+      "validation": "kubectl get pvc -l app=web-db -o name | wc -l",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Init container per setup volume",
+        "en": "Init container for volume setup"
+      },
+      "description": {
+        "it": "Inizializzare un volume prima dell'avvio",
+        "en": "Initialize a volume before startup"
+      },
+      "task": "1. Crea un pod con un PVC montato\n2. Aggiungi un init container che crea una directory e scarica dati\n3. Il container principale legge i dati preparati\n4. Verifica che i dati siano presenti",
+      "hints": [
+        "Init containers girano prima dei container principali",
+        "Entrambi devono montare lo stesso volume",
+        "Usa wget o curl per scaricare dati"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: init-demo\nspec:\n  volumes:\n  - name: workdir\n    emptyDir: {}\n  initContainers:\n  - name: setup\n    image: busybox\n    command: ['sh', '-c', 'mkdir -p /data && echo \"Initialized at $(date)\" > /data/status.txt']\n    volumeMounts:\n    - name: workdir\n      mountPath: /data\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'cat /data/status.txt && sleep 3600']\n    volumeMounts:\n    - name: workdir\n      mountPath: /data\nEOF\n\nkubectl logs init-demo | grep Initialized",
+      "validation": "kubectl logs init-demo | grep -c 'Initialized'",
+      "difficulty": "medium",
+      "timeEstimate": "8 minuti"
+    },
+    {
+      "title": {
+        "it": "PVC ReadWriteMany",
+        "en": "ReadWriteMany PVC"
+      },
+      "description": {
+        "it": "Creare storage condiviso tra più pod",
+        "en": "Create storage shared between multiple pods"
+      },
+      "task": "1. Crea una StorageClass con provisioner NFS (simulato)\n2. Crea un PVC con accessMode ReadWriteMany\n3. Crea due pod che montano lo stesso PVC\n4. Verifica che il file scritto da uno sia leggibile dall'altro",
+      "hints": [
+        "RWX richiede storage backend che lo supporta (NFS)",
+        "Lo stesso PVC può essere montato da più pod",
+        "In assenza di NFS, usa hostPath per test locali"
+      ],
+      "solution": "# Nota: RWX richiede NFS o simile. Demo con shared hostPath:\ncat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: PersistentVolume\nmetadata:\n  name: shared-pv\nspec:\n  capacity:\n    storage: 1Gi\n  accessModes:\n  - ReadWriteMany\n  hostPath:\n    path: /tmp/shared-data\n---\napiVersion: v1\nkind: PersistentVolumeClaim\nmetadata:\n  name: shared-pvc\nspec:\n  accessModes:\n  - ReadWriteMany\n  resources:\n    requests:\n      storage: 1Gi\nEOF\n\ncat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: writer\nspec:\n  volumes:\n  - name: shared\n    persistentVolumeClaim:\n      claimName: shared-pvc\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'echo \"shared data\" > /data/file.txt && sleep 3600']\n    volumeMounts:\n    - name: shared\n      mountPath: /data\n---\napiVersion: v1\nkind: Pod\nmetadata:\n  name: reader\nspec:\n  volumes:\n  - name: shared\n    persistentVolumeClaim:\n      claimName: shared-pvc\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'sleep 5 && cat /data/file.txt && sleep 3600']\n    volumeMounts:\n    - name: shared\n      mountPath: /data\nEOF",
+      "validation": "kubectl logs reader | grep 'shared data'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Montare Secret come volume",
+        "en": "Mount Secret as volume"
+      },
+      "description": {
+        "it": "Usare un Secret come file nel pod",
+        "en": "Use a Secret as file in the pod"
+      },
+      "task": "1. Crea un Secret 'db-credentials' con username e password\n2. Monta il Secret come volume su /etc/secrets\n3. Verifica che i file siano creati correttamente\n4. Leggi il contenuto dei file",
+      "hints": [
+        "kubectl create secret generic",
+        "spec.volumes[].secret.secretName",
+        "Ogni chiave del Secret diventa un file"
+      ],
+      "solution": "kubectl create secret generic db-credentials --from-literal=username=admin --from-literal=password=secret123\n\ncat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: secret-pod\nspec:\n  volumes:\n  - name: secrets\n    secret:\n      secretName: db-credentials\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'ls -la /etc/secrets && cat /etc/secrets/username && sleep 3600']\n    volumeMounts:\n    - name: secrets\n      mountPath: /etc/secrets\nEOF\n\nkubectl exec secret-pod -- cat /etc/secrets/password",
+      "validation": "kubectl exec secret-pod -- ls /etc/secrets | grep username",
+      "difficulty": "medium",
+      "timeEstimate": "7 minuti"
+    },
+    {
+      "title": {
+        "it": "Montare ConfigMap come volume",
+        "en": "Mount ConfigMap as volume"
+      },
+      "description": {
+        "it": "Usare una ConfigMap come file di configurazione",
+        "en": "Use a ConfigMap as configuration file"
+      },
+      "task": "1. Crea una ConfigMap 'app-config' con un file nginx.conf\n2. Monta la ConfigMap su /etc/nginx/conf.d\n3. Verifica che la configurazione sia applicata\n4. Aggiorna la ConfigMap e osserva il cambiamento",
+      "hints": [
+        "kubectl create configmap --from-file o --from-literal",
+        "Le ConfigMap possono essere montate come file",
+        "L'aggiornamento può richiedere qualche minuto"
+      ],
+      "solution": "kubectl create configmap app-config --from-literal=config.js='export default { api: \"http://api.example.com\" };'\n\ncat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: config-pod\nspec:\n  volumes:\n  - name: config\n    configMap:\n      name: app-config\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'cat /etc/config/config.js && sleep 3600']\n    volumeMounts:\n    - name: config\n      mountPath: /etc/config\nEOF",
+      "validation": "kubectl exec config-pod -- cat /etc/config/config.js",
+      "difficulty": "medium",
+      "timeEstimate": "7 minuti"
+    },
+    {
+      "title": {
+        "it": "Volume mode Block",
+        "en": "Block volume mode"
+      },
+      "description": {
+        "it": "Accedere al volume come block device",
+        "en": "Access volume as block device"
+      },
+      "task": "1. Crea un PV con volumeMode: Block\n2. Crea un PVC che lo usa\n3. Monta il volume in un pod come block device\n4. Verifica con lsblk o fdisk",
+      "hints": [
+        "volumeMode: Block invece di Filesystem",
+        "volumeDevices invece di volumeMounts",
+        "Il pod deve avere permessi per accedere al device"
+      ],
+      "solution": "# Nota: Block mode richiede CSI driver che lo supporta\ncat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: PersistentVolume\nmetadata:\n  name: block-pv\nspec:\n  capacity:\n    storage: 1Gi\n  volumeMode: Block\n  accessModes:\n  - ReadWriteOnce\n  hostPath:\n    path: /tmp/block-dev\n---\napiVersion: v1\nkind: PersistentVolumeClaim\nmetadata:\n  name: block-pvc\nspec:\n  volumeMode: Block\n  accessModes:\n  - ReadWriteOnce\n  resources:\n    requests:\n      storage: 1Gi\nEOF",
+      "validation": "kubectl get pvc block-pvc -o jsonpath='{.spec.volumeMode}'",
+      "difficulty": "hard",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Expand PVC",
+        "en": "Expand PVC"
+      },
+      "description": {
+        "it": "Aumentare la dimensione di un PVC esistente",
+        "en": "Increase size of an existing PVC"
+      },
+      "task": "1. Crea una StorageClass con allowVolumeExpansion: true\n2. Crea un PVC da 1Gi\n3. Espandi il PVC a 2Gi con kubectl patch\n4. Verifica la nuova dimensione",
+      "hints": [
+        "allowVolumeExpansion: true nella StorageClass",
+        "kubectl patch pvc per aggiornare la dimensione",
+        "Alcuni CSI non supportano la riduzione"
+      ],
+      "solution": "# Verifica se la StorageClass di default supporta espansione\nkubectl get storageclass -o yaml | grep -A2 allowVolumeExpansion\n\n# Se supportata, espandi il PVC\nkubectl patch pvc data-pvc -p '{\"spec\": {\"resources\": {\"requests\": {\"storage\": \"2Gi\"}}}}'\n\nkubectl get pvc data-pvc",
+      "validation": "kubectl get pvc data-pvc -o jsonpath='{.spec.resources.requests.storage}'",
+      "difficulty": "hard",
+      "timeEstimate": "8 minuti"
+    },
+    {
+      "title": {
+        "it": "Storage con selector",
+        "en": "Storage with selector"
+      },
+      "description": {
+        "it": "Selezionare PV specifico con label selector",
+        "en": "Select specific PV with label selector"
+      },
+      "task": "1. Crea un PV con label 'tier: database'\n2. Crea un PVC con selector che matcha il label\n3. Verifica che il PVC si binda al PV corretto\n4. Crea un pod che lo usa",
+      "hints": [
+        "PV: metadata.labels.tier: database",
+        "PVC: spec.selector.matchLabels.tier: database",
+        "Il binding è automatico se il selector matcha"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: PersistentVolume\nmetadata:\n  name: db-pv\n  labels:\n    tier: database\nspec:\n  capacity:\n    storage: 10Gi\n  accessModes:\n  - ReadWriteOnce\n  hostPath:\n    path: /mnt/db-data\n---\napiVersion: v1\nkind: PersistentVolumeClaim\nmetadata:\n  name: db-pvc\nspec:\n  selector:\n    matchLabels:\n      tier: database\n  accessModes:\n  - ReadWriteOnce\n  resources:\n    requests:\n      storage: 10Gi\nEOF",
+      "validation": "kubectl get pvc db-pvc -o jsonpath='{.spec.volumeName}'",
+      "difficulty": "hard",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Snapshot PVC",
+        "en": "Snapshot PVC"
+      },
+      "description": {
+        "it": "Creare uno snapshot di un volume",
+        "en": "Create a volume snapshot"
+      },
+      "task": "1. Crea un VolumeSnapshotClass\n2. Crea un VolumeSnapshot del PVC\n3. Verifica lo stato dello snapshot\n4. Crea un nuovo PVC dallo snapshot",
+      "hints": [
+        "Richiede CSI driver con supporto snapshot",
+        "apiVersion: snapshot.storage.k8s.io/v1",
+        "dataSource nei PVC per restaurare"
+      ],
+      "solution": "# Nota: Richiede CSI con supporto snapshot\ncat <<EOF | kubectl apply -f -\napiVersion: snapshot.storage.k8s.io/v1\nkind: VolumeSnapshotClass\nmetadata:\n  name: default-snapclass\ndriver: hostpath.csi.k8s.io\ndeletionPolicy: Delete\n---\napiVersion: snapshot.storage.k8s.io/v1\nkind: VolumeSnapshot\nmetadata:\n  name: data-snapshot\nspec:\n  volumeSnapshotClassName: default-snapclass\n  source:\n    persistentVolumeClaimName: data-pvc\nEOF\n\n# Restaurare dallo snapshot\ncat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: PersistentVolumeClaim\nmetadata:\n  name: restored-pvc\nspec:\n  dataSource:\n    name: data-snapshot\n    kind: VolumeSnapshot\n    apiGroup: snapshot.storage.k8s.io\n  accessModes:\n  - ReadWriteOnce\n  resources:\n    requests:\n      storage: 1Gi\nEOF",
+      "validation": "kubectl get volumesnapshot data-snapshot -o jsonpath='{.status.readyToUse}'",
+      "difficulty": "hard",
+      "timeEstimate": "12 minuti"
+    },
+    {
+      "title": {
+        "it": "Scenario completo: database con backup",
+        "en": "Complete scenario: database with backup"
+      },
+      "description": {
+        "it": "Deployare un database con storage persistente e backup",
+        "en": "Deploy a database with persistent storage and backup"
+      },
+      "task": "1. Crea uno StatefulSet PostgreSQL con 1 replica\n2. Usa volumeClaimTemplate per i dati\n3. Configura init container per setup DB\n4. Crea un Job di backup che usa lo stesso storage",
+      "hints": [
+        "StatefulSet con serviceName per DNS stabile",
+        "volumeClaimTemplate per PVC automatici",
+        "Init container per creare database iniziale",
+        "Job con lo stesso PVC per backup"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Service\nmetadata:\n  name: postgres\nspec:\n  clusterIP: None\n  selector:\n    app: postgres\n  ports:\n  - port: 5432\n---\napiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  name: postgres\nspec:\n  serviceName: postgres\n  replicas: 1\n  selector:\n    matchLabels:\n      app: postgres\n  template:\n    metadata:\n      labels:\n        app: postgres\n    spec:\n      containers:\n      - name: postgres\n        image: postgres:15\n        env:\n        - name: POSTGRES_PASSWORD\n          value: postgres\n        ports:\n        - containerPort: 5432\n        volumeMounts:\n        - name: data\n          mountPath: /var/lib/postgresql/data\n  volumeClaimTemplates:\n  - metadata:\n      name: data\n    spec:\n      accessModes: [\"ReadWriteOnce\"]\n      resources:\n        requests:\n          storage: 5Gi\nEOF",
+      "validation": "kubectl get statefulset postgres -o jsonpath='{.status.readyReplicas}'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    }
+  ]
+}

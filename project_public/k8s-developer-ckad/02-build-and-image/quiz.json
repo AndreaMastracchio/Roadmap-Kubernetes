@@ -1,0 +1,384 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale comando Docker viene utilizzato per costruire un'immagine da un Dockerfile?",
+        "en": "Which Docker command is used to build an image from a Dockerfile?"
+      },
+      "options": [
+        "docker create",
+        "docker build",
+        "docker run",
+        "docker image"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "docker build costruisce un'immagine da un Dockerfile e un contesto. Il flag -t permette di taggare l'immagine.",
+        "en": "docker build constructs an image from a Dockerfile and context. The -t flag allows tagging the image."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è il vantaggio principale del layer caching in Docker?",
+        "en": "What is the main advantage of Docker layer caching?"
+      },
+      "options": [
+        "Aumenta la sicurezza dell'immagine",
+        "Riduce il tempo di rebuild riutilizzando layer non modificati",
+        "Permette di usare immagini più grandi",
+        "Nasconde i passaggi di build"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il layer caching permette di riutilizzare layer esistenti quando le istruzioni e i file di input non sono cambiati, velocizzando rebuild successivi.",
+        "en": "Layer caching allows reusing existing layers when instructions and input files haven't changed, speeding up subsequent rebuilds."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale flag di docker build permette di specificare un Dockerfile con nome diverso?",
+        "en": "Which docker build flag allows specifying a Dockerfile with a different name?"
+      },
+      "options": [
+        "-d",
+        "-f",
+        "--dockerfile",
+        "-D"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "-f o --file specifica il percorso del Dockerfile. Utile per Dockerfile in directory diverse o con nomi personalizzati.",
+        "en": "-f or --file specifies the Dockerfile path. Useful for Dockerfiles in different directories or with custom names."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale comando Docker mostra gli strati (layer) di un'immagine?",
+        "en": "Which Docker command shows the layers of an image?"
+      },
+      "options": [
+        "docker layers",
+        "docker history",
+        "docker inspect",
+        "docker show"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "docker history mostra la cronologia di creazione dei layer, inclusa la dimensione di ogni strato.",
+        "en": "docker history shows the layer creation history, including the size of each layer."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è la pratica migliore per taggare le immagini di produzione?",
+        "en": "What is the best practice for tagging production images?"
+      },
+      "options": [
+        "Usare solo 'latest'",
+        "Usare tag semantici versionati (v1.2.3)",
+        "Usare il nome del branch Git",
+        "Non usare tag"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "I tag semantici permettono rollback precisi e identificazione della versione. 'latest' è ambiguo e può causare deploy non intenzionali.",
+        "en": "Semantic tags allow precise rollbacks and version identification. 'latest' is ambiguous and can cause unintentional deployments."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale registro Docker è quello ufficiale di default?",
+        "en": "Which Docker registry is the official default one?"
+      },
+      "options": [
+        "gcr.io",
+        "quay.io",
+        "Docker Hub (docker.io)",
+        "Amazon ECR"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Docker Hub (docker.io) è il registro pubblico predefinito. Le immagini senza prefisso di registro sono cercate lì.",
+        "en": "Docker Hub (docker.io) is the default public registry. Images without registry prefix are searched there."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale comando effettua il login a un registro container privato?",
+        "en": "Which command performs login to a private container registry?"
+      },
+      "options": [
+        "docker auth",
+        "docker login",
+        "docker connect",
+        "docker registry login"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "docker login <registry> autentica l'utente con il registro. Le credenziali sono salvate in ~/.docker/config.json.",
+        "en": "docker login <registry> authenticates the user with the registry. Credentials are saved in ~/.docker/config.json."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Come si può ridurre la dimensione di un'immagine Docker?",
+        "en": "How can you reduce the size of a Docker image?"
+      },
+      "options": [
+        "Aumentare il numero di layer",
+        "Usare build multi-stage e base image Alpine",
+        "Usare solo immagini Ubuntu",
+        "Evitare EXPOSE nel Dockerfile"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Multi-stage builds permettono di includere solo gli artefatti finali. Alpine è una base image molto più piccola di Ubuntu.",
+        "en": "Multi-stage builds allow including only final artifacts. Alpine is a much smaller base image than Ubuntu."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale comando Kubernetes permette di eseguire un container temporaneo per debug?",
+        "en": "Which Kubernetes command allows running a temporary container for debugging?"
+      },
+      "options": [
+        "kubectl debug",
+        "kubectl exec --temp",
+        "kubectl run --debug",
+        "kubectl attach"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "kubectl debug (Kubernetes 1.23+) crea container temporanei o ephemeral containers per diagnosticare Pod in esecuzione.",
+        "en": "kubectl debug (Kubernetes 1.23+) creates temporary containers or ephemeral containers to diagnose running Pods."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di Secret Kubernetes viene usato per autenticarsi con un registro privato?",
+        "en": "Which Kubernetes Secret type is used to authenticate with a private registry?"
+      },
+      "options": [
+        "Opaque",
+        "docker-registry",
+        "kubernetes.io/dockerconfigjson",
+        "registry-auth"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "kubernetes.io/dockerconfigjson è il tipo di Secret per le credenziali di registro Docker. Si crea con kubectl create secret docker-registry.",
+        "en": "kubernetes.io/dockerconfigjson is the Secret type for Docker registry credentials. Create with kubectl create secret docker-registry."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è la dimensione tipica di un'immagine Go compilata staticamente su scratch?",
+        "en": "What is the typical size of a statically compiled Go image on scratch?"
+      },
+      "options": [
+        "500MB+",
+        "100-200MB",
+        "5-15MB",
+        "1-2MB"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "I binari Go statici sono molto compatti. Un'applicazione Hello World può essere <10MB su scratch.",
+        "en": "Static Go binaries are very compact. A Hello World application can be <10MB on scratch."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra le immagini Docker locali?",
+        "en": "Which command shows local Docker images?"
+      },
+      "options": [
+        "docker list",
+        "docker images",
+        "docker show images",
+        "docker ps -a"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "docker images elenca tutte le immagini locali. Usa --format per output personalizzato.",
+        "en": "docker images lists all local images. Use --format for custom output."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale flag di docker build permette di passare variabili di build-time?",
+        "en": "Which docker build flag allows passing build-time variables?"
+      },
+      "options": [
+        "-e",
+        "--build-arg",
+        "--env",
+        "-v"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "--build-arg passa variabili ad ARG nel Dockerfile. Usato per configurazioni di build.",
+        "en": "--build-arg passes variables to ARG in the Dockerfile. Used for build configurations."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale strategia imagePullPolicy scarica sempre l'immagine più recente?",
+        "en": "Which imagePullPolicy strategy always downloads the latest image?"
+      },
+      "options": [
+        "IfNotPresent",
+        "Never",
+        "Always",
+        "Latest"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Always forza il pull dell'immagine ad ogni avvio del Pod, garantendo l'ultima versione disponibile.",
+        "en": "Always forces image pull on every Pod start, ensuring the latest available version."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è la pratica migliore per gestire i secrets nelle immagini?",
+        "en": "What is the best practice for handling secrets in images?"
+      },
+      "options": [
+        "Includerli nel Dockerfile con ENV",
+        "Usare file .env nel contesto di build",
+        "Mai includere secrets nelle immagini, usarli a runtime",
+        "Committerli nel repository Git"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "I secrets non devono mai essere inclusi nelle immagini. Vanno iniettati a runtime tramite Kubernetes Secrets o gestori esterni.",
+        "en": "Secrets must never be included in images. They should be injected at runtime via Kubernetes Secrets or external managers."
+      },
+      "difficulty": "hard",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale tool permette di analizzare la sicurezza delle immagini Docker?",
+        "en": "Which tool allows analyzing Docker image security?"
+      },
+      "options": [
+        "docker scan",
+        "docker inspect",
+        "docker security",
+        "docker check"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "docker scan (basato su Snyk) analizza le immagini per vulnerabilità di sicurezza note.",
+        "en": "docker scan (based on Snyk) analyzes images for known security vulnerabilities."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è il comando corretto per pushare un'immagine su un registro?",
+        "en": "What is the correct command to push an image to a registry?"
+      },
+      "options": [
+        "docker upload",
+        "docker push",
+        "docker publish",
+        "docker send"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "docker push invia un'immagine al registro. L'immagine deve essere taggata correttamente con il nome del registro.",
+        "en": "docker push sends an image to the registry. The image must be properly tagged with the registry name."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale flag di docker run rimuove il container dopo l'esecuzione?",
+        "en": "Which docker run flag removes the container after execution?"
+      },
+      "options": [
+        "--remove",
+        "--rm",
+        "-d",
+        "--cleanup"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "--rm rimuove automaticamente il container quando esce, utile per esecuzioni una tantum.",
+        "en": "--rm automatically removes the container when it exits, useful for one-off executions."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è il modo corretto di taggare un'immagine per un registro privato?",
+        "en": "What is the correct way to tag an image for a private registry?"
+      },
+      "options": [
+        "docker tag myimage registry.example.com/myimage:latest",
+        "docker tag myimage --registry registry.example.com",
+        "docker tag --dest registry.example.com myimage",
+        "docker rename myimage registry.example.com/myimage"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il formato è 'docker tag <sorgente> <registro>/<immagine>:<tag>'. Il nome del registro include host e porta.",
+        "en": "Format is 'docker tag <source> <registry>/<image>:<tag>'. Registry name includes host and port."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di container viene creato temporaneamente per debug in Kubernetes?",
+        "en": "What type of container is temporarily created for debugging in Kubernetes?"
+      },
+      "options": [
+        "Sidecar container",
+        "Init container",
+        "Ephemeral container",
+        "Helper container"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Gli ephemeral containers vengono creati temporaneamente nei Pod esistenti per debugging senza ricostruire l'immagine.",
+        "en": "Ephemeral containers are temporarily created in existing Pods for debugging without rebuilding the image."
+      },
+      "difficulty": "hard",
+      "domain": "Application Design and Build"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "quiz": [
+    {
+      "question": {"it": "Quali sono i 4 componenti principali di Flux v2?", "en": "What are the 4 main components of Flux v2?"},
+      "options": ["source-controller, kustomize-controller, helm-controller, notification-controller", "git-controller, helm-controller, alert-controller, image-controller", "repo-controller, deploy-controller, notify-controller, sync-controller", "config-controller, secret-controller, hook-controller, health-controller"],
+      "correct": 0,
+      "explanation": {"it": "Flux v2 è composto da source-controller, kustomize-controller, helm-controller e notification-controller.", "en": "Flux v2 consists of source-controller, kustomize-controller, helm-controller, and notification-controller."},
+      "difficulty": "easy",
+      "domain": "GitOps Fundamentals"
+    },
+    {
+      "question": {"it": "Quale componente Flux gestisce il fetching delle fonti da Git, Helm e OCI?", "en": "Which Flux component handles fetching sources from Git, Helm, and OCI?"},
+      "options": ["kustomize-controller", "source-controller", "notification-controller", "helm-controller"],
+      "correct": 1,
+      "explanation": {"it": "Lo source-controller è responsabile del fetching e della gestione delle fonti.", "en": "The source-controller is responsible for fetching and managing sources."},
+      "difficulty": "easy",
+      "domain": "Flux Architecture"
+    },
+    {
+      "question": {"it": "Come si installa Flux CD su un cluster Kubernetes?", "en": "How do you install Flux CD on a Kubernetes cluster?"},
+      "options": ["helm install flux", "flux bootstrap", "kubectl apply -f flux.yaml", "flux install --all"],
+      "correct": 1,
+      "explanation": {"it": "flux bootstrap è il comando consigliato per installare e configurare Flux.", "en": "flux bootstrap is the recommended command to install and configure Flux."},
+      "difficulty": "easy",
+      "domain": "Installation"
+    },
+    {
+      "question": {"it": "Che cos'è un Kustomization in Flux?", "en": "What is a Kustomization in Flux?"},
+      "options": ["Un file kustomization.yaml", "Una CRD che definisce come applicare le risorse da una fonte", "Un plugin per kubectl", "Una strategia di deploy"],
+      "correct": 1,
+      "explanation": {"it": "Kustomization è una CRD che definisce come applicare e riconciliare le risorse da una fonte.", "en": "Kustomization is a CRD that defines how to apply and reconcile resources from a source."},
+      "difficulty": "medium",
+      "domain": "Flux CRDs"
+    },
+    {
+      "question": {"it": "Flux usa quale modello per il deployment: push o pull?", "en": "Does Flux use push or pull model for deployment?"},
+      "options": ["Push — il CI fa apply sul cluster", "Pull — il controller riconcilia lo stato desiderato", "Entrambi in modo equivalente", "Dipende dalla configurazione"],
+      "correct": 1,
+      "explanation": {"it": "Flux usa il modello pull: il controller nel cluster riconcilia continuamente lo stato desiderato con quello reale.", "en": "Flux uses the pull model: the controller in the cluster continuously reconciles desired state with actual state."},
+      "difficulty": "easy",
+      "domain": "GitOps Principles"
+    },
+    {
+      "question": {"it": "Quale comando Flux verifica lo stato di un Kustomization?", "en": "Which Flux command checks the status of a Kustomization?"},
+      "options": ["flux status", "flux get kustomizations", "flux reconcile kustomization", "flux check"],
+      "correct": 1,
+      "explanation": {"it": "flux get kustomizations mostra lo stato di tutti i Kustomizations.", "en": "flux get kustomizations shows the status of all Kustomizations."},
+      "difficulty": "easy",
+      "domain": "Flux CLI"
+    },
+    {
+      "question": {"it": "Che cos'è il reconciliation loop in Flux?", "en": "What is the reconciliation loop in Flux?"},
+      "options": ["Un loop infinito che consuma CPU", "Il ciclo che confronta stato desiderato e reale e applica le modifiche", "Un meccanismo di rollback automatico", "Un processo di build delle immagini"],
+      "correct": 1,
+      "explanation": {"it": "Il reconciliation loop confronta lo stato desiderato (Git) con lo stato reale (cluster) e applica le modifiche necessarie.", "en": "The reconciliation loop compares desired state (Git) with actual state (cluster) and applies necessary changes."},
+      "difficulty": "medium",
+      "domain": "GitOps Principles"
+    },
+    {
+      "question": {"it": "Quale CRD Flux usa per gestire release Helm?", "en": "Which Flux CRD is used to manage Helm releases?"},
+      "options": ["HelmChart", "HelmRelease", "HelmConfig", "HelmDeployment"],
+      "correct": 1,
+      "explanation": {"it": "HelmRelease è la CRD di Flux per gestire le release Helm.", "en": "HelmRelease is the Flux CRD for managing Helm releases."},
+      "difficulty": "medium",
+      "domain": "Flux CRDs"
+    },
+    {
+      "question": {"it": "Come si configura Flux per riconciliare ogni 5 minuti?", "en": "How do you configure Flux to reconcile every 5 minutes?"},
+      "options": ["Specifica interval nella CRD", "Modifica il cron del controller", "Imposta FLUX_INTERVAL=300", "Usa flux config set interval"],
+      "correct": 0,
+      "explanation": {"it": "Il campo interval nella CRD specifica la frequenza di riconciliazione.", "en": "The interval field in the CRD specifies the reconciliation frequency."},
+      "difficulty": "medium",
+      "domain": "Configuration"
+    },
+    {
+      "question": {"it": "Flux supporta la gestione di segreti con SOPS. Come si configura?", "en": "Flux supports secret management with SOPS. How is it configured?"},
+      "options": ["Tramite il controller secrets", "Con un SecretRef che punta a una chiave Azure/GPG/KMS", "Modificando direttamente i secrets nel cluster", "Con un plugin separato"],
+      "correct": 1,
+      "explanation": {"it": "SOPS si configura con un secretRef che punta a una chiave di crittografia (Azure Key Vault, GCP KMS, AWS KMS, GPG).", "en": "SOPS is configured with a secretRef pointing to an encryption key (Azure Key Vault, GCP KMS, AWS KMS, GPG)."},
+      "difficulty": "hard",
+      "domain": "Secret Management"
+    },
+    {
+      "question": {"it": "Che differenza c'è tra Flux e ArgoCD?", "en": "What is the difference between Flux and ArgoCD?"},
+      "options": ["Flux è solo per Helm, ArgoCD per Kustomize", "Flux è un toolkit modulare, ArgoCD è un'applicazione monolitica con UI web", "Non ci sono differenze significative", "ArgoCD non supporta multi-cluster"],
+      "correct": 1,
+      "explanation": {"it": "Flux è un toolkit modulare senza UI web dedicata, mentre ArgoCD è un'applicazione completa con UI web.", "en": "Flux is a modular toolkit without a dedicated web UI, while ArgoCD is a complete application with a web UI."},
+      "difficulty": "medium",
+      "domain": "Tool Comparison"
+    },
+    {
+      "question": {"it": "Cos'è un ImageRepository in Flux?", "en": "What is an ImageRepository in Flux?"},
+      "options": ["Un repository Docker privato", "Una CRD che monitora un registry per nuove immagini", "Un backup delle immagini del cluster", "Un mirror del registry ufficiale"],
+      "correct": 1,
+      "explanation": {"it": "ImageRepository è una CRD che monitora un registry container per scoprire nuove versioni delle immagini.", "en": "ImageRepository is a CRD that monitors a container registry to discover new image versions."},
+      "difficulty": "medium",
+      "domain": "Image Automation"
+    },
+    {
+      "question": {"it": "Quale comando Flux crea automaticamente un Kustomization da un GitRepository?", "en": "Which Flux command automatically creates a Kustomization from a GitRepository?"},
+      "options": ["flux create source git", "flux create kustomization", "flux bootstrap", "flux import"],
+      "correct": 1,
+      "explanation": {"it": "flux create kustomization crea una CRD Kustomization associata a una fonte.", "en": "flux create kustomization creates a Kustomization CRD linked to a source."},
+      "difficulty": "easy",
+      "domain": "Flux CLI"
+    },
+    {
+      "question": {"it": "In Flux, cosa succede se il Git repository diverge dallo stato del cluster?", "en": "In Flux, what happens when the Git repository diverges from the cluster state?"},
+      "options": ["Flux ignora le modifiche", "Flux riconcilia il cluster allo stato del Git", "Flux aggiorna il Git con lo stato del cluster", "Flox arresta il riconcilia"],
+      "correct": 1,
+      "explanation": {"it": "Flux riconcilia il cluster allo stato desiderato nel Git, ripristinando la coerenza.", "en": "Flux reconciles the cluster to the desired state in Git, restoring consistency."},
+      "difficulty": "easy",
+      "domain": "GitOps Principles"
+    },
+    {
+      "question": {"it": "Che cos'è il drift detection in Flux?", "en": "What is drift detection in Flux?"},
+      "options": ["Rileva errori di syntax nel codice", "Confronta lo stato reale del cluster con lo stato desiderato nel Git", "Monitora le performance del cluster", "Rileva modifiche nei container image"],
+      "correct": 1,
+      "explanation": {"it": "Il drift detection identifica quando lo stato reale del cluster diverge da quello dichiarato nel Git.", "en": "Drift detection identifies when the actual cluster state diverges from what is declared in Git."},
+      "difficulty": "medium",
+      "domain": "GitOps Principles"
+    }
+  ]
+}

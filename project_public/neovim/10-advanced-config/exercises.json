@@ -1,0 +1,244 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Creare Autocommand Base",
+        "en": "Create Basic Autocommand"
+      },
+      "description": {
+        "it": "Crea un autocommand che evidenzia il testo yankato.",
+        "en": "Create an autocommand that highlights yanked text."
+      },
+      "difficulty": "beginner",
+      "steps": [
+        "Crea lua/config/autocmds.lua",
+        "Usa vim.api.nvim_create_autocmd",
+        "Evento: 'TextYankPost'",
+        "Callback: vim.highlight.on_yank()",
+        "Testa yankando testo"
+      ],
+      "hints": [
+        "La callback è una funzione",
+        "Non servono pattern per questo evento"
+      ],
+      "solution": "vim.api.nvim_create_autocmd('TextYankPost', {\n  callback = function()\n    vim.highlight.on_yank()\n  end,\n})"
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Gruppo di Autocommands",
+        "en": "Autocommand Group"
+      },
+      "description": {
+        "it": "Crea un gruppo per autocommands di filetype.",
+        "en": "Create a group for filetype autocommands."
+      },
+      "difficulty": "beginner",
+      "steps": [
+        "Crea gruppo con nvim_create_augroup",
+        "Aggiungi FileType per Python",
+        "Imposta expandtab, shiftwidth = 4",
+        "Aggiungi FileType per Lua",
+        "Imposta shiftwidth = 2"
+      ],
+      "hints": [
+        "Usa group = nome_gruppo",
+        "vim.opt_local per opzioni buffer-local"
+      ],
+      "solution": "local augroup = vim.api.nvim_create_augroup('FileTypeSettings', { clear = true })\n\nvim.api.nvim_create_autocmd('FileType', {\n  group = augroup,\n  pattern = 'python',\n  callback = function()\n    vim.opt_local.expandtab = true\n    vim.opt_local.shiftwidth = 4\n  end,\n})"
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "User Command Base",
+        "en": "Basic User Command"
+      },
+      "description": {
+        "it": "Crea un comando :Trim che rimuove spazi trailing.",
+        "en": "Create a :Trim command that removes trailing spaces."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Usa nvim_create_user_command",
+        "Nome: 'Trim'",
+        "Salva cursore, esegui :%s/\\s\\+$//e",
+        "Ripristina cursore",
+        "Testa su file con trailing spaces"
+      ],
+      "hints": [
+        "vim.fn.getpos('.') per salvare cursore",
+        "vim.cmd([[ ... ]]) per comandi"
+      ],
+      "solution": "vim.api.nvim_create_user_command('Trim', function()\n  local save = vim.fn.getpos('.')\n  vim.cmd [[keeppatterns %s/\\s\\+$//e]]\n  vim.fn.setpos('.', save)\nend, { desc = 'Remove trailing whitespace' })"
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "Lualine Setup",
+        "en": "Lualine Setup"
+      },
+      "description": {
+        "it": "Configura lualine con sezioni personalizzate.",
+        "en": "Configure lualine with custom sections."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi nvim-lualine/lualine.nvim",
+        "Configura tema 'auto'",
+        "Aggiungi sezione per filename con path",
+        "Aggiungi sezione per diagnostics",
+        "Testa aprendo file con errori"
+      ],
+      "hints": [
+        "path = 1 per path relativo",
+        "sections.lualine_* per posizioni"
+      ],
+      "solution": "require('lualine').setup({\n  options = { theme = 'auto' },\n  sections = {\n    lualine_c = { { 'filename', path = 1 } },\n    lualine_x = { 'diagnostics' },\n  },\n})"
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Notify Setup",
+        "en": "Notify Setup"
+      },
+      "description": {
+        "it": "Configura nvim-notify e sostituisci vim.notify.",
+        "en": "Configure nvim-notify and replace vim.notify."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi rcarriga/nvim-notify",
+        "Imposta timeout = 3000",
+        "Imposta stages = 'fade'",
+        "Sostituisci vim.notify",
+        "Testa con vim.notify('test')"
+      ],
+      "hints": [
+        "vim.notify = require('notify')",
+        "setup({ ... }) per configurazione"
+      ],
+      "solution": "local notify = require('notify')\nnotify.setup({\n  timeout = 3000,\n  stages = 'fade',\n})\nvim.notify = notify"
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Custom Highlight",
+        "en": "Custom Highlight"
+      },
+      "description": {
+        "it": "Crea highlight group personalizzati per ColorScheme.",
+        "en": "Create custom highlight groups for ColorScheme."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Crea autocommand per ColorScheme",
+        "Usa nvim_set_hl per Comment",
+        "Imposta fg e italic = true",
+        "Modifica anche String e Keyword",
+        "Testa cambiando colorscheme"
+      ],
+      "hints": [
+        "L'evento è 'ColorScheme'",
+        "0 come primo argomento per global"
+      ],
+      "solution": "vim.api.nvim_create_autocmd('ColorScheme', {\n  callback = function()\n    vim.api.nvim_set_hl(0, 'Comment', { fg = '#6272a4', italic = true })\n  end,\n})"
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "Bufferline Setup",
+        "en": "Bufferline Setup"
+      },
+      "description": {
+        "it": "Configura bufferline con diagnostics integrati.",
+        "en": "Configure bufferline with integrated diagnostics."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi akinsho/bufferline.nvim",
+        "Imposta mode = 'buffers'",
+        "Abilita diagnostics = 'nvim_lsp'",
+        "Aggiungi keymaps per navigazione",
+        "Testa aprendo più file"
+      ],
+      "hints": [
+        "version = '*' per stabilità",
+        "vim.keymap.set per navigazione"
+      ],
+      "solution": "require('bufferline').setup({\n  options = {\n    mode = 'buffers',\n    diagnostics = 'nvim_lsp',\n  },\n})"
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "Undo Persistente",
+        "en": "Persistent Undo"
+      },
+      "description": {
+        "it": "Configura undo persistente con directory dedicata.",
+        "en": "Configure persistent undo with dedicated directory."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Imposta undodir in stdpath('data')",
+        "Abilita undofile = true",
+        "Crea directory se non esiste",
+        "Imposta undolevels = 1000",
+        "Testa chiudendo e riaprendo file"
+      ],
+      "hints": [
+        "vim.fn.isdirectory() per verificare",
+        "vim.fn.mkdir() per creare"
+      ],
+      "solution": "local undodir = vim.fn.stdpath('data') .. '/undo'\nif vim.fn.isdir(undodir) == 0 then\n  vim.fn.mkdir(undodir, 'p')\nend\nvim.opt.undodir = undodir\nvim.opt.undofile = true\nvim.opt.undolevels = 1000"
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "Lazy Loading Ottimizzato",
+        "en": "Optimized Lazy Loading"
+      },
+      "description": {
+        "it": "Applica lazy loading strategico a plugin esistenti.",
+        "en": "Apply strategic lazy loading to existing plugins."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Identifica plugin pesanti",
+        "Applica event = 'VeryLazy'",
+        "Applica cmd dove possibile",
+        "Applica ft per linguaggi specifici",
+        "Profila con :Lazy profile"
+      ],
+      "hints": [
+        "VeryLazy dopo UI inizializzata",
+        "ft per filetype-specific"
+      ],
+      "solution": "-- Esempi di lazy loading\n{\n  'heavy-plugin',\n  event = 'VeryLazy',\n}\n{\n  'python-plugin',\n  ft = 'python',\n}\n{\n  'command-plugin',\n  cmd = 'PluginCmd',\n}"
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Config Modulare",
+        "en": "Modular Config"
+      },
+      "description": {
+        "it": "Riorganizza la config in struttura modulare pulita.",
+        "en": "Reorganize config in clean modular structure."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Crea lua/config/ directory",
+        "Separa options.lua",
+        "Separa keymaps.lua",
+        "Separa autocmds.lua",
+        "Aggiorna init.lua per importare tutto"
+      ],
+      "hints": [
+        "require('config.options')",
+        "require('config.keymaps')"
+      ],
+      "solution": "-- lua/config/init.lua\nrequire('config.options')\nrequire('config.keymaps')\nrequire('config.autocmds')\n\n-- init.lua\nrequire('config')\nrequire('lazy').setup('plugins')"
+    }
+  ]
+}

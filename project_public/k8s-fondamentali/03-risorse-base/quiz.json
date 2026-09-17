@@ -1,0 +1,229 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale sezione del Pod definisce le risorse garantite?",
+        "en": "Which Pod section defines guaranteed resources?"
+      },
+      "options": ["limits", "requests", "quotas", "reservations"],
+      "correct": 1,
+      "explanation": {
+        "it": "Le requests sono le risorse garantite. Le limits sono il massimo utilizzabile.",
+        "en": "Requests are guaranteed resources. Limits are the maximum that can be used."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-resources"
+    },
+    {
+      "question": {
+        "it": "Cosa succede se un container supera il memory limit?",
+        "en": "What happens if a container exceeds its memory limit?"
+      },
+      "options": [
+        "Viene rallentato (throttled)",
+        "Viene terminato (OOMKilled)",
+        "Viene spostato su un altro nodo",
+        "Niente, è solo un avviso"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Superare il memory limit causa OOMKilled. La CPU invece viene solo throttled.",
+        "en": "Exceeding the memory limit causes OOMKilled. CPU is only throttled instead."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-resources"
+    },
+    {
+      "question": {
+        "it": "Quale classe QoS ha un Pod con requests uguale a limits?",
+        "en": "Which QoS class does a Pod have when requests equal limits?"
+      },
+      "options": ["Burstable", "BestEffort", "Guaranteed", "Reserved"],
+      "correct": 2,
+      "explanation": {
+        "it": "Quando requests = limits per CPU e memoria, il Pod ha QoS Guaranteed.",
+        "en": "When requests = limits for both CPU and memory, the Pod has Guaranteed QoS."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-resources"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa limita il numero totale di Pod in un namespace?",
+        "en": "Which resource limits the total number of Pods in a namespace?"
+      },
+      "options": ["LimitRange", "ResourceQuota", "PodSecurityPolicy", "NetworkPolicy"],
+      "correct": 1,
+      "explanation": {
+        "it": "ResourceQuota limita il totale di risorse (Pod, CPU, memoria) in un namespace.",
+        "en": "ResourceQuota limits the total resources (Pods, CPU, memory) in a namespace."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-resources"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa applica default a request/limits per Pod singoli?",
+        "en": "Which resource applies default request/limits to individual Pods?"
+      },
+      "options": ["ResourceQuota", "LimitRange", "PodPreset", "AdmissionPolicy"],
+      "correct": 1,
+      "explanation": {
+        "it": "LimitRange applica valori di default e min/max per singolo Pod/container.",
+        "en": "LimitRange applies default values and min/max for individual Pods/containers."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-resources"
+    },
+    {
+      "question": {
+        "it": "Come si misura la CPU nelle request?",
+        "en": "How is CPU measured in requests?"
+      },
+      "options": ["Gigahertz", "Millicores (m)", "Percentuale", "Core assoluti"],
+      "correct": 1,
+      "explanation": {
+        "it": "La CPU si misura in millicores: 1000m = 1 CPU core. Es: 250m = 0.25 core.",
+        "en": "CPU is measured in millicores: 1000m = 1 CPU core. E.g.: 250m = 0.25 core."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-resources"
+    },
+    {
+      "question": {
+        "it": "Cosa succede se un Pod ha solo limits senza requests?",
+        "en": "What happens if a Pod has only limits without requests?"
+      },
+      "options": [
+        "Il Pod fallisce",
+        "Requests assumono il valore dei limits",
+        "Requests = 0",
+        "Niente, sono indipendenti"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Se non specificate, le requests assumono il valore dei limits per quella risorsa.",
+        "en": "If not specified, requests take the value of limits for that resource."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-resources"
+    },
+    {
+      "question": {
+        "it": "Quale QoS ha un Pod senza requests né limits?",
+        "en": "Which QoS does a Pod without requests or limits have?"
+      },
+      "options": ["Guaranteed", "Burstable", "BestEffort", "Nessuna"],
+      "correct": 2,
+      "explanation": {
+        "it": "Un Pod senza requests né limits ha QoS BestEffort: prima vittima in caso di pressione memoria.",
+        "en": "A Pod without requests or limits has BestEffort QoS: first victim under memory pressure."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-resources"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra l'uso di CPU/memoria dei Pod?",
+        "en": "Which command shows Pod CPU/memory usage?"
+      },
+      "options": ["kubectl get pods -o wide", "kubectl top pods", "kubectl stats pods", "kubectl resource pods"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl top pods mostra uso attuale. Richiede Metrics Server installato.",
+        "en": "kubectl top pods shows current usage. Requires Metrics Server installed."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Quale unità misura la memoria nelle request?",
+        "en": "Which unit measures memory in requests?"
+      },
+      "options": ["Solo GB", "Megabyte e Gigabyte (Mi, Gi)", "Solo MB", "Byte assoluti"],
+      "correct": 1,
+      "explanation": {
+        "it": "La memoria si misura in Mi (Mebibyte) o Gi (Gibibyte). Es: 64Mi, 1Gi.",
+        "en": "Memory is measured in Mi (Mebibyte) or Gi (Gibibyte). E.g.: 64Mi, 1Gi."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-resources"
+    },
+    {
+      "question": {
+        "it": "Cosa fa lo scheduler con le requests?",
+        "en": "What does the scheduler do with requests?"
+      },
+      "options": [
+        "Le ignora",
+        "Le usa per scegliere il nodo con risorse disponibili",
+        "Le applica come limiti",
+        "Le salva in etcd"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Lo scheduler usa le requests per trovare un nodo con capacità residua sufficiente.",
+        "en": "The scheduler uses requests to find a node with sufficient remaining capacity."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa impedisce di creare Pod che superano i limiti?",
+        "en": "Which resource prevents creating Pods that exceed limits?"
+      },
+      "options": ["LimitRange", "ResourceQuota", "PodSecurity", "AdmissionWebhook"],
+      "correct": 0,
+      "explanation": {
+        "it": "LimitRange può rifiutare Pod che superano i valori max definiti per il namespace.",
+        "en": "LimitRange can reject Pods that exceed max values defined for the namespace."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-resources"
+    },
+    {
+      "question": {
+        "it": "Come si chiama il processo di eliminazione di Pod sotto pressione?",
+        "en": "What is the process of evicting Pods under pressure called?"
+      },
+      "options": ["Garbage Collection", "Eviction", "Preemption", "Rebalancing"],
+      "correct": 1,
+      "explanation": {
+        "it": "L'eviction elimina Pod (dal peggiore QoS) quando un nodo è sotto pressione di risorse.",
+        "en": "Eviction removes Pods (starting from worst QoS) when a node is under resource pressure."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-resources"
+    },
+    {
+      "question": {
+        "it": "Quale QoS ha priorità più alta in caso di eviction?",
+        "en": "Which QoS has highest priority during eviction?"
+      },
+      "options": ["BestEffort", "Burstable", "Guaranteed", "Tutte uguali"],
+      "correct": 2,
+      "explanation": {
+        "it": "Guaranteed è l'ultima a essere evictato. BestEffort è la prima.",
+        "en": "Guaranteed is evicted last. BestEffort is evicted first."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-resources"
+    },
+    {
+      "question": {
+        "it": "Quale flag di kubectl mostra le label dei Pod?",
+        "en": "Which kubectl flag shows Pod labels?"
+      },
+      "options": ["-o wide", "-o yaml", "--show-labels", "-L"],
+      "correct": 2,
+      "explanation": {
+        "it": "--show-labels mostra tutte le label. -L key mostra solo una label come colonna.",
+        "en": "--show-labels shows all labels. -L key shows only one label as a column."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    }
+  ]
+}

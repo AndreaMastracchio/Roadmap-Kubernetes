@@ -1,0 +1,304 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Diagnosticare un pod in CrashLoopBackOff",
+        "en": "Diagnose a CrashLoopBackOff pod"
+      },
+      "description": {
+        "it": "Analizzare e risolvere un pod che crasha",
+        "en": "Analyze and fix a crashing pod"
+      },
+      "task": "1. Crea un pod con comando errato che causa crash\n2. Osserva lo stato con kubectl get pods -w\n3. Usa describe e logs per diagnosticare\n4. Identifica la causa del crash",
+      "hints": [
+        "Crea un pod busybox con comando sbagliato",
+        "CrashLoopBackOff appare dopo alcuni restart",
+        "kubectl describe mostra gli eventi"
+      ],
+      "solution": "kubectl run crasher --image=busybox -- sh -c 'exit 1'\nkubectl get pods -w &\nkubectl describe pod crasher\nkubectl logs crasher --previous\n\n# Causa: exit 1 dal comando\n# Fix: cambiare comando",
+      "validation": "kubectl get pod crasher -o jsonpath='{.status.containerStatuses[0].lastState.terminated.exitCode}'",
+      "difficulty": "easy",
+      "timeEstimate": "6 minuti"
+    },
+    {
+      "title": {
+        "it": "Diagnosticare ImagePullBackOff",
+        "en": "Diagnose ImagePullBackOff"
+      },
+      "description": {
+        "it": "Risolvere problemi di download immagine",
+        "en": "Resolve image pull issues"
+      },
+      "task": "1. Crea un pod con immagine inesistente\n2. Verifica lo stato e gli eventi\n3. Identifica il messaggio di errore\n4. Correggi l'immagine",
+      "hints": [
+        "Usa un nome immagine sbagliato",
+        "describe mostra 'ImagePullBackOff'",
+        "kubectl set image per correggere"
+      ],
+      "solution": "kubectl run bad-image --image=nginx:nonexistent\nekubectl describe pod bad-image\n# Output: ImagePullBackOff - image not found\n\nkubectl set image pod/bad-image bad-image=nginx:latest\nkubectl get pod bad-image",
+      "validation": "kubectl describe pod bad-image 2>&1 | grep -c 'ImagePullBackOff' || echo 'Fixed'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Verificare DNS interno",
+        "en": "Verify internal DNS"
+      },
+      "description": {
+        "it": "Testare la risoluzione DNS nel cluster",
+        "en": "Test DNS resolution in cluster"
+      },
+      "task": "1. Crea un Service kubernetes standard\n2. Da un pod di test, risolvi kubernetes.default\n3. Verifica che l'IP corrisponda al Service\n4. Testa un Service personalizzato",
+      "hints": [
+        "nslookup o dig da un pod busybox",
+        "kubectl get svc kubernetes per IP atteso",
+        "Il Service kubernetes è sempre presente"
+      ],
+      "solution": "kubectl run dns-test --image=busybox --rm -it -- nslookup kubernetes\nkubectl get svc kubernetes\n# L'IP dovrebbe corrispondere\n\nkubectl create deployment nginx --image=nginx\nkubectl expose deployment nginx --port=80\nkubectl run dns-test2 --image=busybox --rm -it -- nslookup nginx",
+      "validation": "kubectl get svc kubernetes -o jsonpath='{.spec.clusterIP}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Diagnosticare OOMKilled",
+        "en": "Diagnose OOMKilled"
+      },
+      "description": {
+        "it": "Analizzare un container terminato per memoria",
+        "en": "Analyze memory-terminated container"
+      },
+      "task": "1. Crea un pod con memory limit basso\n2. Esegui un comando che consuma memoria\n3. Osserva OOMKilled\n4. Verifica exit code e stato",
+      "hints": [
+        "Imposta memory limit a 10Mi",
+        "Usa un loop che alloca memoria",
+        "Exit code 137 indica OOM"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: memory-hog\nspec:\n  containers:\n  - name: hog\n    image: python:3.11-slim\n    command: ['python', '-c', 'x=\" \"*100000000; print(len(x))']\n    resources:\n      limits:\n        memory: 10Mi\nEOF\n\nkubectl get pod memory-hog -w\nkubectl describe pod memory-hog | grep -A5 'Last State'\nkubectl get pod memory-hog -o jsonpath='{.status.containerStatuses[0].lastState.terminated.reason}'",
+      "validation": "kubectl get pod memory-hog -o jsonpath='{.status.containerStatuses[0].lastState.terminated.reason}'",
+      "difficulty": "easy",
+      "timeEstimate": "7 minuti"
+    },
+    {
+      "title": {
+        "it": "Testare connettività Service",
+        "en": "Test Service connectivity"
+      },
+      "description": {
+        "it": "Verificare che un Service sia raggiungibile",
+        "en": "Verify a Service is reachable"
+      },
+      "task": "1. Crea un deployment e Service\n2. Verifica gli Endpoints\n3. Testa connettività da un pod di test\n4. Verifica response",
+      "hints": [
+        "kubectl get endpoints per verificare IP pod",
+        "wget -qO- service-name dal pod di test",
+        "curl se il pod ha curl installato"
+      ],
+      "solution": "kubectl create deployment web --image=nginx\nkubectl expose deployment web --port=80\nkubectl get endpoints web\nkubectl run test --image=busybox --rm -it -- wget -qO- web",
+      "validation": "kubectl get endpoints web -o jsonpath='{.subsets[0].addresses[0].ip}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Debug RBAC permissions",
+        "en": "Debug RBAC permissions"
+      },
+      "description": {
+        "it": "Verificare permessi di un ServiceAccount",
+        "en": "Verify ServiceAccount permissions"
+      },
+      "task": "1. Crea un ServiceAccount e un pod che lo usa\n2. Il pod prova a listare i pod\n3. Verifica che fallisce per permessi\n4. Crea Role e RoleBinding per permettere",
+      "hints": [
+        "kubectl auth can-i --list per vedere permessi",
+        "Role definisce cosa è permesso",
+        "RoleBinding collega Role a ServiceAccount"
+      ],
+      "solution": "kubectl create serviceaccount app-sa\n\ncat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: rbac-test\nspec:\n  serviceAccountName: app-sa\n  containers:\n  - name: kubectl\n    image: bitnami/kubectl\n    command: ['sh', '-c', 'kubectl get pods && sleep 3600']\nEOF\n\nkubectl logs rbac-test\n# Error: pods is forbidden\n\nkubectl create role pod-reader --verb=get,list --resource=pods\nkubectl create rolebinding app-pod-reader --role=pod-reader --serviceaccount=default:app-sa",
+      "validation": "kubectl auth can-i list pods --as=system:serviceaccount:default:app-sa",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Diagnosticare PVC Pending",
+        "en": "Diagnose Pending PVC"
+      },
+      "description": {
+        "it": "Risolvere un claim che non si binda",
+        "en": "Resolve unbound claim"
+      },
+      "task": "1. Crea un PVC con StorageClass inesistente\n2. Verifica che rimanga Pending\n3. Identifica il problema negli eventi\n4. Crea la StorageClass o cambia il PVC",
+      "hints": [
+        "describe pvc mostra gli eventi",
+        "StorageClass mancante causa provisioning fallito",
+        "Crea StorageClass per fixare"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: PersistentVolumeClaim\nmetadata:\n  name: stuck-pvc\nspec:\n  storageClassName: nonexistent-class\n  accessModes:\n  - ReadWriteOnce\n  resources:\n    requests:\n      storage: 1Gi\nEOF\n\nkubectl describe pvc stuck-pvc\n# Events: storageclass.storage.k8s.io \"nonexistent-class\" not found\n\nkubectl create -f - <<EOF\napiVersion: storage.k8s.io/v1\nkind: StorageClass\nmetadata:\n  name: nonexistent-class\nprovisioner: kubernetes.io/no-provisioner\nEOF",
+      "validation": "kubectl get pvc stuck-pvc -o jsonpath='{.status.phase}'",
+      "difficulty": "medium",
+      "timeEstimate": "8 minuti"
+    },
+    {
+      "title": {
+        "it": "Debug NetworkPolicy blocking",
+        "en": "Debug NetworkPolicy blocking"
+      },
+      "description": {
+        "it": "Analizzare policy che bloccano traffico",
+        "en": "Analyze policies blocking traffic"
+      },
+      "task": "1. Crea un deployment backend con Service\n2. Applica NetworkPolicy deny-all\n3. Verifica che il traffico è bloccato\n4. Modifica policy per permettere traffico",
+      "hints": [
+        "NetworkPolicy deny all ha ingress vuoto",
+        "Testa da pod esterno",
+        "Aggiungi ingress rules per permettere"
+      ],
+      "solution": "kubectl create deployment backend --image=nginx\nkubectl expose deployment backend --port=80\n\ncat <<EOF | kubectl apply -f -\napiVersion: networking.k8s.io/v1\nkind: NetworkPolicy\nmetadata:\n  name: deny-all\nspec:\n  podSelector:\n    matchLabels:\n      app: backend\n  policyTypes:\n  - Ingress\nEOF\n\nkubectl run test --image=busybox --rm -it -- wget -qO- backend --timeout=5\n# Connection refused/timeout\n\nkubectl patch networkpolicy deny-all --type='json' -p='[{\"op\": \"add\", \"path\": \"/spec/ingress\", \"value\": [{}]}]'",
+      "validation": "kubectl get networkpolicy deny-all -o jsonpath='{.spec.ingress}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Analizzare stato nodo",
+        "en": "Analyze node status"
+      },
+      "description": {
+        "it": "Diagnosticare problemi a livello nodo",
+        "en": "Diagnose node-level issues"
+      },
+      "task": "1. Visualizza i nodi del cluster\n2. Verifica Conditions per ogni nodo\n3. Identifica eventuali problemi (MemoryPressure, DiskPressure)\n4. Controlla la versione e informazioni kubelet",
+      "hints": [
+        "kubectl describe node mostra Conditions",
+        "Conditions: Ready, MemoryPressure, DiskPressure, PIDPressure",
+        "kubectl get nodes -o wide per versione e IP"
+      ],
+      "solution": "kubectl get nodes\nkubectl describe node $(kubectl get nodes -o name | head -1) | grep -A10 Conditions\nkubectl get nodes -o wide\n\n# Esempio output Conditions:\n# Ready            True\n# MemoryPressure   False\n# DiskPressure     False\n# PIDPressure      False",
+      "validation": "kubectl get nodes -o jsonpath='{.items[0].status.conditions[?(@.type==\"Ready\")].status}'",
+      "difficulty": "medium",
+      "timeEstimate": "6 minuti"
+    },
+    {
+      "title": {
+        "it": "Debug probe failure",
+        "en": "Debug probe failure"
+      },
+      "description": {
+        "it": "Analizzare fallimenti di health check",
+        "en": "Analyze health check failures"
+      },
+      "task": "1. Crea un pod con livenessProbe su endpoint errato\n2. Osserva i restart causati dal probe\n3. Identifica l'errore negli eventi\n4. Correggi il probe",
+      "hints": [
+        "LivenessProbe fallito causa restart",
+        "describe mostra 'Liveness probe failed'",
+        "Correggi path o disabilita probe"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: probe-fail\nspec:\n  containers:\n  - name: nginx\n    image: nginx\n    livenessProbe:\n      httpGet:\n        path: /healthz\n        port: 80\n      initialDelaySeconds: 5\n      periodSeconds: 5\nEOF\n\nkubectl describe pod probe-fail | grep -A5 'Liveness'\nkubectl get pod probe-fail -w\n\n# Fix: cambia path a /",
+      "validation": "kubectl describe pod probe-fail 2>&1 | grep -c 'Liveness' || echo 'No events yet'",
+      "difficulty": "medium",
+      "timeEstimate": "8 minuti"
+    },
+    {
+      "title": {
+        "it": "Testare DNS resolution completo",
+        "en": "Complete DNS resolution test"
+      },
+      "description": {
+        "it": "Verificare DNS con tutti i formati",
+        "en": "Verify DNS with all formats"
+      },
+      "task": "1. Crea un Service 'myservice' nel namespace 'default'\n2. Testa risoluzione con nome corto\n3. Testa con namespace\n4. Testa FQDN completo",
+      "hints": [
+        "nslookup <name>, <name>.default, <name>.default.svc",
+        "Tutti dovrebbero risolvere allo stesso IP",
+        "kubectl get svc myservice per IP atteso"
+      ],
+      "solution": "kubectl create deployment myservice --image=nginx\nkubectl expose deployment myservice --port=80\n\nkubectl run dns-test --image=busybox --rm -it -- sh\necho 'Test in pod:'\nnslookup myservice\nnslookup myservice.default\nnslookup myservice.default.svc.cluster.local\nexit",
+      "validation": "kubectl get svc myservice -o jsonpath='{.spec.clusterIP}'",
+      "difficulty": "medium",
+      "timeEstimate": "6 minuti"
+    },
+    {
+      "title": {
+        "it": "Raccogliere informazioni supporto",
+        "en": "Gather support information"
+      },
+      "description": {
+        "it": "Preparare dati per escalation",
+        "en": "Prepare data for escalation"
+      },
+      "task": "1. Raccogli kubectl describe di un pod problematico\n2. Raccogli log del pod\n3. Raccogli eventi del namespace\n4. Salva tutto in un file",
+      "hints": [
+        "kubectl describe pod > describe.txt",
+        "kubectl logs > logs.txt",
+        "kubectl get events > events.txt"
+      ],
+      "solution": "# Simula un problema\nkubectl run problem --image=nginx\necho '=== POD DESCRIBE ===' > support-ticket.txt\nkubectl describe pod problem >> support-ticket.txt\necho '\\n=== POD LOGS ===' >> support-ticket.txt\nkubectl logs problem >> support-ticket.txt\necho '\\n=== EVENTS ===' >> support-ticket.txt\nkubectl get events --sort-by='.lastTimestamp' >> support-ticket.txt\ncat support-ticket.txt",
+      "validation": "cat support-ticket.txt | grep -c 'Name:'",
+      "difficulty": "hard",
+      "timeEstimate": "8 minuti"
+    },
+    {
+      "title": {
+        "it": "Debug multi-container networking",
+        "en": "Debug multi-container networking"
+      },
+      "description": {
+        "it": "Testare comunicazione tra container nello stesso pod",
+        "en": "Test communication between containers in same pod"
+      },
+      "task": "1. Crea un pod con due container\n2. Il primo gira un server sulla porta 8080\n3. Il secondo deve chiamare localhost:8080\n4. Verifica la comunicazione",
+      "hints": [
+        "I container nello stesso pod condividono localhost",
+        "Un container può servire, l'altro chiamare",
+        "netcat o python simple server"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: multi-net\nspec:\n  containers:\n  - name: server\n    image: python:3.11-slim\n    command: ['python', '-m', 'http.server', '8080']\n  - name: client\n    image: busybox\n    command: ['sh', '-c', 'sleep 5 && wget -qO- http://localhost:8080 && sleep 3600']\nEOF\n\nkubectl logs multi-net -c client",
+      "validation": "kubectl logs multi-net -c client | grep -c 'Directory listing'",
+      "difficulty": "hard",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Simulare failure multipla",
+        "en": "Simulate multiple failures"
+      },
+      "description": {
+        "it": "Scenario di troubleshooting complesso",
+        "en": "Complex troubleshooting scenario"
+      },
+      "task": "1. Crea un deployment con:\n   - Immagine inesistente\n   - Memory limit troppo basso\n   - Service con selettore errato\n2. Diagnosticare tutti i problemi\n3. Fixare uno alla volta\n4. Documentare ogni fix",
+      "hints": [
+        "Problemi multipli richiedono approccio sistematico",
+        "Inizia con kubectl get pods, poi describe",
+        "Ogni problema richiede fix diverso"
+      ],
+      "solution": "# Deployment problematico\ncat <<EOF | kubectl apply -f -\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: broken-app\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: broken\n  template:\n    metadata:\n      labels:\n        app: broken\n    spec:\n      containers:\n      - name: app\n        image: nginx:bogus\n        resources:\n          limits:\n            memory: 1Mi\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: broken-svc\nspec:\n  selector:\n    app: wrong\n  ports:\n  - port: 80\nEOF\n\n# Diagnosi\nkubectl get pods -l app=broken\nkubectl describe pod -l app=broken\nkubectl get endpoints broken-svc\n\n# Fix 1: Immagine\nkubectl set image deployment/broken-app app=nginx:latest\n\n# Fix 2: Memoria (richiede edit)\nkubectl patch deployment broken-app --type='json' -p='[{\"op\": \"replace\", \"path\": \"/spec/template/spec/containers/0/resources/limits/memory\", \"value\":\"128Mi\"}]'\n\n# Fix 3: Service selector\nkubectl delete service broken-svc\nkubectl expose deployment broken-app --port=80",
+      "validation": "kubectl get pods -l app=broken -o jsonpath='{.items[0].status.phase}'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Debug completo end-to-end",
+        "en": "Complete end-to-end debug"
+      },
+      "description": {
+        "it": "Scenario reale di produzione",
+        "en": "Real production scenario"
+      },
+      "task": "1. Un'applicazione non è raggiungibile\n2. Seguire metodologia: pod -> service -> ingress -> dns\n3. Documentare ogni step\n4. Identificare root cause",
+      "hints": [
+        "Seguire l'ordine: pod ok? endpoints ok? service ok? dns ok?",
+        "Usa describe e logs ad ogni step",
+        "NetworkPolicy, DNS, TLS possono essere cause"
+      ],
+      "solution": "# Metodologia troubleshooting\n\n# 1. Pod status\nkubectl get pods -l app=myapp\nkubectl describe pod -l app=myapp\nkubectl logs -l app=myapp --tail=100\n\n# 2. Service e Endpoints\nkubectl get svc myapp\nkubectl get endpoints myapp\n# Se vuoto: selector sbagliato\n\n# 3. DNS test\nkubectl run test --image=busybox --rm -it -- nslookup myapp\nkubectl run test --image=busybox --rm -it -- wget -qO- myapp:80\n\n# 4. Ingress (se applicabile)\nkubectl get ingress myapp\nkubectl describe ingress myapp\n\n# 5. NetworkPolicy\nkubectl get networkpolicy -A\nkubectl describe networkpolicy -A\n\n# Documenta:\n# - Pod status: Running/Ready\n# - Endpoints: ha IP\n# - DNS: risolve\n# - Connessione: risposta HTTP\n# - Root cause: [documentare]",
+      "validation": "echo 'Methodology documented' && kubectl get pods -A | head -5",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    }
+  ]
+}

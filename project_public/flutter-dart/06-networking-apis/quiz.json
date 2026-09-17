@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Quale package Flutter è più comunemente usato per richieste HTTP semplici?",
+        "en": "Which Flutter package is most commonly used for simple HTTP requests?"
+      },
+      "options": [
+        "dio",
+        "http",
+        "requests",
+        "fetch"
+      ],
+      "explanation": {
+        "it": "Il package 'http' è la soluzione standard per richieste HTTP semplici in Flutter, mentre Dio offre funzionalità più avanzate.",
+        "en": "The 'http' package is the standard solution for simple HTTP requests in Flutter, while Dio offers more advanced features."
+      },
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Quale metodo HTTP si usa per creare una nuova risorsa?",
+        "en": "Which HTTP method is used to create a new resource?"
+      },
+      "options": [
+        "GET",
+        "PUT",
+        "POST",
+        "PATCH"
+      ],
+      "explanation": {
+        "it": "POST è il metodo standard per creare nuove risorse, mentre PUT si usa per aggiornare risorse esistenti.",
+        "en": "POST is the standard method for creating new resources, while PUT is used to update existing resources."
+      },
+      "correct": 2
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Quale annotazione json_serializable si usa per mappare un campo JSON con nome diverso?",
+        "en": "Which json_serializable annotation is used to map a JSON field with a different name?"
+      },
+      "options": [
+        "@JsonField()",
+        "@JsonKey()",
+        "@JsonMap()",
+        "@JsonProperty()"
+      ],
+      "explanation": {
+        "it": "@JsonKey(name: 'nome_campo') permette di mappare un campo Dart con un nome JSON diverso.",
+        "en": "@JsonKey(name: 'field_name') allows mapping a Dart field with a different JSON name."
+      },
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Quale comando si usa per generare il codice con json_serializable?",
+        "en": "Which command is used to generate code with json_serializable?"
+      },
+      "options": [
+        "flutter generate",
+        "dart run json_serializable",
+        "dart run build_runner build",
+        "flutter pub codegen"
+      ],
+      "explanation": {
+        "it": "dart run build_runner build genera il codice .g.dart per le classi annotate con @JsonSerializable.",
+        "en": "dart run build_runner build generates the .g.dart code for classes annotated with @JsonSerializable."
+      },
+      "correct": 2
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Quale tipo di interceptor Dio gestisce il refresh automatico dei token?",
+        "en": "Which type of Dio interceptor handles automatic token refresh?"
+      },
+      "options": [
+        "LoggingInterceptor",
+        "RetryInterceptor",
+        "AuthInterceptor",
+        "CacheInterceptor"
+      ],
+      "explanation": {
+        "it": "AuthInterceptor intercetta errori 401 e può tentare il refresh del token automaticamente.",
+        "en": "AuthInterceptor intercepts 401 errors and can attempt automatic token refresh."
+      },
+      "correct": 2
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Quale codice HTTP indica una richiesta non autorizzata?",
+        "en": "Which HTTP code indicates an unauthorized request?"
+      },
+      "options": [
+        "200",
+        "403",
+        "401",
+        "500"
+      ],
+      "explanation": {
+        "it": "401 Unauthorized indica che l'autenticazione è richiesta o il token non è valido.",
+        "en": "401 Unauthorized indicates that authentication is required or the token is invalid."
+      },
+      "correct": 2
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Quale metodo del package http si usa per inviare dati JSON?",
+        "en": "Which method from the http package is used to send JSON data?"
+      },
+      "options": [
+        "http.send()",
+        "http.post()",
+        "http.json()",
+        "http.data()"
+      ],
+      "explanation": {
+        "it": "http.post() con jsonEncode(body) nel parametro body invia dati JSON al server.",
+        "en": "http.post() with jsonEncode(body) in the body parameter sends JSON data to the server."
+      },
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Quale funzione Dart converte una stringa JSON in un oggetto Map?",
+        "en": "Which Dart function converts a JSON string into a Map object?"
+      },
+      "options": [
+        "json.encode()",
+        "json.decode()",
+        "json.parse()",
+        "json.toObject()"
+      ],
+      "explanation": {
+        "it": "jsonDecode() (o json.decode()) converte una stringa JSON in un oggetto Dart dinamico.",
+        "en": "jsonDecode() (or json.decode()) converts a JSON string into a dynamic Dart object."
+      },
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Quale header HTTP indica il tipo di contenuto JSON?",
+        "en": "Which HTTP header indicates JSON content type?"
+      },
+      "options": [
+        "Accept: application/json",
+        "Content-Type: application/json",
+        "Format: json",
+        "Type: json"
+      ],
+      "explanation": {
+        "it": "Content-Type: application/json indica che il body della richiesta è in formato JSON.",
+        "en": "Content-Type: application/json indicates that the request body is in JSON format."
+      },
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Quale protocollo si usa per comunicazioni real-time bidirezionali?",
+        "en": "Which protocol is used for bidirectional real-time communications?"
+      },
+      "options": [
+        "HTTP/2",
+        "REST",
+        "WebSocket",
+        "gRPC"
+      ],
+      "explanation": {
+        "it": "WebSocket permette comunicazione bidirezionale full-duplex in tempo reale.",
+        "en": "WebSocket allows bidirectional full-duplex real-time communication."
+      },
+      "correct": 2
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "In Dio, quale proprietà di DioException indica un errore di timeout?",
+        "en": "In Dio, which property of DioException indicates a timeout error?"
+      },
+      "options": [
+        "error.code",
+        "error.type",
+        "error.status",
+        "error.category"
+      ],
+      "explanation": {
+        "it": "DioException.type distingue i tipi di errore come connectionTimeout, receiveTimeout, ecc.",
+        "en": "DioException.type distinguishes error types like connectionTimeout, receiveTimeout, etc."
+      },
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Quale metodo HTTP è idempotente per definizione?",
+        "en": "Which HTTP method is idempotent by definition?"
+      },
+      "options": [
+        "POST",
+        "PATCH",
+        "PUT",
+        "CONNECT"
+      ],
+      "explanation": {
+        "it": "PUT è idempotente: chiamate multiple con gli stessi dati producono lo stesso risultato.",
+        "en": "PUT is idempotent: multiple calls with the same data produce the same result."
+      },
+      "correct": 2
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Quale codice HTTP indica che una risorsa è stata creata con successo?",
+        "en": "Which HTTP code indicates a resource was successfully created?"
+      },
+      "options": [
+        "200",
+        "201",
+        "204",
+        "202"
+      ],
+      "explanation": {
+        "it": "201 Created indica che una nuova risorsa è stata creata con successo.",
+        "en": "201 Created indicates that a new resource was successfully created."
+      },
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Quale classe Dio si usa per configurare timeout e URL base?",
+        "en": "Which Dio class is used to configure timeouts and base URL?"
+      },
+      "options": [
+        "DioConfig",
+        "BaseOptions",
+        "DioSettings",
+        "HttpClient"
+      ],
+      "explanation": {
+        "it": "BaseOptions permette di configurare baseUrl, connectTimeout, receiveTimeout, ecc.",
+        "en": "BaseOptions allows configuring baseUrl, connectTimeout, receiveTimeout, etc."
+      },
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Quale parametro di query si usa comunemente per la paginazione?",
+        "en": "Which query parameter is commonly used for pagination?"
+      },
+      "options": [
+        "page e limit",
+        "start e end",
+        "from e to",
+        "begin e count"
+      ],
+      "explanation": {
+        "it": "page e limit (o offset e limit) sono i parametri più comuni per la paginazione REST.",
+        "en": "page and limit (or offset and limit) are the most common parameters for REST pagination."
+      },
+      "correct": 0
+    }
+  ]
+}

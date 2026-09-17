@@ -1,17 +1,54 @@
 {
-  "quiz": [
+  "exercises": [
     {
-      "id": "q1",
-      "question": "Cos'è Minikube?",
-      "options": [
-        "Un sistema operativo",
-        "Un'implementazione leggera di Kubernetes per uso locale",
-        "Un software per container Docker",
-        "Un cloud provider"
-      ],
-      "correct": 1,
-      "explanation": "Minikube permette di far girare un cluster k8s sul proprio computer."
+      "title": {"it": "Verifica Installazione", "en": "Verify Installation"},
+      "description": {"it": "Controlla se Minikube è installato sul tuo sistema e quale versione.", "en": "Check if Minikube is installed on your system and which version."},
+      "hint": {"it": "Usa il comando per mostrare la versione di Minikube.", "en": "Use the command to show Minikube version."}
+    },
+    {
+      "title": {"it": "Primo Avvio", "en": "First Start"},
+      "description": {"it": "Avvia il tuo primo cluster Minikube con la configurazione di default.", "en": "Start your first Minikube cluster with default configuration."},
+      "hint": {"it": "Il comando base per avviare Minikube è 'minikube start'.", "en": "The basic command to start Minikube is 'minikube start'."}
+    },
+    {
+      "title": {"it": "Verifica Stato Cluster", "en": "Check Cluster Status"},
+      "description": {"it": "Verifica che il cluster sia in esecuzione e controlla le informazioni di base.", "en": "Verify the cluster is running and check basic information."},
+      "hint": {"it": "Usa 'minikube status' per vedere lo stato di tutti i componenti.", "en": "Use 'minikube status' to see the state of all components."}
+    },
+    {
+      "title": {"it": "Esplora Alternative", "en": "Explore Alternatives"},
+      "description": {"it": "Ricerca e documenta le differenze tra Minikube, kind, k3s e microk8s.", "en": "Research and document the differences between Minikube, kind, k3s, and microk8s."},
+      "hint": {"it": "Considera: velocità di avvio, uso di risorse, supporto multi-nodo.", "en": "Consider: startup speed, resource usage, multi-node support."}
+    },
+    {
+      "title": {"it": "Confronta Driver", "en": "Compare Drivers"},
+      "description": {"it": "Elenca i driver disponibili sul tuo sistema per Minikube.", "en": "List the drivers available on your system for Minikube."},
+      "hint": {"it": "Usa 'minikube start --help' e cerca la sezione dei driver.", "en": "Use 'minikube start --help' and look for the drivers section."}
+    },
+    {
+      "title": {"it": "Dashboard Web", "en": "Web Dashboard"},
+      "description": {"it": "Apri la dashboard Kubernetes tramite Minikube.", "en": "Open the Kubernetes dashboard through Minikube."},
+      "hint": {"it": "Minikube ha un comando dedicato per aprire la dashboard.", "en": "Minikube has a dedicated command to open the dashboard."}
+    },
+    {
+      "title": {"it": "Caso d'Uso Personale", "en": "Personal Use Case"},
+      "description": {"it": "Identifica un caso d'uso specifico per cui useresti Minikube nel tuo lavoro.", "en": "Identify a specific use case where you would use Minikube in your work."},
+      "hint": {"it": "Pensa a: sviluppo locale, test CI, apprendimento.", "en": "Think about: local development, CI testing, learning."}
+    },
+    {
+      "title": {"it": "Ferma il Cluster", "en": "Stop the Cluster"},
+      "description": {"it": "Ferma il cluster Minikube senza cancellare i dati.", "en": "Stop the Minikube cluster without deleting data."},
+      "hint": {"it": "Il comando 'minikube stop' preserva lo stato del cluster.", "en": "The 'minikube stop' command preserves the cluster state."}
+    },
+    {
+      "title": {"it": "Elimina il Cluster", "en": "Delete the Cluster"},
+      "description": {"it": "Rimuovi completamente il cluster Minikube e libera le risorse.", "en": "Completely remove the Minikube cluster and free up resources."},
+      "hint": {"it": "Usa 'minikube delete'. Attenzione: operazione distruttiva.", "en": "Use 'minikube delete'. Warning: destructive operation."}
+    },
+    {
+      "title": {"it": "Documentazione Ufficiale", "en": "Official Documentation"},
+      "description": {"it": "Trova e salva un link alla documentazione ufficiale di Minikube.", "en": "Find and save a link to the official Minikube documentation."},
+      "hint": {"it": "La documentazione è su minikube.sigs.k8s.io", "en": "Documentation is at minikube.sigs.k8s.io"}
     }
-  ],
-  "exercises": []
+  ]
 }

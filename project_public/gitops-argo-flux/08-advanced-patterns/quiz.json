@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Cos'è un deployment canary?",
+        "en": "What is a canary deployment?"
+      },
+      "options": [
+        "Deployare in un vecchio cluster",
+        "Inviare una percentuale del traffico alla nuova versione prima del deploy completo",
+        "Deployare solo il codice di test",
+        "Un tipo di rollback"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un canary deployment invia una piccola percentuale del traffico alla nuova versione per testarla.",
+        "en": "A canary deployment routes a small percentage of traffic to the new version for testing."
+      },
+      "difficulty": "medium",
+      "domain": "Deployment Strategies"
+    },
+    {
+      "question": {
+        "it": "Flagger è uno strumento per?",
+        "en": "Flagger is a tool for?"
+      },
+      "options": [
+        "Gestire i secrets",
+        "Progressive delivery (canary, blue-green)",
+        "Monitorare il cluster",
+        "Buildare immagini"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Flagger automatizza la progressive delivery con canary e blue-green deployments.",
+        "en": "Flagger automates progressive delivery with canary and blue-green deployments."
+      },
+      "difficulty": "easy",
+      "domain": "Progressive Delivery"
+    },
+    {
+      "question": {
+        "it": "Che cos'è un Sealed Secret?",
+        "en": "What is a Sealed Secret?"
+      },
+      "options": [
+        "Un secret temporaneo",
+        "Un secret criptato che può essere salvato nel Git in sicurezza",
+        "Un secret con scadenza",
+        "Un secret per dev environment"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un Sealed Secret è un Kubernetes Secret criptato che può essere salvato nel Git.",
+        "en": "A Sealed Secret is an encrypted Kubernetes Secret that can be safely stored in Git."
+      },
+      "difficulty": "medium",
+      "domain": "Secret Management"
+    },
+    {
+      "question": {
+        "it": "Blue-green deployment richiede?",
+        "en": "Blue-green deployment requires?"
+      },
+      "options": [
+        "Solo un ambiente",
+        "Due ambienti identici (blue e green) con switch del traffico",
+        "Un solo pod",
+        "Zero downtime"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Blue-green deployment usa due ambienti identici e switcha il traffico tra di essi.",
+        "en": "Blue-green deployment uses two identical environments and switches traffic between them."
+      },
+      "difficulty": "medium",
+      "domain": "Deployment Strategies"
+    },
+    {
+      "question": {
+        "it": "Cosa succede durante un rollback con ArgoCD?",
+        "en": "What happens during a rollback with ArgoCD?"
+      },
+      "options": [
+        "ArgoCD elimina il deployment",
+        "ArgoCD riapplica una revisione precedente del Git",
+        "ArgoCD restarta i pod",
+        "ArgoCD crea un nuovo deployment"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ArgoCD riapplica una revisione precedente del Git, ripristinando lo stato desiderato.",
+        "en": "ArgoCD reapplies a previous Git revision, restoring the desired state."
+      },
+      "difficulty": "medium",
+      "domain": "Rollback"
+    },
+    {
+      "question": {
+        "it": "Feature flags permettono di?",
+        "en": "Feature flags allow you to?"
+      },
+      "options": [
+        "Crittare il codice",
+        "Abilitare/disabilitare funzionalità senza deployare codice nuovo",
+        "Gestire i permessi",
+        "Monitorare le performance"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "I feature flags permettono di toggleare funzionalità senza nuovo deploy.",
+        "en": "Feature flags allow toggling functionality without deploying new code."
+      },
+      "difficulty": "easy",
+      "domain": "Feature Flags"
+    },
+    {
+      "question": {
+        "it": "External Secrets Operator fa?",
+        "en": "External Secrets Operator does?"
+      },
+      "options": [
+        "Crea secrets manualmente",
+        "Sincronizza secrets da sistemi esterni (AWS, GCP, Azure) nel cluster",
+        "Elimina secrets vecchi",
+        "Cripta i secrets"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "External Secrets Operator sincronizza secrets da provider esterni nei Kubernetes secrets.",
+        "en": "External Secrets Operator syncs secrets from external providers into Kubernetes secrets."
+      },
+      "difficulty": "medium",
+      "domain": "Secret Management"
+    },
+    {
+      "question": {
+        "it": "Multi-tenancy in GitOps significa?",
+        "en": "Multi-tenancy in GitOps means?"
+      },
+      "options": [
+        "Un solo utente con più permessi",
+        "Più team che condividono lo stesso cluster con isolamento",
+        "Cluster separati per ogni team",
+        "Un solo namespace per tutti"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Multi-tenancy GitOps permette a più team di condividere un cluster con isolamento.",
+        "en": "GitOps multi-tenancy allows multiple teams to share a cluster with isolation."
+      },
+      "difficulty": "hard",
+      "domain": "Multi-tenancy"
+    },
+    {
+      "question": {
+        "it": "Cos'è un disaster recovery plan in GitOps?",
+        "en": "What is a disaster recovery plan in GitOps?"
+      },
+      "options": [
+        "Backup del codice sorgente",
+        "Piano per ripristinare il cluster e le applicazioni dopo un guasto",
+        "Monitoraggio dei guasti",
+        "Test di performance"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un DR plan definisce come ripristinare il cluster e le app dopo un guasto.",
+        "en": "A DR plan defines how to restore the cluster and apps after a failure."
+      },
+      "difficulty": "medium",
+      "domain": "Disaster Recovery"
+    },
+    {
+      "question": {
+        "it": "Flagger può integrarsi con Istio per?",
+        "en": "Can Flagger integrate with Istio for?"
+      },
+      "options": [
+        "Gestire i servizi mesh",
+        "Progressive delivery con traffic splitting via Istio",
+        "Monitorare le metriche",
+        "Gestire i secrets"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Flagger si integra con Istio per il traffic splitting nel progressive delivery.",
+        "en": "Flagger integrates with Istio for traffic splitting in progressive delivery."
+      },
+      "difficulty": "hard",
+      "domain": "Service Mesh"
+    },
+    {
+      "question": {
+        "it": "Kustomize Helm è?",
+        "en": "Kustomize Helm is?"
+      },
+      "options": [
+        "Un tool per installare Helm",
+        "Un plugin Kustomize per gestire chart Helm come Kustomization",
+        "Un replacement di Helm",
+        "Un formato alternativo per Helm"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Kustomize Helm è un plugin che permette di usare chart Helm come risorse Kustomize.",
+        "en": "Kustomize Helm is a plugin that allows using Helm charts as Kustomize resources."
+      },
+      "difficulty": "medium",
+      "domain": "Kustomize"
+    },
+    {
+      "question": {
+        "it": "Cos'è la progressive delivery?",
+        "en": "What is progressive delivery?"
+      },
+      "options": [
+        "Deployare progressivamente più codice",
+        "Rilascio graduale con metriche di validazione prima del full rollout",
+        "Un tipo di CI",
+        "Un formato di deploy"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Progressive delivery è un rilascio graduale con metriche di validazione.",
+        "en": "Progressive delivery is a gradual release with validation metrics."
+      },
+      "difficulty": "medium",
+      "domain": "Deployment Strategies"
+    },
+    {
+      "question": {
+        "it": "Quale è la differenza tra canary e blue-green?",
+        "en": "What is the difference between canary and blue-green?"
+      },
+      "options": [
+        "Non ci sono differenze",
+        "Canary invia traffico parzialmente, blue-green fa uno switch completo",
+        "Blue-green è più economico",
+        "Canary richiede più risorse"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Canary invia una percentuale di traffico, blue-green switcha tutto il traffico a un nuovo ambiente.",
+        "en": "Canary sends a percentage of traffic, blue-green switches all traffic to a new environment."
+      },
+      "difficulty": "easy",
+      "domain": "Deployment Strategies"
+    },
+    {
+      "question": {
+        "it": "Cos'è un ApplicationSet in ArgoCD?",
+        "en": "What is an ApplicationSet in ArgoCD?"
+      },
+      "options": [
+        "Un set di configurazioni",
+        "Un template per creare automaticamente più Application ArgoCD",
+        "Un gruppo di cluster",
+        "Un insieme di policy"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un ApplicationSet è un template che genera automaticamente Application ArgoCD.",
+        "en": "An ApplicationSet is a template that automatically generates ArgoCD Applications."
+      },
+      "difficulty": "hard",
+      "domain": "ArgoCD"
+    },
+    {
+      "question": {
+        "it": "Quale strumento Flux usa per automatizzare gli aggiornamenti delle immagini?",
+        "en": "Which Flux tool automates image updates?"
+      },
+      "options": [
+        "Flux Image Builder",
+        "Flux Image Automation Controller",
+        "Flux Helm Controller",
+        "Flux Kustomize Controller"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Flux Image Automation Controller monitora i registry e aggiorna i tag delle immagini.",
+        "en": "Flux Image Automation Controller monitors registries and updates image tags."
+      },
+      "difficulty": "medium",
+      "domain": "Flux Automation"
+    }
+  ]
+}

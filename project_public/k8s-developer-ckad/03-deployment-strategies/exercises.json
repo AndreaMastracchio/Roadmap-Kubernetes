@@ -1,0 +1,304 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Creare un Deployment base",
+        "en": "Create a basic Deployment"
+      },
+      "description": {
+        "it": "Creare un deployment con 3 repliche di nginx",
+        "en": "Create a deployment with 3 nginx replicas"
+      },
+      "task": "1. Crea un deployment chiamato 'web-app'\n2. Usa l'immagine nginx:alpine\n3. Imposta 3 repliche\n4. Verifica che i Pod siano creati\n5. Controlla i dettagli del deployment",
+      "hints": [
+        "kubectl create deployment --help",
+        "Il flag --replicas=3 imposta le repliche",
+        "kubectl get deployments per verificare"
+      ],
+      "solution": "kubectl create deployment web-app --image=nginx:alpine --replicas=3\nkubectl get deployments\nkubectl get pods -l app=web-app\nkubectl describe deployment web-app",
+      "validation": "kubectl get deployment web-app -o jsonpath='{.status.readyReplicas}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Eseguire un rolling update",
+        "en": "Perform a rolling update"
+      },
+      "description": {
+        "it": "Aggiornare l'immagine di un deployment esistente",
+        "en": "Update the image of an existing deployment"
+      },
+      "task": "1. Aggiorna il deployment web-app all'immagine nginx:1.25-alpine\n2. Osserva lo stato del rollout\n3. Verifica la cronologia delle revisioni\n4. Controlla che tutti i Pod siano aggiornati",
+      "hints": [
+        "kubectl set image deployment/name container=image:tag",
+        "kubectl rollout status deployment/name",
+        "kubectl rollout history deployment/name"
+      ],
+      "solution": "kubectl set image deployment/web-app nginx=nginx:1.25-alpine\nkubectl rollout status deployment/web-app\nkubectl rollout history deployment/web-app\nkubectl get pods -l app=web-app -o jsonpath='{.items[*].spec.containers[*].image}'",
+      "validation": "kubectl get deployment web-app -o jsonpath='{.spec.template.spec.containers[0].image}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Eseguire il rollback di un deployment",
+        "en": "Rollback a deployment"
+      },
+      "description": {
+        "it": "Annullare un aggiornamento problemantico",
+        "en": "Undo a problematic update"
+      },
+      "task": "1. Aggiorna a un'immagine inesistente (simula errore)\n2. Verifica che il rollout sia bloccato\n3. Esegui il rollback alla versione precedente\n4. Verifica che tutto funzioni correttamente",
+      "hints": [
+        "Usa un'immagine che non esiste per simulare errore",
+        "kubectl rollout undo annulla l'ultimo rollout",
+        "kubectl rollout status --revision=1 per vedere la vecchia"
+      ],
+      "solution": "# Simula errore con immagine inesistente\nkubectl set image deployment/web-app nginx=nginx:nonexistent\nkubectl rollout status deployment/web-app --timeout=10s\n\n# Rollback\nkubectl rollout undo deployment/web-app\nkubectl rollout status deployment/web-app\nkubectl get pods -l app=web-app",
+      "validation": "kubectl rollout history deployment/web-app | grep -A1 'REVISION'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un DaemonSet",
+        "en": "Create a DaemonSet"
+      },
+      "description": {
+        "it": "Deployare un agent di log su ogni nodo",
+        "en": "Deploy a log agent on every node"
+      },
+      "task": "1. Crea un DaemonSet chiamato 'log-agent'\n2. Usa l'immagine fluent/fluent-bit:1.9\n3. Il DaemonSet deve girare su ogni nodo\n4. Verifica che ci sia un Pod per nodo",
+      "hints": [
+        "Crea un YAML con kind: DaemonSet",
+        "Specifica non serve replicas per DaemonSet",
+        "kubectl get ds per vedere lo stato"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: apps/v1\nkind: DaemonSet\nmetadata:\n  name: log-agent\nspec:\n  selector:\n    matchLabels:\n      app: log-agent\n  template:\n    metadata:\n      labels:\n        app: log-agent\n    spec:\n      containers:\n      - name: fluent-bit\n        image: fluent/fluent-bit:1.9\nEOF\n\nkubectl get daemonset log-agent\nkubectl get pods -l app=log-agent -o wide",
+      "validation": "kubectl get daemonset log-agent -o jsonpath='{.status.numberReady}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare uno StatefulSet",
+        "en": "Create a StatefulSet"
+      },
+      "description": {
+        "it": "Deployare un database con storage persistente",
+        "en": "Deploy a database with persistent storage"
+      },
+      "task": "1. Crea un Service headless per lo StatefulSet\n2. Crea uno StatefulSet chiamato 'db'\n3. Usa l'immagine postgres:15-alpine\n4. Configura 3 repliche con PVC\n5. Verifica i Pod ordinali",
+      "hints": [
+        "Service con clusterIP: None è headless",
+        "StatefulSet usa volumeClaimTemplates",
+        "I Pod si chiamano db-0, db-1, db-2"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Service\nmetadata:\n  name: db-headless\nspec:\n  clusterIP: None\n  selector:\n    app: db\n  ports:\n  - port: 5432\n---\napiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  name: db\nspec:\n  serviceName: db-headless\n  replicas: 3\n  selector:\n    matchLabels:\n      app: db\n  template:\n    metadata:\n      labels:\n        app: db\n    spec:\n      containers:\n      - name: postgres\n        image: postgres:15-alpine\n        ports:\n        - containerPort: 5432\n        env:\n        - name: POSTGRES_PASSWORD\n          value: \"testpassword\"\n  volumeClaimTemplates:\n  - metadata:\n      name: data\n    spec:\n      accessModes: [ \"ReadWriteOnce\" ]\n      resources:\n        requests:\n          storage: 1Gi\nEOF\n\nkubectl get statefulset db\nkubectl get pods -l app=db",
+      "validation": "kubectl get pods -l app=db --sort-by='.metadata.name' -o jsonpath='{.items[*].metadata.name}'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un Job",
+        "en": "Create a Job"
+      },
+      "description": {
+        "it": "Eseguire un task batch una tantum",
+        "en": "Run a one-off batch task"
+      },
+      "task": "1. Crea un Job chiamato 'batch-job'\n2. Usa l'immagine busybox\n3. Il Job deve eseguire: echo 'Processing data' && sleep 5\n4. Verifica il completamento del Job\n5. Controlla i log",
+      "hints": [
+        "kubectl create job --image=busybox -- <command>",
+        "kubectl get jobs per vedere lo stato",
+        "kubectl logs job/<name> per i log"
+      ],
+      "solution": "kubectl create job batch-job --image=busybox -- echo 'Processing data' && sleep 5\nkubectl wait --for=condition=complete job/batch-job --timeout=30s\nkubectl get job batch-job\nkubectl logs job/batch-job",
+      "validation": "kubectl get job batch-job -o jsonpath='{.status.succeeded}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un CronJob",
+        "en": "Create a CronJob"
+      },
+      "description": {
+        "it": "Schedulare un task periodico",
+        "en": "Schedule a periodic task"
+      },
+      "task": "1. Crea un CronJob chiamato 'daily-backup'\n2. Esegue ogni giorno alle 2:00 AM\n3. Usa l'immagine busybox\n4. Il Job esegue: echo 'Backup started'\n5. Verifica la schedulazione",
+      "hints": [
+        "kubectl create cronjob --schedule='0 2 * * *'",
+        "Il formato cron è: minuti ore giorno-mese mese giorno-settimana",
+        "kubectl get cronjobs per verificare"
+      ],
+      "solution": "kubectl create cronjob daily-backup --image=busybox --schedule='*/2 * * * *' -- echo 'Backup started'\nkubectl get cronjob daily-backup\n# Aspetta un'esecuzione (2 minuti con schedule sopra)\nsleep 130\nkubectl get jobs -l cronjob=daily-backup",
+      "validation": "kubectl get cronjob daily-backup -o jsonpath='{.spec.schedule}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Scalare un Deployment",
+        "en": "Scale a Deployment"
+      },
+      "description": {
+        "it": "Modificare il numero di repliche",
+        "en": "Modify the number of replicas"
+      },
+      "task": "1. Scala il deployment web-app a 5 repliche\n2. Verifica i nuovi Pod creati\n3. Scala indietro a 2 repliche\n4. Osserva la terminazione dei Pod",
+      "hints": [
+        "kubectl scale deployment --replicas=N",
+        "kubectl get pods -w per osservare",
+        "Il HPA può scalare automaticamente"
+      ],
+      "solution": "kubectl scale deployment web-app --replicas=5\nkubectl get pods -l app=web-app\nkubectl scale deployment web-app --replicas=2\nkubectl get pods -l app=web-app -w --timeout=30s",
+      "validation": "kubectl get deployment web-app -o jsonpath='{.spec.replicas}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare maxSurge e maxUnavailable",
+        "en": "Configure maxSurge and maxUnavailable"
+      },
+      "description": {
+        "it": "Personalizzare la strategia di rolling update",
+        "en": "Customize the rolling update strategy"
+      },
+      "task": "1. Modifica il deployment per maxSurge=1 e maxUnavailable=0\n2. Esegui un update dell'immagine\n3. Osserva il comportamento conservativo\n4. Documenta le differenze dal default",
+      "hints": [
+        "kubectl patch deployment o edit deployment",
+        "maxUnavailable=0 garantisce zero downtime",
+        "maxSurge controlla i Pod extra durante l'update"
+      ],
+      "solution": "kubectl patch deployment web-app --type='json' -p='[\n  {\"op\": \"replace\", \"path\": \"/spec/strategy/rollingUpdate/maxSurge\", \"value\": 1},\n  {\"op\": \"replace\", \"path\": \"/spec/strategy/rollingUpdate/maxUnavailable\", \"value\": 0}\n]'\n\nkubectl set image deployment/web-app nginx=nginx:1.24-alpine\nkubectl rollout status deployment/web-app -w",
+      "validation": "kubectl get deployment web-app -o jsonpath='{.spec.strategy.rollingUpdate}'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare deployment Blue-Green",
+        "en": "Implement Blue-Green deployment"
+      },
+      "description": {
+        "it": "Simulare una strategia blue-green",
+        "en": "Simulate a blue-green strategy"
+      },
+      "task": "1. Crea deployment 'app-blue' con nginx:alpine\n2. Crea deployment 'app-green' con nginx:1.25-alpine\n3. Crea un Service che punta a blue\n4. Switcha il Service verso green\n5. Verifica il traffico instradato",
+      "hints": [
+        "Due deployment con label comuni",
+        "Service selector determina dove va il traffico",
+        "kubectl patch service per cambiare selector"
+      ],
+      "solution": "# Blue deployment\nkubectl create deployment app-blue --image=nginx:alpine --replicas=3\nkubectl label deployment app-blue version=blue\n\n# Green deployment\nkubectl create deployment app-green --image=nginx:1.25-alpine --replicas=3\nkubectl label deployment app-green version=green\n\n# Service punta a blue inizialmente\nkubectl expose deployment app-blue --port=80 --name=app-service\n\n# Switch to green\nkubectl patch service app-service -p '{\"spec\":{\"selector\":{\"version\":\"green\"}}}'\n\nkubectl get endpoints app-service",
+      "validation": "kubectl get service app-service -o jsonpath='{.spec.selector}'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Gestire Job falliti",
+        "en": "Handle failed Jobs"
+      },
+      "description": {
+        "it": "Analizzare e riparare Job falliti",
+        "en": "Analyze and fix failed Jobs"
+      },
+      "task": "1. Crea un Job che fallisce (exit 1)\n2. Osserva i retry fino al backoffLimit\n3. Controlla i Pod falliti\n4. Crea un Job con backoffLimit=2\n5. Verifica che fallisca prima",
+      "hints": [
+        "Un comando 'exit 1' fallisce sempre",
+        "kubectl describe job per vedere gli eventi",
+        "kubectl logs dei Pod falliti"
+      ],
+      "solution": "# Job che fallisce\nkubectl create job failing-job --image=busybox -- sh -c 'exit 1'\nsleep 30\nkubectl describe job failing-job\n\n# Job con backoffLimit ridotto\ncat <<EOF | kubectl apply -f -\napiVersion: batch/v1\nkind: Job\nmetadata:\n  name: limited-retry-job\nspec:\n  backoffLimit: 2\n  template:\n    spec:\n      containers:\n      - name: failer\n        image: busybox\n        command: ['sh', '-c', 'exit 1']\n      restartPolicy: Never\nEOF\n\nkubectl wait --for=condition=failed job/limited-retry-job --timeout=60s",
+      "validation": "kubectl get job limited-retry-job -o jsonpath='{.status.failed}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Pausare e riprendere un rollout",
+        "en": "Pause and resume a rollout"
+      },
+      "description": {
+        "it": "Controllare il rollout manualmente",
+        "en": "Manually control the rollout"
+      },
+      "task": "1. Metti in pausa il deployment web-app\n2. Modifica l'immagine\n3. Verifica che non parte il rollout\n4. Riprendi il rollout\n5. Verifica il completamento",
+      "hints": [
+        "kubectl rollout pause",
+        "Le modifiche durante la pausa non triggerano rollout",
+        "kubectl rollout resume per continuare"
+      ],
+      "solution": "kubectl rollout pause deployment/web-app\nkubectl set image deployment/web-app nginx=nginx:1.23-alpine\nkubectl rollout status deployment/web-app --timeout=5s || echo 'Pausing works!'\n\nkubectl rollout resume deployment/web-app\nkubectl rollout status deployment/web-app",
+      "validation": "kubectl rollout status deployment/web-app",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare deployment Canary",
+        "en": "Implement Canary deployment"
+      },
+      "description": {
+        "it": "Testare una nuova versione con poco traffico",
+        "en": "Test a new version with low traffic"
+      },
+      "task": "1. Crea deployment 'api-stable' con 4 repliche\n2. Crea deployment 'api-canary' con 1 replica (20%)\n3. Crea un Service che bilancia entrambi\n4. Verifica la distribuzione del traffico",
+      "hints": [
+        "Service usa label comuni per entrambi i deployment",
+        "La proporzione di repliche determina la % di traffico",
+        "Usa label comuni: app=api"
+      ],
+      "solution": "# Stable version (80%)\nkubectl create deployment api-stable --image=myapi:v1 --replicas=4\nkubectl label deployment api-stable app=api track=stable\n\n# Canary version (20%)\nkubectl create deployment api-canary --image=myapi:v2 --replicas=1\nkubectl label deployment api-canary app=api track=canary\n\n# Service bilancia entrambi\nkubectl expose deployment api-stable --port=8080 --name=api-service\nkubectl label service api-service app=api\n\nkubectl get endpoints api-service",
+      "validation": "kubectl get endpoints api-service -o jsonpath='{.subsets[0].addresses}' | jq length",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Impostare parallelismo Job",
+        "en": "Set Job parallelism"
+      },
+      "description": {
+        "it": "Configurare Job paralleli per batch processing",
+        "en": "Configure parallel Jobs for batch processing"
+      },
+      "task": "1. Crea un Job con parallelismo=3 e completions=10\n2. Ogni Pod deve processare un item\n3. Verifica che i Pod girano in parallelo\n4. Controlla il completamento totale",
+      "hints": [
+        "parallelism controlla quanti Pod contemporaneamente",
+        "completions controlla quanti Pod devono finire",
+        "kubectl get pods -w per osservare"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: batch/v1\nkind: Job\nmetadata:\n  name: parallel-job\nspec:\n  parallelism: 3\n  completions: 10\n  template:\n    spec:\n      containers:\n      - name: processor\n        image: busybox\n        command: ['sh', '-c', 'echo Processing item && sleep 5']\n      restartPolicy: OnFailure\nEOF\n\nkubectl get pods -l job-name=parallel-job -w --timeout=60s &\nsleep 10\nkubectl get pods -l job-name=parallel-job",
+      "validation": "kubectl get job parallel-job -o jsonpath='{.status.succeeded}'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Analizzare cronologia deployment",
+        "en": "Analyze deployment history"
+      },
+      "description": {
+        "it": "Esaminare lo storico delle revisioni",
+        "en": "Examine revision history"
+      },
+      "task": "1. Esegui 3 aggiornamenti diversi al deployment web-app\n2. Visualizza la cronologia completa\n3. Mostra i dettagli della revisione 2\n4. Esegui rollback alla revisione 1",
+      "hints": [
+        "kubectl rollout history per vedere la lista",
+        "--revision=N per i dettagli",
+        "rollback alla revisione specifica con --to-revision"
+      ],
+      "solution": "# Fai 3 aggiornamenti\nkubectl set image deployment/web-app nginx=nginx:1.21-alpine\nkubectl rollout status deployment/web-app\nkubectl set image deployment/web-app nginx=nginx:1.22-alpine\nkubectl rollout status deployment/web-app\nkubectl set image deployment/web-app nginx=nginx:1.23-alpine\nkubectl rollout status deployment/web-app\n\n# Cronologia\nkubectl rollout history deployment/web-app\nkubectl rollout history deployment/web-app --revision=2\n\n# Rollback\nkubectl rollout undo deployment/web-app --to-revision=1\nkubectl rollout status deployment/web-app",
+      "validation": "kubectl get deployment web-app -o jsonpath='{.spec.template.spec.containers[0].image}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    }
+  ]
+}

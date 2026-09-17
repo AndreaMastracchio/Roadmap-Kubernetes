@@ -1,0 +1,384 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale controller Kubernetes garantisce che un Pod sia in esecuzione su ogni nodo del cluster?",
+        "en": "Which Kubernetes controller ensures a Pod runs on every node in the cluster?"
+      },
+      "options": [
+        "Deployment",
+        "ReplicaSet",
+        "DaemonSet",
+        "StatefulSet"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "DaemonSet garantisce una copia del Pod su ogni nodo (o su nodi che matchano un selector). Viene usato per agent di monitoring, log collection, network plugins.",
+        "en": "DaemonSet ensures one copy of the Pod on every node (or nodes matching a selector). Used for monitoring agents, log collection, network plugins."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale strategia di deployment ricrea tutti i Pod contemporaneamente causando downtime?",
+        "en": "Which deployment strategy recreates all Pods at once causing downtime?"
+      },
+      "options": [
+        "RollingUpdate",
+        "Recreate",
+        "Blue-Green",
+        "Canary"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "La strategia Recreate termina tutti i Pod vecchi prima di creare quelli nuovi, causando downtime. RollingUpdate mantiene disponibili alcuni Pod durante l'aggiornamento.",
+        "en": "The Recreate strategy terminates all old Pods before creating new ones, causing downtime. RollingUpdate keeps some Pods available during the update."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Qual è il comando per eseguire il rollback di un deployment alla versione precedente?",
+        "en": "What is the command to rollback a deployment to the previous version?"
+      },
+      "options": [
+        "kubectl rollout undo deployment/name",
+        "kubectl rollback deployment/name",
+        "kubectl deployment rollback name",
+        "kubectl undo deployment/name"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "kubectl rollout undo deployment/<name> ripristina la revisione precedente. Con --to-revision=N si specifica una revisione particolare.",
+        "en": "kubectl rollout undo deployment/<name> restores the previous revision. Use --to-revision=N to specify a particular revision."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di risorsa Kubernetes è ideale per database con identità di rete stabile?",
+        "en": "Which Kubernetes resource type is ideal for databases with stable network identity?"
+      },
+      "options": [
+        "Deployment",
+        "ReplicaSet",
+        "DaemonSet",
+        "StatefulSet"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "StatefulSet fornisce nomi di Pod stabili (stateful-0, stateful-1), storage persistente dedicato e ordinamento. Perfetto per database e applicazioni stateful.",
+        "en": "StatefulSet provides stable Pod names (stateful-0, stateful-1), dedicated persistent storage and ordering. Perfect for databases and stateful applications."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Qual è il ruolo di un ReplicaSet?",
+        "en": "What is the role of a ReplicaSet?"
+      },
+      "options": [
+        "Gestire aggiornamenti rolling",
+        "Mantenere un numero stabile di repliche Pod",
+        "Eseguire batch job",
+        "Gestire storage persistente"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ReplicaSet assicura che un numero specificato di repliche Pod sia sempre in esecuzione. I Deployment gestiscono i ReplicaSet per gli aggiornamenti.",
+        "en": "ReplicaSet ensures a specified number of Pod replicas are always running. Deployments manage ReplicaSets for updates."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "In uno StatefulSet, cosa garantisce il serviceName?",
+        "en": "In a StatefulSet, what does serviceName guarantee?"
+      },
+      "options": [
+        "Il nome del Pod",
+        "Il DNS entry per ogni Pod con identità stabile",
+        "Il numero di repliche",
+        "La strategia di deployment"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "serviceName definisce il Service headless usato per gestire il dominio DNS di ogni Pod (pod-0.service.ns.svc.cluster.local).",
+        "en": "serviceName defines the headless Service used to manage the DNS domain of each Pod (pod-0.service.ns.svc.cluster.local)."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa viene usata per eseguire task a tempo determinato ripetuti?",
+        "en": "Which resource is used to run repeated time-bound tasks?"
+      },
+      "options": [
+        "Job",
+        "CronJob",
+        "Deployment",
+        "DaemonSet"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "CronJob crea Job secondo un programma (cron). Job esegue un task a tempo determinato una sola volta.",
+        "en": "CronJob creates Jobs on a schedule (cron). Job runs a time-bound task only once."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale campo controlla quante repliche rimangono disponibili durante un rolling update?",
+        "en": "Which field controls how many replicas remain available during a rolling update?"
+      },
+      "options": [
+        "maxSurge",
+        "maxUnavailable",
+        "minReadySeconds",
+        "progressDeadlineSeconds"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "maxUnavailable specifica il numero massimo di Pod che possono essere non disponibili durante l'update. Default è 25%.",
+        "en": "maxUnavailable specifies the maximum number of Pods that can be unavailable during the update. Default is 25%."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale opzione del CronJob impedisce l'esecuzione di Job simultanei?",
+        "en": "Which CronJob option prevents concurrent Job executions?"
+      },
+      "options": [
+        "concurrencyPolicy: Allow",
+        "concurrencyPolicy: Forbid",
+        "concurrencyPolicy: Replace",
+        "concurrencyPolicy: Block"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "concurrencyPolicy: Forbid impedisce esecuzioni concorrenti. Allow le permette. Replace sostituisce il Job esistente.",
+        "en": "concurrencyPolicy: Forbid prevents concurrent executions. Allow permits them. Replace replaces the existing Job."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Cosa succede se un Job fallisce e il backoffLimit è raggiunto?",
+        "en": "What happens if a Job fails and backoffLimit is reached?"
+      },
+      "options": [
+        "Il Job viene riavviato indefinitamente",
+        "Il Job viene marcato come fallito",
+        "Il Pod viene ricreato",
+        "Il Job viene eliminato automaticamente"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "backoffLimit (default 6) è il numero massimo di retry. Una volta raggiunto, il Job viene marcato fallito e i Pod rimangono per analisi.",
+        "en": "backoffLimit (default 6) is the maximum number of retries. Once reached, the Job is marked failed and Pods remain for analysis."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale strategia deployment ha zero downtime ma richiede il doppio delle risorse?",
+        "en": "Which deployment strategy has zero downtime but requires double the resources?"
+      },
+      "options": [
+        "RollingUpdate",
+        "Recreate",
+        "Blue-Green",
+        "Canary"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Blue-Green mantiene due ambienti completi (blue e green). Lo switch è istantaneo ma richiede il 100% di risorse aggiuntive.",
+        "en": "Blue-Green maintains two complete environments (blue and green). The switch is instant but requires 100% additional resources."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra lo storico delle revisioni di un deployment?",
+        "en": "Which command shows the revision history of a deployment?"
+      },
+      "options": [
+        "kubectl history deployment/name",
+        "kubectl rollout history deployment/name",
+        "kubectl get revisions deployment/name",
+        "kubectl describe deployment name"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl rollout history deployment/<name> mostra tutte le revisioni. Con --revision=N mostra i dettagli.",
+        "en": "kubectl rollout history deployment/<name> shows all revisions. With --revision=N shows details."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale comando mette in pausa un rollout?",
+        "en": "Which command pauses a rollout?"
+      },
+      "options": [
+        "kubectl rollout stop",
+        "kubectl rollout pause",
+        "kubectl rollout hold",
+        "kubectl deployment pause"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl rollout pause deployment/<name> ferma il rollout. Resume con kubectl rollout resume.",
+        "en": "kubectl rollout pause deployment/<name> stops the rollout. Resume with kubectl rollout resume."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "In uno StatefulSet, come vengono creati i Pod?",
+        "en": "In a StatefulSet, how are Pods created?"
+      },
+      "options": [
+        "Tutti simultaneamente",
+        "In parallelo casuale",
+        "Sequenzialmente con ordine",
+        "Solo su richiesta"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "StatefulSet crea i Pod sequenzialmente (0, 1, 2...). Ogni Pod deve essere Ready prima di creare il successivo.",
+        "en": "StatefulSet creates Pods sequentially (0, 1, 2...). Each Pod must be Ready before creating the next."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale campo del Job definisce se i Pod devono completare tutti con successo?",
+        "en": "Which Job field defines whether all Pods must complete successfully?"
+      },
+      "options": [
+        "parallelism",
+        "completions",
+        "backoffLimit",
+        "activeDeadlineSeconds"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "completions indica quante esecuzioni devono completare. parallelism indica quanti Pod possono girare in parallelo.",
+        "en": "completions indicates how many executions must complete. parallelism indicates how many Pods can run in parallel."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale strategia Canary espone gradualmente gli utenti alla nuova versione?",
+        "en": "Which Canary strategy gradually exposes users to the new version?"
+      },
+      "options": [
+        "Switch totale immediato",
+        "Routing progressivo del traffico",
+        "Parallel run senza routing",
+        "Shadow traffic"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Canary dirige una percentuale crescente di traffico verso la nuova versione. Richiede Service Mesh o Ingress avanzato.",
+        "en": "Canary directs an increasing percentage of traffic to the new version. Requires Service Mesh or advanced Ingress."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale controller gestisce automaticamente i DaemonSet quando si aggiunge un nodo?",
+        "en": "Which controller automatically manages DaemonSets when a node is added?"
+      },
+      "options": [
+        "Node Controller",
+        "DaemonSet Controller",
+        "Replication Controller",
+        "Scheduler"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il DaemonSet Controller monitora i nodi e crea/elimina Pod per mantenere la copertura desiderata.",
+        "en": "The DaemonSet Controller monitors nodes and creates/deletes Pods to maintain the desired coverage."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale è il default di revisionHistoryLimit in un Deployment?",
+        "en": "What is the default revisionHistoryLimit in a Deployment?"
+      },
+      "options": [
+        "5",
+        "10",
+        "2",
+        "Non è limitato"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "revisionHistoryLimit default è 10. Mantiene 10 ReplicaSet per rollback, eliminando i più vecchi.",
+        "en": "revisionHistoryLimit default is 10. Keeps 10 ReplicaSets for rollback, deleting older ones."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale comando forza un rollout ricreando i Pod?",
+        "en": "Which command forces a rollout by recreating Pods?"
+      },
+      "options": [
+        "kubectl rollout restart deployment/name",
+        "kubectl rollout force deployment/name",
+        "kubectl delete pods -l app=name",
+        "kubectl rollout recreate deployment/name"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "kubectl rollout restart forza un rolling update anche senza cambiamenti all'immagine.",
+        "en": "kubectl rollout restart forces a rolling update even without image changes."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "In uno StatefulSet, cosa succede al PVC se il Pod viene eliminato?",
+        "en": "In a StatefulSet, what happens to the PVC if the Pod is deleted?"
+      },
+      "options": [
+        "Il PVC viene eliminato automaticamente",
+        "Il PVC viene riutilizzato dal nuovo Pod con lo stesso ordinal",
+        "Il PVC viene ricreato vuoto",
+        "Il PVC viene rinominato"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "StatefulSet mantiene il PVC. Il nuovo Pod con lo stesso ordinal (es. stateful-0) riutilizza il PVC esistente con i dati.",
+        "en": "StatefulSet retains the PVC. The new Pod with the same ordinal (e.g. stateful-0) reuses the existing PVC with data."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    }
+  ]
+}

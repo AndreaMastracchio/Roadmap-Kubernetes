@@ -1,0 +1,439 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale parola chiave si usa per dichiarare una variabile il cui valore viene calcolato a runtime e non può essere riassegnato?",
+        "en": "Which keyword is used to declare a variable whose value is calculated at runtime and cannot be reassigned?"
+      },
+      "options": [
+        {
+          "it": "const",
+          "en": "const"
+        },
+        {
+          "it": "final",
+          "en": "final"
+        },
+        {
+          "it": "var",
+          "en": "var"
+        },
+        {
+          "it": "static",
+          "en": "static"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "final viene usato per variabili calcolate a runtime che non possono essere riassegnate. const è per valori noti a compile-time.",
+        "en": "final is used for variables calculated at runtime that cannot be reassigned. const is for values known at compile-time."
+      }
+    },
+    {
+      "question": {
+        "it": "Qual è la differenza tra var e dynamic in Dart?",
+        "en": "What is the difference between var and dynamic in Dart?"
+      },
+      "options": [
+        {
+          "it": "var permette qualsiasi tipo, dynamic inferisce il tipo",
+          "en": "var allows any type, dynamic infers the type"
+        },
+        {
+          "it": "var inferisce il tipo, dynamic permette qualsiasi tipo a runtime",
+          "en": "var infers the type, dynamic allows any type at runtime"
+        },
+        {
+          "it": "Sono equivalenti",
+          "en": "They are equivalent"
+        },
+        {
+          "it": "var è deprecato, dynamic è quello nuovo",
+          "en": "var is deprecated, dynamic is the new one"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "var inferisce il tipo a compile-time e lo fissa. dynamic permette cambi di tipo a runtime, perdendo i benefici della tipizzazione statica.",
+        "en": "var infers the type at compile-time and fixes it. dynamic allows type changes at runtime, losing static typing benefits."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa stampa il codice: var lista = [1, 2, null]; print(lista.length);",
+        "en": "What does the code print: var lista = [1, 2, null]; print(lista.length);"
+      },
+      "options": [
+        {
+          "it": "2",
+          "en": "2"
+        },
+        {
+          "it": "3",
+          "en": "3"
+        },
+        {
+          "it": "Errore di compilazione",
+          "en": "Compilation error"
+        },
+        {
+          "it": "null",
+          "en": "null"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "null è un valore valido nella lista, quindi la lunghezza è 3. La lista sarebbe di tipo List<int?>.",
+        "en": "null is a valid value in the list, so the length is 3. The list would be of type List<int?>."
+      }
+    },
+    {
+      "question": {
+        "it": "Quale operatore si usa per fornire un valore di default se una variabile è null?",
+        "en": "Which operator is used to provide a default value if a variable is null?"
+      },
+      "options": [
+        {
+          "it": "?.",
+          "en": "?."
+        },
+        {
+          "it": "??",
+          "en": "??"
+        },
+        {
+          "it": "!",
+          "en": "!"
+        },
+        {
+          "it": "??=",
+          "en": "??="
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "L'operatore ?? (null-coalescing) restituisce il valore a destra se quello a sinistra è null. ??= assegna se null.",
+        "en": "The ?? (null-coalescing) operator returns the right value if the left is null. ??= assigns if null."
+      }
+    },
+    {
+      "question": {
+        "it": "Quando si usa la keyword late?",
+        "en": "When should the late keyword be used?"
+      },
+      "options": [
+        {
+          "it": "Per variabili sempre null",
+          "en": "For variables that are always null"
+        },
+        {
+          "it": "Per variabili inizializzate dopo la dichiarazione ma non null",
+          "en": "For variables initialized after declaration but not null"
+        },
+        {
+          "it": "Solo per variabili statiche",
+          "en": "Only for static variables"
+        },
+        {
+          "it": "È deprecata in Dart 3",
+          "en": "It's deprecated in Dart 3"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "late permette di dichiarare variabili non nullable che vengono inizializzate dopo la dichiarazione. Utile anche per lazy initialization.",
+        "en": "late allows declaring non-nullable variables that are initialized after declaration. Also useful for lazy initialization."
+      }
+    },
+    {
+      "question": {
+        "it": "Quale è il modo corretto di dichiarare una funzione con parametri nominati obbligatori?",
+        "en": "What is the correct way to declare a function with required named parameters?"
+      },
+      "options": [
+        {
+          "it": "void funzione({String nome})",
+          "en": "void function({String name})"
+        },
+        {
+          "it": "void funzione({required String nome})",
+          "en": "void function({required String name})"
+        },
+        {
+          "it": "void funzione(String nome)",
+          "en": "void function(String name)"
+        },
+        {
+          "it": "void funzione([String nome])",
+          "en": "void function([String name])"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "required indica che il parametro nominato è obbligatorio. Senza, il parametro sarebbe opzionale (nullable di default).",
+        "en": "required indicates that the named parameter is mandatory. Without it, the parameter would be optional (nullable by default)."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa fa l'operatore ! su una variabile nullable?",
+        "en": "What does the ! operator do on a nullable variable?"
+      },
+      "options": [
+        {
+          "it": "Rende la variabile null",
+          "en": "Makes the variable null"
+        },
+        {
+          "it": "Asserisce che non è null, crashando se lo è",
+          "en": "Asserts it's not null, crashing if it is"
+        },
+        {
+          "it": "Rimuove null safety",
+          "en": "Removes null safety"
+        },
+        {
+          "it": "È l'operatore NOT booleano",
+          "en": "It's the boolean NOT operator"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "L'operatore ! (null assertion) dice al compilatore di trattare il valore come non-null. Se è null, genera un errore a runtime.",
+        "en": "The ! operator (null assertion) tells the compiler to treat the value as non-null. If it's null, it throws a runtime error."
+      }
+    },
+    {
+      "question": {
+        "it": "Qual è la differenza tra const e final per una lista?",
+        "en": "What is the difference between const and final for a list?"
+      },
+      "options": [
+        {
+          "it": "Nessuna differenza",
+          "en": "No difference"
+        },
+        {
+          "it": "const rende la lista immutabile, final permette di modificare gli elementi",
+          "en": "const makes the list immutable, final allows modifying elements"
+        },
+        {
+          "it": "final è più veloce",
+          "en": "final is faster"
+        },
+        {
+          "it": "const è solo per liste vuote",
+          "en": "const is only for empty lists"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "const crea una lista completamente immutabile (deeply immutable). final impedisce la riassegnazione ma permette di modificare il contenuto.",
+        "en": "const creates a completely immutable list (deeply immutable). final prevents reassignment but allows modifying the content."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si dichiara una funzione arrow che ritorna il doppio di un numero?",
+        "en": "How do you declare an arrow function that returns double a number?"
+      },
+      "options": [
+        {
+          "it": "int doppia(int n) { return n * 2; }",
+          "en": "int double(int n) { return n * 2; }"
+        },
+        {
+          "it": "int doppia(int n) => n * 2;",
+          "en": "int double(int n) => n * 2;"
+        },
+        {
+          "it": "int doppia(int n) -> n * 2;",
+          "en": "int double(int n) -> n * 2;"
+        },
+        {
+          "it": "Entrambi A e B sono corretti",
+          "en": "Both A and B are correct"
+        }
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "La forma tradizionale con return e la arrow function => sono entrambe valide. La arrow function è più concisa per funzioni a una riga.",
+        "en": "Both the traditional form with return and the arrow function => are valid. The arrow function is more concise for one-line functions."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa stampa: for (var i in [1, 2, 3]) { print(i * 2); }",
+        "en": "What does this print: for (var i in [1, 2, 3]) { print(i * 2); }"
+      },
+      "options": [
+        {
+          "it": "1, 2, 3",
+          "en": "1, 2, 3"
+        },
+        {
+          "it": "2, 4, 6",
+          "en": "2, 4, 6"
+        },
+        {
+          "it": "Errore",
+          "en": "Error"
+        },
+        {
+          "it": "[2, 4, 6]",
+          "en": "[2, 4, 6]"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il ciclo for-in itera su ogni elemento e stampa il risultato di i * 2. Quindi stampa 2, poi 4, poi 6 su righe separate.",
+        "en": "The for-in loop iterates over each element and prints the result of i * 2. So it prints 2, then 4, then 6 on separate lines."
+      }
+    },
+    {
+      "question": {
+        "it": "Un mixin in Dart serve a:",
+        "en": "A mixin in Dart is used to:"
+      },
+      "options": [
+        {
+          "it": "Creare classi astratte",
+          "en": "Create abstract classes"
+        },
+        {
+          "it": "Condividere codice tra classi senza ereditarietà",
+          "en": "Share code between classes without inheritance"
+        },
+        {
+          "it": "Sostituire le interfacce",
+          "en": "Replace interfaces"
+        },
+        {
+          "it": "Dichiarare variabili globali",
+          "en": "Declare global variables"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "I mixin permettono di riutilizzare codice in più classi. Una classe può usare più mixin con 'with', superando il limite della singola ereditarietà.",
+        "en": "Mixins allow reusing code across multiple classes. A class can use multiple mixins with 'with', overcoming single inheritance limitation."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa deve fare una classe che estende una classe astratta?",
+        "en": "What must a class that extends an abstract class do?"
+      },
+      "options": [
+        {
+          "it": "Implementare tutti i metodi astratti",
+          "en": "Implement all abstract methods"
+        },
+        {
+          "it": "Niente, i metodi astratti sono opzionali",
+          "en": "Nothing, abstract methods are optional"
+        },
+        {
+          "it": "Solo i getter",
+          "en": "Only getters"
+        },
+        {
+          "it": "Dichiarare la classe come abstract",
+          "en": "Declare the class as abstract"
+        }
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Una classe concreta che estende una classe astratta DEVE implementare tutti i metodi astratti, altrimenti deve essere dichiarata abstract anch'essa.",
+        "en": "A concrete class extending an abstract class MUST implement all abstract methods, otherwise it must be declared abstract itself."
+      }
+    },
+    {
+      "question": {
+        "it": "Qual è la differenza tra async e sync in Dart?",
+        "en": "What is the difference between async and sync in Dart?"
+      },
+      "options": [
+        {
+          "it": "async è più veloce",
+          "en": "async is faster"
+        },
+        {
+          "it": "async permette operazioni non bloccanti con Future/await",
+          "en": "async allows non-blocking operations with Future/await"
+        },
+        {
+          "it": "sync è deprecato",
+          "en": "sync is deprecated"
+        },
+        {
+          "it": "Non c'è differenza",
+          "en": "There's no difference"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "async marca una funzione come asincrona, permettendo l'uso di await per operazioni non bloccanti. Il codice sync blocca l'esecuzione fino al completamento.",
+        "en": "async marks a function as asynchronous, allowing the use of await for non-blocking operations. Sync code blocks execution until completion."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa fa Stream in Dart?",
+        "en": "What does Stream do in Dart?"
+      },
+      "options": [
+        {
+          "it": "Invia un singolo valore asincrono",
+          "en": "Sends a single asynchronous value"
+        },
+        {
+          "it": "Invia una sequenza di valori asincroni nel tempo",
+          "en": "Sends a sequence of asynchronous values over time"
+        },
+        {
+          "it": "È solo per WebSocket",
+          "en": "It's only for WebSocket"
+        },
+        {
+          "it": "Sostituisce Future",
+          "en": "Replaces Future"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Stream fornisce una sequenza di eventi asincroni. A differenza di Future (un singolo valore), Stream può emettere più valori nel tempo.",
+        "en": "Stream provides a sequence of asynchronous events. Unlike Future (single value), Stream can emit multiple values over time."
+      }
+    },
+    {
+      "question": {
+        "it": "Nel blocco try-catch, cosa fa finally?",
+        "en": "In a try-catch block, what does finally do?"
+      },
+      "options": [
+        {
+          "it": "Viene eseguito solo se c'è un errore",
+          "en": "Executes only if there's an error"
+        },
+        {
+          "it": "Viene eseguito sempre, con o senza errori",
+          "en": "Always executes, with or without errors"
+        },
+        {
+          "it": "È opzionale e non fa nulla",
+          "en": "It's optional and does nothing"
+        },
+        {
+          "it": "Termina il programma",
+          "en": "Terminates the program"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "finally viene sempre eseguito indipendentemente dal fatto che sia stato lanciato un errore o meno. È ideale per cleanup.",
+        "en": "finally always executes regardless of whether an error was thrown or not. It's ideal for cleanup operations."
+      }
+    }
+  ]
+}

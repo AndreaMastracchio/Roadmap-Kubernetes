@@ -1,0 +1,384 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale risorsa Kubernetes viene utilizzata per memorizzare dati di configurazione non sensibili?",
+        "en": "Which Kubernetes resource is used to store non-sensitive configuration data?"
+      },
+      "options": [
+        "Secret",
+        "ConfigMap",
+        "PersistentVolume",
+        "EnvironmentFile"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ConfigMap memorizza dati di configurazione non sensibili. Per dati sensibili come password si usa Secret.",
+        "en": "ConfigMap stores non-sensitive configuration data. For sensitive data like passwords, use Secret."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "In quale modo un ConfigMap può essere consumato da un Pod?",
+        "en": "In which way can a ConfigMap be consumed by a Pod?"
+      },
+      "options": [
+        "Solo come variabili d'ambiente",
+        "Solo come volume",
+        "Come variabili d'ambiente, argomenti di comando o volume",
+        "Solo tramite API Kubernetes"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "ConfigMap può essere usato come env vars, argomenti di comando (command/args), o montato come volume.",
+        "en": "ConfigMap can be used as env vars, command arguments (command/args), or mounted as a volume."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale API Downward permette di esporre informazioni del Pod al container?",
+        "en": "Which Downward API allows exposing Pod information to the container?"
+      },
+      "options": [
+        "PodInfo API",
+        "Downward API",
+        "Metadata API",
+        "Container API"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "La Downward API espone metadati del Pod (nome, IP, namespace, labels) come variabili d'ambiente o file.",
+        "en": "The Downward API exposes Pod metadata (name, IP, namespace, labels) as environment variables or files."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Cosa succede se un container supera il suo memory limit?",
+        "en": "What happens if a container exceeds its memory limit?"
+      },
+      "options": [
+        "Il container viene throttled",
+        "Il container viene riavviato",
+        "Il container viene terminato con OOMKilled",
+        "Nulla, il limite è solo un avviso"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Quando un container supera il memory limit, viene terminato con stato OOMKilled (Out of Memory).",
+        "en": "When a container exceeds its memory limit, it's terminated with OOMKilled status (Out of Memory)."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Qual è la differenza tra resource request e limit?",
+        "en": "What is the difference between resource request and limit?"
+      },
+      "options": [
+        "Non c'è differenza",
+        "Request è per schedulazione, limit è per esecuzione",
+        "Limit è per schedulazione, request è per esecuzione",
+        "Request è solo per CPU, limit è per memoria"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Request è la quantità garantita usata per la schedulazione. Limit è il massimo utilizzabile durante l'esecuzione.",
+        "en": "Request is the guaranteed amount used for scheduling. Limit is the maximum usable during execution."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale campo viene usato per impostare una variabile d'ambiente da un ConfigMap?",
+        "en": "Which field is used to set an environment variable from a ConfigMap?"
+      },
+      "options": [
+        "valueFrom.configMapKeyRef",
+        "value.configMap",
+        "envFrom.configMap",
+        "configMapRef"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "valueFrom.configMapKeyRef permette di referenziare una chiave specifica di un ConfigMap.",
+        "en": "valueFrom.configMapKeyRef allows referencing a specific key from a ConfigMap."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa Kubernetes impone limiti di risorse predefiniti per namespace?",
+        "en": "Which Kubernetes resource enforces default resource limits for a namespace?"
+      },
+      "options": [
+        "ResourceQuota",
+        "LimitRange",
+        "NamespacePolicy",
+        "DefaultLimit"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "LimitRange impone default e limiti per risorse (CPU, memoria) in un namespace.",
+        "en": "LimitRange enforces defaults and limits for resources (CPU, memory) in a namespace."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa Kubernetes limita il consumo totale di risorse per namespace?",
+        "en": "Which Kubernetes resource limits total resource consumption per namespace?"
+      },
+      "options": [
+        "LimitRange",
+        "ResourceQuota",
+        "NamespaceConstraint",
+        "TotalLimit"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ResourceQuota limita le risorse totali (Pod count, CPU, memoria, PVC) per namespace.",
+        "en": "ResourceQuota limits total resources (Pod count, CPU, memory, PVC) per namespace."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Come si monta un ConfigMap come volume read-only?",
+        "en": "How do you mount a ConfigMap as a read-only volume?"
+      },
+      "options": [
+        "Non è possibile montarlo read-only",
+        "readOnly: true nel volumeMounts",
+        "mode: '0444' nel volume",
+        "Entrambe B e C sono corrette"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Si può usare readOnly: true o specificare mode: '0444' per permessi read-only.",
+        "en": "You can use readOnly: true or specify mode: '0444' for read-only permissions."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale priorità ha un Pod con priorityClassName: system-node-critical?",
+        "en": "What priority does a Pod with priorityClassName: system-node-critical have?"
+      },
+      "options": [
+        "Priorità normale",
+        "Priorità alta",
+        "Priorità massima (2 billion)",
+        "Priorità bassa"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "system-node-critical ha priorità 2000000000 (2 billion), massima priorità assoluta.",
+        "en": "system-node-critical has priority 2000000000 (2 billion), highest absolute priority."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Cosa succede se spec.containers[].resources.requests viene omesso?",
+        "en": "What happens if spec.containers[].resources.requests is omitted?"
+      },
+      "options": [
+        "Il Pod non può essere creato",
+        "Viene usato il valore del limit se presente",
+        "Viene usato il default del namespace",
+        "Viene usato il default di LimitRange se presente, altrimenti zero"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Se omesso, si usa il default di LimitRange. Se non c'è LimitRange, la request è zero.",
+        "en": "If omitted, the LimitRange default is used. If no LimitRange, the request is zero."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Come si carica un intero ConfigMap come variabili d'ambiente?",
+        "en": "How do you load an entire ConfigMap as environment variables?"
+      },
+      "options": [
+        "Usando env con valueFrom",
+        "Usando envFrom con configMapRef",
+        "Usando configMapEnv",
+        "Non è possibile"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "envFrom con configMapRef carica tutte le chiavi del ConfigMap come variabili d'ambiente.",
+        "en": "envFrom with configMapRef loads all ConfigMap keys as environment variables."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale campo permette di esporre il nome del Pod tramite Downward API?",
+        "en": "Which field allows exposing the Pod name via Downward API?"
+      },
+      "options": [
+        "metadata.name",
+        "fieldRef.fieldPath: metadata.name",
+        "podRef.name",
+        "downwardAPI.podName"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "fieldRef.fieldPath: metadata.name espone il nome del Pod come variabile d'ambiente.",
+        "en": "fieldRef.fieldPath: metadata.name exposes the Pod name as an environment variable."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale unità di misura per CPU indica 0.5 cores?",
+        "en": "Which CPU measurement unit indicates 0.5 cores?"
+      },
+      "options": [
+        "500m",
+        "50m",
+        "0.5c",
+        "500M"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "500m (500 millicores) = 0.5 CPU cores. La 'm' sta per millicores, non mega.",
+        "en": "500m (500 millicores) = 0.5 CPU cores. The 'm' stands for millicores, not mega."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di volume permette di esporre la Downward API come file?",
+        "en": "Which volume type allows exposing the Downward API as files?"
+      },
+      "options": [
+        "configMap",
+        "emptyDir",
+        "downwardAPI",
+        "hostPath"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Il volume type downwardAPI permette di esporre i metadati come file nel container.",
+        "en": "The downwardAPI volume type allows exposing metadata as files in the container."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Cosa succede se un Pod usa più CPU del suo request ma meno del limit?",
+        "en": "What happens if a Pod uses more CPU than its request but less than its limit?"
+      },
+      "options": [
+        "Il Pod viene terminato",
+        "Il Pod viene throttled (limitato)",
+        "Il Pod funziona normalmente",
+        "Il Pod viene evicted"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Il Pod usa la CPU normalmente. La CPU è una risorsa comprimibile, non viene terminata o throttled se sotto il limit.",
+        "en": "The Pod runs normally. CPU is a compressible resource, not terminated or throttled if under the limit."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale flag di kubectl run imposta una variabile d'ambiente?",
+        "en": "Which kubectl run flag sets an environment variable?"
+      },
+      "options": [
+        "--var",
+        "--env",
+        "-e",
+        "--environment"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "--env KEY=VALUE imposta variabili d'ambiente durante la creazione del Pod.",
+        "en": "--env KEY=VALUE sets environment variables during Pod creation."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale annotazione evita la necessità di runAsNonRoot?",
+        "en": "Which annotation avoids the need for runAsNonRoot?"
+      },
+      "options": [
+        "container.apparmor.security.beta.kubernetes.io",
+        "seccomp.security.beta.kubernetes.io",
+        "pod.beta.kubernetes.io/non-root",
+        "Nessuna delle precedenti"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "runAsNonRoot è un campo di securityContext, non un'annotazione.",
+        "en": "runAsNonRoot is a securityContext field, not an annotation."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Come si esclude una chiave specifica quando si usa envFrom?",
+        "en": "How do you exclude a specific key when using envFrom?"
+      },
+      "options": [
+        "Non è possibile",
+        "Usando excludeKey",
+        "Usando prefix",
+        "Si deve usare env singolo per ogni variabile"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "envFrom carica tutto. Per escludere chiavi, si devono definire singolarmente con env.",
+        "en": "envFrom loads everything. To exclude keys, you must define them individually with env."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale priorità hanno i Pod nel PriorityClass 'system-cluster-critical'?",
+        "en": "What priority do Pods in 'system-cluster-critical' PriorityClass have?"
+      },
+      "options": [
+        "Priorità 1",
+        "Priorità 1000000",
+        "Priorità 1000000000 (1 billion)",
+        "Priorità 2000000000 (2 billion)"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "system-cluster-critical ha priorità 1000000000, inferiore a system-node-critical.",
+        "en": "system-cluster-critical has priority 1000000000, lower than system-node-critical."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    }
+  ]
+}

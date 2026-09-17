@@ -1,0 +1,124 @@
+{
+  "quiz": [
+    {
+      "question": {"it": "Quale componente di Kubernetes gira nel nodo Minikube?", "en": "Which Kubernetes component runs in the Minikube node?"},
+      "options": ["Solo kubelet", "kubelet + kube-proxy + container runtime", "Solo l'API server", "Solo etcd"],
+      "correct": 1,
+      "explanation": {"it": "Il nodo Minikube esegue kubelet, kube-proxy e il container runtime. I control plane components girano in container dedicati.", "en": "The Minikube node runs kubelet, kube-proxy, and the container runtime. Control plane components run in dedicated containers."},
+      "difficulty": "medium",
+      "domain": "architecture"
+    },
+    {
+      "question": {"it": "Dove girano i componenti del control plane in Minikube?", "en": "Where do the control plane components run in Minikube?"},
+      "options": ["In un nodo separato", "In container all'interno del nodo Minikube", "Sull'host locale", "In un pod dedicato esterno"],
+      "correct": 1,
+      "explanation": {"it": "I componenti del control plane (API server, scheduler, controller manager, etcd) girano come container nel nodo Minikube.", "en": "Control plane components (API server, scheduler, controller manager, etcd) run as containers inside the Minikube node."},
+      "difficulty": "medium",
+      "domain": "architecture"
+    },
+    {
+      "question": {"it": "Quale è la differenza principale tra driver VM e driver container?", "en": "What is the main difference between VM drivers and container drivers?"},
+      "options": ["Nessuna differenza", "VM driver crea una VM completa, container driver usa container come nodi", "Container driver è meno sicuro", "VM driver è più veloce"],
+      "correct": 1,
+      "explanation": {"it": "I driver VM (VirtualBox, VMware) creano una VM completa. I driver container (Docker, Podman) usano container, più veloci e leggeri.", "en": "VM drivers (VirtualBox, VMware) create a full VM. Container drivers (Docker, Podman) use containers, faster and lighter."},
+      "difficulty": "medium",
+      "domain": "drivers"
+    },
+    {
+      "question": {"it": "Quale rete usa Minikube con il driver Docker?", "en": "What network does Minikube use with the Docker driver?"},
+      "options": ["Rete host diretta", "Rete bridge Docker dedicata", "Solo localhost", "VPN dedicata"],
+      "correct": 1,
+      "explanation": {"it": "Il driver Docker crea una rete bridge dedicata per permettere la comunicazione tra l'host e il cluster.", "en": "The Docker driver creates a dedicated bridge network to allow communication between the host and the cluster."},
+      "difficulty": "medium",
+      "domain": "networking"
+    },
+    {
+      "question": {"it": "Come accede Minikube alla Docker daemon dell'host?", "en": "How does Minikube access the host's Docker daemon?"},
+      "options": ["Non può accedere", "Attraverso eval $(minikube docker-env)", "Solo con mount", "Via SSH manuale"],
+      "correct": 1,
+      "explanation": {"it": "'eval $(minikube docker-env)' configura le variabili d'ambiente per puntare alla Docker daemon del cluster Minikube.", "en": "'eval $(minikube docker-env)' configures environment variables to point to the Minikube cluster's Docker daemon."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale comando mostra l'IP del cluster Minikube?", "en": "Which command shows the Minikube cluster IP?"},
+      "options": ["kubectl cluster-info", "minikube ip", "docker inspect minikube", "Entrambe A e B"],
+      "correct": 3,
+      "explanation": {"it": "Sia 'kubectl cluster-info' che 'minikube ip' mostrano l'indirizzo del cluster, con dettagli diversi.", "en": "Both 'kubectl cluster-info' and 'minikube ip' show the cluster address, with different details."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Perché il driver Docker è più veloce di VirtualBox?", "en": "Why is the Docker driver faster than VirtualBox?"},
+      "options": ["Docker è ottimizzato meglio", "Evita il sovraccarico di una VM completa con il proprio kernel", "VirtualBox è deprecato", "Docker usa GPU"],
+      "correct": 1,
+      "explanation": {"it": "Il driver Docker evita di avviare un kernel separato e una VM completa, riducendo drasticamente tempo di avvio e uso di risorse.", "en": "The Docker driver avoids starting a separate kernel and full VM, drastically reducing startup time and resource usage."},
+      "difficulty": "medium",
+      "domain": "drivers"
+    },
+    {
+      "question": {"it": "Quale driver è consigliato per Apple Silicon (M1/M2/M3)?", "en": "Which driver is recommended for Apple Silicon (M1/M2/M3)?"},
+      "options": ["virtualbox", "hyperkit", "docker", "kvm2"],
+      "correct": 2,
+      "explanation": {"it": "VirtualBox non supporta ARM64. Il driver Docker è l'opzione più stabile su Apple Silicon.", "en": "VirtualBox doesn't support ARM64. The Docker driver is the most stable option on Apple Silicon."},
+      "difficulty": "medium",
+      "domain": "drivers"
+    },
+    {
+      "question": {"it": "Cosa contiene il file minikube config?", "en": "What does the minikube config file contain?"},
+      "options": ["Solo le password", "Preferenze persistently: driver, memoria, profili", "Log di esecuzione", "Certificati TLS"],
+      "correct": 1,
+      "explanation": {"it": "Il file config (~/.minikube/config/config.json) salva preferenze come driver default, memoria allocata e profili.", "en": "The config file (~/.minikube/config/config.json) saves preferences like default driver, allocated memory, and profiles."},
+      "difficulty": "medium",
+      "domain": "configuration"
+    },
+    {
+      "question": {"it": "Come è strutturato il filesystem di Minikube?", "en": "How is Minikube's filesystem structured?"},
+      "options": ["Una singola cartella", "~/.minikube/ con config, cache, certs, profiles", "Solo in /var/lib/minikube", "Dipende dal driver"],
+      "correct": 1,
+      "explanation": {"it": "Tutto è in ~/.minikube/: config/ per configurazioni, cache/ per immagini, certs/ per certificati, profiles/ per cluster multipli.", "en": "Everything is in ~/.minikube/: config/ for configurations, cache/ for images, certs/ for certificates, profiles/ for multiple clusters."},
+      "difficulty": "medium",
+      "domain": "architecture"
+    },
+    {
+      "question": {"it": "Quale componente gestisce i certificati TLS del cluster?", "en": "Which component manages the cluster's TLS certificates?"},
+      "options": ["kubelet", "etcd", "minikube durante l'avvio", "kubectl"],
+      "correct": 2,
+      "explanation": {"it": "Minikube genera automaticamente i certificati TLS per l'API server e gli altri componenti durante l'avvio del cluster.", "en": "Minikube automatically generates TLS certificates for the API server and other components during cluster startup."},
+      "difficulty": "hard",
+      "domain": "architecture"
+    },
+    {
+      "question": {"it": "Qual è il ruolo di etcd in Minikube?", "en": "What is the role of etcd in Minikube?"},
+      "options": ["Container runtime", "Database per lo stato del cluster Kubernetes", "Gestione della rete", "Bilanciamento del carico"],
+      "correct": 1,
+      "explanation": {"it": "etcd è il database key-value distribuito che memorizza tutto lo stato del cluster Kubernetes.", "en": "etcd is the distributed key-value database that stores all the Kubernetes cluster state."},
+      "difficulty": "easy",
+      "domain": "architecture"
+    },
+    {
+      "question": {"it": "Come Minikube espone i servizi NodePort?", "en": "How does Minikube expose NodePort services?"},
+      "options": ["Solo tramite LoadBalancer", "URL generato da 'minikube service'", "Solo localhost:30000", "Richiede tunnel VPN"],
+      "correct": 1,
+      "explanation": {"it": "'minikube service <nome>' genera un URL che mappa la porta del nodo a una porta locale accessibile.", "en": "'minikube service <name>' generates a URL that maps the node port to an accessible local port."},
+      "difficulty": "medium",
+      "domain": "networking"
+    },
+    {
+      "question": {"it": "Quale driver permette 'nested virtualization'?", "en": "Which driver allows 'nested virtualization'?"},
+      "options": ["docker", "kvm2", "virtualbox (su host con VT-x)", "podman"],
+      "correct": 2,
+      "explanation": {"it": "VirtualBox può annidare virtualizzazione se l'host supporta VT-x/AMD-V, permettendo di eseguire VM dentro VM.", "en": "VirtualBox can nest virtualization if the host supports VT-x/AMD-V, allowing running VMs inside VMs."},
+      "difficulty": "hard",
+      "domain": "drivers"
+    },
+    {
+      "question": {"it": "Qual è l'architettura di Minikube multi-nodo?", "en": "What is the architecture of Minikube multi-node?"},
+      "options": ["Un cluster per ogni nodo", "Un control plane + nodi worker aggiuntivi come container/VM", "Tutti i nodi sono control plane", "Non supportato"],
+      "correct": 1,
+      "explanation": {"it": "Con --nodes, Minikube crea un control plane e nodi worker aggiuntivi, simulando un cluster reale.", "en": "With --nodes, Minikube creates a control plane and additional worker nodes, simulating a real cluster."},
+      "difficulty": "hard",
+      "domain": "architecture"
+    }
+  ]
+}

@@ -1,0 +1,263 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Verifica installazione Neovim",
+        "en": "Verify Neovim installation"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Apri il terminale e verifica che Neovim sia installato correttamente controllando la versione.",
+        "en": "Open the terminal and verify Neovim is installed correctly by checking the version."
+      },
+      "steps": [
+        "Apri il terminale",
+        "Esegui: nvim --version",
+        "Verifica che la versione sia 0.9.0 o superiore",
+        "Annota la versione installata"
+      ],
+      "expected_result": "Output del comando con versione Neovim >= 0.9.0",
+      "expected_result_en": "Command output with Neovim version >= 0.9.0",
+      "hints": [
+        "Se il comando non è trovato, installa Neovim col metodo del tuo sistema",
+        "Su macOS: brew install neovim"
+      ]
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Completa il Tutor interattivo",
+        "en": "Complete the interactive Tutor"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Avvia Neovim e completa il tutorial integrato :Tutor. Dedica almeno 30 minuti.",
+        "en": "Start Neovim and complete the integrated :Tutor tutorial. Dedicate at least 30 minutes."
+      },
+      "steps": [
+        "Apri il terminale e digita: nvim",
+        "In modalità normale, digita: :Tutor",
+        "Segui le istruzioni del tutorial",
+        "Completa almeno le prime 4 sezioni"
+      ],
+      "expected_result": "Aver appreso i comandi base: h/j/k/l, i, Esc, :w, :q, :wq",
+      "expected_result_en": "Having learned basic commands: h/j/k/l, i, Esc, :w, :q, :wq",
+      "hints": [
+        "Non saltare il tutor - è fondamentale",
+        "Puoi chiudere e riprendere in seguito",
+        "Pratica ogni comando più volte"
+      ]
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Backup e installazione Kickstart",
+        "en": "Backup and install Kickstart"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Fai backup della configurazione esistente e installa Kickstart.nvim.",
+        "en": "Backup existing configuration and install Kickstart.nvim."
+      },
+      "steps": [
+        "Verifica se hai una configurazione esistente: ls ~/.config/nvim",
+        "Se esiste, fai backup: mv ~/.config/nvim ~/.config/nvim.bak",
+        "Backup anche i dati: mv ~/.local/share/nvim ~/.local/share/nvim.bak",
+        "Clona Kickstart: git clone https://github.com/nvim-lua/kickstart.nvim.git ~/.config/nvim",
+        "Avvia Neovim: nvim"
+      ],
+      "expected_result": "Neovim avviato con Lazy.nvim che installa i plugin",
+      "expected_result_en": "Neovim started with Lazy.nvim installing plugins",
+      "hints": [
+        "Il primo avvio richiede tempo per scaricare i plugin",
+        "Premi q per chiudere il popup di Lazy quando finito",
+        "Verifica con :checkhealth che tutto sia ok"
+      ]
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "Esplora la struttura di configurazione",
+        "en": "Explore configuration structure"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Naviga la directory di configurazione e leggi init.lua.",
+        "en": "Navigate the configuration directory and read init.lua."
+      },
+      "steps": [
+        "Apri Neovim",
+        "Usa :Explore per navigare ~/.config/nvim",
+        "Apri init.lua e leggi i commenti",
+        "Identifica le sezioni: options, keymaps, plugins"
+      ],
+      "expected_result": "Avere familiarità con la struttura del file init.lua",
+      "expected_result_en": "Be familiar with init.lua file structure",
+      "hints": [
+        "Usa j/k per navigare",
+        "Premi Enter per aprire un file",
+        "I commenti iniziano con -- in Lua"
+      ]
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Modifica le opzioni base",
+        "en": "Modify basic options"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Modifica init.lua per cambiare alcune opzioni e verifica che funzionino.",
+        "en": "Modify init.lua to change some options and verify they work."
+      },
+      "steps": [
+        "Apri ~/.config/nvim/init.lua",
+        "Trova la sezione options",
+        "Cambia vim.opt.scrolloff = 8 in vim.opt.scrolloff = 4",
+        "Salva con :w",
+        "Ricarica con :source %",
+        "Verifica che lo scrollo sia cambiato"
+      ],
+      "expected_result": "La configurazione viene ricaricata senza errori",
+      "expected_result_en": "Configuration reloads without errors",
+      "hints": [
+        "Usa /scrolloff per cercare nel file",
+        "n va alla prossima occorrenza",
+        ":source % ricarica il file corrente"
+      ]
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Aggiungi una mappatura personalizzata",
+        "en": "Add a custom keymap"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Aggiungi una mappatura per salvare rapidamente con Ctrl+s.",
+        "en": "Add a keymap for quick saving with Ctrl+s."
+      },
+      "steps": [
+        "Apri init.lua",
+        "Trova la sezione keymaps",
+        "Aggiungi: vim.keymap.set('n', '<C-s>', ':w<CR>', { desc = 'Save file' })",
+        "Salva e ricarica",
+        "Testa premendo Ctrl+s in un file"
+      ],
+      "expected_result": "Il file viene salvato premendo Ctrl+s",
+      "expected_result_en": "File is saved pressing Ctrl+s",
+      "hints": [
+        "Inserisci la riga dopo le altre mappature",
+        "<C-s> rappresenta Ctrl+s",
+        ":w<CR> esegue :w seguito da Enter"
+      ]
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "Usa Telescope per cercare file",
+        "en": "Use Telescope to find files"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Usa il plugin Telescope per cercare e aprire file.",
+        "en": "Use Telescope plugin to search and open files."
+      },
+      "steps": [
+        "Apri Neovim in una directory con codice",
+        "Premi <leader>sf (Space seguito da s poi f)",
+        "Digita parte del nome di un file",
+        "Seleziona con Enter",
+        "Naviga tra i risultati con j/k o Ctrl+j/k"
+      ],
+      "expected_result": "File trovati e aperti tramite Telescope",
+      "expected_result_en": "Files found and opened via Telescope",
+      "hints": [
+        "<leader> in Kickstart è la barra spaziatrice",
+        "Premi <Esc> per chiudere Telescope",
+        "Usa Ctrl+q per mandare i risultati a quickfix"
+      ]
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "Esplora i buffer",
+        "en": "Explore buffers"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Apri più file e naviga tra i buffer.",
+        "en": "Open multiple files and navigate between buffers."
+      },
+      "steps": [
+        "Apri un file: :e file1.txt",
+        "Apri un altro file: :e file2.txt",
+        "Lista buffer: :ls",
+        "Vai al prossimo: :bn",
+        "Vai al precedente: :bp",
+        "Chiudi buffer corrente: :bd"
+      ],
+      "expected_result": "Capire come aprire e navigare tra buffer multipli",
+      "expected_result_en": "Understand how to open and navigate multiple buffers",
+      "hints": [
+        "I buffer sono file in memoria",
+        "Un buffer può non essere mostrato in una finestra",
+        ":ls mostra tutti i buffer aperti"
+      ]
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "Verifica la salute di Neovim",
+        "en": "Check Neovim health"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Esegui :checkhealth e risolvi eventuali problemi.",
+        "en": "Run :checkhealth and resolve any issues."
+      },
+      "steps": [
+        "Apri Neovim",
+        "Esegui: :checkhealth",
+        "Leggi eventuali warning o error",
+        "Identifica se mancano dipendenze",
+        "Segui i suggerimenti per risolvere"
+      ],
+      "expected_result": "Output di checkhealth con Status OK o warning risolti",
+      "expected_result_en": "checkhealth output with OK Status or resolved warnings",
+      "hints": [
+        "Non tutti i warning sono critici",
+        "I warning di Treesitter spesso richiedono solo di installare parser",
+        "TSInstall <language> per installare un parser"
+      ]
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Crea un file di configurazione separato",
+        "en": "Create a separate config file"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Organizza la configurazione separando le opzioni in un file dedicato.",
+        "en": "Organize configuration by separating options in a dedicated file."
+      },
+      "steps": [
+        "Crea la directory: mkdir -p ~/.config/nvim/lua/config",
+        "Crea il file: ~/.config/nvim/lua/config/options.lua",
+        "Sposta le opzioni da init.lua a options.lua",
+        "Aggiungi return alla fine di options.lua",
+        "In init.lua aggiungi: require('config.options')",
+        "Ricarica e verifica"
+      ],
+      "expected_result": "Configurazione modulare funzionante",
+      "expected_result_en": "Working modular configuration",
+      "hints": [
+        "In Lua, require cerca in ~/.config/nvim/lua/",
+        "require('config.options') cerca lua/config/options.lua",
+        "Non serve .lua nel require"
+      ]
+    }
+  ]
+}

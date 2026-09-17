@@ -1,48 +1,54 @@
 {
-  "quiz": [
-    {
-      "id": "q1",
-      "question": "Qual è il comando per entrare in SSH all'interno del nodo Minikube?",
-      "options": [
-        "minikube enter",
-        "minikube ssh",
-        "kubectl ssh",
-        "ssh minikube@localhost"
-      ],
-      "correct": 1,
-      "explanation": "Il comando 'minikube ssh' gestisce automaticamente le chiavi e l'indirizzo IP per l'accesso al nodo."
-    },
-    {
-      "id": "q2",
-      "question": "Qual è la differenza tra 'stop' e 'pause'?",
-      "options": [
-        "Nessuna",
-        "Stop spegne la VM, Pause sospende solo i processi Kubernetes",
-        "Stop cancella i dati, Pause no",
-        "Pause è solo per Windows"
-      ],
-      "correct": 1,
-      "explanation": "Stop interrompe l'host virtuale, mentre Pause mette in pausa i container di sistema senza spegnere l'host."
-    }
-  ],
   "exercises": [
     {
-      "id": "e1",
-      "title": "Verifica Stato",
-      "hint": "Controlla lo stato del cluster",
-      "template": ["minikube {{command}}"],
-      "answers": [
-        { "id": "command", "accepted": ["status"], "placeholder": "..." }
-      ]
+      "title": {"it": "Avvia Cluster", "en": "Start Cluster"},
+      "description": {"it": "Avvia Minikube con la configurazione di default.", "en": "Start Minikube with default configuration."},
+      "hint": {"it": "Il comando base è 'minikube start'.", "en": "The basic command is 'minikube start'."}
     },
     {
-      "id": "e2",
-      "title": "Spegni Cluster",
-      "hint": "Ferma il cluster senza cancellare i dati",
-      "template": ["minikube {{command}}"],
-      "answers": [
-        { "id": "command", "accepted": ["stop"], "placeholder": "..." }
-      ]
+      "title": {"it": "Verifica Stato", "en": "Check Status"},
+      "description": {"it": "Controlla che tutti i componenti siano Running.", "en": "Check that all components are Running."},
+      "hint": {"it": "Usa 'minikube status' per vedere lo stato dettagliato.", "en": "Use 'minikube status' to see detailed state."}
+    },
+    {
+      "title": {"it": "Apri Dashboard", "en": "Open Dashboard"},
+      "description": {"it": "Apri la dashboard web di Kubernetes.", "en": "Open the Kubernetes web dashboard."},
+      "hint": {"it": "Il comando è 'minikube dashboard'.", "en": "The command is 'minikube dashboard'."}
+    },
+    {
+      "title": {"it": "Abilita Metrics-Server", "en": "Enable Metrics-Server"},
+      "description": {"it": "Attiva l'add-on metrics-server per vedere le metriche.", "en": "Enable the metrics-server add-on to see metrics."},
+      "hint": {"it": "'minikube addons enable metrics-server' poi 'kubectl top nodes'.", "en": "'minikube addons enable metrics-server' then 'kubectl top nodes'."}
+    },
+    {
+      "title": {"it": "Metti in Pausa", "en": "Pause Cluster"},
+      "description": {"it": "Metti in pausa il cluster senza spegnerlo completamente.", "en": "Pause the cluster without fully shutting it down."},
+      "hint": {"it": "'minikube pause' congela i container ma mantiene l'host.", "en": "'minikube pause' freezes containers but keeps the host."}
+    },
+    {
+      "title": {"it": "Riprendi Cluster", "en": "Resume Cluster"},
+      "description": {"it": "Riattiva il cluster dopo una pausa.", "en": "Reactivate the cluster after a pause."},
+      "hint": {"it": "'minikube unpause' riprende i container congelati.", "en": "'minikube unpause' resumes frozen containers."}
+    },
+    {
+      "title": {"it": "Ferma il Cluster", "en": "Stop the Cluster"},
+      "description": {"it": "Ferma completamente Minikube.", "en": "Completely stop Minikube."},
+      "hint": {"it": "'minikube stop' spegne la VM/container ma preserva i dati.", "en": "'minikube stop' shuts down the VM/container but preserves data."}
+    },
+    {
+      "title": {"it": "Configura Memoria", "en": "Configure Memory"},
+      "description": {"it": "Imposta 4GB di memoria per il cluster.", "en": "Set 4GB memory for the cluster."},
+      "hint": {"it": "'minikube config set memory 4096' poi riavvia.", "en": "'minikube config set memory 4096' then restart."}
+    },
+    {
+      "title": {"it": "Lista Add-Ons", "en": "List Add-Ons"},
+      "description": {"it": "Elenca tutti gli add-on disponibili e il loro stato.", "en": "List all available add-ons and their status."},
+      "hint": {"it": "'minikube addons list' mostra tutti gli add-on.", "en": "'minikube addons list' shows all add-ons."}
+    },
+    {
+      "title": {"it": "Elimina Cluster", "en": "Delete Cluster"},
+      "description": {"it": "Rimuovi completamente il cluster Minikube.", "en": "Completely remove the Minikube cluster."},
+      "hint": {"it": "'minikube delete' rimuove tutto. Attenzione: distruttivo.", "en": "'minikube delete' removes everything. Warning: destructive."}
     }
   ]
 }

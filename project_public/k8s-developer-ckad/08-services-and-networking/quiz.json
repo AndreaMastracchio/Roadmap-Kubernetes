@@ -1,0 +1,384 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale tipo di Service espone il pod solo all'interno del cluster?",
+        "en": "Which Service type exposes the pod only within the cluster?"
+      },
+      "options": [
+        "NodePort",
+        "ClusterIP",
+        "LoadBalancer",
+        "ExternalName"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ClusterIP è il tipo predefinito e espone il Service solo internamente al cluster con un IP virtuale.",
+        "en": "ClusterIP is the default type and exposes the Service only within the cluster with a virtual IP."
+      },
+      "difficulty": "easy",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di Service espone il pod su una porta di ogni nodo?",
+        "en": "Which Service type exposes the pod on a port of every node?"
+      },
+      "options": [
+        "ClusterIP",
+        "LoadBalancer",
+        "NodePort",
+        "ExternalName"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "NodePort espone il Service su una porta (default 30000-32767) su ogni nodo del cluster.",
+        "en": "NodePort exposes the Service on a port (default 30000-32767) on every cluster node."
+      },
+      "difficulty": "easy",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Qual è la porta predefinita per un Service di tipo NodePort?",
+        "en": "What is the default port range for a NodePort Service?"
+      },
+      "options": [
+        "80-443",
+        "8000-9000",
+        "30000-32767",
+        "1000-2000"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Il range predefinito per NodePort è 30000-32767, configurabile con --service-node-port-range.",
+        "en": "The default NodePort range is 30000-32767, configurable with --service-node-port-range."
+      },
+      "difficulty": "easy",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Come si espone un deployment come Service NodePort?",
+        "en": "How do you expose a deployment as a NodePort Service?"
+      },
+      "options": [
+        "kubectl create service nodeport <name>",
+        "kubectl expose deployment <name> --type=NodePort --port=80",
+        "kubectl nodeport deployment <name>",
+        "kubectl set service nodeport <name>"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl expose con --type=NodePort crea un Service che espone il deployment sulla porta specificata.",
+        "en": "kubectl expose with --type=NodePort creates a Service that exposes the deployment on the specified port."
+      },
+      "difficulty": "easy",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di Service integra con un load balancer cloud?",
+        "en": "Which Service type integrates with a cloud load balancer?"
+      },
+      "options": [
+        "ClusterIP",
+        "NodePort",
+        "LoadBalancer",
+        "ExternalName"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "LoadBalancer crea un load balancer esterno dal provider cloud e assegna un IP pubblico.",
+        "en": "LoadBalancer creates an external load balancer from the cloud provider and assigns a public IP."
+      },
+      "difficulty": "easy",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di Service mappa un nome DNS esterno?",
+        "en": "Which Service type maps an external DNS name?"
+      },
+      "options": [
+        "ClusterIP",
+        "NodePort",
+        "LoadBalancer",
+        "ExternalName"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "ExternalName mappa il Service a un nome DNS esterno, senza proxy o IP del cluster.",
+        "en": "ExternalName maps the Service to an external DNS name, without proxy or cluster IP."
+      },
+      "difficulty": "easy",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Quale DNS viene assegnato a un Service chiamato 'my-app' nel namespace 'default'?",
+        "en": "What DNS is assigned to a Service named 'my-app' in namespace 'default'?"
+      },
+      "options": [
+        "my-app.default",
+        "my-app.default.svc",
+        "my-app.default.svc.cluster.local",
+        "Tutte le precedenti risolvono"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Tutte le forme risolvono: my-app, my-app.default, my-app.default.svc, e il FQDN completo.",
+        "en": "All forms resolve: my-app, my-app.default, my-app.default.svc, and the full FQDN."
+      },
+      "difficulty": "easy",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Cosa sono gli Endpoints di un Service?",
+        "en": "What are Service Endpoints?"
+      },
+      "options": [
+        "Le interfacce di rete del nodo",
+        "Gli IP dei pod che il Service indirizza",
+        "Le porte del Service",
+        "I DNS del cluster"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Endpoints (o EndpointSlice) contiene gli IP dei pod che soddisfano il selettore del Service.",
+        "en": "Endpoints (or EndpointSlice) contains the IPs of pods matching the Service selector."
+      },
+      "difficulty": "easy",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa Kubernetes gestisce le regole Ingress?",
+        "en": "Which Kubernetes resource manages Ingress rules?"
+      },
+      "options": [
+        "IngressController",
+        "Ingress",
+        "IngressRule",
+        "HTTPRoute"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Ingress è la risorsa che definisce le regole di routing HTTP/HTTPS. Richiede un Ingress Controller.",
+        "en": "Ingress is the resource defining HTTP/HTTPS routing rules. Requires an Ingress Controller."
+      },
+      "difficulty": "medium",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Quale componente implementa le regole Ingress?",
+        "en": "Which component implements Ingress rules?"
+      },
+      "options": [
+        "kube-proxy",
+        "kube-dns",
+        "Ingress Controller",
+        "kube-scheduler"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "L'Ingress Controller (nginx, traefik, haproxy, ecc.) implementa le regole definite nelle risorse Ingress.",
+        "en": "The Ingress Controller (nginx, traefik, haproxy, etc.) implements rules defined in Ingress resources."
+      },
+      "difficulty": "medium",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Cosa fa una NetworkPolicy di tipo Ingress?",
+        "en": "What does an Ingress NetworkPolicy do?"
+      },
+      "options": [
+        "Configura l'ingress controller",
+        "Controlla il traffico IN entrata verso i pod",
+        "Gestisce gli Ingress resources",
+        "Configura i Service esterni"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "NetworkPolicy Ingress controlla quali pod possono connettersi ai pod selezionati.",
+        "en": "NetworkPolicy Ingress controls which pods can connect to selected pods."
+      },
+      "difficulty": "medium",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Quale CNI supporta le NetworkPolicy di default?",
+        "en": "Which CNI supports NetworkPolicy by default?"
+      },
+      "options": [
+        "flannel",
+        "calico",
+        " weave-net (base)",
+        "Nessuna delle precedenti"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Calico supporta NetworkPolicy di default. Flannel no. Weave con plugin aggiuntivo.",
+        "en": "Calico supports NetworkPolicy by default. Flannel doesn't. Weave with additional plugin."
+      },
+      "difficulty": "medium",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Come si crea un Service senza selector?",
+        "en": "How do you create a Service without a selector?"
+      },
+      "options": [
+        "Non è possibile",
+        "Omettere il campo selector e creare Endpoints manualmente",
+        "Usare il tipo ExternalName",
+        "Impostare selector: none"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un Service senza selector richiede Endpoints manuali definiti per puntare a IP esterni.",
+        "en": "A Service without selector requires manually defined Endpoints pointing to external IPs."
+      },
+      "difficulty": "medium",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Quale annotazione configura TLS in un Ingress nginx?",
+        "en": "Which annotation configures TLS in an nginx Ingress?"
+      },
+      "options": [
+        "nginx.ingress.kubernetes.io/ssl-redirect: \"true\"",
+        "nginx.ingress.kubernetes.io/tls: \"true\"",
+        "Specifica TLS nel campo spec.tls",
+        "Usa certificato sul backend"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "TLS si configura in spec.tls con secret reference. Le annotazioni sono per comportamenti aggiuntivi.",
+        "en": "TLS is configured in spec.tls with secret reference. Annotations are for additional behaviors."
+      },
+      "difficulty": "medium",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Come si espone più Services sullo stesso host Ingress?",
+        "en": "How do you expose multiple Services on the same Ingress host?"
+      },
+      "options": [
+        "Un Ingress per Service",
+        "Usare path-based routing con /path",
+        "Non è possibile",
+        "Usare porte diverse"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Path-based routing permette di instradare percorsi diversi a Service diversi sullo stesso host.",
+        "en": "Path-based routing allows routing different paths to different Services on the same host."
+      },
+      "difficulty": "medium",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Quale è il comportamento di default del traffico di rete in Kubernetes?",
+        "en": "What is the default network traffic behavior in Kubernetes?"
+      },
+      "options": [
+        "Tutto bloccato",
+        "Tutto permesso (allow all)",
+        "Solo traffico interno",
+        "Solo traffico HTTP"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Senza NetworkPolicy, tutto il traffico è permesso. Le NetworkPolicy restringono, non aprono.",
+        "en": "Without NetworkPolicy, all traffic is allowed. NetworkPolicies restrict, not open."
+      },
+      "difficulty": "hard",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Come si limita il traffico Egress da un pod?",
+        "en": "How do you limit Egress traffic from a pod?"
+      },
+      "options": [
+        "Non è possibile",
+        "Usare una NetworkPolicy con spec.podSelector e egress rules",
+        "Configurare iptables nel nodo",
+        "Usare un Service esterno"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "NetworkPolicy con egress rules controlla le connessioni in uscita dai pod selezionati.",
+        "en": "NetworkPolicy with egress rules controls outgoing connections from selected pods."
+      },
+      "difficulty": "hard",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Cosa significa targetPort in un Service?",
+        "en": "What does targetPort mean in a Service?"
+      },
+      "options": [
+        "La porta del Service",
+        "La porta del pod a cui inviare traffico",
+        "La porta del nodo",
+        "La porta del load balancer"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "targetPort è la porta sul container pod a cui il Service invia il traffico.",
+        "en": "targetPort is the port on the pod container to which the Service sends traffic."
+      },
+      "difficulty": "hard",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Quale configurazione è corretta per un Service headless?",
+        "en": "Which configuration is correct for a headless Service?"
+      },
+      "options": [
+        "type: Headless",
+        "clusterIP: \"\"",
+        "clusterIP: None",
+        "type: ClusterIP con selector vuoto"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Un Service headless ha clusterIP: None. Non ha IP del cluster, ritorna DNS dei pod.",
+        "en": "A headless Service has clusterIP: None. No cluster IP, returns pod DNS records."
+      },
+      "difficulty": "hard",
+      "domain": "Application Networking"
+    },
+    {
+      "question": {
+        "it": "Come si bilancia il traffico tra namespace diversi con NetworkPolicy?",
+        "en": "How do you allow traffic between different namespaces with NetworkPolicy?"
+      },
+      "options": [
+        "Non è possibile",
+        "Usare namespaceSelector nel campo from/to",
+        "Creare regole per ogni namespace",
+        "Usare un Service multitenant"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "namespaceSelector nelle rules permette di specificare namespace da cui/verso cui permettere traffico.",
+        "en": "namespaceSelector in rules allows specifying namespaces from/to which to allow traffic."
+      },
+      "difficulty": "hard",
+      "domain": "Application Networking"
+    }
+  ]
+}

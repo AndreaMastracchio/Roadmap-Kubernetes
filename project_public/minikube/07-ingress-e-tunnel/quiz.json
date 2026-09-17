@@ -1,0 +1,124 @@
+{
+  "quiz": [
+    {
+      "question": {"it": "Quale comando risolve gli IP dei LoadBalancer Services?", "en": "Which command resolves LoadBalancer Services IPs?"},
+      "options": ["minikube bridge", "minikube tunnel", "minikube expose", "minikube lb"],
+      "correct": 1,
+      "explanation": {"it": "'minikube tunnel' crea un'interfaccia di rete che assegna IP raggiungibili ai servizi LoadBalancer.", "en": "'minikube tunnel' creates a network interface that assigns reachable IPs to LoadBalancer services."},
+      "difficulty": "easy",
+      "domain": "tunnel"
+    },
+    {
+      "question": {"it": "Il tunnel richiede privilegi?", "en": "Does the tunnel require privileges?"},
+      "options": ["No", "Sì, richiede sudo/admin", "Solo su Linux", "Solo su Windows"],
+      "correct": 1,
+      "explanation": {"it": "Il tunnel modifica la configurazione di rete dell'host, quindi richiede privilegi elevati.", "en": "The tunnel modifies the host's network configuration, so it requires elevated privileges."},
+      "difficulty": "medium",
+      "domain": "tunnel"
+    },
+    {
+      "question": {"it": "Quale comando apre un Service nel browser?", "en": "Which command opens a Service in the browser?"},
+      "options": ["minikube open <svc>", "minikube service <svc>", "kubectl expose <svc>", "minikube browse <svc>"],
+      "correct": 1,
+      "explanation": {"it": "'minikube service <nome>' genera l'URL e apre il browser.", "en": "'minikube service <name>' generates the URL and opens the browser."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Come si specifica solo la porta senza aprire il browser?", "en": "How do you specify only the port without opening the browser?"},
+      "options": ["minikube service <svc> --url", "minikube service <svc> --port-only", "minikube service <svc> --no-browser", "kubectl get url <svc>"],
+      "correct": 0,
+      "explanation": {"it": "'minikube service <svc> --url' stampa l'URL senza aprire il browser.", "en": "'minikube service <svc> --url' prints the URL without opening the browser."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale tipo di Ingress Controller installa l'add-on 'ingress'?", "en": "Which Ingress Controller does the 'ingress' add-on install?"},
+      "options": ["Traefik", "NGINX", "HAProxy", "Kong"],
+      "correct": 1,
+      "explanation": {"it": "L'add-on 'ingress' installa NGINX Ingress Controller come default.", "en": "The 'ingress' add-on installs NGINX Ingress Controller as default."},
+      "difficulty": "easy",
+      "domain": "ingress"
+    },
+    {
+      "question": {"it": "Come si verifica che l'Ingress Controller è attivo?", "en": "How do you verify the Ingress Controller is active?"},
+      "options": ["minikube ingress status", "kubectl get pods -n ingress-nginx", "kubectl get ingress", "Entrambe B e C"],
+      "correct": 3,
+      "explanation": {"it": "Si controllano i pod in ingress-nginx e le risorse Ingress definite.", "en": "You check pods in ingress-nginx and defined Ingress resources."},
+      "difficulty": "medium",
+      "domain": "ingress"
+    },
+    {
+      "question": {"it": "Il tunnel deve rimanere attivo?", "en": "Does the tunnel need to stay running?"},
+      "options": ["No, è una configurazione one-time", "Sì, deve girare in background", "Solo per i primi 5 minuti", "Dipende dal driver"],
+      "correct": 1,
+      "explanation": {"it": "Il tunnel è un processo foreground che deve rimanere attivo finché serve l'accesso.", "en": "The tunnel is a foreground process that must stay running as long as access is needed."},
+      "difficulty": "medium",
+      "domain": "tunnel"
+    },
+    {
+      "question": {"it": "Quale DNS usa Minikube per gli Ingress?", "en": "Which DNS does Minikube use for Ingresses?"},
+      "options": ["Solo .local", ".test", ".example.com", "Dipende dalla configurazione"],
+      "correct": 3,
+      "explanation": {"it": "Minikube può usare vari domini. Tipicamente si aggiungono entry in /etc/hosts o si usa il tunnel DNS.", "en": "Minikube can use various domains. Typically you add entries to /etc/hosts or use DNS tunnel."},
+      "difficulty": "medium",
+      "domain": "dns"
+    },
+    {
+      "question": {"it": "Come si espongono servizi con NodePort senza Ingress?", "en": "How do you expose services with NodePort without Ingress?"},
+      "options": ["minikube tunnel", "minikube service <nome>", "kubectl expose", "minikube expose"],
+      "correct": 1,
+      "explanation": {"it": "'minikube service' funziona per NodePort, trovando la porta e aprendo il browser.", "en": "'minikube service' works for NodePort, finding the port and opening the browser."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale risorsa Kubernetes gestisce l'instradamento HTTP?", "en": "Which Kubernetes resource manages HTTP routing?"},
+      "options": ["Service", "Ingress", "Deployment", "NetworkPolicy"],
+      "correct": 1,
+      "explanation": {"it": "La risorsa Ingress definisce regole di routing basate su host e path HTTP.", "en": "The Ingress resource defines routing rules based on HTTP host and path."},
+      "difficulty": "easy",
+      "domain": "kubernetes"
+    },
+    {
+      "question": {"it": "Come si testa un Ingress con curl?", "en": "How do you test an Ingress with curl?"},
+      "options": ["curl <minikube-ip>", "curl -H 'Host: myapp.local' <minikube-ip>", "curl localhost", "curl <svc-name>"],
+      "correct": 1,
+      "explanation": {"it": "Si passa l'header Host per simulare la risoluzione DNS: curl -H 'Host: ...'.", "en": "Pass the Host header to simulate DNS resolution: curl -H 'Host: ...'."},
+      "difficulty": "medium",
+      "domain": "testing"
+    },
+    {
+      "question": {"it": "Minikube supporta HTTPS con Ingress?", "en": "Does Minikube support HTTPS with Ingress?"},
+      "options": ["No", "Sì, con certificati self-signed o Let's Encrypt", "Solo con certificati a pagamento", "Solo su cloud"],
+      "correct": 1,
+      "explanation": {"it": "Si possono usare certificati self-signed o configurare cert-manager con Let's Encrypt.", "en": "You can use self-signed certificates or configure cert-manager with Let's Encrypt."},
+      "difficulty": "medium",
+      "domain": "ingress"
+    },
+    {
+      "question": {"it": "Quale add-on semplifica la gestione DNS?", "en": "Which add-on simplifies DNS management?"},
+      "options": ["coredns", "kube-dns", "minikube-addon-dns", "hosts-file"],
+      "correct": 0,
+      "explanation": {"it": "CoreDNS è il DNS interno del cluster, incluso in Minikube per la risoluzione interna.", "en": "CoreDNS is the cluster's internal DNS, included in Minikube for internal resolution."},
+      "difficulty": "medium",
+      "domain": "dns"
+    },
+    {
+      "question": {"it": "Come si ottiene l'IP di Minikube per gli Ingress?", "en": "How do you get Minikube's IP for Ingresses?"},
+      "options": ["kubectl get ip", "minikube ip", "docker inspect minikube", "Entrambe B e C"],
+      "correct": 3,
+      "explanation": {"it": "'minikube ip' è il modo più semplice. Anche 'docker inspect' funziona con driver Docker.", "en": "'minikube ip' is the simplest way. 'docker inspect' also works with Docker driver."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Perché il tunnel è necessario per LoadBalancer?", "en": "Why is the tunnel needed for LoadBalancer?"},
+      "options": ["Minikube non ha LoadBalancer integrato", "Per assegnare IP raggiungibili dall'host", "Per motivi di sicurezza", "È solo per Windows"],
+      "correct": 1,
+      "explanation": {"it": "In cloud un LoadBalancer ha IP pubblico. Minikube simula questo con il tunnel assegnando IP locali.", "en": "In cloud a LoadBalancer has a public IP. Minikube simulates this with the tunnel assigning local IPs."},
+      "difficulty": "medium",
+      "domain": "tunnel"
+    }
+  ]
+}

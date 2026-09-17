@@ -1,0 +1,304 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Creare un ConfigMap base",
+        "en": "Create a basic ConfigMap"
+      },
+      "description": {
+        "it": "Creare un ConfigMap con dati di configurazione",
+        "en": "Create a ConfigMap with configuration data"
+      },
+      "task": "1. Crea un ConfigMap chiamato 'app-config'\n2. Includi chiavi: DB_HOST=db.example.com, DB_PORT=5432\n3. Verifica che sia stato creato correttamente\n4. Controlla i dettagli del ConfigMap",
+      "hints": [
+        "kubectl create configmap --help",
+        "Usa --from-literal per ogni coppia chiave=valore",
+        "kubectl get configmaps per vedere la lista"
+      ],
+      "solution": "kubectl create configmap app-config --from-literal=DB_HOST=db.example.com --from-literal=DB_PORT=5432\nkubectl get configmap app-config\nkubectl describe configmap app-config",
+      "validation": "kubectl get configmap app-config -o jsonpath='{.data.DB_HOST}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Usare ConfigMap come variabili d'ambiente",
+        "en": "Use ConfigMap as environment variables"
+      },
+      "description": {
+        "it": "Iniettare valori del ConfigMap in un Pod",
+        "en": "Inject ConfigMap values into a Pod"
+      },
+      "task": "1. Crea un Pod 'config-pod' con immagine busybox\n2. Imposta variabili d'ambiente DB_HOST e DB_PORT dal ConfigMap 'app-config'\n3. Esegui il comando: env\n4. Verifica che le variabili siano impostate",
+      "hints": [
+        "Usa valueFrom.configMapKeyRef",
+        "Specifica il nome del ConfigMap con name",
+        "Specificare la chiave con key"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: config-pod\nspec:\n  containers:\n  - name: test\n    image: busybox\n    command: ['sh', '-c', 'env && sleep 3600']\n    env:\n    - name: DB_HOST\n      valueFrom:\n        configMapKeyRef:\n          name: app-config\n          key: DB_HOST\n    - name: DB_PORT\n      valueFrom:\n        configMapKeyRef:\n          name: app-config\n          key: DB_PORT\nEOF\n\nkubectl wait --for=condition=Ready pod/config-pod --timeout=30s\nkubectl exec config-pod -- env | grep DB",
+      "validation": "kubectl exec config-pod -- env | grep DB_HOST",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Caricare tutto un ConfigMap con envFrom",
+        "en": "Load entire ConfigMap with envFrom"
+      },
+      "description": {
+        "it": "Iniettare tutte le chiavi di un ConfigMap",
+        "en": "Inject all ConfigMap keys"
+      },
+      "task": "1. Crea un Pod 'envfrom-pod' con immagine busybox\n2. Carica tutto il ConfigMap 'app-config' con envFrom\n3. Verifica che tutte le variabili siano presenti\n4. Controlla che non ci siano conflitti",
+      "hints": [
+        "envFrom configura un blocco di variabili",
+        "configMapRef specifica il ConfigMap",
+        "kubectl logs per vedere output"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: envfrom-pod\nspec:\n  containers:\n  - name: test\n    image: busybox\n    command: ['sh', '-c', 'env | sort && sleep 3600']\n    envFrom:\n    - configMapRef:\n        name: app-config\nEOF\n\nkubectl wait --for=condition=Ready pod/envfrom-pod --timeout=30s\nkubectl exec envfrom-pod -- env | grep -E 'DB_HOST|DB_PORT'",
+      "validation": "kubectl exec envfrom-pod -- sh -c 'echo $DB_HOST'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Montare ConfigMap come volume",
+        "en": "Mount ConfigMap as volume"
+      },
+      "description": {
+        "it": "Accedere al ConfigMap come file",
+        "en": "Access ConfigMap as files"
+      },
+      "task": "1. Crea un ConfigMap 'nginx-config' con nginx.conf\n2. Montalo in /etc/nginx/conf.d/ in un Pod nginx\n3. Verifica che il file sia presente\n4. Controlla che sia read-only",
+      "hints": [
+        "Crea ConfigMap da file con --from-file",
+        "Volume type: configMap",
+        "volumeMounts specifica il mount path"
+      ],
+      "solution": "echo 'server { listen 8080; }' > nginx.conf\nkubectl create configmap nginx-config --from-file=nginx.conf\n\nkubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: nginx-config-pod\nspec:\n  containers:\n  - name: nginx\n    image: nginx:alpine\n    volumeMounts:\n    - name: config\n      mountPath: /etc/nginx/conf.d/nginx.conf\n      subPath: nginx.conf\n      readOnly: true\n  volumes:\n  - name: config\n    configMap:\n      name: nginx-config\nEOF\n\nkubectl wait --for=condition=Ready pod/nginx-config-pod --timeout=30s\nkubectl exec nginx-config-pod -- cat /etc/nginx/conf.d/nginx.conf",
+      "validation": "kubectl exec nginx-config-pod -- ls -la /etc/nginx/conf.d/ | grep nginx.conf",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Usare la Downward API",
+        "en": "Use the Downward API"
+      },
+      "description": {
+        "it": "Esporre metadati del Pod al container",
+        "en": "Expose Pod metadata to the container"
+      },
+      "task": "1. Crea un Pod 'downward-pod'\n2. Esponi il nome del Pod, namespace e IP come variabili d'ambiente\n3. Esponi anche labels come file in un volume\n4. Verifica che i valori siano corretti",
+      "hints": [
+        "fieldRef per campi semplici",
+        "resourceFieldRef per risorse",
+        "Volume type: downwardAPI"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: downward-pod\n  labels:\n    app: test\nspec:\n  containers:\n  - name: test\n    image: busybox\n    command: ['sh', '-c', 'env && sleep 3600']\n    env:\n    - name: POD_NAME\n      valueFrom:\n        fieldRef:\n          fieldPath: metadata.name\n    - name: POD_NAMESPACE\n      valueFrom:\n        fieldRef:\n          fieldPath: metadata.namespace\n    - name: POD_IP\n      valueFrom:\n        fieldRef:\n          fieldPath: status.podIP\n    volumeMounts:\n    - name: labels\n      mountPath: /etc/labels\n  volumes:\n  - name: labels\n    downwardAPI:\n      items:\n      - path: \"labels\"\n        fieldRef:\n          fieldPath: metadata.labels\nEOF\n\nkubectl wait --for=condition=Ready pod/downward-pod --timeout=30s\nkubectl exec downward-pod -- env | grep POD\nkubectl exec downward-pod -- cat /etc/labels/labels",
+      "validation": "kubectl exec downward-pod -- sh -c 'echo $POD_NAME'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare resource limits",
+        "en": "Configure resource limits"
+      },
+      "description": {
+        "it": "Impostare requests e limits per CPU e memoria",
+        "en": "Set requests and limits for CPU and memory"
+      },
+      "task": "1. Crea un Pod 'resource-pod'\n2. Imposta requests: 100m CPU, 128Mi memoria\n3. Imposta limits: 500m CPU, 256Mi memoria\n4. Verifica la configurazione",
+      "hints": [
+        "resources.requests per la schedulazione",
+        "resources.limits per l'esecuzione",
+        "100m = 0.1 CPU cores"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: resource-pod\nspec:\n  containers:\n  - name: app\n    image: nginx:alpine\n    resources:\n      requests:\n        cpu: 100m\n        memory: 128Mi\n      limits:\n        cpu: 500m\n        memory: 256Mi\nEOF\n\nkubectl describe pod resource-pod | grep -A 5 'Limits\\|Requests'",
+      "validation": "kubectl get pod resource-pod -o jsonpath='{.spec.containers[0].resources.requests.cpu}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un LimitRange",
+        "en": "Create a LimitRange"
+      },
+      "description": {
+        "it": "Impostare default e limiti per namespace",
+        "en": "Set defaults and limits for namespace"
+      },
+      "task": "1. Crea un namespace 'limited'\n2. Crea un LimitRange con default: 200m CPU, 256Mi memoria\n3. Imposta anche max: 1 CPU, 512Mi memoria\n4. Testa creando un Pod senza resources specificate",
+      "hints": [
+        "LimitRange applica defaults ai Pod senza resources",
+        "Specifica type: Container per limiti ai container",
+        "default = limits, defaultRequest = requests"
+      ],
+      "solution": "kubectl create namespace limited\nkubectl apply -n limited -f - << 'EOF'\napiVersion: v1\nkind: LimitRange\nmetadata:\n  name: cpu-mem-limit\nspec:\n  limits:\n  - type: Container\n    default:          # limits\n      cpu: 200m\n      memory: 256Mi\n    defaultRequest:   # requests\n      cpu: 50m\n      memory: 64Mi\n    max:\n      cpu: 1\n      memory: 512Mi\nEOF\n\nkubectl apply -n limited -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: test-pod\nspec:\n  containers:\n  - name: nginx\n    image: nginx:alpine\nEOF\n\nkubectl get -n limited limitrange\nkubectl describe -n limited pod test-pod | grep -A 5 'Limits|Requests'",
+      "validation": "kubectl get -n limited limitrange cpu-mem-limit -o jsonpath='{.spec.limits[0].default.cpu}'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare una ResourceQuota",
+        "en": "Create a ResourceQuota"
+      },
+      "description": {
+        "it": "Limitare risorse totali per namespace",
+        "en": "Limit total resources per namespace"
+      },
+      "task": "1. Crea un ResourceQuota 'compute-quota' nel namespace 'limited'\n2. Limita: max 10 Pod, 2 CPU totali, 2Gi memoria totale\n3. Verifica che venga applicato\n4. Testa il blocco superando i limiti",
+      "hints": [
+        "ResourceQuota conta risorse totali",
+        "Specifica hard limits per CPU, memoria, pods",
+        "Il blocco avviene alla creazione del Pod"
+      ],
+      "solution": "kubectl apply -n limited -f - << 'EOF'\napiVersion: v1\nkind: ResourceQuota\nmetadata:\n  name: compute-quota\nspec:\n  hard:\n    pods: 10\n    requests.cpu: 2\n    requests.memory: 2Gi\n    limits.cpu: 4\n    limits.memory: 4Gi\nEOF\n\nkubectl get -n limited resourcequota\nkubectl describe -n limited resourcequota compute-quota",
+      "validation": "kubectl get -n limited resourcequota compute-quota -o jsonpath='{.spec.hard.pods}'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Impostare PriorityClass",
+        "en": "Set PriorityClass"
+      },
+      "description": {
+        "it": "Creare classi di priorità per i Pod",
+        "en": "Create priority classes for Pods"
+      },
+      "task": "1. Crea una PriorityClass 'high-priority' con valore 1000000\n2. Crea una PriorityClass 'low-priority' con valore 100\n3. Crea due Pod con diverse priorità\n4. Verifica l'ordine di preemption",
+      "hints": [
+        "Valore più alto = priorità maggiore",
+        "preemptionPolicy: PreemptLowerPriority (default)",
+        "priorityClassName nel Pod spec"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: scheduling.k8s.io/v1\nkind: PriorityClass\nmetadata:\n  name: high-priority\nvalue: 1000000\nglobalDefault: false\ndescription: \"High priority for critical workloads\"\n---\napiVersion: scheduling.k8s.io/v1\nkind: PriorityClass\nmetadata:\n  name: low-priority\nvalue: 100\nglobalDefault: true\ndescription: \"Low priority for batch workloads\"\nEOF\n\nkubectl get priorityclasses",
+      "validation": "kubectl get priorityclass high-priority -o jsonpath='{.value}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Aggiornare ConfigMap runtime",
+        "en": "Update ConfigMap at runtime"
+      },
+      "description": {
+        "it": "Modificare ConfigMap e verificare propagazione",
+        "en": "Modify ConfigMap and verify propagation"
+      },
+      "task": "1. Crea un Pod con ConfigMap montato come volume\n2. Modifica il ConfigMap aggiungendo una nuova chiave\n3. Verifica che il file sia aggiornato nel Pod\n4. Nota: l'aggiornamento può richiedere tempo",
+      "hints": [
+        "kubectl edit configmap per modificare",
+        "Il sync avviene automaticamente per volumi",
+        "Può richiedere fino a 1 minuto per kubelet sync"
+      ],
+      "solution": "# Crea ConfigMap iniziale\nkubectl create configmap dynamic-config --from-literal=KEY1=value1\n\n# Pod con volume\nkubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: dynamic-pod\nspec:\n  containers:\n  - name: test\n    image: busybox\n    command: ['sh', '-c', 'while true; do cat /config/KEY1; sleep 5; done']\n    volumeMounts:\n    - name: config\n      mountPath: /config\n  volumes:\n  - name: config\n    configMap:\n      name: dynamic-config\nEOF\n\n# Attendi e verifica\nkubectl wait --for=condition=Ready pod/dynamic-pod --timeout=30s\nkubectl exec dynamic-pod -- cat /config/KEY1\n\n# Aggiorna ConfigMap\nkubectl patch configmap dynamic-config --type='json' -p='[{\"op\": \"add\", \"path\": \"/data/KEY2\", \"value\": \"value2\"}]'\n\n# Verifica dopo sync\nsleep 10\nkubectl exec dynamic-pod -- ls /config/",
+      "validation": "kubectl get configmap dynamic-config -o jsonpath='{.data.KEY2}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Simulare OOMKilled",
+        "en": "Simulate OOMKilled"
+      },
+      "description": {
+        "it": "Testare il comportamento di memory limit",
+        "en": "Test memory limit behavior"
+      },
+      "task": "1. Crea un Pod con memory limit molto basso (10Mi)\n2. Esegui uno script che alloca memoria\n3. Osserva il Pod essere terminato con OOMKilled\n4. Controlla lo stato del Pod",
+      "hints": [
+        "Usa stress o uno script Python per allocare memoria",
+        "Il container verrà terminato, non throttled",
+        "kubectl describe mostra OOMKilled"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: oom-test\nspec:\n  containers:\n  - name: stress\n    image: progrium/stress\n    command: ['stress', '--vm', '1', '--vm-bytes', '20M']\n    resources:\n      limits:\n        memory: 10Mi\nEOF\n\nsleep 10\nkubectl get pod oom-test -o jsonpath='{.status.containerStatuses[0].lastState.terminated.reason}'",
+      "validation": "kubectl describe pod oom-test | grep -i 'OOMKilled\\|Exit Code'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare ConfigMap da file",
+        "en": "Create ConfigMap from file"
+      },
+      "description": {
+        "it": "Generare ConfigMap da configurazione JSON",
+        "en": "Generate ConfigMap from JSON config"
+      },
+      "task": "1. Crea un file config.json con configurazione dell'app\n2. Crea un ConfigMap 'app-json-config' dal file\n3. Montalo come volume nel Pod\n4. Verifica che il file JSON sia accessibile",
+      "hints": [
+        "--from-file=path per creare da file",
+        "Il nome del file diventa la chiave",
+        "Il contenuto del file diventa il valore"
+      ],
+      "solution": "echo '{\"database\": {\"host\": \"localhost\", \"port\": 5432}}' > config.json\nkubectl create configmap app-json-config --from-file=config.json\n\nkubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: json-pod\nspec:\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'cat /config/config.json && sleep 3600']\n    volumeMounts:\n    - name: config\n      mountPath: /config\n      readOnly: true\n  volumes:\n  - name: config\n    configMap:\n      name: app-json-config\nEOF\n\nkubectl exec json-pod -- cat /config/config.json",
+      "validation": "kubectl exec json-pod -- cat /config/config.json | jq -r '.database.host'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Impostare CPU throttling",
+        "en": "Set CPU throttling"
+      },
+      "description": {
+        "it": "Osservare il comportamento di CPU limit",
+        "en": "Observe CPU limit behavior"
+      },
+      "task": "1. Crea un Pod con CPU request 100m e limit 200m\n2. Esegui un carico CPU intenso\n3. Osserva che il processo viene throttled, non ucciso\n4. Misura la CPU effettivamente usata",
+      "hints": [
+        "CPU è comprimibile, viene throttled non ucciso",
+        "Usa stress --cpu 1 per generare carico",
+        "kubectl top pod per vedere utilizzo"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: cpu-throttle\nspec:\n  containers:\n  - name: stress\n    image: progrium/stress\n        command: ['stress', '--cpu', '1', '--timeout', '60s']\n    resources:\n      requests:\n        cpu: 100m\n      limits:\n        cpu: 200m\nEOF\n\n# Attendi qualche secondo\nsleep 5\nkubectl top pod cpu-throttle",
+      "validation": "kubectl describe pod cpu-throttle | grep -A 3 'Limits'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Multi-container con ConfigMap condiviso",
+        "en": "Multi-container with shared ConfigMap"
+      },
+      "description": {
+        "it": "Condividere configurazione tra container",
+        "en": "Share configuration between containers"
+      },
+      "task": "1. Crea un ConfigMap con configurazione dell'app\n2. Crea un Pod con due container\n3. Entrambi accedono al ConfigMap montato\n4. Verifica che vedano la stessa configurazione",
+      "hints": [
+        "Un volume può essere montato in più container",
+        "I container condividono lo stesso filesystem montato",
+        "Use subPath se necessario"
+      ],
+      "solution": "kubectl create configmap shared-config --from-literal=CONFIG_FILE=/app/config.yaml --from-literal=LOG_LEVEL=debug\n\nkubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: multi-container\nspec:\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'while true; do cat /etc/config/CONFIG_FILE; sleep 5; done']\n    volumeMounts:\n    - name: config\n      mountPath: /etc/config\n  - name: sidecar\n    image: busybox\n    command: ['sh', '-c', 'while true; do cat /etc/config/LOG_LEVEL; sleep 5; done']\n    volumeMounts:\n    - name: config\n      mountPath: /etc/config\n  volumes:\n  - name: config\n    configMap:\n      name: shared-config\nEOF\n\nkubectl exec multi-container -c app -- cat /etc/config/LOG_LEVEL\nkubectl exec multi-container -c sidecar -- cat /etc/config/LOG_LEVEL",
+      "validation": "kubectl exec multi-container -c app -- cat /etc/config/LOG_LEVEL",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Impostare QoS class Burstable",
+        "en": "Set Burstable QoS class"
+      },
+      "description": {
+        "it": "Configurare Pod per QoS Burstable",
+        "en": "Configure Pod for Burstable QoS"
+      },
+      "task": "1. Crea un Pod con solo requests (no limits) → Burstable\n2. Crea un Pod con requests == limits → Guaranteed\n3. Crea un Pod senza resources → BestEffort\n4. Verifica la QoS class di ogni Pod",
+      "hints": [
+        "kubectl get pod -o jsonpath='{.status.qosClass}'",
+        "Guaranteed = requests == limits per tutte le risorse",
+        "BestEffort = nessuna risorsa specificata"
+      ],
+      "solution": "# Burstable: requests senza limits\nkubectl run burstable --image=nginx --requests='cpu=100m,memory=128Mi'\n\n# Guaranteed: requests == limits\nkubectl run guaranteed --image=nginx --requests='cpu=100m,memory=128Mi' --limits='cpu=100m,memory=128Mi'\n\n# BestEffort: nessuna risorsa\nkubectl run besteffort --image=nginx\n\n# Verifica QoS\nkubectl get pod burstable -o jsonpath='{.status.qosClass}' && echo\nkubectl get pod guaranteed -o jsonpath='{.status.qosClass}' && echo\nkubectl get pod besteffort -o jsonpath='{.status.qosClass}' && echo",
+      "validation": "kubectl get pod guaranteed -o jsonpath='{.status.qosClass}'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    }
+  ]
+}

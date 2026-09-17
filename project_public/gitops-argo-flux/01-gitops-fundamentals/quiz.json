@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale dei seguenti NON è un principio fondamentale di GitOps?",
+        "en": "Which of the following is NOT a fundamental GitOps principle?"
+      },
+      "options": [
+        "Infrastructure dichiarativa",
+        "Configurazione imperativa",
+        "Stato versionato in Git",
+        "Riconciliazione automatizzata"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "GitOps richiede configurazione dichiarativa, non imperativa. Con l'approccio dichiarativo specifichi lo stato desiderato, mentre con quello imperativo specifichi i comandi per arrivarci.",
+        "en": "GitOps requires declarative configuration, not imperative. With declarative approach you specify the desired state, while with imperative you specify the commands to get there."
+      },
+      "difficulty": "easy",
+      "domain": "GitOps principles"
+    },
+    {
+      "question": {
+        "it": "Qual è la differenza principale tra deployment pull e push in GitOps?",
+        "en": "What is the main difference between pull and push deployment in GitOps?"
+      },
+      "options": [
+        "Il pull usa webhook, il push usa polling",
+        "Il pull richiede un agente nel cluster, il push richiede una pipeline esterna",
+        "Non c'è differenza significativa",
+        "Il push è più sicuro del pull"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Nel modello pull, un agente nel cluster (come ArgoCD) monitora il repository Git. Nel modello push, una pipeline esterna applica le modifiche al cluster.",
+        "en": "In the pull model, an agent in the cluster (like ArgoCD) monitors the Git repository. In the push model, an external pipeline applies changes to the cluster."
+      },
+      "difficulty": "medium",
+      "domain": "GitOps deployment models"
+    },
+    {
+      "question": {
+        "it": "Quale strumento GitOps è nativo di Kubernetes e usa il modello pull?",
+        "en": "Which GitOps tool is Kubernetes-native and uses the pull model?"
+      },
+      "options": [
+        "Jenkins X",
+        "ArgoCD",
+        "Spinnaker",
+        "Tekton"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ArgoCD è uno strumento GitOps nativo di Kubernetes che implementa il modello pull. Esegue un controller nel cluster che monitora continuamente lo stato desiderato in Git.",
+        "en": "ArgoCD is a Kubernetes-native GitOps tool that implements the pull model. It runs a controller in the cluster that continuously monitors the desired state in Git."
+      },
+      "difficulty": "easy",
+      "domain": "GitOps tools"
+    },
+    {
+      "question": {
+        "it": "In un'architettura GitOps, quale è considerata la 'single source of truth'?",
+        "en": "In a GitOps architecture, what is considered the 'single source of truth'?"
+      },
+      "options": [
+        "Il cluster Kubernetes",
+        "Il repository Git",
+        "Il container registry",
+        "Il database di configurazione"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "In GitOps, il repository Git è la 'single source of truth'. Tutto lo stato desiderato dell'infrastruttura è definito in Git.",
+        "en": "In GitOps, the Git repository is the 'single source of truth'. All desired state of the infrastructure is defined in Git."
+      },
+      "difficulty": "easy",
+      "domain": "GitOps principles"
+    },
+    {
+      "question": {
+        "it": "Quale approccio di repository GitOps centralizza tutte le configurazioni in un unico posto?",
+        "en": "Which GitOps repository approach centralizes all configurations in one place?"
+      },
+      "options": [
+        "Multi-repo",
+        "Monorepo",
+        "Federated repo",
+        "Hybrid repo"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "L'approccio monorepo centralizza tutte le configurazioni in un unico repository Git.",
+        "en": "The monorepo approach centralizes all configurations in a single Git repository."
+      },
+      "difficulty": "easy",
+      "domain": "Git repository structure"
+    },
+    {
+      "question": {
+        "it": "Quale dei seguenti è un vantaggio del modello pull rispetto al push?",
+        "en": "Which of the following is an advantage of the pull model over push?"
+      },
+      "options": [
+        "Maggiore controllo sulla pipeline CI",
+        "Nessuna necessità di credenziali cluster esterne",
+        "Deploy più veloci",
+        "Minor complessità di configurazione"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Nel modello pull, non è necessario che sistemi esterni abbiano accesso al cluster. L'agente nel cluster pulla le modifiche.",
+        "en": "In the pull model, external systems don't need cluster access. The agent in the cluster pulls changes."
+      },
+      "difficulty": "medium",
+      "domain": "GitOps deployment models"
+    },
+    {
+      "question": {
+        "it": "Flux CD supporta quale tipo di automazione oltre al deployment?",
+        "en": "Flux CD supports which type of automation besides deployment?"
+      },
+      "options": [
+        "Solo Helm releases",
+        "Image automation e Helm OCI",
+        "Solo Kustomize",
+        "Solo manifest YAML raw"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Flux CD supporta image automation, Helm OCI, Kustomize, e YAML raw.",
+        "en": "Flux CD supports image automation, Helm OCI, Kustomize, and raw YAML."
+      },
+      "difficulty": "medium",
+      "domain": "GitOps tools"
+    },
+    {
+      "question": {
+        "it": "Quale componente di ArgoCD verifica continuamente lo stato del cluster rispetto al repository Git?",
+        "en": "Which ArgoCD component continuously checks the cluster state against the Git repository?"
+      },
+      "options": [
+        "ArgoCD API Server",
+        "ArgoCD Repo Server",
+        "ArgoCD Application Controller",
+        "ArgoCD Dex"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "L'Application Controller monitora continuamente le applicazioni e confronta lo stato live con quello in Git.",
+        "en": "The Application Controller continuously monitors applications and compares live state with Git state."
+      },
+      "difficulty": "hard",
+      "domain": "GitOps tools"
+    },
+    {
+      "question": {
+        "it": "In un setup multi-repo, quale repository contiene le definizioni delle applicazioni?",
+        "en": "In a multi-repo setup, which repository contains application definitions?"
+      },
+      "options": [
+        "Infrastructure repo",
+        "Application repo",
+        "Config repo",
+        "Secrets repo"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "In un setup multi-repo, l'application repo contiene le definizioni delle applicazioni.",
+        "en": "In a multi-repo setup, the application repo contains application definitions."
+      },
+      "difficulty": "medium",
+      "domain": "Git repository structure"
+    },
+    {
+      "question": {
+        "it": "Quale principio GitOps garantisce che le deviazioni dallo stato desiderato vengano corrette automaticamente?",
+        "en": "Which GitOps principle ensures deviations from desired state are automatically corrected?"
+      },
+      "options": [
+        "Declarative",
+        "Versioned",
+        "Self-healing",
+        "Automated"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Il principio di self-healing garantisce che le deviazioni vengano corrette automaticamente.",
+        "en": "The self-healing principle ensures deviations are automatically corrected."
+      },
+      "difficulty": "easy",
+      "domain": "GitOps principles"
+    },
+    {
+      "question": {
+        "it": "Jenkins X utilizza quale approccio per implementare GitOps?",
+        "en": "Jenkins X uses which approach to implement GitOps?"
+      },
+      "options": [
+        "Solo modello push",
+        "Solo modello pull",
+        "Modello ibrido push-pull",
+        "Nessun modello GitOps"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Jenkins X utilizza un approccio ibrido: pipeline CI push e operatore nel cluster pull.",
+        "en": "Jenkins X uses a hybrid approach: CI pipelines push and in-cluster operator pull."
+      },
+      "difficulty": "hard",
+      "domain": "GitOps tools"
+    },
+    {
+      "question": {
+        "it": "Quale formato di file NON è comunemente usato per definire lo stato desiderato in GitOps?",
+        "en": "Which file format is NOT commonly used to define desired state in GitOps?"
+      },
+      "options": [
+        "YAML",
+        "JSON",
+        "Helm charts",
+        "File binari compilati"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "File binari compilati non sono adatti per GitOps perché non sono dichiarativi.",
+        "en": "Compiled binary files are not suitable for GitOps because they are not declarative."
+      },
+      "difficulty": "easy",
+      "domain": "GitOps principles"
+    },
+    {
+      "question": {
+        "it": "Quale dei seguenti è uno svantaggio dell'approccio monorepo?",
+        "en": "Which of the following is a disadvantage of the monorepo approach?"
+      },
+      "options": [
+        "Visibilità completa del sistema",
+        "Refactoring cross-team semplificato",
+        "Permessi più ampi per tutti i contributori",
+        "CI/CD unificato"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Il monorepo richiede permessi più ampi perché tutti possono vedere tutto.",
+        "en": "Monorepo requires broader permissions because everyone can see everything."
+      },
+      "difficulty": "medium",
+      "domain": "Git repository structure"
+    },
+    {
+      "question": {
+        "it": "In GitOps, cosa significa che lo stato è 'versionato'?",
+        "en": "In GitOps, what does it mean that state is 'versioned'?"
+      },
+      "options": [
+        "Lo stato è salvato in un database",
+        "Lo stato ha un numero di versione incrementale",
+        "La storia completa delle modifiche è tracciata in Git",
+        "Lo stato viene ricreato da zero ogni deploy"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Essere versionato significa che tutta la storia delle modifiche è tracciata in Git.",
+        "en": "Being versioned means all change history is tracked in Git."
+      },
+      "difficulty": "easy",
+      "domain": "GitOps principles"
+    },
+    {
+      "question": {
+        "it": "Quale tool GitOps è più adatto per organizzazioni che già usano intensivamente Flux v1?",
+        "en": "Which GitOps tool is most suitable for organizations already heavily using Flux v1?"
+      },
+      "options": [
+        "ArgoCD",
+        "Flux v2",
+        "Jenkins X",
+        "Spinnaker"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Flux v2 è la naturale evoluzione di Flux v1.",
+        "en": "Flux v2 is the natural evolution of Flux v1."
+      },
+      "difficulty": "medium",
+      "domain": "GitOps tools"
+    }
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Quale plugin mostra i segni di modifica nella colonna di sinistra?",
+        "en": "Which plugin shows modification signs in the left column?"
+      },
+      "options": [
+        "diffview.nvim",
+        "gitsigns.nvim",
+        "neogit",
+        "lazygit"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Gitsigns mostra segni per linee aggiunte, modificate e rimosse nella signcolumn.",
+        "en": "Gitsigns shows signs for added, modified, and removed lines in the signcolumn."
+      }
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Come si apre Lazygit in Neovim?",
+        "en": "How do you open Lazygit in Neovim?"
+      },
+      "options": [
+        ":LazyGit",
+        "Tramite toggleterm o un wrapper plugin",
+        ":Git lazy",
+        "Non è possibile"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Lazygit è un tool esterno che si integra tramite terminali come toggleterm.",
+        "en": "Lazygit is an external tool integrated through terminals like toggleterm."
+      }
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Quale plugin è il clone di Magit per Neovim?",
+        "en": "Which plugin is the Magit clone for Neovim?"
+      },
+      "options": [
+        "vim-fugitive",
+        "gitsigns.nvim",
+        "neogit",
+        "diffview.nvim"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Neogit è ispirato a Magit di Emacs con un'interfaccia simile.",
+        "en": "Neogit is inspired by Emacs' Magit with a similar interface."
+      }
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Cosa fa gitsigns.stage_hunk()?",
+        "en": "What does gitsigns.stage_hunk() do?"
+      },
+      "options": [
+        "Mostra l'hunk",
+        "Aggiunge l'hunk all'area di staging",
+        "Elimina l'hunk",
+        "Resetta l'hunk"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "stage_hunk aggiunge l'hunk corrente all'area di staging di Git.",
+        "en": "stage_hunk adds the current hunk to Git's staging area."
+      }
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Quale comando di Fugitive mostra lo status?",
+        "en": "Which Fugitive command shows the status?"
+      },
+      "options": [
+        ":Git status",
+        ":Git",
+        ":Gstatus",
+        ":Fugitive"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": ":Git senza argomenti apre la finestra di status interattiva.",
+        "en": ":Git without arguments opens the interactive status window."
+      }
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Come si naviga al prossimo hunk con Gitsigns?",
+        "en": "How do you navigate to the next hunk with Gitsigns?"
+      },
+      "options": [
+        "gitsigns.next_hunk()",
+        "gitsigns.goto_next()",
+        "]g",
+        "]h"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "]h è la mappatura predefinita per saltare al prossimo hunk.",
+        "en": "]h is the default mapping to jump to the next hunk."
+      }
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Quale plugin è utile per le code review?",
+        "en": "Which plugin is useful for code review?"
+      },
+      "options": [
+        "gitsigns",
+        "vim-fugitive",
+        "diffview.nvim",
+        "git-blame"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Diffview offre una vista diff completa ideale per revisionare modifiche.",
+        "en": "Diffview offers a complete diff view ideal for reviewing changes."
+      }
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Cosa fa :DiffviewOpen?",
+        "en": "What does :DiffviewOpen do?"
+      },
+      "options": [
+        "Apre un file",
+        "Mostra il diff delle modifiche non committate",
+        "Crea un commit",
+        "Apre la history"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "DiffviewOpen mostra il diff di tutte le modifiche non ancora committate.",
+        "en": "DiffviewOpen shows the diff of all uncommitted changes."
+      }
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Come si abilita il blame sulla riga corrente?",
+        "en": "How do you enable blame on the current line?"
+      },
+      "options": [
+        "gitsigns.toggle_line_blame()",
+        "gitsigns.blame()",
+        ":Git blame",
+        ":BlameLine"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "toggle_current_line_blame() attiva/disattiva il blame inline.",
+        "en": "toggle_current_line_blame() toggles inline blame on/off."
+      }
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Quale è il creatore di vim-fugitive?",
+        "en": "Who created vim-fugitive?"
+      },
+      "options": [
+        "Tim Pope",
+        "Lewis6991",
+        "NeogitOrg",
+        "Sindrets"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Tim Pope è l'autore di fugitive e molti altri plugin storici.",
+        "en": "Tim Pope is the author of fugitive and many other historic plugins."
+      }
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Come si mostra la storia di un file con Diffview?",
+        "en": "How do you show a file's history with Diffview?"
+      },
+      "options": [
+        ":DiffviewHistory",
+        ":DiffviewFileHistory %",
+        ":DiffviewLog",
+        ":Git log"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "DiffviewFileHistory % mostra la storia del file corrente.",
+        "en": "DiffviewFileHistory % shows the current file's history."
+      }
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Quale opzione di Gitsigns mostra l'autore inline?",
+        "en": "Which Gitsigns option shows the author inline?"
+      },
+      "options": [
+        "show_author",
+        "current_line_blame",
+        "inline_blame",
+        "author_text"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "current_line_blame = true mostra autore e commit in virtual text.",
+        "en": "current_line_blame = true shows author and commit in virtual text."
+      }
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Cosa fa :Gdiffsplit in Fugitive?",
+        "en": "What does :Gdiffsplit in Fugitive do?"
+      },
+      "options": [
+        "Divide la finestra",
+        "Mostra il diff del file in split",
+        "Fa uno split del commit",
+        "Separa le modifiche staged"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Gdiffsplit apre un diff verticale tra il file e la versione Git.",
+        "en": "Gdiffsplit opens a vertical diff between the file and Git version."
+      }
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Quale keymap standard si usa per aprire la status window di Neogit?",
+        "en": "Which standard keymap opens Neogit's status window?"
+      },
+      "options": [
+        "<leader>gg",
+        "<leader>gs",
+        "<leader>gn",
+        "<leader>go"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "<leader>gn è la convenzione comune per Neogit ([G]it [N]eogit).",
+        "en": "<leader>gn is the common convention for Neogit ([G]it [N]eogit)."
+      }
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Cosa significa 'hunk' in Gitsigns?",
+        "en": "What does 'hunk' mean in Gitsigns?"
+      },
+      "options": [
+        "Un file modificato",
+        "Un blocco di modifiche contigue",
+        "Un commit",
+        "Un branch"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un hunk è un blocco di modifiche contigue nel diff.",
+        "en": "A hunk is a block of contiguous changes in the diff."
+      }
+    }
+  ]
+}

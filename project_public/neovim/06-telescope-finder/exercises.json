@@ -1,0 +1,244 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Installazione Base di Telescope",
+        "en": "Basic Telescope Installation"
+      },
+      "description": {
+        "it": "Configura Telescope con lazy.nvim includendo le dipendenze essenziali e un keymap per find_files.",
+        "en": "Configure Telescope with lazy.nvim including essential dependencies and a keymap for find_files."
+      },
+      "difficulty": "beginner",
+      "steps": [
+        "Crea il file lua/plugins/telescope.lua",
+        "Aggiungi il plugin nvim-telescope/telescope.nvim con tag 0.1.8",
+        "Includi plenary.nvim come dipendenza",
+        "Aggiungi un keymap <leader>ff per find_files",
+        "Riavvia Neovim e verifica che Telescope funzioni"
+      ],
+      "hints": [
+        "Usa return { ... } nel file plugin",
+        "Il keymap va nel blocco config"
+      ],
+      "solution": "return {\n  'nvim-telescope/telescope.nvim',\n  tag = '0.1.8',\n  dependencies = { 'nvim-lua/plenary.nvim' },\n  config = function()\n    local builtin = require('telescope.builtin')\n    vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })\n  end,\n}"
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Configurazione Keymaps Completi",
+        "en": "Complete Keymaps Configuration"
+      },
+      "description": {
+        "it": "Aggiungi keymaps per find_files, live_grep, buffers e help_tags con mnemonici descrittivi.",
+        "en": "Add keymaps for find_files, live_grep, buffers, and help_tags with descriptive mnemonics."
+      },
+      "difficulty": "beginner",
+      "steps": [
+        "Aggiungi keymap <leader>ff per find_files",
+        "Aggiungi keymap <leader>fg per live_grep",
+        "Aggiungi keymap <leader>fb per buffers",
+        "Aggiungi keymap <leader>fh per help_tags",
+        "Aggiungi desc descrittivi per which-key"
+      ],
+      "hints": [
+        "Usa [F]ind [X] come pattern per i desc",
+        "Importa builtin all'inizio della funzione config"
+      ],
+      "solution": "local builtin = require('telescope.builtin')\nvim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })\nvim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })\nvim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind [B]uffers' })\nvim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })"
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Estensione FZF Native",
+        "en": "FZF Native Extension"
+      },
+      "description": {
+        "it": "Installa e configura telescope-fzf-native per migliorare le performance di ricerca.",
+        "en": "Install and configure telescope-fzf-native to improve search performance."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi telescope-fzf-native.nvim alle dipendenze",
+        "Imposta build = 'make'",
+        "Carica l'estensione nel config",
+        "Configura l'estensione con fuzzy = true",
+        "Verifica che la ricerca sia più veloce"
+      ],
+      "hints": [
+        "Usa pcall per gestire errori di caricamento",
+        "L'estensione va configurata in extensions section"
+      ],
+      "solution": "dependencies = {\n  'nvim-lua/plenary.nvim',\n  {\n    'nvim-telescope/telescope-fzf-native.nvim',\n    build = 'make',\n    cond = function() return vim.fn.executable('make') == 1 end,\n  },\n},\nextensions = {\n  fzf = {\n    fuzzy = true,\n    override_generic_sorter = true,\n    override_file_sorter = true,\n  },\n},\n-- Nel config:\npcall(telescope.load_extension, 'fzf')"
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "File Ignore Patterns",
+        "en": "File Ignore Patterns"
+      },
+      "description": {
+        "it": "Configura file_ignore_patterns per escludere node_modules, .git e file lock dalla ricerca.",
+        "en": "Configure file_ignore_patterns to exclude node_modules, .git, and lock files from search."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi file_ignore_patterns nei defaults",
+        "Escludi 'node_modules'",
+        "Escludi '.git/'",
+        "Escludi '*.lock'",
+        "Testa la ricerca in un progetto con queste cartelle"
+      ],
+      "hints": [
+        "I pattern usano la sintassi Lua",
+        "Le directory terminano con /"
+      ],
+      "solution": "defaults = {\n  file_ignore_patterns = {\n    'node_modules',\n    '.git/',\n    'dist/',\n    'build/',\n    '*.lock',\n    '*.min.js',\n    '*.min.css',\n  },\n}"
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Layout Personalizzato",
+        "en": "Custom Layout"
+      },
+      "description": {
+        "it": "Configura un layout orizzontale personalizzato con preview a destra e prompt in alto.",
+        "en": "Configure a custom horizontal layout with preview on the right and prompt at top."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Imposta layout_strategy = 'horizontal'",
+        "Configura layout_config.horizontal",
+        "Imposta preview_width = 0.55",
+        "Imposta prompt_position = 'top'",
+        "Imposta width e height globali"
+      ],
+      "hints": [
+        "I valori sono percentuali (0.0-1.0)",
+        "preview_width è solo per layout horizontal"
+      ],
+      "solution": "defaults = {\n  layout_strategy = 'horizontal',\n  layout_config = {\n    width = 0.87,\n    height = 0.80,\n    preview_cutoff = 120,\n    horizontal = {\n      prompt_position = 'top',\n      preview_width = 0.55,\n      results_width = 0.8,\n    },\n  },\n}"
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Mappature Personalizzate",
+        "en": "Custom Mappings"
+      },
+      "description": {
+        "it": "Aggiungi mappature per <C-j>/<C-k> per navigare e <Esc> per chiudere in insert mode.",
+        "en": "Add mappings for <C-j>/<C-k> to navigate and <Esc> to close in insert mode."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi sezione mappings nei defaults",
+        "Aggiungi sezione 'i' per insert mode",
+        "Mappa <C-j> a move_selection_next",
+        "Mappa <C-k> a move_selection_previous",
+        "Mappa <Esc> a actions.close"
+      ],
+      "hints": [
+        "Richiedi telescope.actions all'inizio",
+        "Usa actions.move_selection_next/previous"
+      ],
+      "solution": "local actions = require('telescope.actions')\ndefaults = {\n  mappings = {\n    i = {\n      ['<C-j>'] = actions.move_selection_next,\n      ['<C-k>'] = actions.move_selection_previous,\n      ['<Esc>'] = actions.close,\n    },\n  },\n}"
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "Picker per File Nascosti",
+        "en": "Hidden Files Picker"
+      },
+      "description": {
+        "it": "Crea un keymap che cerca file includendo quelli nascosti e ignorati.",
+        "en": "Create a keymap that searches for files including hidden and ignored ones."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Crea funzione anonima per il keymap",
+        "Chiama find_files con hidden = true",
+        "Aggiungi no_ignore = true",
+        "Usa <leader>fF come keymap",
+        "Testa in un progetto con .env o file nascosti"
+      ],
+      "hints": [
+        "La funzione anonima va dopo il require",
+        "hidden include i file che iniziano con ."
+      ],
+      "solution": "vim.keymap.set('n', '<leader>fF', function()\n  require('telescope.builtin').find_files {\n    hidden = true,\n    no_ignore = true,\n  }\nend, { desc = '[F]ind [F]iles (all)' })"
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "Integrazione LSP",
+        "en": "LSP Integration"
+      },
+      "description": {
+        "it": "Configura keymap LSP per usare Telescope per definizioni, riferimenti e simboli.",
+        "en": "Configure LSP keymaps to use Telescope for definitions, references, and symbols."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Sostituisci vim.lsp.buf.definition con lsp_definitions",
+        "Sostituisci vim.lsp.buf.references con lsp_references",
+        "Aggiungi keymap per lsp_document_symbols",
+        "Aggiungi keymap per lsp_workspace_symbols",
+        "Testa con un progetto con LSP attivo"
+      ],
+      "hints": [
+        "I picker LSP sono in telescope.builtin",
+        "Usa gli stessi keymap standard (gd, gr, etc.)"
+      ],
+      "solution": "vim.keymap.set('n', 'gd', require('telescope.builtin').lsp_definitions, { desc = '[G]oto [D]efinition' })\nvim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, { desc = '[G]oto [R]eferences' })\nvim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols, { desc = '[D]ocument [S]ymbols' })\nvim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_workspace_symbols, { desc = '[W]orkspace [S]ymbols' })"
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "File Browser Extension",
+        "en": "File Browser Extension"
+      },
+      "description": {
+        "it": "Installa e configura telescope-file-browser come alternativa a netrw.",
+        "en": "Install and configure telescope-file-browser as a netrw alternative."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Aggiungi telescope-file-browser.nvim alle dipendenze",
+        "Configura l'estensione con hijack_netrw = true",
+        "Crea keymap <leader>fb per aprire il browser",
+        "Usa path = '%:p:h' per aprire nella directory del file",
+        "Testa aprendo una directory"
+      ],
+      "hints": [
+        "Il file browser ha le sue mappature specifiche",
+        "select_buffer = true seleziona il file corrente"
+      ],
+      "solution": "vim.keymap.set('n', '<leader>fb', function()\n  require('telescope').extensions.file_browser.file_browser {\n    path = '%:p:h',\n    select_buffer = true,\n    cwd = vim.fn.getcwd(),\n  }\nend, { desc = '[F]ile [B]rowser' })\n-- In extensions:\nfile_browser = {\n  hijack_netrw = true,\n  theme = 'dropdown',\n}"
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Picker Intelligente Git/Files",
+        "en": "Smart Git/Files Picker"
+      },
+      "description": {
+        "it": "Crea un picker che usa git_files se in un repo Git, altrimenti find_files.",
+        "en": "Create a picker that uses git_files if in a Git repo, otherwise find_files."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Crea funzione smart_open",
+        "Usa pcall per tentare git_files",
+        "Se fallisce, usa find_files come fallback",
+        "Mappa su <leader>pf",
+        "Testa sia in un repo Git che fuori"
+      ],
+      "hints": [
+        "pcall ritorna ok, result",
+        "Se ok è false, il repo non è Git"
+      ],
+      "solution": "vim.keymap.set('n', '<leader>pf', function()\n  local opts = {}\n  local ok = pcall(require('telescope.builtin').git_files, opts)\n  if not ok then\n    require('telescope.builtin').find_files(opts)\n  end\nend, { desc = '[P]roject [F]iles' })"
+    }
+  ]
+}

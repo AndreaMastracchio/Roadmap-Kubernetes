@@ -1,0 +1,185 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Client HTTP Base",
+        "en": "Basic HTTP Client"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Crea una classe ApiService con metodo GET per recuperare una lista di utenti da JSONPlaceholder API.",
+        "en": "Create an ApiService class with a GET method to fetch a list of users from JSONPlaceholder API."
+      },
+      "requirements": [
+        "Usa il package http",
+        "Gestisci gli errori con try-catch",
+        "Converte la risposta JSON in una lista di oggetti User"
+      ],
+      "starter_code": "class User {\n  final int id;\n  final String name;\n  final String email;\n  \n  User({required this.id, required this.name, required this.email});\n  \n  factory User.fromJson(Map<String, dynamic> json) {\n    // TODO: Implementa il parsing\n  }\n}\n\nclass ApiService {\n  Future<List<User>> getUsers() async {\n    // TODO: Implementa la richiesta GET\n  }\n}"
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "POST Request con Autenticazione",
+        "en": "POST Request with Authentication"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Implementa un metodo per creare un nuovo post con autenticazione Bearer token.",
+        "en": "Implement a method to create a new post with Bearer token authentication."
+      },
+      "requirements": [
+        "Aggiungi header Authorization",
+        "Invia dati JSON nel body",
+        "Restituisci l'oggetto Post creato"
+      ],
+      "starter_code": "class Post {\n  final int id;\n  final String title;\n  final String body;\n  final int userId;\n  \n  Post({required this.id, required this.title, required this.body, required this.userId});\n  \n  Map<String, dynamic> toJson() {\n    // TODO: Implementa\n  }\n}\n\nclass PostService {\n  Future<Post> createPost(String token, Post post) async {\n    // TODO: Implementa POST con autenticazione\n  }\n}"
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Modello con json_serializable",
+        "en": "Model with json_serializable"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Crea un modello Product con json_serializable completo di annotazioni.",
+        "en": "Create a Product model with json_serializable complete with annotations."
+      },
+      "requirements": [
+        "Annota la classe con @JsonSerializable",
+        "Usa @JsonKey per mappare snake_case",
+        "Implementa factory fromJson e metodo toJson"
+      ],
+      "starter_code": "import 'package:json_annotation/json_annotation.dart';\n\npart 'product.g.dart';\n\n// TODO: Aggiungi annotazioni\n@JsonSerializable()\nclass Product {\n  final int id;\n  final String name;\n  final String description;\n  final double price;\n  final bool inStock;\n  \n  Product({\n    required this.id,\n    required this.name,\n    required this.description,\n    required this.price,\n    required this.inStock,\n  });\n  \n  factory Product.fromJson(Map<String, dynamic> json) => // TODO;\n  Map<String, dynamic> toJson() => // TODO;\n}"
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "Interceptor di Autenticazione",
+        "en": "Authentication Interceptor"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Implementa un AuthInterceptor per Dio che aggiunge automaticamente il token e gestisce il refresh.",
+        "en": "Implement an AuthInterceptor for Dio that automatically adds the token and handles refresh."
+      },
+      "requirements": [
+        "Aggiungi header Authorization a ogni richiesta",
+        "Gestisci errori 401 tentando il token refresh",
+        "Riprova la richiesta originale dopo il refresh"
+      ],
+      "starter_code": "class AuthInterceptor extends Interceptor {\n  final TokenStorage storage;\n  \n  AuthInterceptor(this.storage);\n  \n  @override\n  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {\n    // TODO: Aggiungi token\n  }\n  \n  @override\n  void onError(DioException err, ErrorInterceptorHandler handler) {\n    // TODO: Gestisci 401 e refresh\n  }\n}"
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Gestione Errori con Result",
+        "en": "Error Handling with Result"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Crea un pattern Result per gestire successi e fallimenti nelle chiamate API.",
+        "en": "Create a Result pattern to handle successes and failures in API calls."
+      },
+      "requirements": [
+        "Implementa Result<T> con Success e Failure",
+        "Usa when() per pattern matching",
+        "Gestisci DioException correttamente"
+      ],
+      "starter_code": "abstract class Result<T> {\n  const Result();\n  \n  // TODO: Implementa factory constructors\n  \n  R when<R>({\\n    required R Function(T data) success,\n    required R Function(String message, int? code) failure,\n  });\n}"
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Client Dio Configurato",
+        "en": "Configured Dio Client"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Configura un'istanza Dio con timeout, base URL, e interceptors.",
+        "en": "Configure a Dio instance with timeout, base URL, and interceptors."
+      },
+      "requirements": [
+        "Imposta connectTimeout e receiveTimeout",
+        "Configura headers di default",
+        "Aggiungi LoggingInterceptor e AuthInterceptor"
+      ],
+      "starter_code": "class ApiClient {\n  late final Dio _dio;\n  \n  ApiClient() {\n    _dio = Dio(\n      // TODO: Configura BaseOptions\n    );\n    \n    // TODO: Aggiungi interceptors\n  }\n}"
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "Paginazione API",
+        "en": "API Pagination"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Implementa una classe PaginatedResponse per gestire liste paginate.",
+        "en": "Implement a PaginatedResponse class to handle paginated lists."
+      },
+      "requirements": [
+        "Campi data, total, page, perPage, hasMore",
+        "Factory fromJson generico",
+        "Metodo per caricare la pagina successiva"
+      ],
+      "starter_code": "class PaginatedResponse<T> {\n  final List<T> data;\n  final int total;\n  final int page;\n  final int perPage;\n  \n  PaginatedResponse({\n    required this.data,\n    required this.total,\n    required this.page,\n    required this.perPage,\n  });\n  \n  bool get hasMore => // TODO;\n  \n  factory PaginatedResponse.fromJson(\n    Map<String, dynamic> json,\n    T Function(Map<String, dynamic>) fromJsonT,\n  ) {\n    // TODO\n  }\n}"
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "Servizio WebSocket Chat",
+        "en": "WebSocket Chat Service"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Implementa un servizio WebSocket per una chat real-time con riconnessione automatica.",
+        "en": "Implement a WebSocket service for real-time chat with automatic reconnection."
+      },
+      "requirements": [
+        "Connessione a WebSocket server",
+        "Ascolto messaggi in arrivo",
+        "Riconnessione automatica in caso di disconnessione"
+      ],
+      "starter_code": "class WebSocketChatService {\n  WebSocketChannel? _channel;\n  \n  Future<void> connect(String url) async {\n    // TODO\n  }\n  \n  void sendMessage(ChatMessage message) {\n    // TODO\n  }\n  \n  void disconnect() {\n    // TODO\n  }\n}"
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "Cache delle Risposte",
+        "en": "Response Caching"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Implementa un sistema di cache per le risposte API con TTL.",
+        "en": "Implement a caching system for API responses with TTL."
+      },
+      "requirements": [
+        "Salva risposte con timestamp",
+        "Verifica validità cache",
+        "Invalidazione manuale"
+      ],
+      "starter_code": "class CachedApiService {\n  final Dio _dio;\n  final Map<String, CacheEntry> _cache = {};\n  final Duration defaultTtl;\n  \n  Future<T> get<T>(\n    String path, {\n    required T Function(Map<String, dynamic>) fromJson,\n    bool forceRefresh = false,\n  }) async {\n    // TODO: Implementa logica cache\n  }\n}"
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Repository Pattern Completo",
+        "en": "Complete Repository Pattern"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Crea un UserRepository completo con caching, error handling e paginazione.",
+        "en": "Create a complete UserRepository with caching, error handling, and pagination."
+      },
+      "requirements": [
+        "Interfaccia IUserRepository",
+        "Implementazione con Dio",
+        "Cache in memoria",
+        "Gestione errori con Result"
+      ],
+      "starter_code": "abstract class IUserRepository {\n  Future<Result<List<User>>> getUsers({int page = 1});\n  Future<Result<User>> getUser(int id);\n  Future<Result<User>> createUser(CreateUserRequest request);\n  Future<Result<void>> deleteUser(int id);\n}\n\nclass UserRepository implements IUserRepository {\n  // TODO: Implementa con Dio, cache, e Result\n}"
+    }
+  ]
+}

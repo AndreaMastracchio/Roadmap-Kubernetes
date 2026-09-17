@@ -1,0 +1,234 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale componente memorizza lo stato del cluster?",
+        "en": "Which component stores the cluster state?"
+      },
+      "options": ["kube-apiserver", "kube-scheduler", "etcd", "kubelet"],
+      "correct": 2,
+      "explanation": {
+        "it": "etcd è il database key-value distribuito che memorizza tutta la configurazione e lo stato del cluster.",
+        "en": "etcd is the distributed key-value database that stores all cluster configuration and state."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-architecture"
+    },
+    {
+      "question": {
+        "it": "Quale componente sceglie su quale nodo far girare un nuovo Pod?",
+        "en": "Which component chooses which node will run a new Pod?"
+      },
+      "options": ["kube-controller-manager", "kube-scheduler", "kube-proxy", "kubelet"],
+      "correct": 1,
+      "explanation": {
+        "it": "kube-scheduler monitora i Pod senza nodo assegnato e seleziona il nodo migliore in base a risorse e vincoli.",
+        "en": "kube-scheduler monitors Pods without an assigned node and selects the best node based on resources and constraints."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-architecture"
+    },
+    {
+      "question": {
+        "it": "Quale admission controller può bloccare Pod non sicuri?",
+        "en": "Which admission controller can block insecure Pods?"
+      },
+      "options": ["LimitRanger", "PodSecurity", "ResourceQuota", "NamespaceLifecycle"],
+      "correct": 1,
+      "explanation": {
+        "it": "PodSecurity admission controller applica policy di sicurezza che bloccano Pod non conformi ai livelli privileged, baseline o restricted.",
+        "en": "PodSecurity admission controller enforces security policies that block Pods not conforming to privileged, baseline or restricted levels."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-security"
+    },
+    {
+      "question": {
+        "it": "Quanti nodi etcd minimi servono per alta disponibilità?",
+        "en": "What is the minimum number of etcd nodes for high availability?"
+      },
+      "options": ["1 nodo", "2 nodi", "3 nodi", "4 nodi"],
+      "correct": 2,
+      "explanation": {
+        "it": "Per HA servono almeno 3 nodi etcd (numero dispari) per garantire il quorum con la maggioranza.",
+        "en": "For HA you need at least 3 etcd nodes (odd number) to guarantee quorum with majority."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-architecture"
+    },
+    {
+      "question": {
+        "it": "Quale componente gestisce le regole di rete sui nodi?",
+        "en": "Which component manages network rules on nodes?"
+      },
+      "options": ["kube-scheduler", "kube-proxy", "kubelet", "coredns"],
+      "correct": 1,
+      "explanation": {
+        "it": "kube-proxy mantiene le regole iptables/IPVS per permettere la comunicazione con i Services.",
+        "en": "kube-proxy maintains iptables/IPVS rules to allow communication with Services."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Cosa sono gli Static Pods?",
+        "en": "What are Static Pods?"
+      },
+      "options": [
+        "Pod che non possono essere eliminati",
+        "Pod gestiti direttamente da kubelet tramite manifest locali",
+        "Pod senza indirizzo IP",
+        "Pod che girano su tutti i nodi"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Gli Static Pods sono definiti in file locali (es. /etc/kubernetes/manifests/) e gestiti da kubelet senza API Server.",
+        "en": "Static Pods are defined in local files (e.g. /etc/kubernetes/manifests/) and managed by kubelet without API Server."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-architecture"
+    },
+    {
+      "question": {
+        "it": "Quale componente esegue i reconciliation loops?",
+        "en": "Which component runs reconciliation loops?"
+      },
+      "options": ["kube-scheduler", "kube-controller-manager", "kube-proxy", "etcd"],
+      "correct": 1,
+      "explanation": {
+        "it": "kube-controller-manager esegue loop di controllo che confrontano stato attuale e desiderato e agiscono per convergere.",
+        "en": "kube-controller-manager runs control loops that compare actual and desired state and act to converge."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-architecture"
+    },
+    {
+      "question": {
+        "it": "Quale modalità di kube-proxy è più performante?",
+        "en": "Which kube-proxy mode is most performant?"
+      },
+      "options": ["userspace", "iptables", "IPVS", "nftables"],
+      "correct": 2,
+      "explanation": {
+        "it": "IPVS è più performante per cluster con molti Service grazie a load balancing nel kernel.",
+        "en": "IPVS is more performant for clusters with many Services thanks to kernel-level load balancing."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Quale API version indica una feature stabile?",
+        "en": "Which API version indicates a stable feature?"
+      },
+      "options": ["v1alpha1", "v1beta1", "v1", "v2"],
+      "correct": 2,
+      "explanation": {
+        "it": "v1 indica API stabili. alpha è sperimentale, beta è quasi stabile, v1 è production-ready.",
+        "en": "v1 indicates stable APIs. alpha is experimental, beta is nearly stable, v1 is production-ready."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-api"
+    },
+    {
+      "question": {
+        "it": "Cos'è il cloud-controller-manager?",
+        "en": "What is cloud-controller-manager?"
+      },
+      "options": [
+        "Un componente per gestire i costi cloud",
+        "Il ponte tra Kubernetes e il cloud provider specifico",
+        "Un tool per backup",
+        "Un componente per monitoring"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "cloud-controller-manager separa la logica cloud-specifica (AWS, GCP, Azure) dal core Kubernetes.",
+        "en": "cloud-controller-manager separates cloud-specific logic (AWS, GCP, Azure) from Kubernetes core."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-architecture"
+    },
+    {
+      "question": {
+        "it": "Chi può scrivere direttamente in etcd?",
+        "en": "Who can write directly to etcd?"
+      },
+      "options": ["kubelet", "kube-scheduler", "kube-apiserver", "kubectl"],
+      "correct": 2,
+      "explanation": {
+        "it": "Solo kube-apiserver può comunicare direttamente con etcd per sicurezza e coerenza.",
+        "en": "Only kube-apiserver can communicate directly with etcd for security and consistency."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-architecture"
+    },
+    {
+      "question": {
+        "it": "Cosa fa CoreDNS in Kubernetes?",
+        "en": "What does CoreDNS do in Kubernetes?"
+      },
+      "options": [
+        "Gestisce i certificati",
+        "Risolve i nomi dei Service in IP",
+        "Memorizza lo stato del cluster",
+        "Gestisce il routing"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "CoreDNS è il servizio DNS interno che risolve i nomi dei Service in indirizzi IP.",
+        "en": "CoreDNS is the internal DNS service that resolves Service names to IP addresses."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra le API resources disponibili?",
+        "en": "Which command shows available API resources?"
+      },
+      "options": ["kubectl get all", "kubectl api-resources", "kubectl show api", "kubectl list resources"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl api-resources elenca tutte le risorse API con gruppi e verbi supportati.",
+        "en": "kubectl api-resources lists all API resources with supported groups and verbs."
+      },
+      "difficulty": "medium",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Cosa significa che un'API è in 'beta'?",
+        "en": "What does it mean when an API is in 'beta'?"
+      },
+      "options": [
+        "È deprecata e sarà rimossa",
+        "È testata ma potrebbe cambiare",
+        "È sperimentale e instabile",
+        "È la versione finale stabile"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Le API beta sono ben testate ma potrebbero ancora cambiare. Sono più stabili di alpha.",
+        "en": "Beta APIs are well tested but might still change. They are more stable than alpha."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-api"
+    },
+    {
+      "question": {
+        "it": "Quale flag mostra i Pod in tutti i namespace?",
+        "en": "Which flag shows Pods in all namespaces?"
+      },
+      "options": ["--global", "--everywhere", "-A o --all-namespaces", "--cluster-wide"],
+      "correct": 2,
+      "explanation": {
+        "it": "-A è l'abbreviazione di --all-namespaces per vedere risorse in tutti i namespace.",
+        "en": "-A is the shorthand for --all-namespaces to see resources across all namespaces."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    }
+  ]
+}

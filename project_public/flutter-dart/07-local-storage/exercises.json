@@ -1,0 +1,184 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Preferenze Utente",
+        "en": "User Preferences"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Crea un servizio per gestire le preferenze dell'utente (tema, lingua, notifiche).",
+        "en": "Create a service to manage user preferences (theme, language, notifications)."
+      },
+      "requirements": [
+        "Usa SharedPreferences",
+        "Implementa getter e setter tipizzati",
+        "Gestisci valori di default"
+      ],
+      "starter_code": "class UserPreferences {\n  Future<ThemeMode> getThemeMode() async {\n    // TODO: Implementa\n  }\n  \n  Future<void> setThemeMode(ThemeMode mode) async {\n    // TODO: Implementa\n  }\n}"
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Token Storage Sicuro",
+        "en": "Secure Token Storage"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Implementa un servizio per salvare in modo sicuro i token di autenticazione.",
+        "en": "Implement a service to securely save authentication tokens."
+      },
+      "requirements": [
+        "Usa flutter_secure_storage",
+        "Salva access token e refresh token",
+        "Implementa metodo clear per logout"
+      ],
+      "starter_code": "class SecureTokenStorage {\n  Future<void> saveTokens({\n    required String accessToken,\n    required String refreshToken,\n  }) async {\n    // TODO: Implementa\n  }\n  \n  Future<String?> getAccessToken() async {\n    // TODO: Implementa\n  }\n}"
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Database SQLite Base",
+        "en": "Basic SQLite Database"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Crea un database SQLite con tabella prodotti e operazioni CRUD.",
+        "en": "Create a SQLite database with products table and CRUD operations."
+      },
+      "requirements": [
+        "Tabella products con id, name, price, category",
+        "Implementa tutti i metodi CRUD",
+        "Usa il pattern Repository"
+      ],
+      "starter_code": "class ProductDatabase {\n  Future<Database> get database async {\n    // TODO: Implementa inizializzazione\n  }\n  \n  Future<List<Product>> getAllProducts() async {\n    // TODO: Implementa\n  }\n}"
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "Modello Hive con Adapter",
+        "en": "Hive Model with Adapter"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Crea un modello Task con TypeAdapter per Hive.",
+        "en": "Create a Task model with TypeAdapter for Hive."
+      },
+      "requirements": [
+        "Classe Task con title, completed, dueDate, priority",
+        "Annotazioni @HiveType e @HiveField",
+        "Metodo copyWith"
+      ],
+      "starter_code": "part 'task.g.dart';\n\n@HiveType(typeId: 0)\nclass Task {\n  @HiveField(0)\n  String title;\n  \n  // TODO: Aggiungi altri campi con annotazioni\n  \n  Task({required this.title});\n}"
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Repository Hive",
+        "en": "Hive Repository"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Implementa un repository completo per Task usando Hive.",
+        "en": "Implement a complete repository for Tasks using Hive."
+      },
+      "requirements": [
+        "Apri box in init",
+        "Implementa CRUD completo",
+        "Aggiungi metodo per task completati"
+      ],
+      "starter_code": "class TaskRepository {\n  static const String _boxName = 'tasks';\n  late Box<Task> _box;\n  \n  Future<void> init() async {\n    // TODO: Apri box\n  }\n  \n  Future<List<Task>> getCompletedTasks() async {\n    // TODO: Implementa filtro\n  }\n}"
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Cache Manager",
+        "en": "Cache Manager"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Implementa un sistema di cache con TTL configurabile.",
+        "en": "Implement a caching system with configurable TTL."
+      },
+      "requirements": [
+        "Salva dati con timestamp",
+        "Verifica validità cache",
+        "Invalidazione per chiave e globale"
+      ],
+      "starter_code": "class CacheManager<T> {\n  final Duration defaultTtl;\n  final Map<String, CacheEntry<T>> _cache = {};\n  \n  Future<T?> get(String key) async {\n    // TODO: Verifica validità\n  }\n  \n  Future<void> set(String key, T data, {Duration? ttl}) async {\n    // TODO: Salva con expiry\n  }\n}"
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "File Storage JSON",
+        "en": "JSON File Storage"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Crea un servizio per salvare e leggere file JSON.",
+        "en": "Create a service to save and read JSON files."
+      },
+      "requirements": [
+        "Usa path_provider",
+        "Salva JSON in DocumentsDirectory",
+        "Gestisci errori di parsing"
+      ],
+      "starter_code": "class JsonFileStorage {\n  Future<void> save(String filename, Map<String, dynamic> data) async {\n    // TODO: Implementa\n  }\n  \n  Future<Map<String, dynamic>?> read(String filename) async {\n    // TODO: Implementa\n  }\n}"
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "Offline-First Repository",
+        "en": "Offline-First Repository"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Implementa un repository offline-first con sincronizzazione.",
+        "en": "Implement an offline-first repository with synchronization."
+      },
+      "requirements": [
+        "Salva sempre in locale",
+        "Sincronizza quando online",
+        "Gestisci stato sync"
+      ],
+      "starter_code": "abstract class OfflineFirstRepository<T> {\n  Future<List<T>> getAll();\n  Future<T> save(T item);\n  Future<void> sync();\n}"
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "Queue Operazioni Offline",
+        "en": "Offline Operations Queue"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Crea una coda per operazioni da eseguire quando la connessione ritorna.",
+        "en": "Create a queue for operations to execute when connection returns."
+      },
+      "requirements": [
+        "Salva operazioni in Hive",
+        "Ritenta automaticamente",
+        "Limite retry"
+      ],
+      "starter_code": "class OfflineQueue {\n  Future<void> enqueue(Operation operation) async {\n    // TODO: Implementa\n  }\n  \n  Future<void> processQueue() async {\n    // TODO: Implementa\n  }\n}"
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Migrazione Database",
+        "en": "Database Migration"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Implementa un sistema di migrazione per database SQLite.",
+        "en": "Implement a migration system for SQLite database."
+      },
+      "requirements": [
+        "onUpgrade con versione",
+        "Migrazioni incrementali",
+        "Backup prima di migrazione"
+      ],
+      "starter_code": "class DatabaseMigration {\n  Future<void> migrate(Database db, int oldVersion, int newVersion) async {\n    // TODO: Implementa migrazioni incrementali\n  }\n}"
+    }
+  ]
+}

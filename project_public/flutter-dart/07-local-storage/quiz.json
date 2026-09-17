@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Quale package si usa per salvare preferenze semplici key-value?",
+        "en": "Which package is used to save simple key-value preferences?"
+      },
+      "options": [
+        "hive",
+        "sqflite",
+        "shared_preferences",
+        "flutter_secure_storage"
+      ],
+      "explanation": {
+        "it": "SharedPreferences è ideale per salvare piccole quantità di dati key-value come preferenze utente.",
+        "en": "SharedPreferences is ideal for saving small amounts of key-value data like user preferences."
+      },
+      "correct": 2
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Dove vengono salvati i dati con flutter_secure_storage su iOS?",
+        "en": "Where are data saved with flutter_secure_storage on iOS?"
+      },
+      "options": [
+        "UserDefaults",
+        "Keychain",
+        "CoreData",
+        "File System"
+      ],
+      "explanation": {
+        "it": "Su iOS, flutter_secure_storage usa Keychain per la sicurezza hardware-backed.",
+        "en": "On iOS, flutter_secure_storage uses Keychain for hardware-backed security."
+      },
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Quale database NoSQL è ottimizzato per Flutter?",
+        "en": "Which NoSQL database is optimized for Flutter?"
+      },
+      "options": [
+        "Firebase Realtime DB",
+        "Realm",
+        "Hive",
+        "MongoDB"
+      ],
+      "explanation": {
+        "it": "Hive è un database NoSQL scritto in Dart, ottimizzato per Flutter con performance superiori.",
+        "en": "Hive is a NoSQL database written in Dart, optimized for Flutter with superior performance."
+      },
+      "correct": 2
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Quale annotazione Hive definisce l'ID del tipo?",
+        "en": "Which Hive annotation defines the type ID?"
+      },
+      "options": [
+        "@HiveField()",
+        "@HiveType()",
+        "@HiveObject()",
+        "@TypeAdapter()"
+      ],
+      "explanation": {
+        "it": "@HiveType(typeId: 0) definisce l'identificatore univoco per la classe.",
+        "en": "@HiveType(typeId: 0) defines the unique identifier for the class."
+      },
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Quale metodo SQLite esegue una query raw SQL?",
+        "en": "Which SQLite method executes a raw SQL query?"
+      },
+      "options": [
+        "db.query()",
+        "db.execute()",
+        "db.rawQuery()",
+        "db.run()"
+      ],
+      "explanation": {
+        "it": "rawQuery() esegue query SQL personalizzate e restituisce List<Map>.",
+        "en": "rawQuery() executes custom SQL queries and returns List<Map>."
+      },
+      "correct": 2
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Quale directory usare per la cache temporanea?",
+        "en": "Which directory should be used for temporary cache?"
+      },
+      "options": [
+        "ApplicationDocumentsDirectory",
+        "TemporaryDirectory",
+        "ExternalStorageDirectory",
+        "LibraryDirectory"
+      ],
+      "explanation": {
+        "it": "getTemporaryDirectory() restituisce la cache che può essere pulita dal sistema.",
+        "en": "getTemporaryDirectory() returns the cache that can be cleared by the system."
+      },
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Come si implementa un'architettura offline-first?",
+        "en": "How is an offline-first architecture implemented?"
+      },
+      "options": [
+        "Solo salvataggio locale",
+        "Solo salvataggio remoto",
+        "Salva locale, sincronizza quando online",
+        "Nessun salvataggio"
+      ],
+      "explanation": {
+        "it": "Offline-first salva sempre in locale e sincronizza quando la connessione è disponibile.",
+        "en": "Offline-first always saves locally and syncs when connection is available."
+      },
+      "correct": 2
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Quale tipo di dati NON è supportato da SharedPreferences?",
+        "en": "Which data type is NOT supported by SharedPreferences?"
+      },
+      "options": [
+        "String",
+        "int",
+        "DateTime",
+        "bool"
+      ],
+      "explanation": {
+        "it": "SharedPreferences supporta String, int, double, bool e List<String>, ma non DateTime direttamente.",
+        "en": "SharedPreferences supports String, int, double, bool, and List<String>, but not DateTime directly."
+      },
+      "correct": 2
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Come si abilitano le foreign keys in SQLite?",
+        "en": "How do you enable foreign keys in SQLite?"
+      },
+      "options": [
+        "Nel CREATE TABLE",
+        "PRAGMA foreign_keys = ON",
+        "Nella connection string",
+        "Sono abilitate di default"
+      ],
+      "explanation": {
+        "it": "PRAGMA foreign_keys = ON abilita il supporto alle foreign keys in SQLite.",
+        "en": "PRAGMA foreign_keys = ON enables foreign key support in SQLite."
+      },
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Quale metodo Hive salva un oggetto direttamente?",
+        "en": "Which Hive method saves an object directly?"
+      },
+      "options": [
+        "box.write()",
+        "box.put()",
+        "box.add()",
+        "object.save()"
+      ],
+      "explanation": {
+        "it": "box.add() aggiunge un oggetto e box.put(key, value) salva con chiave specifica.",
+        "en": "box.add() adds an object and box.put(key, value) saves with a specific key."
+      },
+      "correct": 2
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Quale package richiede la configurazione Android per backup?",
+        "en": "Which package requires Android backup configuration?"
+      },
+      "options": [
+        "shared_preferences",
+        "hive",
+        "flutter_secure_storage",
+        "sqflite"
+      ],
+      "explanation": {
+        "it": "flutter_secure_storage richiede android:allowBackup=\"false\" per sicurezza.",
+        "en": "flutter_secure_storage requires android:allowBackup=\"false\" for security."
+      },
+      "correct": 2
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Come si gestisce la migrazione del database SQLite?",
+        "en": "How is SQLite database migration handled?"
+      },
+      "options": [
+        "Ricreando il database",
+        "Con onUpgrade callback",
+        "Con script esterni",
+        "Non serve"
+      ],
+      "explanation": {
+        "it": "onUpgrade viene chiamato quando la versione del database aumenta.",
+        "en": "onUpgrade is called when the database version increases."
+      },
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Quale metodo pulisce tutti i dati in SharedPreferences?",
+        "en": "Which method clears all data in SharedPreferences?"
+      },
+      "options": [
+        "prefs.reset()",
+        "prefs.clear()",
+        "prefs.deleteAll()",
+        "prefs.wipe()"
+      ],
+      "explanation": {
+        "it": "prefs.clear() rimuove tutte le coppie key-value salvate.",
+        "en": "prefs.clear() removes all saved key-value pairs."
+      },
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Quale annotation Hive definisce il campo di una classe?",
+        "en": "Which Hive annotation defines a class field?"
+      },
+      "options": [
+        "@HiveField()",
+        "@HiveKey()",
+        "@Field()",
+        "@Column()"
+      ],
+      "explanation": {
+        "it": "@HiveField(0) assegna un indice al campo nella serializzazione.",
+        "en": "@HiveField(0) assigns an index to the field in serialization."
+      },
+      "correct": 0
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Quale strategia di cache mostra prima la cache poi aggiorna?",
+        "en": "Which cache strategy shows cache first then updates?"
+      },
+      "options": [
+        "cacheFirst",
+        "networkFirst",
+        "cacheAndNetwork",
+        "networkOnly"
+      ],
+      "explanation": {
+        "it": "cacheAndNetwork mostra subito i dati cache e poi aggiorna dalla rete.",
+        "en": "cacheAndNetwork shows cached data immediately then updates from network."
+      },
+      "correct": 2
+    }
+  ]
+}

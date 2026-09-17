@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Qual è il comando base per cercare file con Telescope?",
+        "en": "What is the basic command to search for files with Telescope?"
+      },
+      "options": [
+        "require('telescope.builtin').find_files",
+        "require('telescope').search_files",
+        "telescope.find_files()",
+        ":TelescopeSearch"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La funzione corretta è require('telescope.builtin').find_files, parte del modulo builtin di Telescope.",
+        "en": "The correct function is require('telescope.builtin').find_files, part of Telescope's builtin module."
+      }
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Quale dipendenza è OBBLIGATORIA per Telescope?",
+        "en": "Which dependency is MANDATORY for Telescope?"
+      },
+      "options": [
+        "nvim-treesitter",
+        "plenary.nvim",
+        "nvim-web-devicons",
+        "telescope-fzf-native"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "plenary.nvim è una dipendenza obbligatoria, fornisce funzioni utility essenziali per Telescope.",
+        "en": "plenary.nvim is a mandatory dependency, providing essential utility functions for Telescope."
+      }
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Come si attiva la multi-selezione in Telescope?",
+        "en": "How do you activate multi-selection in Telescope?"
+      },
+      "options": [
+        "Premendo 'm' in normal mode",
+        "Premendo Tab per selezionare più elementi",
+        "Usando :TelescopeMultiSelect",
+        "Con il flag --multi"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Tab è la mappatura predefinita per toggle_selection, permettendo di selezionare più elementi.",
+        "en": "Tab is the default mapping for toggle_selection, allowing selection of multiple elements."
+      }
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Quale estensione migliora le performance di ricerca fuzzy?",
+        "en": "Which extension improves fuzzy search performance?"
+      },
+      "options": [
+        "telescope-file-browser",
+        "telescope-ui-select",
+        "telescope-fzf-native",
+        "telescope-project"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "telescope-fzf-native è un'estensione C che migliora significativamente le performance di ricerca.",
+        "en": "telescope-fzf-native is a C extension that significantly improves search performance."
+      }
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Come si cercano i riferimenti LSP con Telescope?",
+        "en": "How do you search for LSP references with Telescope?"
+      },
+      "options": [
+        "require('telescope.builtin').lsp_references()",
+        "require('telescope').lsp.find_references()",
+        ":TelescopeLSP references",
+        "vim.lsp.references()"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "lsp_references è un picker del modulo builtin per cercare riferimenti LSP.",
+        "en": "lsp_references is a picker in the builtin module for searching LSP references."
+      }
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Quale strategia di ordinamento mostra i risultati dall'alto verso il basso?",
+        "en": "Which sorting strategy shows results from top to bottom?"
+      },
+      "options": [
+        "sorting_strategy = 'descending'",
+        "sorting_strategy = 'ascending'",
+        "sorting_strategy = 'bottom_up'",
+        "sorting_strategy = 'reverse'"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "'ascending' mostra i risultati dall'alto verso il basso, con il miglior risultato in cima.",
+        "en": "'ascending' shows results from top to bottom, with the best result at the top."
+      }
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Come si ignora una directory node_modules in Telescope?",
+        "en": "How do you ignore a node_modules directory in Telescope?"
+      },
+      "options": [
+        "Impostando ignore_patterns = {'node_modules'}",
+        "Aggiungendo 'node_modules' a file_ignore_patterns",
+        "Con exclude_dirs = {'node_modules'}",
+        "Usando skip_directory = 'node_modules'"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "file_ignore_patterns accetta pattern Lua per escludere file e directory dalla ricerca.",
+        "en": "file_ignore_patterns accepts Lua patterns to exclude files and directories from search."
+      }
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Quale tema Telescope usa un layout dropdown compatto?",
+        "en": "Which Telescope theme uses a compact dropdown layout?"
+      },
+      "options": [
+        "themes.get_ivy()",
+        "themes.get_dropdown()",
+        "themes.get_cursor()",
+        "themes.get_minimal()"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "themes.get_dropdown() crea un layout dropdown compatto, spesso senza anteprima.",
+        "en": "themes.get_dropdown() creates a compact dropdown layout, often without preview."
+      }
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Come si inviano i risultati multi-selezionati alla quickfix list?",
+        "en": "How do you send multi-selected results to the quickfix list?"
+      },
+      "options": [
+        "Premendo Enter",
+        "Premendo <C-q>",
+        "Premendo 'q'",
+        "Premendo <C-f>"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "<C-q> esegue actions.send_to_qflist + actions.open_qflist di default.",
+        "en": "<C-q> executes actions.send_to_qflist + actions.open_qflist by default."
+      }
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Quale picker cerca testo in tutti i file aperti?",
+        "en": "Which picker searches text in all open files?"
+      },
+      "options": [
+        "live_grep con grep_open_files = true",
+        "live_grep con only_buffers = true",
+        "buffers_grep",
+        "open_files_grep"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "live_grep con l'opzione grep_open_files = true cerca solo nei file aperti.",
+        "en": "live_grep with grep_open_files = true option searches only in open files."
+      }
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Come si carica un'estensione Telescope?",
+        "en": "How do you load a Telescope extension?"
+      },
+      "options": [
+        "require('telescope').load_extension('nome')",
+        "require('telescope.extensions').load('nome')",
+        "vim.cmd('TelescopeLoad nome')",
+        "telescope.load('nome')"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "load_extension è il metodo corretto per caricare un'estensione dopo la configurazione.",
+        "en": "load_extension is the correct method to load an extension after configuration."
+      }
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Quale opzione controlla la posizione del prompt nel layout?",
+        "en": "Which option controls the prompt position in the layout?"
+      },
+      "options": [
+        "prompt_location",
+        "prompt_position",
+        "prompt_placement",
+        "prompt_align"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "prompt_position può essere 'top' o 'bottom' nel layout_config.",
+        "en": "prompt_position can be 'top' or 'bottom' in layout_config."
+      }
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Come si cerca la parola sotto il cursore?",
+        "en": "How do you search for the word under the cursor?"
+      },
+      "options": [
+        "require('telescope.builtin').grep_string()",
+        "require('telescope.builtin').find_word()",
+        "require('telescope.builtin').search_cursor()",
+        ":TelescopeGrepWord"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "grep_string cerca automaticamente la parola sotto il cursore se non specificato.",
+        "en": "grep_string automatically searches for the word under cursor if not specified."
+      }
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Quale picker mostra i file modificati in Git?",
+        "en": "Which picker shows modified files in Git?"
+      },
+      "options": [
+        "git_modified",
+        "git_status",
+        "git_changes",
+        "git_diff"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "git_status mostra tutti i file modificati, staged e unstaged.",
+        "en": "git_status shows all modified files, both staged and unstaged."
+      }
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Come si usa Telescope per code actions LSP?",
+        "en": "How do you use Telescope for LSP code actions?"
+      },
+      "options": [
+        "Richiede l'estensione ui-select configurata",
+        "È automatico con LSP",
+        "Con vim.lsp.code_action()",
+        "Non è possibile"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "L'estensione ui-select permette di usare Telescope per code actions e altre selezioni.",
+        "en": "The ui-select extension allows using Telescope for code actions and other selections."
+      }
+    }
+  ]
+}

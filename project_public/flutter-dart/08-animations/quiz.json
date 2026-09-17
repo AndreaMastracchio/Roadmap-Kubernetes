@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Quale widget è usato per animare cambiamenti di proprietà di un Container?",
+        "en": "Which widget is used to animate property changes of a Container?"
+      },
+      "options": [
+        "AnimatedWidget",
+        "AnimatedContainer",
+        "AnimatedBuilder",
+        "AnimatedView"
+      ],
+      "explanation": {
+        "it": "AnimatedContainer anima automaticamente le transizioni delle proprietà quando cambiano.",
+        "en": "AnimatedContainer automatically animates property transitions when they change."
+      },
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Quale mixin è necessario usare con AnimationController?",
+        "en": "Which mixin is required with AnimationController?"
+      },
+      "options": [
+        "TickerProviderStateMixin",
+        "AnimationMixin",
+        "ControllerMixin",
+        "ProviderMixin"
+      ],
+      "explanation": {
+        "it": "TickerProviderStateMixin fornisce il Ticker necessario per sincronizzare le animazioni con il frame rate.",
+        "en": "TickerProviderStateMixin provides the Ticker needed to synchronize animations with the frame rate."
+      },
+      "correct": 0
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Quale classe definisce l'interpolazione tra due valori?",
+        "en": "Which class defines interpolation between two values?"
+      },
+      "options": [
+        "Interpolation",
+        "Tween",
+        "Curve",
+        "Transition"
+      ],
+      "explanation": {
+        "it": "Tween (interpolation) definisce il range di valori tra begin e end.",
+        "en": "Tween (interpolation) defines the range of values between begin and end."
+      },
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Quale widget crea transizioni fluide tra schermate?",
+        "en": "Which widget creates smooth transitions between screens?"
+      },
+      "options": [
+        "TransitionWidget",
+        "Hero",
+        "Navigator",
+        "PageRoute"
+      ],
+      "explanation": {
+        "it": "Hero widget anima elementi condivisi durante la navigazione.",
+        "en": "Hero widget animates shared elements during navigation."
+      },
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Quale curva produce un effetto elastico?",
+        "en": "Which curve produces an elastic effect?"
+      },
+      "options": [
+        "Curves.easeIn",
+        "Curves.linear",
+        "Curves.elasticOut",
+        "Curves.easeInOut"
+      ],
+      "explanation": {
+        "it": "Curves.elasticOut produce un effetto elastico che supera il valore target.",
+        "en": "Curves.elasticOut produces an elastic effect that overshoots the target value."
+      },
+      "correct": 2
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Quale widget permette di animare alternanza tra due widget?",
+        "en": "Which widget allows animating alternation between two widgets?"
+      },
+      "options": [
+        "AnimatedSwitcher",
+        "AnimatedCrossFade",
+        "AnimatedReplace",
+        "AnimatedToggle"
+      ],
+      "explanation": {
+        "it": "AnimatedCrossFade fa un fade cross tra due widget con dimensioni diverse.",
+        "en": "AnimatedCrossFade does a cross fade between two widgets with different sizes."
+      },
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Come si controlla un'animazione in modo granulare?",
+        "en": "How do you control an animation granularly?"
+      },
+      "options": [
+        "AnimatedWidget",
+        "AnimationController",
+        "AnimatedListener",
+        "AnimatedStream"
+      ],
+      "explanation": {
+        "it": "AnimationController fornisce metodi come forward(), reverse(), stop(), repeat().",
+        "en": "AnimationController provides methods like forward(), reverse(), stop(), repeat()."
+      },
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Quale pacchetto si usa per animazioni Lottie?",
+        "en": "Which package is used for Lottie animations?"
+      },
+      "options": [
+        "lottie_flutter",
+        "flutter_lottie",
+        "lottie",
+        "airbnb_lottie"
+      ],
+      "explanation": {
+        "it": "Il package 'lottie' è quello ufficiale per caricare animazioni Lottie.",
+        "en": "The 'lottie' package is the official one for loading Lottie animations."
+      },
+      "correct": 2
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Quale widget ottimizza rebuild per animazioni?",
+        "en": "Which widget optimizes rebuilds for animations?"
+      },
+      "options": [
+        "AnimatedWidget",
+        "AnimatedBuilder",
+        "AnimatedListener",
+        "AnimatedContainer"
+      ],
+      "explanation": {
+        "it": "AnimatedBuilder permette di passare un child statico che non viene rebuildato.",
+        "en": "AnimatedBuilder allows passing a static child that doesn't get rebuilt."
+      },
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Quale Interval si usa per staggered animations?",
+        "en": "Which Interval is used for staggered animations?"
+      },
+      "options": [
+        "TimeInterval",
+        "DelayInterval",
+        "CurvedAnimation con Interval",
+        "StaggeredInterval"
+      ],
+      "explanation": {
+        "it": "CurvedAnimation con Interval(start, end) definisce quando un'animazione inizia e finisce.",
+        "en": "CurvedAnimation with Interval(start, end) defines when an animation starts and ends."
+      },
+      "correct": 2
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Quale proprietà identifica un Hero widget?",
+        "en": "Which property identifies a Hero widget?"
+      },
+      "options": [
+        "key",
+        "id",
+        "tag",
+        "name"
+      ],
+      "explanation": {
+        "it": "La proprietà 'tag' identifica univocamente l'elemento Hero tra le schermate.",
+        "en": "The 'tag' property uniquely identifies the Hero element between screens."
+      },
+      "correct": 2
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Quale metodo avvia un'animazione in avanti?",
+        "en": "Which method starts an animation forward?"
+      },
+      "options": [
+        "start()",
+        "play()",
+        "forward()",
+        "begin()"
+      ],
+      "explanation": {
+        "it": "_controller.forward() avvia l'animazione dal valore corrente a 1.0.",
+        "en": "_controller.forward() starts the animation from current value to 1.0."
+      },
+      "correct": 2
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Quale mixin gestisce più AnimationController?",
+        "en": "Which mixin handles multiple AnimationControllers?"
+      },
+      "options": [
+        "SingleTickerProviderStateMixin",
+        "MultipleTickerProviderStateMixin",
+        "TickerProviderStateMixin",
+        "MultiAnimationMixin"
+      ],
+      "explanation": {
+        "it": "TickerProviderStateMixin gestisce uno o più Ticker/AnimationController.",
+        "en": "TickerProviderStateMixin handles one or more Tickers/AnimationControllers."
+      },
+      "correct": 2
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Quale pacchetto si usa per animazioni Rive?",
+        "en": "Which package is used for Rive animations?"
+      },
+      "options": [
+        "rive_flutter",
+        "flutter_rive",
+        "rive",
+        "rive_animation"
+      ],
+      "explanation": {
+        "it": "Il package 'rive' è quello ufficiale per le animazioni Rive.",
+        "en": "The 'rive' package is the official one for Rive animations."
+      },
+      "correct": 2
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Come si evita il rebuild di widget costosi durante l'animazione?",
+        "en": "How do you avoid rebuilding expensive widgets during animation?"
+      },
+      "options": [
+        "const widget",
+        "passare child statico ad AnimatedBuilder",
+        "usare StatefulWidget",
+        "disabilitare rebuild"
+      ],
+      "explanation": {
+        "it": "Passare il child statico come parametro evita il rebuild a ogni frame.",
+        "en": "Passing the static child as a parameter avoids rebuilding at every frame."
+      },
+      "correct": 1
+    }
+  ]
+}

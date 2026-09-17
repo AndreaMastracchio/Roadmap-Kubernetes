@@ -1,0 +1,305 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Visualizzare log di base",
+        "en": "View basic logs"
+      },
+      "description": {
+        "it": "Mostrare i log di un pod nginx",
+        "en": "Show logs from an nginx pod"
+      },
+      "task": "1. Crea un pod nginx\n2. Visualizza i log del pod\n3. Identifica le ultime 5 righe",
+      "hints": [
+        "Usa kubectl run o create per il pod",
+        "kubectl logs mostra i log",
+        "--tail limita il numero di righe"
+      ],
+      "solution": "kubectl run nginx --image=nginx\nkubectl logs nginx\nkubectl logs nginx --tail=5",
+      "validation": "kubectl logs nginx --tail=5 | wc -l",
+      "difficulty": "easy",
+      "timeEstimate": "3 minuti"
+    },
+    {
+      "title": {
+        "it": "Log di un container precedente",
+        "en": "Logs from a previous container"
+      },
+      "description": {
+        "it": "Visualizzare log dopo un crash",
+        "en": "View logs after a crash"
+      },
+      "task": "1. Crea un pod che crasha (exit 1)\n2. Attendi il restart\n3. Visualizza i log del container precedente",
+      "hints": [
+        "Usa un comando che termina con errore",
+        "Aspetta che il pod riavvii",
+        "--previous mostra i log del container morto"
+      ],
+      "solution": "kubectl run crasher --image=busybox -- sh -c 'echo \"Starting...\" && sleep 5 && exit 1'\nsleep 10\nkubectl logs crasher --previous",
+      "validation": "kubectl logs crasher --previous 2>&1 | grep -q 'Starting' && echo 'OK' || echo 'No previous logs'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Logs in tempo reale",
+        "en": "Real-time logs"
+      },
+      "description": {
+        "it": "Seguire i log come tail -f",
+        "en": "Follow logs like tail -f"
+      },
+      "task": "1. Crea un pod che genera log continui\n2. Usa --follow per vedere i log in tempo reale\n3. Interrompi con Ctrl+C",
+      "hints": [
+        "Un loop che stampa messaggi va bene",
+        "-f o --follow attiva la modalità streaming",
+        "Ctrl+C per interrompere"
+      ],
+      "solution": "kubectl run logger --image=busybox -- sh -c 'while true; do echo \"Log at $(date)\"; sleep 1; done'\nkubectl logs logger -f",
+      "validation": "timeout 5 kubectl logs logger -f 2>&1 | head -3",
+      "difficulty": "easy",
+      "timeEstimate": "4 minuti"
+    },
+    {
+      "title": {
+        "it": "Logs multi-container",
+        "en": "Multi-container logs"
+      },
+      "description": {
+        "it": "Visualizzare log di container specifici",
+        "en": "View logs from specific containers"
+      },
+      "task": "1. Crea un pod con 2 container\n2. Visualizza i log del primo container\n3. Visualizza i log del secondo container",
+      "hints": [
+        "Definisci due container nello stesso pod",
+        "-c specifica il container",
+        "Il nome del container è nel manifest"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: multi-log\nspec:\n  containers:\n  - name: app1\n    image: busybox\n    command: ['sh', '-c', 'while true; do echo \"app1: $(date)\"; sleep 2; done']\n  - name: app2\n    image: busybox\n    command: ['sh', '-c', 'while true; do echo \"app2: $(date)\"; sleep 3; done']\nEOF\n\nkubectl logs multi-log -c app1\nkubectl logs multi-log -c app2",
+      "validation": "kubectl logs multi-log -c app1 --tail=1 | grep -q 'app1' && kubectl logs multi-log -c app2 --tail=1 | grep -q 'app2' && echo 'OK'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Monitorare risorse",
+        "en": "Monitor resources"
+      },
+      "description": {
+        "it": "Usare kubectl top",
+        "en": "Use kubectl top"
+      },
+      "task": "1. Verifica che metrics-server sia disponibile\n2. Mostra l'utilizzo CPU/memoria dei pod\n3. Mostra l'utilizzo dei nodi",
+      "hints": [
+        "kubectl top pods richiede metrics-server",
+        "kubectl top nodes per i nodi",
+        "Se non funziona, metrics-server potrebbe mancare"
+      ],
+      "solution": "kubectl top pods\nkubectl top nodes\nkubectl top pods --sort-by=memory",
+      "validation": "kubectl top pods 2>&1 | head -5",
+      "difficulty": "easy",
+      "timeEstimate": "4 minuti"
+    },
+    {
+      "title": {
+        "it": "Eseguire comandi in un pod",
+        "en": "Execute commands in a pod"
+      },
+      "description": {
+        "it": "Usare kubectl exec per debug",
+        "en": "Use kubectl exec for debugging"
+      },
+      "task": "1. Crea un pod nginx\n2. Esegui 'ls /etc/nginx' nel container\n3. Apri una shell interattiva",
+      "hints": [
+        "kubectl exec <pod> -- <comando>",
+        "-it per shell interattiva",
+        "sh o bash per la shell"
+      ],
+      "solution": "kubectl run nginx --image=nginx\nkubectl exec nginx -- ls /etc/nginx\nkubectl exec -it nginx -- sh",
+      "validation": "kubectl exec nginx -- ls /etc/nginx | grep nginx.conf",
+      "difficulty": "easy",
+      "timeEstimate": "4 minuti"
+    },
+    {
+      "title": {
+        "it": "Diagnosticare CrashLoopBackOff",
+        "en": "Diagnose CrashLoopBackOff"
+      },
+      "description": {
+        "it": "Analizzare un pod in crash",
+        "en": "Analyze a crashing pod"
+      },
+      "task": "1. Crea un pod che crasha con exit 1\n2. Descrivi il pod e identifica il problema\n3. Controlla gli eventi e i log precedenti",
+      "hints": [
+        "kubectl describe mostra stato e eventi",
+        "CrashLoopBackOff indica crash ripetuti",
+        "--previous per vedere i log del crash"
+      ],
+      "solution": "kubectl run crasher --image=busybox -- sh -c 'exit 1'\nkubectl get pods -w &\nkubectl describe pod crasher\nkubectl logs crasher --previous",
+      "validation": "kubectl get pod crasher -o jsonpath='{.status.containerStatuses[0].state.waiting.reason}'",
+      "difficulty": "medium",
+      "timeEstimate": "7 minuti"
+    },
+    {
+      "title": {
+        "it": "Diagnosticare ImagePullBackOff",
+        "en": "Diagnose ImagePullBackOff"
+      },
+      "description": {
+        "it": "Risolvere problemi di immagine",
+        "en": "Resolve image issues"
+      },
+      "task": "1. Crea un pod con immagine inesistente\n2. Identifica l'errore con describe\n3. Correggi l'immagine e aggiorna il pod",
+      "hints": [
+        "Usa un nome immagine sbagliato",
+        "ImagePullBackOff appare in describe",
+        "kubectl set image per aggiornare"
+      ],
+      "solution": "kubectl run bad-image --image=nginx:nonexistent\nekubectl describe pod bad-image | grep -A5 Events\nkubectl set image pod/bad-image bad-image=nginx:latest",
+      "validation": "kubectl describe pod bad-image 2>&1 | grep -c 'ImagePullBackOff' || echo 'Fixed or pod not found'",
+      "difficulty": "medium",
+      "timeEstimate": "6 minuti"
+    },
+    {
+      "title": {
+        "it": "Analizzare gli eventi",
+        "en": "Analyze events"
+      },
+      "description": {
+        "it": "Esaminare eventi del cluster",
+        "en": "Examine cluster events"
+      },
+      "task": "1. Visualizza tutti gli eventi del namespace\n2. Ordina per timestamp\n3. Filtra per tipo di evento (Warning)",
+      "hints": [
+        "kubectl get events elenca gli eventi",
+        "--sort-by='.lastTimestamp' ordina",
+        "--field-selector type=Warning filtra"
+      ],
+      "solution": "kubectl get events\nkubectl get events --sort-by='.lastTimestamp'\nkubectl get events --field-selector type=Warning",
+      "validation": "kubectl get events --sort-by='.lastTimestamp' | head -5",
+      "difficulty": "medium",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Logs con filtro temporale",
+        "en": "Logs with time filter"
+      },
+      "description": {
+        "it": "Filtrare log per tempo",
+        "en": "Filter logs by time"
+      },
+      "task": "1. Crea un pod che logga timestamp\n2. Visualizza solo log degli ultimi 30 secondi\n3. Visualizza log con timestamp Kubernetes",
+      "hints": [
+        "--since=30s per gli ultimi 30 secondi",
+        "--timestamps aggiunge timestamp K8s",
+        "Funziona solo con log recenti"
+      ],
+      "solution": "kubectl run timed-logger --image=busybox -- sh -c 'while true; do echo \"$(date)\"; sleep 1; done'\nsleep 10\nkubectl logs timed-logger --since=30s\nkubectl logs timed-logger --timestamps",
+      "validation": "kubectl logs timed-logger --timestamps --tail=3",
+      "difficulty": "medium",
+      "timeEstimate": "6 minuti"
+    },
+    {
+      "title": {
+        "it": "Logs da deployment",
+        "en": "Logs from deployment"
+      },
+      "description": {
+        "it": "Raccogliere log da tutti i pod",
+        "en": "Collect logs from all pods"
+      },
+      "task": "1. Crea un deployment con 3 repliche\n2. Visualizza i log del deployment\n3. Usa un label selector per filtrare",
+      "hints": [
+        "kubectl logs deployment/<name> raccoglie da tutti i pod",
+        "Alternativa: kubectl logs -l app=<name>",
+        "--all-containers per tutti i container"
+      ],
+      "solution": "kubectl create deployment web --image=nginx --replicas=3\nkubectl logs deployment/web\nkubectl logs -l app=web",
+      "validation": "kubectl logs deployment/web --tail=3 | wc -l",
+      "difficulty": "medium",
+      "timeEstimate": "6 minuti"
+    },
+    {
+      "title": {
+        "it": "Copiare file da pod",
+        "en": "Copy files from pod"
+      },
+      "description": {
+        "it": "Estrarre file per analisi",
+        "en": "Extract files for analysis"
+      },
+      "task": "1. Crea un pod con un file di dati\n2. Copia il file dal pod alla macchina locale\n3. Verifica il contenuto",
+      "hints": [
+        "kubectl cp <pod>:<path> <local-path>",
+        "cp copia in entrambe le direzioni",
+        "È come scp per i pod"
+      ],
+      "solution": "kubectl run file-pod --image=busybox -- sh -c 'echo \"test data\" > /tmp/data.txt && sleep 3600'\nkubectl cp file-pod:/tmp/data.txt ./data.txt\ncat ./data.txt",
+      "validation": "cat ./data.txt && rm ./data.txt",
+      "difficulty": "medium",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Ephemeral container per debug",
+        "en": "Ephemeral container for debugging"
+      },
+      "description": {
+        "it": "Aggiungere container temporaneo",
+        "en": "Add temporary container"
+      },
+      "task": "1. Crea un pod minimale (distroless)\n2. Usa kubectl debug per aggiungere un container\n3. Esegui comandi di debug nel container ephemeral",
+      "hints": [
+        "kubectl debug <pod> -it --image=<image>",
+        "Il container si unisce al namespace del pod",
+        "Puoi usare strumenti non presenti nell'immagine originale"
+      ],
+      "solution": "kubectl run minimal --image=gcr.io/google-containers/pause\nekubectl debug minimal -it --image=busybox\n# Nel container debug:\nls /proc/1/root\ncat /proc/1/root/etc/hostname",
+      "validation": "kubectl get pod minimal -o jsonpath='{.spec.ephemeralContainers}' | jq length",
+      "difficulty": "hard",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Debug networking con ephemeral",
+        "en": "Debug networking with ephemeral"
+      },
+      "description": {
+        "it": "Testare connettività da dentro il pod",
+        "en": "Test connectivity from inside pod"
+      },
+      "task": "1. Crea un servizio nginx\n2. Usa ephemeral container per testare connettività\n3. Verifica DNS e raggiungibilità servizio",
+      "hints": [
+        "Crea un Service ClusterIP per nginx",
+        "Nel container debug: nslookup, curl, wget",
+        "curl http://nginx o wget -qO- nginx"
+      ],
+      "solution": "kubectl run nginx --image=nginx\nkubectl expose pod nginx --port=80\nkubectl debug nginx -it --image=curlimages/curl -- curl http://localhost\nkubectl debug nginx -it --image=busybox -- nslookup nginx",
+      "validation": "kubectl debug nginx -it --image=busybox -- nslookup nginx 2>&1 | grep -q 'Server' && echo 'OK' || echo 'DNS check failed'",
+      "difficulty": "hard",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Scenario completo: debug applicazione",
+        "en": "Complete scenario: debug application"
+      },
+      "description": {
+        "it": "Diagnosticare un deployment problematico",
+        "en": "Diagnose a problematic deployment"
+      },
+      "task": "1. Crea un deployment con problemi (immagine sbagliata)\n2. Identifica e documenta: stato pod, eventi, log\n3. Correggi il deployment\n4. Verifica il rollback con rollout history",
+      "hints": [
+        "Usa kubectl describe per lo stato",
+        "kubectl get events per gli eventi",
+        "kubectl set image per correggere",
+        "kubectl rollout status per verificare"
+      ],
+      "solution": "# Crea deployment problematico\nkubectl create deployment broken --image=nginx:bogus --replicas=2\n\n# Diagnosi\nkubectl get pods -l app=broken\nkubectl describe deployment broken\nkubectl get events --field-selector involvedObject.name=broken\n\n# Correzione\nkubectl set image deployment/broken nginx=nginx:latest\nkubectl rollout status deployment/broken\n\n# Verifica\nkubectl get pods -l app=broken",
+      "validation": "kubectl rollout status deployment/broken && kubectl get pods -l app=broken -o 'jsonpath={.items[*].status.phase}'",
+      "difficulty": "hard",
+      "timeEstimate": "12 minuti"
+    }
+  ]
+}

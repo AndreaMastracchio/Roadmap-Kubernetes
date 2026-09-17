@@ -1,7 +1,10 @@
 {
   "quiz": [
     {
-      "question": "[Container] Quale tecnologia del kernel Linux fornisce l'isolamento delle risorse (CPU, RAM)?",
+      "question": {
+        "it": "[Container] Quale tecnologia del kernel Linux fornisce l'isolamento delle risorse (CPU, RAM)?",
+        "en": "[Container] Quale tecnologia del kernel Linux fornisce l'isolamento delle risorse (CPU, RAM)?"
+      },
       "options": [
         "Namespaces",
         "Control Groups (cgroups)",
@@ -9,10 +12,16 @@
         "AppArmor"
       ],
       "correct": 1,
-      "explanation": "I cgroups (Control Groups) gestiscono l'allocazione e la limitazione delle risorse hardware per i processi."
+      "explanation": {
+        "it": "I cgroups (Control Groups) gestiscono l'allocazione e la limitazione delle risorse hardware per i processi.",
+        "en": "I cgroups (Control Groups) gestiscono l'allocazione e la limitazione delle risorse hardware per i processi."
+      }
     },
     {
-      "question": "[Container] Qual è il vantaggio principale del multi-stage build?",
+      "question": {
+        "it": "[Container] Qual è il vantaggio principale del multi-stage build?",
+        "en": "[Container] Qual è il vantaggio principale del multi-stage build?"
+      },
       "options": [
         "Build più veloci",
         "Immagini finali più piccole separando build da runtime",
@@ -20,10 +29,16 @@
         "Migliore caching"
       ],
       "correct": 1,
-      "explanation": "Il multi-stage build permette di separare l'ambiente di build da quello di runtime, producendo immagini finali molto più piccole e sicure."
+      "explanation": {
+        "it": "Il multi-stage build permette di separare l'ambiente di build da quello di runtime, producendo immagini finali molto più piccole e sicure.",
+        "en": "Il multi-stage build permette di separare l'ambiente di build da quello di runtime, producendo immagini finali molto più piccole e sicure."
+      }
     },
     {
-      "question": "[Architettura] Quale componente è l'unico che può scrivere direttamente in etcd?",
+      "question": {
+        "it": "[Architettura] Quale componente è l'unico che può scrivere direttamente in etcd?",
+        "en": "[Architettura] Quale componente è l'unico che può scrivere direttamente in etcd?"
+      },
       "options": [
         "kubelet",
         "kube-apiserver",
@@ -31,10 +46,16 @@
         "kubectl"
       ],
       "correct": 1,
-      "explanation": "Solo l'API Server comunica direttamente con etcd per motivi di sicurezza e coerenza dei dati."
+      "explanation": {
+        "it": "Solo l'API Server comunica direttamente con etcd per motivi di sicurezza e coerenza dei dati.",
+        "en": "Solo l'API Server comunica direttamente con etcd per motivi di sicurezza e coerenza dei dati."
+      }
     },
     {
-      "question": "[Architettura] Cosa fa il Reconciliation Loop?",
+      "question": {
+        "it": "[Architettura] Cosa fa il Reconciliation Loop?",
+        "en": "[Architettura] Cosa fa il Reconciliation Loop?"
+      },
       "options": [
         "Sincronizza i nodi",
         "Osserva stato attuale, confronta con desiderato e agisce per convergere",
@@ -42,10 +63,16 @@
         "Monitora le performance"
       ],
       "correct": 1,
-      "explanation": "Il Reconciliation Loop è il pattern fondamentale di K8s: osserva continuamente lo stato e agisce per farlo convergere verso lo stato desiderato."
+      "explanation": {
+        "it": "Il Reconciliation Loop è il pattern fondamentale di K8s: osserva continuamente lo stato e agisce per farlo convergere verso lo stato desiderato.",
+        "en": "Il Reconciliation Loop è il pattern fondamentale di K8s: osserva continuamente lo stato e agisce per farlo convergere verso lo stato desiderato."
+      }
     },
     {
-      "question": "[Risorse] Cosa succede se un Liveness Probe fallisce?",
+      "question": {
+        "it": "[Risorse] Cosa succede se un Liveness Probe fallisce?",
+        "en": "[Risorse] Cosa succede se un Liveness Probe fallisce?"
+      },
       "options": [
         "Il Pod viene eliminato",
         "Kubelet riavvia il container",
@@ -53,10 +80,16 @@
         "Viene inviato un alert"
       ],
       "correct": 1,
-      "explanation": "Se il Liveness Probe fallisce, kubelet interpreta il container come non funzionante e lo riavvia automaticamente."
+      "explanation": {
+        "it": "Se il Liveness Probe fallisce, kubelet interpreta il container come non funzionante e lo riavvia automaticamente.",
+        "en": "Se il Liveness Probe fallisce, kubelet interpreta il container come non funzionante e lo riavvia automaticamente."
+      }
     },
     {
-      "question": "[Risorse] Quale workload useresti per un database che richiede identità stabile?",
+      "question": {
+        "it": "[Risorse] Quale workload useresti per un database che richiede identità stabile?",
+        "en": "[Risorse] Quale workload useresti per un database che richiede identità stabile?"
+      },
       "options": [
         "Deployment",
         "StatefulSet",
@@ -64,10 +97,16 @@
         "Job"
       ],
       "correct": 1,
-      "explanation": "StatefulSet fornisce identità stabile, storage persistente dedicato e ordine di avvio/terminazione, ideale per database."
+      "explanation": {
+        "it": "StatefulSet fornisce identità stabile, storage persistente dedicato e ordine di avvio/terminazione, ideale per database.",
+        "en": "StatefulSet fornisce identità stabile, storage persistente dedicato e ordine di avvio/terminazione, ideale per database."
+      }
     },
     {
-      "question": "[Networking] Qual è il FQDN di un Service 'api' nel namespace 'prod'?",
+      "question": {
+        "it": "[Networking] Qual è il FQDN di un Service 'api' nel namespace 'prod'?",
+        "en": "[Networking] Qual è il FQDN di un Service 'api' nel namespace 'prod'?"
+      },
       "options": [
         "api.prod",
         "api.prod.svc.cluster.local",
@@ -75,10 +114,16 @@
         "api.svc.prod.cluster.local"
       ],
       "correct": 1,
-      "explanation": "Il formato FQDN è: <service>.<namespace>.svc.cluster.local"
+      "explanation": {
+        "it": "Il formato FQDN è: <service>.<namespace>.svc.cluster.local",
+        "en": "Il formato FQDN è: <service>.<namespace>.svc.cluster.local"
+      }
     },
     {
-      "question": "[Networking] Di default, quale politica di rete ha Kubernetes?",
+      "question": {
+        "it": "[Networking] Di default, quale politica di rete ha Kubernetes?",
+        "en": "[Networking] Di default, quale politica di rete ha Kubernetes?"
+      },
       "options": [
         "Tutto bloccato",
         "Tutto permesso (rete aperta)",
@@ -86,10 +131,16 @@
         "Solo HTTPS permesso"
       ],
       "correct": 1,
-      "explanation": "Di default, K8s ha una rete aperta dove ogni Pod può comunicare con ogni altro Pod. Le Network Policies servono per restringere."
+      "explanation": {
+        "it": "Di default, K8s ha una rete aperta dove ogni Pod può comunicare con ogni altro Pod. Le Network Policies servono per restringere.",
+        "en": "Di default, K8s ha una rete aperta dove ogni Pod può comunicare con ogni altro Pod. Le Network Policies servono per restringere."
+      }
     },
     {
-      "question": "[Storage] Quale Access Mode permette a più nodi di montare un volume in lettura/scrittura?",
+      "question": {
+        "it": "[Storage] Quale Access Mode permette a più nodi di montare un volume in lettura/scrittura?",
+        "en": "[Storage] Quale Access Mode permette a più nodi di montare un volume in lettura/scrittura?"
+      },
       "options": [
         "ReadWriteOnce (RWO)",
         "ReadOnlyMany (ROX)",
@@ -97,10 +148,16 @@
         "ReadWriteOncePod (RWOP)"
       ],
       "correct": 2,
-      "explanation": "ReadWriteMany (RWX) permette a più nodi di montare il volume in lettura/scrittura contemporaneamente (richiede storage compatibile come NFS)."
+      "explanation": {
+        "it": "ReadWriteMany (RWX) permette a più nodi di montare il volume in lettura/scrittura contemporaneamente (richiede storage compatibile come NFS).",
+        "en": "ReadWriteMany (RWX) permette a più nodi di montare il volume in lettura/scrittura contemporaneamente (richiede storage compatibile come NFS)."
+      }
     },
     {
-      "question": "[Storage] Cosa fa una StorageClass?",
+      "question": {
+        "it": "[Storage] Cosa fa una StorageClass?",
+        "en": "[Storage] Cosa fa una StorageClass?"
+      },
       "options": [
         "Classifica i volumi per dimensione",
         "Abilita il provisioning dinamico dei volumi",
@@ -108,10 +165,16 @@
         "Controlla l'accesso"
       ],
       "correct": 1,
-      "explanation": "Una StorageClass abilita il provisioning dinamico: quando crei un PVC, K8s crea automaticamente il volume fisico e il PV."
+      "explanation": {
+        "it": "Una StorageClass abilita il provisioning dinamico: quando crei un PVC, K8s crea automaticamente il volume fisico e il PV.",
+        "en": "Una StorageClass abilita il provisioning dinamico: quando crei un PVC, K8s crea automaticamente il volume fisico e il PV."
+      }
     },
     {
-      "question": "[Sicurezza] Qual è la differenza tra Role e ClusterRole?",
+      "question": {
+        "it": "[Sicurezza] Qual è la differenza tra Role e ClusterRole?",
+        "en": "[Sicurezza] Qual è la differenza tra Role e ClusterRole?"
+      },
       "options": [
         "Role ha più permessi",
         "Role è namespace-scoped, ClusterRole è cluster-scoped",
@@ -119,10 +182,16 @@
         "Non c'è differenza"
       ],
       "correct": 1,
-      "explanation": "Role definisce permessi in un namespace specifico. ClusterRole definisce permessi a livello di cluster."
+      "explanation": {
+        "it": "Role definisce permessi in un namespace specifico. ClusterRole definisce permessi a livello di cluster.",
+        "en": "Role definisce permessi in un namespace specifico. ClusterRole definisce permessi a livello di cluster."
+      }
     },
     {
-      "question": "[Sicurezza] Cosa fa 'runAsNonRoot: true'?",
+      "question": {
+        "it": "[Sicurezza] Cosa fa 'runAsNonRoot: true'?",
+        "en": "[Sicurezza] Cosa fa 'runAsNonRoot: true'?"
+      },
       "options": [
         "Crea un nuovo utente",
         "Impedisce l'esecuzione del container come root",
@@ -130,10 +199,16 @@
         "Cambia i permessi"
       ],
       "correct": 1,
-      "explanation": "runAsNonRoot: true impedisce l'esecuzione come root. Se l'immagine prova a girare come root, il container fallisce."
+      "explanation": {
+        "it": "runAsNonRoot: true impedisce l'esecuzione come root. Se l'immagine prova a girare come root, il container fallisce.",
+        "en": "runAsNonRoot: true impedisce l'esecuzione come root. Se l'immagine prova a girare come root, il container fallisce."
+      }
     },
     {
-      "question": "[Helm] Cos'è una Release in Helm?",
+      "question": {
+        "it": "[Helm] Cos'è una Release in Helm?",
+        "en": "[Helm] Cos'è una Release in Helm?"
+      },
       "options": [
         "Una versione di K8s",
         "Un'istanza di una Chart installata nel cluster",
@@ -141,10 +216,16 @@
         "Una versione di Helm"
       ],
       "correct": 1,
-      "explanation": "Una Release è un'istanza di una Chart installata. Puoi installare la stessa Chart più volte con nomi diversi."
+      "explanation": {
+        "it": "Una Release è un'istanza di una Chart installata. Puoi installare la stessa Chart più volte con nomi diversi.",
+        "en": "Una Release è un'istanza di una Chart installata. Puoi installare la stessa Chart più volte con nomi diversi."
+      }
     },
     {
-      "question": "[Helm] Come fai rollback di una release?",
+      "question": {
+        "it": "[Helm] Come fai rollback di una release?",
+        "en": "[Helm] Come fai rollback di una release?"
+      },
       "options": [
         "helm undo",
         "helm rollback <release> <revision>",
@@ -152,10 +233,16 @@
         "helm restore"
       ],
       "correct": 1,
-      "explanation": "helm rollback <release-name> <revision> torna a una revisione precedente della release."
+      "explanation": {
+        "it": "helm rollback <release-name> <revision> torna a una revisione precedente della release.",
+        "en": "helm rollback <release-name> <revision> torna a una revisione precedente della release."
+      }
     },
     {
-      "question": "[Operatori] Cos'è una Custom Resource Definition (CRD)?",
+      "question": {
+        "it": "[Operatori] Cos'è una Custom Resource Definition (CRD)?",
+        "en": "[Operatori] Cos'è una Custom Resource Definition (CRD)?"
+      },
       "options": [
         "Un tipo di Pod",
         "Una definizione che permette di creare nuovi tipi di risorse",
@@ -163,10 +250,16 @@
         "Una configurazione"
       ],
       "correct": 1,
-      "explanation": "Una CRD permette di estendere K8s definendo nuovi tipi di risorse personalizzate oltre a quelle standard."
+      "explanation": {
+        "it": "Una CRD permette di estendere K8s definendo nuovi tipi di risorse personalizzate oltre a quelle standard.",
+        "en": "Una CRD permette di estendere K8s definendo nuovi tipi di risorse personalizzate oltre a quelle standard."
+      }
     },
     {
-      "question": "[Operatori] Quale libreria Go è ufficiale per interagire con l'API Server?",
+      "question": {
+        "it": "[Operatori] Quale libreria Go è ufficiale per interagire con l'API Server?",
+        "en": "[Operatori] Quale libreria Go è ufficiale per interagire con l'API Server?"
+      },
       "options": [
         "kube-go",
         "client-go",
@@ -174,10 +267,16 @@
         "api-client"
       ],
       "correct": 1,
-      "explanation": "client-go è la libreria ufficiale Go per interagire con l'API Server. Include Informers, Listers e client per tutte le risorse."
+      "explanation": {
+        "it": "client-go è la libreria ufficiale Go per interagire con l'API Server. Include Informers, Listers e client per tutte le risorse.",
+        "en": "client-go è la libreria ufficiale Go per interagire con l'API Server. Include Informers, Listers e client per tutte le risorse."
+      }
     },
     {
-      "question": "[Comandi] Come visualizzi i Pod con IP e nodo?",
+      "question": {
+        "it": "[Comandi] Come visualizzi i Pod con IP e nodo?",
+        "en": "[Comandi] Come visualizzi i Pod con IP e nodo?"
+      },
       "options": [
         "kubectl get pods --details",
         "kubectl get pods -o wide",
@@ -185,10 +284,16 @@
         "kubectl get pods --full"
       ],
       "correct": 1,
-      "explanation": "kubectl get pods -o wide mostra informazioni extra come IP del Pod, nodo su cui gira e readiness gates."
+      "explanation": {
+        "it": "kubectl get pods -o wide mostra informazioni extra come IP del Pod, nodo su cui gira e readiness gates.",
+        "en": "kubectl get pods -o wide mostra informazioni extra come IP del Pod, nodo su cui gira e readiness gates."
+      }
     },
     {
-      "question": "[Comandi] Come segui i log in tempo reale?",
+      "question": {
+        "it": "[Comandi] Come segui i log in tempo reale?",
+        "en": "[Comandi] Come segui i log in tempo reale?"
+      },
       "options": [
         "kubectl logs <pod> --watch",
         "kubectl logs -f <pod>",
@@ -196,10 +301,16 @@
         "kubectl logs <pod> --tail"
       ],
       "correct": 1,
-      "explanation": "kubectl logs -f <pod> segue i log in tempo reale (follow), equivalente a 'tail -f'."
+      "explanation": {
+        "it": "kubectl logs -f <pod> segue i log in tempo reale (follow), equivalente a 'tail -f'.",
+        "en": "kubectl logs -f <pod> segue i log in tempo reale (follow), equivalente a 'tail -f'."
+      }
     },
     {
-      "question": "[Troubleshooting] Un Service non ha Endpoints. Qual è la causa più probabile?",
+      "question": {
+        "it": "[Troubleshooting] Un Service non ha Endpoints. Qual è la causa più probabile?",
+        "en": "[Troubleshooting] Un Service non ha Endpoints. Qual è la causa più probabile?"
+      },
       "options": [
         "Il Service è LoadBalancer",
         "Il selector non trova Pod o i Pod hanno fallito Readiness Probe",
@@ -207,10 +318,16 @@
         "Mancano risorse"
       ],
       "correct": 1,
-      "explanation": "Se gli Endpoints sono vuoti, il selector non trova Pod con le label corrette, oppure i Pod hanno fallito il Readiness Probe."
+      "explanation": {
+        "it": "Se gli Endpoints sono vuoti, il selector non trova Pod con le label corrette, oppure i Pod hanno fallito il Readiness Probe.",
+        "en": "Se gli Endpoints sono vuoti, il selector non trova Pod con le label corrette, oppure i Pod hanno fallito il Readiness Probe."
+      }
     },
     {
-      "question": "[Troubleshooting] Come verifichi se hai il permesso di creare Pod?",
+      "question": {
+        "it": "[Troubleshooting] Come verifichi se hai il permesso di creare Pod?",
+        "en": "[Troubleshooting] Come verifichi se hai il permesso di creare Pod?"
+      },
       "options": [
         "kubectl check permissions",
         "kubectl auth can-i create pods",
@@ -218,10 +335,16 @@
         "kubectl test rbac"
       ],
       "correct": 1,
-      "explanation": "kubectl auth can-i create pods verifica se hai il permesso. Restituisce yes/no."
+      "explanation": {
+        "it": "kubectl auth can-i create pods verifica se hai il permesso. Restituisce yes/no.",
+        "en": "kubectl auth can-i create pods verifica se hai il permesso. Restituisce yes/no."
+      }
     },
     {
-      "question": "[Best Practice] Quale strategia di aggiornamento evita downtime?",
+      "question": {
+        "it": "[Best Practice] Quale strategia di aggiornamento evita downtime?",
+        "en": "[Best Practice] Quale strategia di aggiornamento evita downtime?"
+      },
       "options": [
         "Recreate",
         "RollingUpdate",
@@ -229,10 +352,16 @@
         "Restart"
       ],
       "correct": 1,
-      "explanation": "RollingUpdate sostituisce i Pod gradualmente uno alla volta, garantendo zero downtime."
+      "explanation": {
+        "it": "RollingUpdate sostituisce i Pod gradualmente uno alla volta, garantendo zero downtime.",
+        "en": "RollingUpdate sostituisce i Pod gradualmente uno alla volta, garantendo zero downtime."
+      }
     },
     {
-      "question": "[Best Practice] Perché è importante usare image digest invece di tag in produzione?",
+      "question": {
+        "it": "[Best Practice] Perché è importante usare image digest invece di tag in produzione?",
+        "en": "[Best Practice] Perché è importante usare image digest invece di tag in produzione?"
+      },
       "options": [
         "I digest sono più corti",
         "I tag sono mutabili, i digest sono immutabili",
@@ -240,10 +369,16 @@
         "I tag non funzionano con K8s"
       ],
       "correct": 1,
-      "explanation": "Un tag come 'latest' può cambiare. Un digest SHA256 identifica univocamente un'immagine, garantendo riproducibilità."
+      "explanation": {
+        "it": "Un tag come 'latest' può cambiare. Un digest SHA256 identifica univocamente un'immagine, garantendo riproducibilità.",
+        "en": "Un tag come 'latest' può cambiare. Un digest SHA256 identifica univocamente un'immagine, garantendo riproducibilità."
+      }
     },
     {
-      "question": "[Best Practice] Quale Reclaim Policy mantiene il volume dopo l'eliminazione del PVC?",
+      "question": {
+        "it": "[Best Practice] Quale Reclaim Policy mantiene il volume dopo l'eliminazione del PVC?",
+        "en": "[Best Practice] Quale Reclaim Policy mantiene il volume dopo l'eliminazione del PVC?"
+      },
       "options": [
         "Delete",
         "Retain",
@@ -251,10 +386,16 @@
         "Archive"
       ],
       "correct": 1,
-      "explanation": "Reclaim Policy 'Retain' mantiene il volume fisico intatto per recupero manuale. 'Delete' lo cancella automaticamente."
+      "explanation": {
+        "it": "Reclaim Policy 'Retain' mantiene il volume fisico intatto per recupero manuale. 'Delete' lo cancella automaticamente.",
+        "en": "Reclaim Policy 'Retain' mantiene il volume fisico intatto per recupero manuale. 'Delete' lo cancella automaticamente."
+      }
     },
     {
-      "question": "[Best Practice] Quanti nodi etcd sono consigliati per HA?",
+      "question": {
+        "it": "[Best Practice] Quanti nodi etcd sono consigliati per HA?",
+        "en": "[Best Practice] Quanti nodi etcd sono consigliati per HA?"
+      },
       "options": [
         "2 per ridondanza",
         "Numero dispari (3, 5, 7) per il quorum",
@@ -262,10 +403,16 @@
         "1 con backup"
       ],
       "correct": 1,
-      "explanation": "etcd richiede un numero dispari di nodi per raggiungere il quorum (maggioranza) necessario per le decisioni distribuite."
+      "explanation": {
+        "it": "etcd richiede un numero dispari di nodi per raggiungere il quorum (maggioranza) necessario per le decisioni distribuite.",
+        "en": "etcd richiede un numero dispari di nodi per raggiungere il quorum (maggioranza) necessario per le decisioni distribuite."
+      }
     },
     {
-      "question": "[Scenario] Devi eseguire un agent di monitoring su ogni nodo. Quale workload usi?",
+      "question": {
+        "it": "[Scenario] Devi eseguire un agent di monitoring su ogni nodo. Quale workload usi?",
+        "en": "[Scenario] Devi eseguire un agent di monitoring su ogni nodo. Quale workload usi?"
+      },
       "options": [
         "Deployment",
         "StatefulSet",
@@ -273,10 +420,16 @@
         "Job"
       ],
       "correct": 2,
-      "explanation": "DaemonSet assicura che una copia del Pod giri su ogni nodo, ideale per monitoring agents, log collectors, network plugins."
+      "explanation": {
+        "it": "DaemonSet assicura che una copia del Pod giri su ogni nodo, ideale per monitoring agents, log collectors, network plugins.",
+        "en": "DaemonSet assicura che una copia del Pod giri su ogni nodo, ideale per monitoring agents, log collectors, network plugins."
+      }
     },
     {
-      "question": "[Scenario] Devi eseguire un backup notturno. Quale workload usi?",
+      "question": {
+        "it": "[Scenario] Devi eseguire un backup notturno. Quale workload usi?",
+        "en": "[Scenario] Devi eseguire un backup notturno. Quale workload usi?"
+      },
       "options": [
         "Deployment",
         "StatefulSet",
@@ -284,10 +437,16 @@
         "CronJob"
       ],
       "correct": 3,
-      "explanation": "CronJob esegue Job su schedule (sintassi cron). Perfetto per task periodici come backup, cleanup, report."
+      "explanation": {
+        "it": "CronJob esegue Job su schedule (sintassi cron). Perfetto per task periodici come backup, cleanup, report.",
+        "en": "CronJob esegue Job su schedule (sintassi cron). Perfetto per task periodici come backup, cleanup, report."
+      }
     },
     {
-      "question": "[Scenario] Un Pod non riesce a fare pull dell'immagine. Cosa controlli?",
+      "question": {
+        "it": "[Scenario] Un Pod non riesce a fare pull dell'immagine. Cosa controlli?",
+        "en": "[Scenario] Un Pod non riesce a fare pull dell'immagine. Cosa controlli?"
+      },
       "options": [
         "Le risorse del nodo",
         "Il Secret per il registry privato e la connettività di rete",
@@ -295,10 +454,16 @@
         "Le Network Policies"
       ],
       "correct": 1,
-      "explanation": "Controlla se serve un imagePullSecret per registry privati e se il nodo ha connettività verso il registry."
+      "explanation": {
+        "it": "Controlla se serve un imagePullSecret per registry privati e se il nodo ha connettività verso il registry.",
+        "en": "Controlla se serve un imagePullSecret per registry privati e se il nodo ha connettività verso il registry."
+      }
     },
     {
-      "question": "[Scenario] Vuoi esporre più servizi HTTP su un singolo IP. Cosa usi?",
+      "question": {
+        "it": "[Scenario] Vuoi esporre più servizi HTTP su un singolo IP. Cosa usi?",
+        "en": "[Scenario] Vuoi esporre più servizi HTTP su un singolo IP. Cosa usi?"
+      },
       "options": [
         "Multipli Service LoadBalancer",
         "Ingress con routing rules",
@@ -306,10 +471,16 @@
         "ClusterIP"
       ],
       "correct": 1,
-      "explanation": "Ingress permette di gestire il traffico HTTP/HTTPS per più servizi usando un unico punto di ingresso con routing rules."
+      "explanation": {
+        "it": "Ingress permette di gestire il traffico HTTP/HTTPS per più servizi usando un unico punto di ingresso con routing rules.",
+        "en": "Ingress permette di gestire il traffico HTTP/HTTPS per più servizi usando un unico punto di ingresso con routing rules."
+      }
     },
     {
-      "question": "[Scenario] Devi bloccare tutto il traffico in uscita da un Pod tranne DNS. Cosa usi?",
+      "question": {
+        "it": "[Scenario] Devi bloccare tutto il traffico in uscita da un Pod tranne DNS. Cosa usi?",
+        "en": "[Scenario] Devi bloccare tutto il traffico in uscita da un Pod tranne DNS. Cosa usi?"
+      },
       "options": [
         "Service Mesh",
         "Egress Network Policy che permette solo porta 53",
@@ -317,10 +488,16 @@
         "Security Context"
       ],
       "correct": 1,
-      "explanation": "Crea una Egress Network Policy che blocca tutto tranne il traffico verso porta 53 (DNS) nel namespace kube-system."
+      "explanation": {
+        "it": "Crea una Egress Network Policy che blocca tutto tranne il traffico verso porta 53 (DNS) nel namespace kube-system.",
+        "en": "Crea una Egress Network Policy che blocca tutto tranne il traffico verso porta 53 (DNS) nel namespace kube-system."
+      }
     },
     {
-      "question": "[Certificazione] Quale comando crea un Deployment imperativo (utile per CKA/CKAD)?",
+      "question": {
+        "it": "[Certificazione] Quale comando crea un Deployment imperativo (utile per CKA/CKAD)?",
+        "en": "[Certificazione] Quale comando crea un Deployment imperativo (utile per CKA/CKAD)?"
+      },
       "options": [
         "kubectl run",
         "kubectl create deployment <name> --image=<image>",
@@ -328,13 +505,22 @@
         "kubectl make deployment"
       ],
       "correct": 1,
-      "explanation": "kubectl create deployment è il modo imperativo per creare Deployment velocemente durante l'esame."
+      "explanation": {
+        "it": "kubectl create deployment è il modo imperativo per creare Deployment velocemente durante l'esame.",
+        "en": "kubectl create deployment è il modo imperativo per creare Deployment velocemente durante l'esame."
+      }
     }
   ],
   "exercises": [
     {
-      "title": "[Multi-stage] Dockerfile con Builder Stage",
-      "hint": "Usa AS per nominare lo stage e COPY --from per copiare.",
+      "title": {
+        "it": "[Multi-stage] Dockerfile con Builder Stage",
+        "en": "[Multi-stage] Dockerfile con Builder Stage"
+      },
+      "hint": {
+        "it": "Usa AS per nominare lo stage e COPY --from per copiare.",
+        "en": "Usa AS per nominare lo stage e COPY --from per copiare."
+      },
       "template": [
         "FROM golang:1.21 {{stage_name}}",
         "WORKDIR /app",
@@ -346,15 +532,47 @@
         "CMD [\"./app\"]"
       ],
       "answers": [
-        { "id": "stage_name", "accepted": ["AS builder", "as builder"], "width": "120px" },
-        { "id": "copy_cmd", "accepted": ["COPY", "copy"], "width": "80px" },
-        { "id": "from_flag", "accepted": ["--from"], "width": "80px" },
-        { "id": "stage_ref", "accepted": ["builder"], "width": "100px" }
+        {
+          "id": "stage_name",
+          "accepted": [
+            "AS builder",
+            "as builder"
+          ],
+          "width": "120px"
+        },
+        {
+          "id": "copy_cmd",
+          "accepted": [
+            "COPY",
+            "copy"
+          ],
+          "width": "80px"
+        },
+        {
+          "id": "from_flag",
+          "accepted": [
+            "--from"
+          ],
+          "width": "80px"
+        },
+        {
+          "id": "stage_ref",
+          "accepted": [
+            "builder"
+          ],
+          "width": "100px"
+        }
       ]
     },
     {
-      "title": "[Pod] Liveness e Readiness Probes",
-      "hint": "Usa livenessProbe e readinessProbe con httpGet.",
+      "title": {
+        "it": "[Pod] Liveness e Readiness Probes",
+        "en": "[Pod] Liveness e Readiness Probes"
+      },
+      "hint": {
+        "it": "Usa livenessProbe e readinessProbe con httpGet.",
+        "en": "Usa livenessProbe e readinessProbe con httpGet."
+      },
       "template": [
         "containers:",
         "- name: app",
@@ -369,13 +587,31 @@
         "      port: 8080"
       ],
       "answers": [
-        { "id": "liveness", "accepted": ["livenessProbe"], "width": "140px" },
-        { "id": "readiness", "accepted": ["readinessProbe"], "width": "160px" }
+        {
+          "id": "liveness",
+          "accepted": [
+            "livenessProbe"
+          ],
+          "width": "140px"
+        },
+        {
+          "id": "readiness",
+          "accepted": [
+            "readinessProbe"
+          ],
+          "width": "160px"
+        }
       ]
     },
     {
-      "title": "[Deployment] RollingUpdate Strategy",
-      "hint": "Usa strategy con type: RollingUpdate e rollingUpdate con maxSurge/maxUnavailable.",
+      "title": {
+        "it": "[Deployment] RollingUpdate Strategy",
+        "en": "[Deployment] RollingUpdate Strategy"
+      },
+      "hint": {
+        "it": "Usa strategy con type: RollingUpdate e rollingUpdate con maxSurge/maxUnavailable.",
+        "en": "Usa strategy con type: RollingUpdate e rollingUpdate con maxSurge/maxUnavailable."
+      },
       "template": [
         "spec:",
         "  {{strategy_key}}:",
@@ -385,15 +621,45 @@
         "      {{max_unavailable}}: 0"
       ],
       "answers": [
-        { "id": "strategy_key", "accepted": ["strategy"], "width": "100px" },
-        { "id": "rolling_update", "accepted": ["rollingUpdate"], "width": "140px" },
-        { "id": "max_surge", "accepted": ["maxSurge"], "width": "120px" },
-        { "id": "max_unavailable", "accepted": ["maxUnavailable"], "width": "160px" }
+        {
+          "id": "strategy_key",
+          "accepted": [
+            "strategy"
+          ],
+          "width": "100px"
+        },
+        {
+          "id": "rolling_update",
+          "accepted": [
+            "rollingUpdate"
+          ],
+          "width": "140px"
+        },
+        {
+          "id": "max_surge",
+          "accepted": [
+            "maxSurge"
+          ],
+          "width": "120px"
+        },
+        {
+          "id": "max_unavailable",
+          "accepted": [
+            "maxUnavailable"
+          ],
+          "width": "160px"
+        }
       ]
     },
     {
-      "title": "[Service] Headless Service",
-      "hint": "Imposta clusterIP: None per un Headless Service.",
+      "title": {
+        "it": "[Service] Headless Service",
+        "en": "[Service] Headless Service"
+      },
+      "hint": {
+        "it": "Imposta clusterIP: None per un Headless Service.",
+        "en": "Imposta clusterIP: None per un Headless Service."
+      },
       "template": [
         "apiVersion: v1",
         "kind: Service",
@@ -405,12 +671,24 @@
         "    app: mysql"
       ],
       "answers": [
-        { "id": "cluster_ip", "accepted": ["clusterIP"], "width": "120px" }
+        {
+          "id": "cluster_ip",
+          "accepted": [
+            "clusterIP"
+          ],
+          "width": "120px"
+        }
       ]
     },
     {
-      "title": "[Ingress] Path-based Routing",
-      "hint": "Usa rules con host, paths, pathType e backend.",
+      "title": {
+        "it": "[Ingress] Path-based Routing",
+        "en": "[Ingress] Path-based Routing"
+      },
+      "hint": {
+        "it": "Usa rules con host, paths, pathType e backend.",
+        "en": "Usa rules con host, paths, pathType e backend."
+      },
       "template": [
         "spec:",
         "  rules:",
@@ -426,13 +704,31 @@
         "              number: 8080"
       ],
       "answers": [
-        { "id": "paths_key", "accepted": ["paths"], "width": "80px" },
-        { "id": "path_type", "accepted": ["pathType"], "width": "100px" }
+        {
+          "id": "paths_key",
+          "accepted": [
+            "paths"
+          ],
+          "width": "80px"
+        },
+        {
+          "id": "path_type",
+          "accepted": [
+            "pathType"
+          ],
+          "width": "100px"
+        }
       ]
     },
     {
-      "title": "[NetworkPolicy] Allow from Specific Namespace",
-      "hint": "Usa ingress con from e namespaceSelector.",
+      "title": {
+        "it": "[NetworkPolicy] Allow from Specific Namespace",
+        "en": "[NetworkPolicy] Allow from Specific Namespace"
+      },
+      "hint": {
+        "it": "Usa ingress con from e namespaceSelector.",
+        "en": "Usa ingress con from e namespaceSelector."
+      },
       "template": [
         "spec:",
         "  podSelector:",
@@ -445,14 +741,38 @@
         "          env: prod"
       ],
       "answers": [
-        { "id": "ingress_key", "accepted": ["ingress"], "width": "100px" },
-        { "id": "from_key", "accepted": ["from"], "width": "60px" },
-        { "id": "ns_selector", "accepted": ["namespaceSelector"], "width": "180px" }
+        {
+          "id": "ingress_key",
+          "accepted": [
+            "ingress"
+          ],
+          "width": "100px"
+        },
+        {
+          "id": "from_key",
+          "accepted": [
+            "from"
+          ],
+          "width": "60px"
+        },
+        {
+          "id": "ns_selector",
+          "accepted": [
+            "namespaceSelector"
+          ],
+          "width": "180px"
+        }
       ]
     },
     {
-      "title": "[PVC] Con StorageClass",
-      "hint": "Usa storageClassName per provisioning dinamico.",
+      "title": {
+        "it": "[PVC] Con StorageClass",
+        "en": "[PVC] Con StorageClass"
+      },
+      "hint": {
+        "it": "Usa storageClassName per provisioning dinamico.",
+        "en": "Usa storageClassName per provisioning dinamico."
+      },
       "template": [
         "apiVersion: v1",
         "kind: PersistentVolumeClaim",
@@ -467,12 +787,24 @@
         "      storage: 10Gi"
       ],
       "answers": [
-        { "id": "storage_class", "accepted": ["storageClassName"], "width": "160px" }
+        {
+          "id": "storage_class",
+          "accepted": [
+            "storageClassName"
+          ],
+          "width": "160px"
+        }
       ]
     },
     {
-      "title": "[RBAC] Role + RoleBinding",
-      "hint": "Crea Role con rules e RoleBinding con subjects e roleRef.",
+      "title": {
+        "it": "[RBAC] Role + RoleBinding",
+        "en": "[RBAC] Role + RoleBinding"
+      },
+      "hint": {
+        "it": "Crea Role con rules e RoleBinding con subjects e roleRef.",
+        "en": "Crea Role con rules e RoleBinding con subjects e roleRef."
+      },
       "template": [
         "apiVersion: rbac.authorization.k8s.io/v1",
         "kind: {{role_kind}}",
@@ -496,14 +828,38 @@
         "  apiGroup: rbac.authorization.k8s.io"
       ],
       "answers": [
-        { "id": "role_kind", "accepted": ["Role"], "width": "80px" },
-        { "id": "rules_key", "accepted": ["rules"], "width": "80px" },
-        { "id": "binding_kind", "accepted": ["RoleBinding"], "width": "120px" }
+        {
+          "id": "role_kind",
+          "accepted": [
+            "Role"
+          ],
+          "width": "80px"
+        },
+        {
+          "id": "rules_key",
+          "accepted": [
+            "rules"
+          ],
+          "width": "80px"
+        },
+        {
+          "id": "binding_kind",
+          "accepted": [
+            "RoleBinding"
+          ],
+          "width": "120px"
+        }
       ]
     },
     {
-      "title": "[SecurityContext] Non-Root + Read-Only FS",
-      "hint": "Usa runAsNonRoot e readOnlyRootFilesystem.",
+      "title": {
+        "it": "[SecurityContext] Non-Root + Read-Only FS",
+        "en": "[SecurityContext] Non-Root + Read-Only FS"
+      },
+      "hint": {
+        "it": "Usa runAsNonRoot e readOnlyRootFilesystem.",
+        "en": "Usa runAsNonRoot e readOnlyRootFilesystem."
+      },
       "template": [
         "spec:",
         "  securityContext:",
@@ -516,79 +872,203 @@
         "      {{read_only_fs}}: true"
       ],
       "answers": [
-        { "id": "run_as_non_root", "accepted": ["runAsNonRoot"], "width": "140px" },
-        { "id": "read_only_fs", "accepted": ["readOnlyRootFilesystem"], "width": "220px" }
+        {
+          "id": "run_as_non_root",
+          "accepted": [
+            "runAsNonRoot"
+          ],
+          "width": "140px"
+        },
+        {
+          "id": "read_only_fs",
+          "accepted": [
+            "readOnlyRootFilesystem"
+          ],
+          "width": "220px"
+        }
       ]
     },
     {
-      "title": "[Helm] Install con Custom Values",
-      "hint": "Usa helm install con --values o -f.",
+      "title": {
+        "it": "[Helm] Install con Custom Values",
+        "en": "[Helm] Install con Custom Values"
+      },
+      "hint": {
+        "it": "Usa helm install con --values o -f.",
+        "en": "Usa helm install con --values o -f."
+      },
       "template": [
         "helm {{install_cmd}} my-release bitnami/nginx {{values_flag}} custom.yaml"
       ],
       "answers": [
-        { "id": "install_cmd", "accepted": ["install"], "width": "100px" },
-        { "id": "values_flag", "accepted": ["--values", "-f"], "width": "100px" }
+        {
+          "id": "install_cmd",
+          "accepted": [
+            "install"
+          ],
+          "width": "100px"
+        },
+        {
+          "id": "values_flag",
+          "accepted": [
+            "--values",
+            "-f"
+          ],
+          "width": "100px"
+        }
       ]
     },
     {
-      "title": "[Kubectl] Crea Deployment + Esponi",
-      "hint": "Usa kubectl create deployment e kubectl expose.",
+      "title": {
+        "it": "[Kubectl] Crea Deployment + Esponi",
+        "en": "[Kubectl] Crea Deployment + Esponi"
+      },
+      "hint": {
+        "it": "Usa kubectl create deployment e kubectl expose.",
+        "en": "Usa kubectl create deployment e kubectl expose."
+      },
       "template": [
         "kubectl create {{deployment}} nginx --image=nginx",
         "kubectl {{expose_cmd}} deployment nginx --port=80 --type=LoadBalancer"
       ],
       "answers": [
-        { "id": "deployment", "accepted": ["deployment"], "width": "120px" },
-        { "id": "expose_cmd", "accepted": ["expose"], "width": "100px" }
+        {
+          "id": "deployment",
+          "accepted": [
+            "deployment"
+          ],
+          "width": "120px"
+        },
+        {
+          "id": "expose_cmd",
+          "accepted": [
+            "expose"
+          ],
+          "width": "100px"
+        }
       ]
     },
     {
-      "title": "[Kubectl] Scale + Rollout Status",
-      "hint": "Usa kubectl scale e kubectl rollout status.",
+      "title": {
+        "it": "[Kubectl] Scale + Rollout Status",
+        "en": "[Kubectl] Scale + Rollout Status"
+      },
+      "hint": {
+        "it": "Usa kubectl scale e kubectl rollout status.",
+        "en": "Usa kubectl scale e kubectl rollout status."
+      },
       "template": [
         "kubectl {{scale_cmd}} deployment nginx --replicas=5",
         "kubectl {{rollout_cmd}} {{status_cmd}} deployment/nginx"
       ],
       "answers": [
-        { "id": "scale_cmd", "accepted": ["scale"], "width": "80px" },
-        { "id": "rollout_cmd", "accepted": ["rollout"], "width": "100px" },
-        { "id": "status_cmd", "accepted": ["status"], "width": "100px" }
+        {
+          "id": "scale_cmd",
+          "accepted": [
+            "scale"
+          ],
+          "width": "80px"
+        },
+        {
+          "id": "rollout_cmd",
+          "accepted": [
+            "rollout"
+          ],
+          "width": "100px"
+        },
+        {
+          "id": "status_cmd",
+          "accepted": [
+            "status"
+          ],
+          "width": "100px"
+        }
       ]
     },
     {
-      "title": "[Troubleshooting] Debugging Multi-Container Pod",
-      "hint": "Entra nel container 'nginx' del pod 'my-pod' usando la shell 'sh'.",
+      "title": {
+        "it": "[Troubleshooting] Debugging Multi-Container Pod",
+        "en": "[Troubleshooting] Debugging Multi-Container Pod"
+      },
+      "hint": {
+        "it": "Entra nel container 'nginx' del pod 'my-pod' usando la shell 'sh'.",
+        "en": "Entra nel container 'nginx' del pod 'my-pod' usando la shell 'sh'."
+      },
       "template": [
         "kubectl exec -it my-pod -c {{container_name}} -- {{shell}}"
       ],
       "answers": [
-        { "id": "container_name", "accepted": ["nginx"], "width": "120px" },
-        { "id": "shell", "accepted": ["sh", "bash"], "width": "80px" }
+        {
+          "id": "container_name",
+          "accepted": [
+            "nginx"
+          ],
+          "width": "120px"
+        },
+        {
+          "id": "shell",
+          "accepted": [
+            "sh",
+            "bash"
+          ],
+          "width": "80px"
+        }
       ]
     },
     {
-      "title": "[Troubleshooting] Verifica Endpoints + DNS",
-      "hint": "Usa kubectl get endpoints e kubectl exec con nslookup.",
+      "title": {
+        "it": "[Troubleshooting] Verifica Endpoints + DNS",
+        "en": "[Troubleshooting] Verifica Endpoints + DNS"
+      },
+      "hint": {
+        "it": "Usa kubectl get endpoints e kubectl exec con nslookup.",
+        "en": "Usa kubectl get endpoints e kubectl exec con nslookup."
+      },
       "template": [
         "kubectl get {{endpoints}} my-service",
         "kubectl exec -it test-pod -- {{dns_tool}} my-service"
       ],
       "answers": [
-        { "id": "endpoints", "accepted": ["endpoints", "ep"], "width": "120px" },
-        { "id": "dns_tool", "accepted": ["nslookup", "dig"], "width": "100px" }
+        {
+          "id": "endpoints",
+          "accepted": [
+            "endpoints",
+            "ep"
+          ],
+          "width": "120px"
+        },
+        {
+          "id": "dns_tool",
+          "accepted": [
+            "nslookup",
+            "dig"
+          ],
+          "width": "100px"
+        }
       ]
     },
     {
-      "title": "[Certificazione] Comandi Imperativi Rapidi",
-      "hint": "Usa kubectl create/run per comandi imperativi veloci.",
+      "title": {
+        "it": "[Certificazione] Comandi Imperativi Rapidi",
+        "en": "[Certificazione] Comandi Imperativi Rapidi"
+      },
+      "hint": {
+        "it": "Usa kubectl create/run per comandi imperativi veloci.",
+        "en": "Usa kubectl create/run per comandi imperativi veloci."
+      },
       "template": [
         "kubectl {{create_cmd}} deployment web --image=nginx --replicas=3",
         "kubectl {{create_cmd}} service clusterip web --tcp=80:80",
         "kubectl {{create_cmd}} configmap app-config --from-literal=key=value"
       ],
       "answers": [
-        { "id": "create_cmd", "accepted": ["create"], "width": "100px" }
+        {
+          "id": "create_cmd",
+          "accepted": [
+            "create"
+          ],
+          "width": "100px"
+        }
       ]
     }
   ]

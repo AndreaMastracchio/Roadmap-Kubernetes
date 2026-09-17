@@ -1,0 +1,439 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Qual è la differenza principale tra StatelessWidget e StatefulWidget?",
+        "en": "What is the main difference between StatelessWidget and StatefulWidget?"
+      },
+      "options": [
+        {
+          "it": "StatelessWidget è più veloce",
+          "en": "StatelessWidget is faster"
+        },
+        {
+          "it": "StatefulWidget può cambiare stato durante il ciclo di vita",
+          "en": "StatefulWidget can change state during its lifecycle"
+        },
+        {
+          "it": "StatelessWidget è deprecato",
+          "en": "StatelessWidget is deprecated"
+        },
+        {
+          "it": "Non c'è differenza",
+          "en": "There's no difference"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "StatelessWidget è immutabile e non cambia mai. StatefulWidget può cambiare il suo stato interno e ricostruire l'UI con setState().",
+        "en": "StatelessWidget is immutable and never changes. StatefulWidget can change its internal state and rebuild the UI with setState()."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa fa il metodo setState()?",
+        "en": "What does the setState() method do?"
+      },
+      "options": [
+        {
+          "it": "Crea un nuovo widget",
+          "en": "Creates a new widget"
+        },
+        {
+          "it": "Segnala che lo stato è cambiato e richiede un rebuild",
+          "en": "Signals that state changed and requests a rebuild"
+        },
+        {
+          "it": "Distrugge il widget",
+          "en": "Destroys the widget"
+        },
+        {
+          "it": "Naviga a una nuova pagina",
+          "en": "Navigates to a new page"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "setState() marca lo stato come modificato e programma un rebuild del widget, permettendo di aggiornare l'UI.",
+        "en": "setState() marks the state as modified and schedules a widget rebuild, allowing the UI to be updated."
+      }
+    },
+    {
+      "question": {
+        "it": "Quale widget si usa per sovrapporre elementi?",
+        "en": "Which widget is used to overlay elements?"
+      },
+      "options": [
+        {
+          "it": "Row",
+          "en": "Row"
+        },
+        {
+          "it": "Column",
+          "en": "Column"
+        },
+        {
+          "it": "Stack",
+          "en": "Stack"
+        },
+        {
+          "it": "Container",
+          "en": "Container"
+        }
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Stack permette di posizionare widget uno sopra l'altro, usando Positioned per controllare la posizione.",
+        "en": "Stack allows positioning widgets on top of each other, using Positioned to control placement."
+      }
+    },
+    {
+      "question": {
+        "it": "A cosa serve Expanded?",
+        "en": "What is Expanded used for?"
+      },
+      "options": [
+        {
+          "it": "Creare animazioni",
+          "en": "Create animations"
+        },
+        {
+          "it": "Espandere un widget per riempire lo spazio disponibile",
+          "en": "Expand a widget to fill available space"
+        },
+        {
+          "it": "Aggiungere padding",
+          "en": "Add padding"
+        },
+        {
+          "it": "Espandere il testo",
+          "en": "Expand text"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Expanded fa sì che un figlio di Row/Column occupi tutto lo spazio rimanente, con flex per la proporzione.",
+        "en": "Expanded makes a child of Row/Column fill all remaining space, with flex for proportion."
+      }
+    },
+    {
+      "question": {
+        "it": "Quale proprietà di Row controlla l'allineamento orizzontale?",
+        "en": "Which Row property controls horizontal alignment?"
+      },
+      "options": [
+        {
+          "it": "crossAxisAlignment",
+          "en": "crossAxisAlignment"
+        },
+        {
+          "it": "mainAxisAlignment",
+          "en": "mainAxisAlignment"
+        },
+        {
+          "it": "verticalAlignment",
+          "en": "verticalAlignment"
+        },
+        {
+          "it": "horizontalAlignment",
+          "en": "horizontalAlignment"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "In Row, mainAxisAlignment controlla l'asse principale (orizzontale), crossAxisAlignment quello trasversale (verticale).",
+        "en": "In Row, mainAxisAlignment controls the main axis (horizontal), crossAxisAlignment controls the cross axis (vertical)."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa fornisce Scaffold?",
+        "en": "What does Scaffold provide?"
+      },
+      "options": [
+        {
+          "it": "Solo un container bianco",
+          "en": "Just a white container"
+        },
+        {
+          "it": "Struttura base con AppBar, Drawer, FAB, BottomNav",
+          "en": "Basic structure with AppBar, Drawer, FAB, BottomNav"
+        },
+        {
+          "it": "Solo animazioni",
+          "en": "Only animations"
+        },
+        {
+          "it": "Connessione al database",
+          "en": "Database connection"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Scaffold implementa la struttura base di una pagina Material Design con AppBar, body, drawer, FAB, bottom navigation.",
+        "en": "Scaffold implements the basic structure of a Material Design page with AppBar, body, drawer, FAB, bottom navigation."
+      }
+    },
+    {
+      "question": {
+        "it": "Quale widget è meglio per una lista di elementi scorrevole?",
+        "en": "Which widget is better for a scrollable list of items?"
+      },
+      "options": [
+        {
+          "it": "Column con SingleChildScrollView",
+          "en": "Column with SingleChildScrollView"
+        },
+        {
+          "it": "ListView.builder",
+          "en": "ListView.builder"
+        },
+        {
+          "it": "Row",
+          "en": "Row"
+        },
+        {
+          "it": "Stack",
+          "en": "Stack"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ListView.builder è ottimizzato per liste lunghe: costruisce solo gli elementi visibili (lazy loading).",
+        "en": "ListView.builder is optimized for long lists: it builds only visible items (lazy loading)."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si applica uno sfondo gradiente a un Container?",
+        "en": "How do you apply a gradient background to a Container?"
+      },
+      "options": [
+        {
+          "it": "Con la proprietà color",
+          "en": "With the color property"
+        },
+        {
+          "it": "Con BoxDecoration e gradient",
+          "en": "With BoxDecoration and gradient"
+        },
+        {
+          "it": "Non è possibile",
+          "en": "It's not possible"
+        },
+        {
+          "it": "Solo con Immagini",
+          "en": "Only with Images"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Si usa BoxDecoration con LinearGradient o RadialGradient. Non si può usare color e decoration insieme.",
+        "en": "Use BoxDecoration with LinearGradient or RadialGradient. You can't use color and decoration together."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa fa MediaQuery.of(context).size.width?",
+        "en": "What does MediaQuery.of(context).size.width do?"
+      },
+      "options": [
+        {
+          "it": "Restituisce l'altezza dello schermo",
+          "en": "Returns screen height"
+        },
+        {
+          "it": "Restituisce la larghezza dello schermo",
+          "en": "Returns screen width"
+        },
+        {
+          "it": "Restituisce la densità pixel",
+          "en": "Returns pixel density"
+        },
+        {
+          "it": "Restituisce l'orientamento",
+          "en": "Returns orientation"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "MediaQuery.of(context).size fornisce le dimensioni dello schermo, width la larghezza in pixel logici.",
+        "en": "MediaQuery.of(context).size provides screen dimensions, width returns the width in logical pixels."
+      }
+    },
+    {
+      "question": {
+        "it": "Quale widget permette layout diversi in base alle dimensioni?",
+        "en": "Which widget allows different layouts based on dimensions?"
+      },
+      "options": [
+        {
+          "it": "Container",
+          "en": "Container"
+        },
+        {
+          "it": "LayoutBuilder",
+          "en": "LayoutBuilder"
+        },
+        {
+          "it": "SizedBox",
+          "en": "SizedBox"
+        },
+        {
+          "it": "Padding",
+          "en": "Padding"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "LayoutBuilder fornisce i vincoli (constraints) del genitore, permettendo layout adattivi.",
+        "en": "LayoutBuilder provides parent constraints, allowing adaptive layouts."
+      }
+    },
+    {
+      "question": {
+        "it": "Dove si definisce il tema globale dell'app?",
+        "en": "Where is the app's global theme defined?"
+      },
+      "options": [
+        {
+          "it": "In ogni widget",
+          "en": "In every widget"
+        },
+        {
+          "it": "Nel MaterialApp con theme",
+          "en": "In MaterialApp with theme"
+        },
+        {
+          "it": "Non esiste un tema globale",
+          "en": "There's no global theme"
+        },
+        {
+          "it": "Solo in iOS",
+          "en": "Only on iOS"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "MaterialApp accetta un ThemeData che definisce colori, stili testo, stili bottoni per tutta l'app.",
+        "en": "MaterialApp accepts a ThemeData that defines colors, text styles, button styles for the entire app."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa fa ListTile?",
+        "en": "What does ListTile do?"
+      },
+      "options": [
+        {
+          "it": "Crea un layout a griglia",
+          "en": "Creates a grid layout"
+        },
+        {
+          "it": "Crea una riga di lista standardizzata con leading/title/subtitle/trailing",
+          "en": "Creates a standardized list row with leading/title/subtitle/trailing"
+        },
+        {
+          "it": "Crea solo testo",
+          "en": "Creates only text"
+        },
+        {
+          "it": "È un tipo di Container",
+          "en": "It's a type of Container"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ListTile è un widget Material preconfigurato per voci di lista con icona, testo, sottotitolo e azione finale.",
+        "en": "ListTile is a preconfigured Material widget for list items with icon, text, subtitle and trailing action."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si aggiunge un'ombra a un Container?",
+        "en": "How do you add a shadow to a Container?"
+      },
+      "options": [
+        {
+          "it": "Con la proprietà shadow",
+          "en": "With the shadow property"
+        },
+        {
+          "it": "Con BoxShadow in BoxDecoration",
+          "en": "With BoxShadow in BoxDecoration"
+        },
+        {
+          "it": "Non è possibile",
+          "en": "It's not possible"
+        },
+        {
+          "it": "Solo con Card",
+          "en": "Only with Card"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Si aggiunge una lista di BoxShadow in decoration: BoxDecoration(boxShadow: [BoxShadow(...)]).",
+        "en": "Add a list of BoxShadow in decoration: BoxDecoration(boxShadow: [BoxShadow(...)])."
+      }
+    },
+    {
+      "question": {
+        "it": "Quale è la differenza tra Flexible e Expanded?",
+        "en": "What's the difference between Flexible and Expanded?"
+      },
+      "options": [
+        {
+          "it": "Expanded è sempre flex: 1",
+          "en": "Expanded is always flex: 1"
+        },
+        {
+          "it": "Flexible può non riempire tutto lo spazio, Expanded deve riempirlo",
+          "en": "Flexible may not fill all space, Expanded must fill it"
+        },
+        {
+          "it": "Non c'è differenza",
+          "en": "There's no difference"
+        },
+        {
+          "it": "Flexible è deprecato",
+          "en": "Flexible is deprecated"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Expanded = Flexible(fit: FlexFit.tight). Flexible con loose può essere più piccolo del suo spazio.",
+        "en": "Expanded = Flexible(fit: FlexFit.tight). Flexible with loose can be smaller than its allocated space."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa succede se si usa color e decoration insieme in Container?",
+        "en": "What happens if you use color and decoration together in Container?"
+      },
+      "options": [
+        {
+          "it": "Funziona normalmente",
+          "en": "Works normally"
+        },
+        {
+          "it": "Errore: non possono essere usati insieme",
+          "en": "Error: they can't be used together"
+        },
+        {
+          "it": "color ha priorità",
+          "en": "color takes priority"
+        },
+        {
+          "it": "decoration ha priorità",
+          "en": "decoration takes priority"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Non si possono usare color e decoration contemporaneamente. Per colorare, usa decoration: BoxDecoration(color: ...).",
+        "en": "You can't use color and decoration together. To color, use decoration: BoxDecoration(color: ...)."
+      }
+    }
+  ]
+}

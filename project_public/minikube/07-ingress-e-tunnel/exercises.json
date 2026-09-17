@@ -1,48 +1,54 @@
 {
-  "quiz": [
-    {
-      "id": "q1",
-      "question": "Quale comando permette di risolvere l'IP dei Service di tipo LoadBalancer in Minikube?",
-      "options": [
-        "minikube bridge",
-        "minikube tunnel",
-        "minikube expose",
-        "minikube loadbalancer"
-      ],
-      "correct": 1,
-      "explanation": "minikube tunnel crea un'interfaccia di rete virtuale tra il tuo computer e il cluster."
-    },
-    {
-      "id": "q2",
-      "question": "Se vuoi aprire un Service specifico nel browser senza configurare un tunnel, cosa usi?",
-      "options": [
-        "minikube open <svc>",
-        "minikube service <svc>",
-        "kubectl open <svc>",
-        "minikube browse <svc>"
-      ],
-      "correct": 1,
-      "explanation": "Il comando 'minikube service <nome>' genera l'URL di accesso e apre il browser."
-    }
-  ],
   "exercises": [
     {
-      "id": "e1",
-      "title": "Avvia Tunnel",
-      "hint": "Crea il tunnel per i LoadBalancer",
-      "template": ["minikube {{command}}"],
-      "answers": [
-        { "id": "command", "accepted": ["tunnel"], "placeholder": "..." }
-      ]
+      "title": {"it": "Abilita Ingress", "en": "Enable Ingress"},
+      "description": {"it": "Attiva l'add-on ingress nel cluster.", "en": "Enable the ingress add-on in the cluster."},
+      "hint": {"it": "'minikube addons enable ingress'.", "en": "'minikube addons enable ingress'."}
     },
     {
-      "id": "e2",
-      "title": "Accedi Servizio",
-      "hint": "Apri il servizio 'web-svc' nel browser",
-      "template": ["minikube service {{name}}"],
-      "answers": [
-        { "id": "name", "accepted": ["web-svc"], "placeholder": "nome-servizio" }
-      ]
+      "title": {"it": "Verifica Ingress Controller", "en": "Verify Ingress Controller"},
+      "description": {"it": "Controlla che l'Ingress Controller sia in esecuzione.", "en": "Check that the Ingress Controller is running."},
+      "hint": {"it": "'kubectl get pods -n ingress-nginx'.", "en": "'kubectl get pods -n ingress-nginx'."}
+    },
+    {
+      "title": {"it": "Avvia Tunnel", "en": "Start Tunnel"},
+      "description": {"it": "Avvia il tunnel in un terminale separato.", "en": "Start the tunnel in a separate terminal."},
+      "hint": {"it": "'sudo minikube tunnel' in un nuovo terminale.", "en": "'sudo minikube tunnel' in a new terminal."}
+    },
+    {
+      "title": {"it": "Crea Service NodePort", "en": "Create NodePort Service"},
+      "description": {"it": "Esponi un deployment come Service NodePort.", "en": "Expose a deployment as a NodePort Service."},
+      "hint": {"it": "'kubectl expose deployment <nome> --type=NodePort --port=80'.", "en": "'kubectl expose deployment <name> --type=NodePort --port=80'."}
+    },
+    {
+      "title": {"it": "Accedi con minikube service", "en": "Access with minikube service"},
+      "description": {"it": "Apri il servizio nel browser.", "en": "Open the service in the browser."},
+      "hint": {"it": "'minikube service <nome-svc>'.", "en": "'minikube service <svc-name>'."}
+    },
+    {
+      "title": {"it": "Crea Ingress Resource", "en": "Create Ingress Resource"},
+      "description": {"it": "Definisci una risorsa Ingress per un servizio.", "en": "Define an Ingress resource for a service."},
+      "hint": {"it": "Crea un YAML con kind: Ingress e spec.rules.", "en": "Create a YAML with kind: Ingress and spec.rules."}
+    },
+    {
+      "title": {"it": "Testa Ingress con curl", "en": "Test Ingress with curl"},
+      "description": {"it": "Verifica l'Ingress usando curl con header Host.", "en": "Verify the Ingress using curl with Host header."},
+      "hint": {"it": "'curl -H \"Host: myapp.local\" $(minikube ip)'.", "en": "'curl -H \"Host: myapp.local\" $(minikube ip)'."}
+    },
+    {
+      "title": {"it": "Configura /etc/hosts", "en": "Configure /etc/hosts"},
+      "description": {"it": "Aggiungi un'entry DNS locale per il tuo Ingress.", "en": "Add a local DNS entry for your Ingress."},
+      "hint": {"it": "Aggiungi '<minikube-ip> myapp.local' a /etc/hosts.", "en": "Add '<minikube-ip> myapp.local' to /etc/hosts."}
+    },
+    {
+      "title": {"it": "Service URL Only", "en": "Service URL only"},
+      "description": {"it": "Ottieni l'URL di un servizio senza aprire il browser.", "en": "Get a service URL without opening the browser."},
+      "hint": {"it": "'minikube service <nome> --url'.", "en": "'minikube service <name> --url'."}
+    },
+    {
+      "title": {"it": "Multi-Path Ingress", "en": "Multi-Path Ingress"},
+      "description": {"it": "Crea un Ingress con più path verso servizi diversi.", "en": "Create an Ingress with multiple paths to different services."},
+      "hint": {"it": "Specifica più rules con path diversi (/api, /web).", "en": "Specify multiple rules with different paths (/api, /web)."}
     }
   ]
 }

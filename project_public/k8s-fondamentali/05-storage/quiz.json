@@ -1,0 +1,254 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale Access Mode permette a un singolo nodo di montare il volume in lettura/scrittura?",
+        "en": "Which Access Mode allows a single node to mount the volume read-write?"
+      },
+      "options": ["ReadWriteMany (RWX)", "ReadWriteOnce (RWO)", "ReadOnlyMany (ROX)", "ReadWriteOncePod (RWOP)"],
+      "correct": 1,
+      "explanation": {
+        "it": "ReadWriteOnce (RWO) permette a un singolo nodo di montare il volume in lettura/scrittura.",
+        "en": "ReadWriteOnce (RWO) allows a single node to mount the volume read-write."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-storage"
+    },
+    {
+      "question": {
+        "it": "Quale Access Mode supporta AWS EBS?",
+        "en": "Which Access Mode does AWS EBS support?"
+      },
+      "options": ["ReadWriteMany (RWX)", "ReadWriteOnce (RWO)", "ReadOnlyMany (ROX)", "Tutti e tre"],
+      "correct": 1,
+      "explanation": {
+        "it": "AWS EBS supporta solo ReadWriteOnce (RWO) - un nodo alla volta.",
+        "en": "AWS EBS only supports ReadWriteOnce (RWO) - one node at a time."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-storage"
+    },
+    {
+      "question": {
+        "it": "Cosa fa una StorageClass?",
+        "en": "What does a StorageClass do?"
+      },
+      "options": [
+        "Classifica i volumi per dimensione",
+        "Abilita il provisioning dinamico dei volumi",
+        "Gestisce i backup automatici",
+        "Controlla l'accesso ai volumi"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Una StorageClass abilita il provisioning dinamico: Kubernetes crea automaticamente il volume quando crei un PVC.",
+        "en": "A StorageClass enables dynamic provisioning: Kubernetes automatically creates the volume when you create a PVC."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-storage"
+    },
+    {
+      "question": {
+        "it": "Cosa succede al volume fisico con Reclaim Policy 'Delete'?",
+        "en": "What happens to the physical volume with Reclaim Policy 'Delete'?"
+      },
+      "options": [
+        "Viene mantenuto per recupero",
+        "Viene cancellato automaticamente alla rimozione del PVC",
+        "Viene archiviato",
+        "Viene spostato in un altro namespace"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Con 'Delete' il volume fisico viene cancellato quando elimini il PVC.",
+        "en": "With 'Delete' the physical volume is deleted when you remove the PVC."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-storage"
+    },
+    {
+      "question": {
+        "it": "Quale Volume Binding Mode è ideale per cluster multi-zona?",
+        "en": "Which Volume Binding Mode is ideal for multi-zone clusters?"
+      },
+      "options": ["Immediate", "WaitForFirstConsumer", "Scheduled", "Delayed"],
+      "correct": 1,
+      "explanation": {
+        "it": "WaitForFirstConsumer ritarda la creazione del volume finché il Pod non è schedulato, garantendo che siano nella stessa zona.",
+        "en": "WaitForFirstConsumer delays volume creation until the Pod is scheduled, ensuring they are in the same zone."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-storage"
+    },
+    {
+      "question": {
+        "it": "Cos'è un volume emptyDir?",
+        "en": "What is an emptyDir volume?"
+      },
+      "options": [
+        "Un volume vuoto che causa errori",
+        "Un volume temporaneo che viene pulito alla terminazione del Pod",
+        "Un volume in sola lettura",
+        "Un volume che non può essere montato"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "emptyDir è un volume temporaneo creato quando il Pod viene assegnato a un nodo e cancellato alla sua terminazione.",
+        "en": "emptyDir is a temporary volume created when a Pod is assigned to a node and deleted when it terminates."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-storage"
+    },
+    {
+      "question": {
+        "it": "Come monti un emptyDir in memoria RAM?",
+        "en": "How do you mount an emptyDir in RAM?"
+      },
+      "options": [
+        "Non è possibile",
+        "Imposta emptyDir.medium: Memory",
+        "Usa tmpfs invece",
+        "Imposta emptyDir.type: RAM"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Impostando emptyDir.medium: Memory monti il volume direttamente in RAM.",
+        "en": "Setting emptyDir.medium: Memory mounts the volume directly in RAM."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-storage"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa rappresenta la richiesta di storage da parte di uno sviluppatore?",
+        "en": "Which resource represents a developer's storage request?"
+      },
+      "options": ["PersistentVolume", "PersistentVolumeClaim", "StorageClass", "Volume"],
+      "correct": 1,
+      "explanation": {
+        "it": "Il PersistentVolumeClaim è la richiesta di storage fatta dallo sviluppatore.",
+        "en": "The PersistentVolumeClaim is the storage request made by the developer."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-storage"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa rappresenta la risorsa fisica di storage?",
+        "en": "Which resource represents the physical storage resource?"
+      },
+      "options": ["PersistentVolumeClaim", "PersistentVolume", "StorageClass", "Volume"],
+      "correct": 1,
+      "explanation": {
+        "it": "Il PersistentVolume è la risorsa fisica di storage nel cluster.",
+        "en": "The PersistentVolume is the physical storage resource in the cluster."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-storage"
+    },
+    {
+      "question": {
+        "it": "Cosa significa PVC in stato 'Pending'?",
+        "en": "What does a PVC in 'Pending' state mean?"
+      },
+      "options": [
+        "Il PVC è stato creato con successo",
+        "Kubernetes non trova un PV compatibile o non riesce a crearlo",
+        "Il PVC è in fase di eliminazione",
+        "Il PVC è pronto per l'uso"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Stato 'Pending' significa che non c'è binding disponibile o il provisioning dinamico è fallito.",
+        "en": "Pending state means no binding is available or dynamic provisioning failed."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-storage"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra i PersistentVolumes?",
+        "en": "Which command shows PersistentVolumes?"
+      },
+      "options": ["kubectl get pvc", "kubectl get pv", "kubectl get volumes", "kubectl get storage"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl get pv mostra i PV (cluster-scoped). kubectl get pvc mostra i PVC (namespace-scoped).",
+        "en": "kubectl get pv shows PVs (cluster-scoped). kubectl get pvc shows PVCs (namespace-scoped)."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Cosa fa CSI (Container Storage Interface)?",
+        "en": "What does CSI (Container Storage Interface) do?"
+      },
+      "options": [
+        "Gestisce i Secret",
+        "Permette a Kubernetes di integrarsi con diversi provider di storage",
+        "Controlla l'accesso ai volumi",
+        "Gestisce i backup"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "CSI è lo standard per integrare Kubernetes con provider di storage (AWS EBS, GCE PD, Ceph).",
+        "en": "CSI is the standard for integrating Kubernetes with storage providers (AWS EBS, GCE PD, Ceph)."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-storage"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di applicazione è ideale per StatefulSet?",
+        "en": "Which type of application is ideal for StatefulSet?"
+      },
+      "options": [
+        "Web server stateless",
+        "Database con storage persistente dedicato per replica",
+        "Job batch",
+        "Proxy reverse"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "StatefulSet è ideale per database che richiedono identità stabile e storage dedicato.",
+        "en": "StatefulSet is ideal for databases requiring stable identity and dedicated storage."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-workloads"
+    },
+    {
+      "question": {
+        "it": "Quale Reclaim Policy mantiene il volume dopo l'eliminazione del PVC?",
+        "en": "Which Reclaim Policy keeps the volume after PVC deletion?"
+      },
+      "options": ["Delete", "Recycle", "Retain", "Archive"],
+      "correct": 2,
+      "explanation": {
+        "it": "Con 'Retain' il volume viene mantenuto per recupero manuale.",
+        "en": "With 'Retain' the volume is kept for manual recovery."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-storage"
+    },
+    {
+      "question": {
+        "it": "Come monti un PVC in un Pod?",
+        "en": "How do you mount a PVC in a Pod?"
+      },
+      "options": [
+        "Usa volumes con persistentVolumeClaim",
+        "Usa volumes con persistentVolume",
+        "Usa volumeMounts con pvc",
+        "Non è possibile montare PVC nei Pod"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Usi volumes con persistentVolumeClaim.claimName per montare un PVC in un Pod.",
+        "en": "You use volumes with persistentVolumeClaim.claimName to mount a PVC in a Pod."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-storage"
+    }
+  ]
+}

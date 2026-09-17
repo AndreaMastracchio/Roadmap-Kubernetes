@@ -1,4 +1,54 @@
 {
-  "quiz": [],
-  "exercises": []
+  "exercises": [
+    {
+      "title": {"it": "Cheat Sheet Personale", "en": "Personal Cheat Sheet"},
+      "description": {"it": "Crea un cheat sheet con i 10 comandi Minikube che usi più spesso.", "en": "Create a cheat sheet with the 10 Minikube commands you use most often."},
+      "hint": {"it": "Includi: start, stop, delete, status, dashboard, ssh, service, addons, profile, logs.", "en": "Include: start, stop, delete, status, dashboard, ssh, service, addons, profile, logs."}
+    },
+    {
+      "title": {"it": "Workflow Completo", "en": "Complete Workflow"},
+      "description": {"it": "Esegui un ciclo completo: start -> deploy -> test -> scale -> stop.", "en": "Execute a complete cycle: start -> deploy -> test -> scale -> stop."},
+      "hint": {"it": "Usa un deployment Nginx per semplicità.", "en": "Use an Nginx deployment for simplicity."}
+    },
+    {
+      "title": {"it": "Troubleshooting Basics", "en": "Troubleshooting Basics"},
+      "description": {"it": "Simula un problema e risolvilo con logs, describe, events.", "en": "Simulate a problem and solve it with logs, describe, events."},
+      "hint": {"it": "Crea un pod con immagine inesistente e debugga 'ImagePullBackOff'.", "en": "Create a pod with a non-existent image and debug 'ImagePullBackOff'."}
+    },
+    {
+      "title": {"it": "Config Review", "en": "Config Review"},
+      "description": {"it": "Verifica tutta la configurazione di Minikube e documenta le tue preferenze.", "en": "Verify all Minikube configuration and document your preferences."},
+      "hint": {"it": "'minikube config view' mostra le impostazioni correnti.", "en": "'minikube config view' shows current settings."}
+    },
+    {
+      "title": {"it": "Multi-Profilo Demo", "en": "Multi-Profile Demo"},
+      "description": {"it": "Crea, gestisci ed elimina profili multipli in sequenza.", "en": "Create, manage, and delete multiple profiles in sequence."},
+      "hint": {"it": "Crea profili 'test' e 'staging', verifica, poi elimina.", "en": "Create 'test' and 'staging' profiles, verify, then delete."}
+    },
+    {
+      "title": {"it": "Logs Investigation", "en": "Logs Investigation"},
+      "description": {"it": "Trova e ispeziona i log di Minikube per un problema recente.", "en": "Find and inspect Minikube logs for a recent issue."},
+      "hint": {"it": "I log sono in ~/.minikube/logs/ per data.", "en": "Logs are in ~/.minikube/logs/ by date."}
+    },
+    {
+      "title": {"it": "Resource Monitoring", "en": "Resource Monitoring"},
+      "description": {"it": "Abilita metrics-server e monitora risorse per 5 minuti.", "en": "Enable metrics-server and monitor resources for 5 minutes."},
+      "hint": {"it": "Usa 'watch kubectl top nodes' per monitoraggio live.", "en": "Use 'watch kubectl top nodes' for live monitoring."}
+    },
+    {
+      "title": {"it": "Clean Slate", "en": "Clean Slate"},
+      "description": {"it": "Esegui un reset completo e ricostruisci un cluster pulito.", "en": "Perform a complete reset and rebuild a clean cluster."},
+      "hint": {"it": "'minikube delete --all --purge' poi 'minikube start'.", "en": "'minikube delete --all --purge' then 'minikube start'."}
+    },
+    {
+      "title": {"it": "Script di Avvio", "en": "Startup Script"},
+      "description": {"it": "Crea uno script bash che automatizzi il setup completo del tuo cluster.", "en": "Create a bash script that automates your complete cluster setup."},
+      "hint": {"it": "Includi: start, addons enable, profile setup, deploy base.", "en": "Include: start, addons enable, profile setup, deploy base."}
+    },
+    {
+      "title": {"it": "Knowledge Test", "en": "Knowledge Test"},
+      "description": {"it": "Rispondi a queste domande senza consultare la documentazione.", "en": "Answer these questions without consulting documentation."},
+      "hint": {"it": "Quali comandi usi per: status, logs, ssh, addons, profile?", "en": "What commands do you use for: status, logs, ssh, addons, profile?"}
+    }
+  ]
 }

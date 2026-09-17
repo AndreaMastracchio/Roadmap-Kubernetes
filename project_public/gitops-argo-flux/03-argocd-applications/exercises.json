@@ -1,0 +1,204 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Creare un'applicazione ArgoCD base",
+        "en": "Create a basic ArgoCD application"
+      },
+      "description": {
+        "it": "Distribuire la guestbook application di esempio usando ArgoCD.",
+        "en": "Deploy the sample guestbook application using ArgoCD."
+      },
+      "task": "1. Crea un'applicazione che punta a argocd-example-apps\n2. Usa il path 'guestbook'\n3. Imposta destination su in-cluster\n4. Namespace: guestbook\n5. Sincronizza manualmente",
+      "hints": [
+        "Usa argocd app create o un file YAML",
+        "Il repository è https://github.com/argoproj/argocd-example-apps",
+        "Crea prima il namespace guestbook"
+      ],
+      "solution": "kubectl create namespace guestbook\nargocd app create guestbook --repo https://github.com/argoproj/argocd-example-apps --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace guestbook\nargocd app sync guestbook",
+      "validation": "argocd app get guestbook deve mostrare Status: Synced, Health: Healthy",
+      "difficulty": "easy",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare una Helm application",
+        "en": "Configure a Helm application"
+      },
+      "description": {
+        "it": "Distribuire un chart Helm con values personalizzati.",
+        "en": "Deploy a Helm chart with custom values."
+      },
+      "task": "1. Crea app dal chart nginx-ingress Helm\n2. Imposta values personalizzati via CLI\n3. Usa targetRevision specifica\n4. Verifica la configurazione",
+      "hints": [
+        "Usa --helm-set per parametri singoli",
+        "Il chart Bitnami nginx-ingress su charts.bitnami.com/bitnami",
+        "Usa argocd app get per verificare"
+      ],
+      "solution": "argocd app create nginx-ingress --repo https://charts.bitnami.com/bitnami --chart nginx-ingress --targetRevision 9.x.x --dest-server https://kubernetes.default.svc --dest-namespace nginx --helm-set service.type=LoadBalancer",
+      "validation": "argocd app get nginx-ingress --show-params deve mostrare i valori Helm",
+      "difficulty": "medium",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Impostare sync automatico",
+        "en": "Set up automatic sync"
+      },
+      "description": {
+        "it": "Configurare la sincronizzazione automatica con prune e selfHeal.",
+        "en": "Configure automatic sync with prune and selfHeal."
+      },
+      "task": "1. Modifica l'app guestbook per auto-sync\n2. Abilita prune automatico\n3. Abilita selfHeal\n4. Testa modificando manualmente una risorsa",
+      "hints": [
+        "Usa argocd app set --sync-policy",
+        "O edita il file YAML della Application",
+        "Testa con kubectl edit su una risorsa"
+      ],
+      "solution": "argocd app set guestbook --sync-policy automated --auto-prune --self-heal\n# Test: kubectl edit deployment -n guestbook\n# ArgoCD deve ripristinare entro 3 minuti",
+      "validation": "Modificare manualmente una risorsa e verificare che ArgoCD la ripristina",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un'applicazione Kustomize",
+        "en": "Create a Kustomize application"
+      },
+      "description": {
+        "it": "Distribuire applicazioni usando Kustomize con overlays.",
+        "en": "Deploy applications using Kustomize with overlays."
+      },
+      "task": "1. Crea app dal path kustomize-guestbook\n2. Verifica che Kustomize sia rilevato\n3. Esamina i manifest generati",
+      "hints": [
+        "Il path kustomize-guestbook negli example apps",
+        "ArgoCD rileva automaticamente kustomization.yaml",
+        "Usa argocd app manifests per vedere l'output"
+      ],
+      "solution": "argocd app create kustomize-app --repo https://github.com/argoproj/argocd-example-apps --path kustomize-guestbook --dest-server https://kubernetes.default.svc --dest-namespace kustomize\nargocd app sync kustomize-app",
+      "validation": "argocd app manifests kustomize-app deve mostrare i manifest renderizzati",
+      "difficulty": "easy",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un ApplicationSet base",
+        "en": "Create a basic ApplicationSet"
+      },
+      "description": {
+        "it": "Generare multiple applicazioni con ApplicationSet.",
+        "en": "Generate multiple applications with ApplicationSet."
+      },
+      "task": "1. Crea un ApplicationSet con List generator\n2. Genera app per dev e prod\n3. Applica e verifica le applicazioni create",
+      "hints": [
+        "AppProject argoproj.io/v1alpha1",
+        "List generator con items",
+        "Usa template per definire l'Application"
+      ],
+      "solution": "cat > appset.yaml << 'EOF'\napiVersion: argoproj.io/v1alpha1\nkind: ApplicationSet\nmetadata:\n  name: multi-env\n  namespace: argocd\nspec:\n  generators:\n  - list:\n      elements:\n      - env: dev\n      - env: prod\n  template:\n    metadata:\n      name: 'guestbook-{{env}}'\n    spec:\n      project: default\n      source:\n        repoURL: https://github.com/argoproj/argocd-example-apps\n        path: guestbook\n      destination:\n        server: https://kubernetes.default.svc\n        namespace: 'guestbook-{{env}}'\nEOF\nkubectl apply -f appset.yaml",
+      "validation": "argocd app list deve mostrare guestbook-dev e guestbook-prod",
+      "difficulty": "medium",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare parametri Helm multipli",
+        "en": "Configure multiple Helm parameters"
+      },
+      "description": {
+        "it": "Distribuire Helm con values file e parametri inline.",
+        "en": "Deploy Helm with values files and inline parameters."
+      },
+      "task": "1. Crea file values.yaml personalizzato\n2. Configura app per usare values file\n3. Aggiungi override inline\n4. Verifica la configurazione finale",
+      "hints": [
+        "Specifica values file con --values",
+        "Usa --helm-set-file per file aggiuntivi",
+        "L'ordine dei values determina precedenza"
+      ],
+      "solution": "cat > my-values.yaml << 'EOF'\nreplicaCount: 3\nimage:\n  tag: \"1.21\"\nEOF\nargocd app create my-nginx --repo https://charts.bitnami.com/bitnami --chart nginx --targetRevision 13.x --values my-values.yaml --helm-set replicaCount=5 --dest-server https://kubernetes.default.svc --dest-namespace nginx",
+      "validation": "argocd app get my-nginx --show-params deve mostrare replicaCount=5 (override)",
+      "difficulty": "medium",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Utilizzare il Cluster generator",
+        "en": "Use the Cluster generator"
+      },
+      "description": {
+        "it": "Generare applicazioni per cluster multipli.",
+        "en": "Generate applications for multiple clusters."
+      },
+      "task": "1. Registra due cluster in ArgoCD\n2. Crea ApplicationSet con Cluster generator\n3. Verifica le applicazioni generate",
+      "hints": [
+        "Prima registra i cluster con argocd cluster add",
+        "Cluster generator legge da Secret cluster",
+        "Usa labels per filtrare cluster"
+      ],
+      "solution": "# Prima: argocd cluster add <context> --name staging\ncat > cluster-appset.yaml << 'EOF'\napiVersion: argoproj.io/v1alpha1\nkind: ApplicationSet\nmetadata:\n  name: cluster-apps\n  namespace: argocd\nspec:\n  generators:\n  - clusters: {}\n  template:\n    metadata:\n      name: 'guestbook-{{name}}'\n    spec:\n      project: default\n      source:\n        repoURL: https://github.com/argoproj/argocd-example-apps\n        path: guestbook\n      destination:\n        server: '{{server}}'\n        namespace: guestbook\nEOF\nkubectl apply -f cluster-appset.yaml",
+      "validation": "argocd app list deve mostrare applicazioni per ogni cluster",
+      "difficulty": "hard",
+      "timeEstimate": "30 minuti"
+    },
+    {
+      "title": {
+        "it": "Gestire multi-source application",
+        "en": "Manage multi-source application"
+      },
+      "description": {
+        "it": "Creare un'applicazione con sorgenti multiple.",
+        "en": "Create an application with multiple sources."
+      },
+      "task": "1. Crea app con due sorgenti Git\n2. Una per i manifest base, una per gli overlay\n3. Sincronizza e verifica",
+      "hints": [
+        "Usa spec.sources (array) invece di spec.source",
+        "ArgoCD 2.6+ supporta multi-source",
+        "Le risorse vengono unite"
+      ],
+      "solution": "cat > multi-source.yaml << 'EOF'\napiVersion: argoproj.io/v1alpha1\nkind: Application\nmetadata:\n  name: multi-source-app\n  namespace: argocd\nspec:\n  project: default\n  sources:\n  - repoURL: https://github.com/argoproj/argocd-example-apps\n    path: guestbook\n  - repoURL: https://github.com/org/overlays\n    path: guestbook-overlays\n  destination:\n    server: https://kubernetes.default.svc\n    namespace: guestbook\nEOF\nkubectl apply -f multi-source.yaml",
+      "validation": "argocd app get multi-source-app deve mostrare entrambe le sorgenti",
+      "difficulty": "hard",
+      "timeEstimate": "25 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare rollback manuale",
+        "en": "Implement manual rollback"
+      },
+      "description": {
+        "it": "Eseguire rollback a una versione precedente.",
+        "en": "Execute rollback to a previous version."
+      },
+      "task": "1. Identifica la cronologia delle sincronizzazioni\n2. Esegui rollback a versione precedente\n3. Verifica lo stato",
+      "hints": [
+        "Usa argocd app history per vedere le versioni",
+        "argocd app rollback per tornare indietro",
+        "Il rollback disabilita l'auto-sync"
+      ],
+      "solution": "argocd app history guestbook\nargocd app rollback guestbook <revision-id>\nargocd app get guestbook",
+      "validation": "Verificare che l'app sia tornata alla versione specificata",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare notifiche per sync falliti",
+        "en": "Configure notifications for failed syncs"
+      },
+      "description": {
+        "it": "Impostare alert per sincronizzazioni fallite.",
+        "en": "Set up alerts for failed syncs."
+      },
+      "task": "1. Configura l'integrazione Slack/Email\n2. Imposta trigger per sync falliti\n3. Testa inviando una sync che fallisce",
+      "hints": [
+        "Modifica argocd-notifications-cm",
+        "Usa template e trigger predefiniti",
+        "Aggiungi annotazioni all'applicazione"
+      ],
+      "solution": "kubectl edit cm argocd-notifications-cm -n argocd\n# Aggiungi configurazione Slack\nkubectl annotate app guestbook notifications.argoproj.io/subscribe.on-sync-failed.slack='my-channel' -n argocd",
+      "validation": "Una sync fallita deve generare una notifica",
+      "difficulty": "hard",
+      "timeEstimate": "30 minuti"
+    }
+  ]
+}

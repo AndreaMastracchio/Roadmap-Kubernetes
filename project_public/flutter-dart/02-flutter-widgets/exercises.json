@@ -1,0 +1,164 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "StatelessWidget base",
+        "en": "Basic StatelessWidget"
+      },
+      "description": {
+        "it": "Creare un StatelessWidget 'SalutoCard' che mostra un testo di benvenuto con stile personalizzato.",
+        "en": "Create a 'GreetingCard' StatelessWidget that displays a welcome text with custom styling."
+      },
+      "startingCode": "import 'package:flutter/material.dart';\n\nclass SalutoCard extends StatelessWidget {\n  final String nome;\n  \n  const SalutoCard({super.key, required this.nome});\n  \n  @override\n  Widget build(BuildContext context) {\n    // TODO: Implementare il widget\n    return Container();\n  }\n}",
+      "solution": "import 'package:flutter/material.dart';\n\nclass SalutoCard extends StatelessWidget {\n  final String nome;\n  \n  const SalutoCard({super.key, required this.nome});\n  \n  @override\n  Widget build(BuildContext context) {\n    return Card(\n      margin: const EdgeInsets.all(16),\n      child: Padding(\n        padding: const EdgeInsets.all(20),\n        child: Text(\n          'Benvenuto, $nome!',\n          style: const TextStyle(\n            fontSize: 24,\n            fontWeight: FontWeight.bold,\n          ),\n        ),\n      ),\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa Card con Padding e Text con TextStyle per lo stile.",
+        "en": "Use Card with Padding and Text with TextStyle for styling."
+      }
+    },
+    {
+      "title": {
+        "it": "StatefulWidget contatore",
+        "en": "Counter StatefulWidget"
+      },
+      "description": {
+        "it": "Creare un StatefulWidget con un contatore e due pulsanti per incrementare e decrementare.",
+        "en": "Create a StatefulWidget with a counter and two buttons to increment and decrement."
+      },
+      "startingCode": "import 'package:flutter/material.dart';\n\nclass Contatore extends StatefulWidget {\n  const Contatore({super.key});\n  \n  @override\n  State<Contatore> createState() => _ContatoreState();\n}\n\nclass _ContatoreState extends State<Contatore> {\n  // TODO: Aggiungere stato e metodi\n  \n  @override\n  Widget build(BuildContext context) {\n    return Column(children: []);\n  }\n}",
+      "solution": "import 'package:flutter/material.dart';\n\nclass Contatore extends StatefulWidget {\n  const Contatore({super.key});\n  \n  @override\n  State<Contatore> createState() => _ContatoreState();\n}\n\nclass _ContatoreState extends State<Contatore> {\n  int _valore = 0;\n  \n  void _incrementa() => setState(() => _valore++);\n  void _decrementa() => setState(() => _valore--);\n  \n  @override\n  Widget build(BuildContext context) {\n    return Column(\n      mainAxisAlignment: MainAxisAlignment.center,\n      children: [\n        Text('Valore: $_valore', style: TextStyle(fontSize: 32)),\n        Row(\n          mainAxisAlignment: MainAxisAlignment.center,\n          children: [\n            ElevatedButton(onPressed: _decrementa, child: Text('-')),\n            SizedBox(width: 16),\n            ElevatedButton(onPressed: _incrementa, child: Text('+')),\n          ],\n        ),\n      ],\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa setState() nei metodi per aggiornare l'UI.",
+        "en": "Use setState() in methods to update the UI."
+      }
+    },
+    {
+      "title": {
+        "it": "Layout con Row e Column",
+        "en": "Layout with Row and Column"
+      },
+      "description": {
+        "it": "Creare un profilo utente con avatar a sinistra e info a destra usando Row.",
+        "en": "Create a user profile with avatar on the left and info on the right using Row."
+      },
+      "startingCode": "class ProfiloUtente extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    // TODO: Row con CircleAvatar e Column con nome/email\n    return Container();\n  }\n}",
+      "solution": "class ProfiloUtente extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    return Row(\n      children: [\n        CircleAvatar(\n          radius: 30,\n          backgroundImage: NetworkImage('https://via.placeholder.com/150'),\n        ),\n        SizedBox(width: 16),\n        Column(\n          crossAxisAlignment: CrossAxisAlignment.start,\n          children: [\n            Text('Mario Rossi', style: TextStyle(fontWeight: FontWeight.bold)),\n            Text('mario@email.com', style: TextStyle(color: Colors.grey)),\n          ],\n        ),\n      ],\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa CircleAvatar, SizedBox per spazio, e Column per testo verticale.",
+        "en": "Use CircleAvatar, SizedBox for spacing, and Column for vertical text."
+      }
+    },
+    {
+      "title": {
+        "it": "Stack con Positioned",
+        "en": "Stack with Positioned"
+      },
+      "description": {
+        "it": "Creare un badge di notifica su un'icona usando Stack e Positioned.",
+        "en": "Create a notification badge on an icon using Stack and Positioned."
+      },
+      "startingCode": "class BadgeNotifica extends StatelessWidget {\n  final int count;\n  \n  const BadgeNotifica({required this.count});\n  \n  @override\n  Widget build(BuildContext context) {\n    // TODO: Stack con icona e badge\n    return Container();\n  }\n}",
+      "solution": "class BadgeNotifica extends StatelessWidget {\n  final int count;\n  \n  const BadgeNotifica({required this.count});\n  \n  @override\n  Widget build(BuildContext context) {\n    return Stack(\n      children: [\n        Icon(Icons.notifications, size: 32),\n        if (count > 0)\n          Positioned(\n            right: 0,\n            top: 0,\n            child: Container(\n              padding: EdgeInsets.all(4),\n              decoration: BoxDecoration(\n                color: Colors.red,\n                shape: BoxShape.circle,\n              ),\n              child: Text('$count', style: TextStyle(color: Colors.white, fontSize: 10)),\n            ),\n          ),\n      ],\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa Positioned per posizionare il badge in alto a destra dell'icona.",
+        "en": "Use Positioned to place the badge at the top right of the icon."
+      }
+    },
+    {
+      "title": {
+        "it": "ListView builder",
+        "en": "ListView builder"
+      },
+      "description": {
+        "it": "Creare una lista di contatti usando ListView.builder.",
+        "en": "Create a contact list using ListView.builder."
+      },
+      "startingCode": "class ListaContatti extends StatelessWidget {\n  final List<String> contatti;\n  \n  const ListaContatti({required this.contatti});\n  \n  @override\n  Widget build(BuildContext context) {\n    // TODO: ListView.builder\n    return Container();\n  }\n}",
+      "solution": "class ListaContatti extends StatelessWidget {\n  final List<String> contatti;\n  \n  const ListaContatti({required this.contatti});\n  \n  @override\n  Widget build(BuildContext context) {\n    return ListView.builder(\n      itemCount: contatti.length,\n      itemBuilder: (context, index) {\n        return ListTile(\n          leading: CircleAvatar(child: Text(contatti[index][0])),\n          title: Text(contatti[index]),\n          onTap: () {},\n        );\n      },\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa itemBuilder per costruire ogni ListTile dinamicamente.",
+        "en": "Use itemBuilder to build each ListTile dynamically."
+      }
+    },
+    {
+      "title": {
+        "it": "Layout responsivo",
+        "en": "Responsive layout"
+      },
+      "description": {
+        "it": "Creare un layout che mostra 2 colonne su mobile e 4 su tablet usando LayoutBuilder.",
+        "en": "Create a layout showing 2 columns on mobile and 4 on tablet using LayoutBuilder."
+      },
+      "startingCode": "class GrigliaResponsiva extends StatelessWidget {\n  final List<Widget> items;\n  \n  const GrigliaResponsiva({required this.items});\n  \n  @override\n  Widget build(BuildContext context) {\n    // TODO: LayoutBuilder con GridView\n    return Container();\n  }\n}",
+      "solution": "class GrigliaResponsiva extends StatelessWidget {\n  final List<Widget> items;\n  \n  const GrigliaResponsiva({required this.items});\n  \n  @override\n  Widget build(BuildContext context) {\n    return LayoutBuilder(\n      builder: (context, constraints) {\n        final columns = constraints.maxWidth > 600 ? 4 : 2;\n        return GridView.count(\n          crossAxisCount: columns,\n          children: items,\n        );\n      },\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa constraints.maxWidth per determinare il numero di colonne.",
+        "en": "Use constraints.maxWidth to determine the number of columns."
+      }
+    },
+    {
+      "title": {
+        "it": "Container con gradiente",
+        "en": "Container with gradient"
+      },
+      "description": {
+        "it": "Creare un Container con sfondo gradiente, bordi arrotondati e ombra.",
+        "en": "Create a Container with gradient background, rounded borders and shadow."
+      },
+      "startingCode": "class BoxStilizzato extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    // TODO: Container con BoxDecoration\n    return Container(width: 200, height: 100);\n  }\n}",
+      "solution": "class BoxStilizzato extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    return Container(\n      width: 200,\n      height: 100,\n      decoration: BoxDecoration(\n        borderRadius: BorderRadius.circular(16),\n        gradient: LinearGradient(\n          colors: [Colors.blue, Colors.purple],\n          begin: Alignment.topLeft,\n          end: Alignment.bottomRight,\n        ),\n        boxShadow: [\n          BoxShadow(\n            color: Colors.black26,\n            blurRadius: 8,\n            offset: Offset(0, 4),\n          ),\n        ],\n      ),\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa BoxDecoration con gradient, borderRadius e boxShadow.",
+        "en": "Use BoxDecoration with gradient, borderRadius and boxShadow."
+      }
+    },
+    {
+      "title": {
+        "it": "Scaffold completo",
+        "en": "Complete Scaffold"
+      },
+      "description": {
+        "it": "Creare un Scaffold con AppBar, FloatingActionButton e BottomNavigationBar.",
+        "en": "Create a Scaffold with AppBar, FloatingActionButton and BottomNavigationBar."
+      },
+      "startingCode": "class PaginaPrincipale extends StatefulWidget {\n  @override\n  State<PaginaPrincipale> createState() => _PaginaPrincipaleState();\n}\n\nclass _PaginaPrincipaleState extends State<PaginaPrincipale> {\n  int _indice = 0;\n  \n  @override\n  Widget build(BuildContext context) {\n    // TODO: Scaffold completo\n    return Scaffold();\n  }\n}",
+      "solution": "class PaginaPrincipale extends StatefulWidget {\n  @override\n  State<PaginaPrincipale> createState() => _PaginaPrincipaleState();\n}\n\nclass _PaginaPrincipaleState extends State<PaginaPrincipale> {\n  int _indice = 0;\n  \n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      appBar: AppBar(title: Text('La Mia App')),\n      body: Center(child: Text('Pagina $_indice')),\n      floatingActionButton: FloatingActionButton(\n        onPressed: () {},\n        child: Icon(Icons.add),\n      ),\n      bottomNavigationBar: BottomNavigationBar(\n        currentIndex: _indice,\n        onTap: (i) => setState(() => _indice = i),\n        items: [\n          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),\n          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profilo'),\n        ],\n      ),\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa setState per cambiare l'indice e aggiornare BottomNavigationBar.",
+        "en": "Use setState to change the index and update BottomNavigationBar."
+      }
+    },
+    {
+      "title": {
+        "it": "Card con ListTile",
+        "en": "Card with ListTile"
+      },
+      "description": {
+        "it": "Creare una Card che mostra informazioni prodotto con ListTile.",
+        "en": "Create a Card showing product information with ListTile."
+      },
+      "startingCode": "class ProdottoCard extends StatelessWidget {\n  final String nome;\n  final double prezzo;\n  \n  const ProdottoCard({required this.nome, required this.prezzo});\n  \n  @override\n  Widget build(BuildContext context) {\n    // TODO: Card con ListTile\n    return Container();\n  }\n}",
+      "solution": "class ProdottoCard extends StatelessWidget {\n  final String nome;\n  final double prezzo;\n  \n  const ProdottoCard({required this.nome, required this.prezzo});\n  \n  @override\n  Widget build(BuildContext context) {\n    return Card(\n      margin: EdgeInsets.all(8),\n      child: ListTile(\n        leading: Icon(Icons.shopping_cart),\n        title: Text(nome),\n        subtitle: Text('€${prezzo.toStringAsFixed(2)}'),\n        trailing: IconButton(\n          icon: Icon(Icons.add),\n          onPressed: () {},\n        ),\n      ),\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa ListTile dentro Card per layout standardizzato.",
+        "en": "Use ListTile inside Card for standardized layout."
+      }
+    },
+    {
+      "title": {
+        "it": "Expanded e Flexible",
+        "en": "Expanded and Flexible"
+      },
+      "description": {
+        "it": "Creare una Row con due Container: il primo con Expanded(flex: 2), il secondo con Expanded(flex: 1).",
+        "en": "Create a Row with two Containers: the first with Expanded(flex: 2), the second with Expanded(flex: 1)."
+      },
+      "startingCode": "class LayoutFlessibile extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    // TODO: Row con Expanded e flex\n    return Container(height: 50);\n  }\n}",
+      "solution": "class LayoutFlessibile extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    return Row(\n      children: [\n        Expanded(\n          flex: 2,\n          child: Container(color: Colors.blue, height: 50),\n        ),\n        Expanded(\n          flex: 1,\n          child: Container(color: Colors.green, height: 50),\n        ),\n      ],\n    );\n  }\n}",
+      "hint": {
+        "it": "Expanded con flex: 2 prende il doppio dello spazio di flex: 1.",
+        "en": "Expanded with flex: 2 takes twice the space of flex: 1."
+      }
+    }
+  ]
+}

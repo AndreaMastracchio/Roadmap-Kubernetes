@@ -1,0 +1,244 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Setup Base di nvim-dap",
+        "en": "Basic nvim-dap Setup"
+      },
+      "description": {
+        "it": "Installa e configura nvim-dap con le mappature F5-F12 standard.",
+        "en": "Install and configure nvim-dap with standard F5-F12 mappings."
+      },
+      "difficulty": "beginner",
+      "steps": [
+        "Crea lua/plugins/dap.lua",
+        "Aggiungi mfussenegger/nvim-dap",
+        "Configura keymaps F5, F10, F11, F12",
+        "Aggiungi keymap per toggle breakpoint",
+        "Testa aprendo un file Python"
+      ],
+      "hints": [
+        "Usa vim.keymap.set per le mappature",
+        "F5 = continue, F10 = step_over, F11 = step_into, F12 = step_out"
+      ],
+      "solution": "return {\n  'mfussenegger/nvim-dap',\n  config = function()\n    local dap = require('dap')\n    vim.keymap.set('n', '<F5>', dap.continue)\n    vim.keymap.set('n', '<F10>', dap.step_over)\n    vim.keymap.set('n', '<F11>', dap.step_into)\n    vim.keymap.set('n', '<F12>', dap.step_out)\n    vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint)\n  end,\n}"
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Installare DAP UI",
+        "en": "Install DAP UI"
+      },
+      "description": {
+        "it": "Aggiungi nvim-dap-ui e configurane l'apertura automatica all'avvio del debug.",
+        "en": "Add nvim-dap-ui and configure auto-open when debugging starts."
+      },
+      "difficulty": "beginner",
+      "steps": [
+        "Aggiungi rcarriga/nvim-dap-ui come dipendenza",
+        "Aggiungi anche nvim-neotest/nvim-nio",
+        "Configura dapui.setup()",
+        "Imposta listeners per auto-open",
+        "Testa avviando una sessione di debug"
+      ],
+      "hints": [
+        "Usa dap.listeners.after.event_initialized",
+        "Richiede nvim-nio come dipendenza"
+      ],
+      "solution": "dapui.setup()\n\ndap.listeners.after.event_initialized['dapui_config'] = function()\n  dapui.open()\nend\ndap.listeners.before.event_terminated['dapui_config'] = function()\n  dapui.close()\nend\ndap.listeners.before.event_exited['dapui_config'] = function()\n  dapui.close()\nend"
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Configurare Python Debug",
+        "en": "Configure Python Debug"
+      },
+      "description": {
+        "it": "Configura nvim-dap-python per debuggare script Python.",
+        "en": "Configure nvim-dap-python to debug Python scripts."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi mfussenegger/nvim-dap-python",
+        "Imposta il path a debugpy da Mason",
+        "Crea configurazione launch per file corrente",
+        "Aggiungi keymap per debug test method",
+        "Testa su un file Python con errori"
+      ],
+      "hints": [
+        "Il path è stdpath('data') .. '/mason/packages/debugpy/venv/bin/python'",
+        "Usa dap_python.test_runner = 'pytest'"
+      ],
+      "solution": "local path = vim.fn.stdpath('data') .. '/mason/packages/debugpy/venv/bin/python'\nrequire('dap-python').setup(path)\n\nvim.keymap.set('n', '<leader>dpr', function()\n  require('dap-python').test_method()\nend)"
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "Breakpoint Condizionali",
+        "en": "Conditional Breakpoints"
+      },
+      "description": {
+        "it": "Crea keymap per breakpoint condizionali e log points.",
+        "en": "Create keymaps for conditional breakpoints and log points."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Crea keymap <leader>dB per breakpoint condizionale",
+        "Usa vim.fn.input per chiedere la condizione",
+        "Crea keymap <leader>dl per log point",
+        "Testa breakpoint condizionale in un loop",
+        "Verifica log point non fermi l'esecuzione"
+      ],
+      "hints": [
+        "dap.set_breakpoint(condition, hit_condition, log_message)",
+        "Log points non bloccano l'esecuzione"
+      ],
+      "solution": "vim.keymap.set('n', '<leader>dB', function()\n  require('dap').set_breakpoint(vim.fn.input('Condition: '))\nend)\n\nvim.keymap.set('n', '<leader>dl', function()\n  require('dap').set_breakpoint(nil, nil, vim.fn.input('Log: '))\nend)"
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Node.js Debug Setup",
+        "en": "Node.js Debug Setup"
+      },
+      "description": {
+        "it": "Configura il debug adapter per Node.js/JavaScript.",
+        "en": "Configure the debug adapter for Node.js/JavaScript."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi configurazione adapter pwa-node",
+        "Punta all'adapter js-debug da Mason",
+        "Aggiungi configurazioni launch per file e attach",
+        "Crea configurazione per Jest",
+        "Testa su un progetto Node.js"
+      ],
+      "hints": [
+        "Il path è stdpath('data') .. '/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js'",
+        "Type deve essere 'server' con executable"
+      ],
+      "solution": "dap.adapters['pwa-node'] = {\n  type = 'server',\n  host = 'localhost',\n  port = '${port}',\n  executable = {\n    command = 'node',\n    args = { vim.fn.stdpath('data') .. '/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js', '${port}' },\n  },\n}"
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Virtual Text Configuration",
+        "en": "Virtual Text Configuration"
+      },
+      "description": {
+        "it": "Configura nvim-dap-virtual-text per mostrare variabili inline.",
+        "en": "Configure nvim-dap-virtual-text to show variables inline."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi theHamsta/nvim-dap-virtual-text",
+        "Imposta commented = true per compatibilità",
+        "Configura virt_text_pos = 'eol'",
+        "Testa il virtual text durante debug",
+        "Verifica non interferisca con il codice"
+      ],
+      "hints": [
+        "commented = true aggiunge commenti decorativi",
+        "all_frames = true mostra su tutti i frame"
+      ],
+      "solution": "require('nvim-dap-virtual-text').setup({\n  commented = true,\n  virt_text_pos = 'eol',\n  all_frames = true,\n  highlight_changed_variables = true,\n})"
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "Watch Expressions",
+        "en": "Watch Expressions"
+      },
+      "description": {
+        "it": "Imposta keymap per gestire watch expressions.",
+        "en": "Set up keymaps to manage watch expressions."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Crea keymap per aggiungere watch",
+        "Usa dapui.elements.watches.add()",
+        "Crea keymap per rimuovere watch",
+        "Testa aggiungendo variabili complesse",
+        "Verifica aggiornamento durante stepping"
+      ],
+      "hints": [
+        "Accedi agli elementi UI via dapui.elements",
+        "Le watch si aggiornano automaticamente"
+      ],
+      "solution": "vim.keymap.set('n', '<leader>dw', function()\n  local expr = vim.fn.input('Watch: ')\n  require('dapui').elements.watches.add(expr)\nend)\n\nvim.keymap.set('n', '<leader>drw', function()\n  require('dapui').elements.watches.remove()\nend)"
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "Telescope DAP Integration",
+        "en": "Telescope DAP Integration"
+      },
+      "description": {
+        "it": "Integra Telescope per navigare breakpoint e frame.",
+        "en": "Integrate Telescope to navigate breakpoints and frames."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Aggiungi nvim-telescope/telescope-dap.nvim",
+        "Carica l'estensione nel config",
+        "Crea keymap per list_breakpoints",
+        "Crea keymap per frames",
+        "Testa la navigazione durante una sessione"
+      ],
+      "hints": [
+        "require('telescope').load_extension('dap')",
+        "Le estensioni sono telescope.extensions.dap"
+      ],
+      "solution": "require('telescope').load_extension('dap')\n\nvim.keymap.set('n', '<leader>dfb', function()\n  require('telescope').extensions.dap.list_breakpoints()\nend)\n\nvim.keymap.set('n', '<leader>dff', function()\n  require('telescope').extensions.dap.frames()\nend)"
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "Go Debug Setup",
+        "en": "Go Debug Setup"
+      },
+      "description": {
+        "it": "Configura nvim-dap-go per debuggare codice Go.",
+        "en": "Configure nvim-dap-go to debug Go code."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Aggiungi leoluz/nvim-dap-go",
+        "Configura il path a delve da Mason",
+        "Aggiungi keymap per debug_test",
+        "Testa su una funzione Go con test",
+        "Verifica stepping nel codice Go"
+      ],
+      "hints": [
+        "delve path: stdpath('data') .. '/mason/packages/delve/dlv'",
+        "debug_test() trova il test più vicino"
+      ],
+      "solution": "require('dap-go').setup({\n  delve = {\n    path = vim.fn.stdpath('data') .. '/mason/packages/delve/dlv',\n  },\n})\n\nvim.keymap.set('n', '<leader>dgt', require('dap-go').debug_test)"
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Mason DAP Auto-Install",
+        "en": "Mason DAP Auto-Install"
+      },
+      "description": {
+        "it": "Configura mason-nvim-dap per installare automaticamente gli adapter.",
+        "en": "Configure mason-nvim-dap to automatically install adapters."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Aggiungi jay-babu/mason-nvim-dap.nvim",
+        "Imposta ensure_installed con adapter comuni",
+        "Abilita automatic_installation",
+        "Configura un handler per Python",
+        "Verifica che gli adapter siano installati"
+      ],
+      "hints": [
+        "I nomi degli adapter: 'codelldb', 'debugpy', 'js-debug-adapter'",
+        "Handlers permettono configurazioni per-linguaggio"
+      ],
+      "solution": "require('mason-nvim-dap').setup({\n  ensure_installed = { 'codelldb', 'debugpy', 'js-debug-adapter' },\n  automatic_installation = true,\n  handlers = {\n    function(config)\n      require('mason-nvim-dap').default_setup(config)\n    end,\n    python = function(config)\n      config.configurations = {{\n        type = 'python',\n        request = 'launch',\n        name = 'Launch file',\n        program = '${file}',\n      }}\n      require('mason-nvim-dap').default_setup(config)\n    end,\n  },\n})"
+    }
+  ]
+}

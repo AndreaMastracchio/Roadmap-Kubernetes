@@ -1,9 +1,86 @@
 {
   "id": "gitops-argo-flux",
-  "title": "GitOps & CI/CD",
-  "description": "Automazione professionale con ArgoCD e Flux per gestire il cluster come codice (IaC).",
+  "title": {
+    "it": "GitOps & CI/CD",
+    "en": "GitOps & CI/CD"
+  },
+  "description": {
+    "it": "Automazione professionale con ArgoCD e Flux per gestire il cluster come codice (IaC).",
+    "en": "Professional automation with ArgoCD and Flux for managing your cluster as code (IaC)."
+  },
   "icon": "ArchitectureIcon",
-  "price": 39.99,
-  "isPrivate": true,
-  "comingSoon": true
+  "isPrivate": false,
+  "comingSoon": false,
+  "modules": [
+    {
+      "id": "01",
+      "title": {
+        "it": "Modulo 01: Fondamenti GitOps",
+        "en": "Module 01: GitOps Fundamentals"
+      }
+    },
+    {
+      "id": "02",
+      "title": {
+        "it": "Modulo 02: Installazione ArgoCD",
+        "en": "Module 02: ArgoCD Installation & Setup"
+      }
+    },
+    {
+      "id": "03",
+      "title": {
+        "it": "Modulo 03: Applicazioni ArgoCD",
+        "en": "Module 03: ArgoCD Applications"
+      }
+    },
+    {
+      "id": "04",
+      "title": {
+        "it": "Modulo 04: Sync e Hook ArgoCD",
+        "en": "Module 04: ArgoCD Sync & Hooks"
+      }
+    },
+    {
+      "id": "05",
+      "title": {
+        "it": "Modulo 05: Fondamenti Flux CD",
+        "en": "Module 05: Flux CD Fundamentals"
+      }
+    },
+    {
+      "id": "06",
+      "title": {
+        "it": "Modulo 06: Fonti e Kustomizations Flux",
+        "en": "Module 06: Flux Sources & Kustomizations"
+      }
+    },
+    {
+      "id": "07",
+      "title": {
+        "it": "Modulo 07: Pipeline CI/CD",
+        "en": "Module 07: CI/CD Pipelines"
+      }
+    },
+    {
+      "id": "08",
+      "title": {
+        "it": "Modulo 08: Pattern Avanzati GitOps",
+        "en": "Module 08: Advanced GitOps Patterns"
+      }
+    }
+  ],
+  "duration": {
+    "it": "16 ore",
+    "en": "16 hours"
+  },
+  "color": "#5c6bc0",
+  "languages": [
+    "it",
+    "en"
+  ],
+  "name": {
+    "it": "GitOps & CI/CD",
+    "en": "GitOps & CI/CD"
+  },
+  "group": "devops"
 }

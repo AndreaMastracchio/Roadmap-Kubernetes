@@ -1,0 +1,124 @@
+{
+  "quiz": [
+    {
+      "question": {"it": "Qual è il metodo consigliato per installare Minikube su macOS?", "en": "What is the recommended method to install Minikube on macOS?"},
+      "options": ["apt-get install minikube", "brew install minikube", "yum install minikube", "pip install minikube"],
+      "correct": 1,
+      "explanation": {"it": "Su macOS, Homebrew è il metodo più semplice: 'brew install minikube' gestisce anche le dipendenze.", "en": "On macOS, Homebrew is the simplest method: 'brew install minikube' also handles dependencies."},
+      "difficulty": "easy",
+      "domain": "installation"
+    },
+    {
+      "question": {"it": "Quale driver è il default su macOS con Apple Silicon (M1/M2)?", "en": "Which driver is the default on macOS with Apple Silicon (M1/M2)?"},
+      "options": ["virtualbox", "hyperkit", "docker", "qemu"],
+      "correct": 2,
+      "explanation": {"it": "Il driver Docker è il default su macOS, specialmente su Apple Silicon dove VirtualBox non è supportato.", "en": "The Docker driver is the default on macOS, especially on Apple Silicon where VirtualBox is not supported."},
+      "difficulty": "medium",
+      "domain": "drivers"
+    },
+    {
+      "question": {"it": "Quale comando scarica e installa Minikube su Linux?", "en": "Which command downloads and installs Minikube on Linux?"},
+      "options": ["sudo apt install minikube", "curl -LO ... && sudo install minikube /usr/local/bin/", "snap install minikube", "dnf install minikube"],
+      "correct": 1,
+      "explanation": {"it": "Il metodo ufficiale è scaricare il binario con curl e installarlo con 'sudo install minikube /usr/local/bin/'.", "en": "The official method is to download the binary with curl and install it with 'sudo install minikube /usr/local/bin/'."},
+      "difficulty": "medium",
+      "domain": "installation"
+    },
+    {
+      "question": {"it": "Su Windows, quale prerequisito è necessario per Minikube?", "en": "On Windows, what prerequisite is needed for Minikube?"},
+      "options": ["WSL2 o Hyper-V abilitato", "Solo VirtualBox", "Cygwin", "MinGW"],
+      "correct": 0,
+      "explanation": {"it": "Su Windows serve WSL2 (per il driver Docker) oppure Hyper-V abilitato per i driver hypervisor.", "en": "On Windows you need WSL2 (for the Docker driver) or Hyper-V enabled for hypervisor drivers."},
+      "difficulty": "medium",
+      "domain": "installation"
+    },
+    {
+      "question": {"it": "Quale comando installa Minikube su Windows con Chocolatey?", "en": "Which command installs Minikube on Windows with Chocolatey?"},
+      "options": ["winget install minikube", "choco install minikube", "scoop install minikube", "npm install minikube"],
+      "correct": 1,
+      "explanation": {"it": "Chocolatey usa 'choco install minikube'. Winget e Scoop sono alternative valide.", "en": "Chocolatey uses 'choco install minikube'. Winget and Scoop are valid alternatives."},
+      "difficulty": "easy",
+      "domain": "installation"
+    },
+    {
+      "question": {"it": "Quale driver offre le migliori prestazioni su Linux con KVM?", "en": "Which driver offers the best performance on Linux with KVM?"},
+      "options": ["docker", "virtualbox", "kvm2", "none"],
+      "correct": 2,
+      "explanation": {"it": "Il driver KVM2 offre prestazioni native su Linux con supporto hardware virtuale, superiore a VirtualBox.", "en": "The KVM2 driver offers native performance on Linux with hardware virtualization support, superior to VirtualBox."},
+      "difficulty": "medium",
+      "domain": "drivers"
+    },
+    {
+      "question": {"it": "Come si imposta il driver Docker come predefinito?", "en": "How do you set Docker as the default driver?"},
+      "options": ["minikube set-driver docker", "minikube config set driver docker", "minikube start --default-driver docker", "export MINIKUBE_DRIVER=docker"],
+      "correct": 1,
+      "explanation": {"it": "'minikube config set driver docker' salva la preferenza in modo persistente per tutti i futuri avvii.", "en": "'minikube config set driver docker' saves the preference persistently for all future starts."},
+      "difficulty": "easy",
+      "domain": "configuration"
+    },
+    {
+      "question": {"it": "Qual è il vantaggio del driver Docker rispetto ai driver VM?", "en": "What is the advantage of the Docker driver over VM drivers?"},
+      "options": ["Maggiore isolamento di sicurezza", "Avvio più rapido e minor uso di risorse", "Supporto per guest Windows", "Accesso diretto all'hardware"],
+      "correct": 1,
+      "explanation": {"it": "Il driver Docker evita il sovraccarico di una VM completa, avviando più velocemente e usando meno risorse.", "en": "The Docker driver avoids the overhead of a full VM, starting faster and using fewer resources."},
+      "difficulty": "medium",
+      "domain": "drivers"
+    },
+    {
+      "question": {"it": "Su Linux, quale gruppo utente deve appartenere per usare KVM?", "en": "On Linux, which user group must you belong to for using KVM?"},
+      "options": ["docker", "kvm", "libvirt", "virtualbox"],
+      "correct": 1,
+      "explanation": {"it": "L'utente deve essere nel gruppo 'libvirt' o 'kvm' per accedere a /dev/kvm senza sudo.", "en": "The user must be in the 'libvirt' or 'kvm' group to access /dev/kvm without sudo."},
+      "difficulty": "medium",
+      "domain": "installation"
+    },
+    {
+      "question": {"it": "Come si verifica quale driver sta usando Minikube?", "en": "How do you check which driver Minikube is using?"},
+      "options": ["minikube version", "minikube status", "minikube config view", "kubectl get nodes"],
+      "correct": 2,
+      "explanation": {"it": "'minikube config view' mostra tutte le configurazioni salvate incluso il driver. Anche 'minikube status' lo indica.", "en": "'minikube config view' shows all saved configurations including the driver. 'minikube status' also indicates it."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale comando avvia Minikube con il driver VirtualBox?", "en": "Which command starts Minikube with the VirtualBox driver?"},
+      "options": ["minikube start --vm virtualbox", "minikube start --driver=virtualbox", "minikube start -d vbox", "minikube start --hypervisor virtualbox"],
+      "correct": 1,
+      "explanation": {"it": "'minikube start --driver=virtualbox' specifica esplicitamente il driver VirtualBox per l'avvio.", "en": "'minikube start --driver=virtualbox' explicitly specifies the VirtualBox driver for startup."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Perché il driver Hyper-V è sconsigliato su Windows Home?", "en": "Why is the Hyper-V driver discouraged on Windows Home?"},
+      "options": ["Non è disponibile su Windows Home", "Richiede riavvio del sistema", "Ha problemi di prestazioni", "Non supporta Docker"],
+      "correct": 0,
+      "explanation": {"it": "Hyper-V non è disponibile su Windows Home Edition, solo su Pro ed Enterprise. Usare WSL2/Docker.", "en": "Hyper-V is not available on Windows Home Edition, only on Pro and Enterprise. Use WSL2/Docker."},
+      "difficulty": "medium",
+      "domain": "drivers"
+    },
+    {
+      "question": {"it": "Qual è la dipendenza obbligatoria per usare Minikube?", "en": "What is the mandatory dependency for using Minikube?"},
+      "options": ["kubectl", "docker", "virtualbox", "Nessuna delle precedenti"],
+      "correct": 0,
+      "explanation": {"it": "kubectl è necessario per interagire con il cluster. Docker/VirtualBox dipendono dal driver scelto.", "en": "kubectl is necessary to interact with the cluster. Docker/VirtualBox depend on the chosen driver."},
+      "difficulty": "easy",
+      "domain": "installation"
+    },
+    {
+      "question": {"it": "Come si installa kubectl su macOS?", "en": "How do you install kubectl on macOS?"},
+      "options": ["brew install kubectl", "brew install kubernetes-cli", "kubectl viene con Minikube", "Entrambe A e B funzionano"],
+      "correct": 3,
+      "explanation": {"it": "Sia 'brew install kubectl' che 'brew install kubernetes-cli' installano kubectl. Il nome del package è kubernetes-cli.", "en": "Both 'brew install kubectl' and 'brew install kubernetes-cli' install kubectl. The package name is kubernetes-cli."},
+      "difficulty": "easy",
+      "domain": "installation"
+    },
+    {
+      "question": {"it": "Quale driver è più indicato per ambienti CI/CD headless?", "en": "Which driver is more suitable for headless CI/CD environments?"},
+      "options": ["virtualbox (richiede GUI)", "docker (nessuna VM richiesta)", "hyperkit (solo macOS)", "hyperv (solo Windows)"],
+      "correct": 1,
+      "explanation": {"it": "Il driver Docker è ideale per CI perché non richiede GUI né hypervisor, funziona in container.", "en": "The Docker driver is ideal for CI because it requires no GUI nor hypervisor, works in containers."},
+      "difficulty": "hard",
+      "domain": "use-cases"
+    }
+  ]
+}

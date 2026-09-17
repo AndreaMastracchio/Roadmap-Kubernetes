@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Qual è il ruolo del CI nel pipeline CI/CD?",
+        "en": "What is the role of CI in a CI/CD pipeline?"
+      },
+      "options": [
+        "Deployare in produzione",
+        "Build, testare e creare artifact dal codice",
+        "Gestire il cluster",
+        "Monitorare le applicazioni"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il CI (Continuous Integration) build, testa e crea artifact dal codice sorgente.",
+        "en": "CI (Continuous Integration) builds, tests, and creates artifacts from source code."
+      },
+      "difficulty": "easy",
+      "domain": "CI/CD Concepts"
+    },
+    {
+      "question": {
+        "it": "GitHub Actions usa quale concetto per automatizzare i workflow?",
+        "en": "GitHub Actions uses which concept to automate workflows?"
+      },
+      "options": [
+        "Pipeline YAML",
+        "Workflow con trigger e job",
+        "Docker Compose",
+        "Kubernetes CronJob"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "GitHub Actions usa workflow YAML con trigger e job.",
+        "en": "GitHub Actions uses YAML workflows with triggers and jobs."
+      },
+      "difficulty": "easy",
+      "domain": "GitHub Actions"
+    },
+    {
+      "question": {
+        "it": "In un pipeline GitOps, chi fa il deploy?",
+        "en": "In a GitOps pipeline, who does the deployment?"
+      },
+      "options": [
+        "Il developer fa kubectl apply",
+        "Il CI pusha nel Git e il controller fa apply",
+        "Un operatore manualmente",
+        "Il Docker daemon"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "In GitOps, il CI aggiorna il Git e il controller (ArgoCD/Flux) fa apply.",
+        "en": "In GitOps, CI updates Git and the controller (ArgoCD/Flux) does the apply."
+      },
+      "difficulty": "medium",
+      "domain": "GitOps Pipeline"
+    },
+    {
+      "question": {
+        "it": "Cos'è un container image scan?",
+        "en": "What is a container image scan?"
+      },
+      "options": [
+        "Verificare le dimensioni dell'immagine",
+        "Analizzare l'immagine per vulnerabilità di sicurezza",
+        "Scaricare un'immagine",
+        "Pushare un'immagine"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "L'image scan analizza le dipendenze dell'immagine per vulnerabilità note.",
+        "en": "Image scan analyzes image dependencies for known vulnerabilities."
+      },
+      "difficulty": "easy",
+      "domain": "Security"
+    },
+    {
+      "question": {
+        "it": "GitLab CI usa quale file per definire le pipeline?",
+        "en": "GitLab CI uses which file to define pipelines?"
+      },
+      "options": [
+        "pipeline.yml",
+        ".gitlab-ci.yml",
+        "Jenkinsfile",
+        ".github/workflows/"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "GitLab CI usa il file .gitlab-ci.yml per definire le pipeline.",
+        "en": "GitLab CI uses the .gitlab-ci.yml file to define pipelines."
+      },
+      "difficulty": "easy",
+      "domain": "GitLab CI"
+    },
+    {
+      "question": {
+        "it": "Cos' è un promotion strategy nel deployment?",
+        "en": "What is a promotion strategy in deployment?"
+      },
+      "options": [
+        "Promuovere un utente ad admin",
+        "Strategia per promuovere una build tra ambienti (dev → staging → prod)",
+        "Promuovere un pod a deployment",
+        "Aggiornare la versione di Kubernetes"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Una promotion strategy definisce come una build viene promossa tra ambienti.",
+        "en": "A promotion strategy defines how a build is promoted across environments."
+      },
+      "difficulty": "medium",
+      "domain": "Deployment Strategies"
+    },
+    {
+      "question": {
+        "it": "Quale tool è comunemente usato per scansionare container image in CI?",
+        "en": "Which tool is commonly used to scan container images in CI?"
+      },
+      "options": [
+        "kubectl scan",
+        "Trivy",
+        "docker check",
+        "helm scan"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Trivy è uno scanner di vulnerabilità popolare per container image.",
+        "en": "Trivy is a popular vulnerability scanner for container images."
+      },
+      "difficulty": "easy",
+      "domain": "Security"
+    },
+    {
+      "question": {
+        "it": "In GitHub Actions, cosa fa un 'secret'?",
+        "en": "In GitHub Actions, what does a 'secret' do?"
+      },
+      "options": [
+        "Nasconde il codice sorgente",
+        "Fornisce variabili sensibili (token, password) in modo sicuro ai workflow",
+        "Critta i file",
+        "Gestisce i deploy key"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "I secrets forniscono variabili sensibili in modo sicuro, senza esporle nei log.",
+        "en": "Secrets provide sensitive variables securely without exposing them in logs."
+      },
+      "difficulty": "easy",
+      "domain": "GitHub Actions"
+    },
+    {
+      "question": {
+        "it": "Cos' è un multi-stage pipeline CI/CD?",
+        "en": "What is a multi-stage CI/CD pipeline?"
+      },
+      "options": [
+        "Un pipeline con più stage che eseguono attività diverse in sequenza",
+        "Un pipeline che builda più immagini",
+        "Un pipeline su più cluster",
+        "Un pipeline con più trigger"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Un multi-stage pipeline ha stage separati (build, test, scan, deploy) in sequenza.",
+        "en": "A multi-stage pipeline has separate stages (build, test, scan, deploy) in sequence."
+      },
+      "difficulty": "medium",
+      "domain": "CI/CD Concepts"
+    },
+    {
+      "question": {
+        "it": "Docker-in-Docker (DinD) è comunemente usato in CI per?",
+        "en": "Docker-in-Docker (DinD) is commonly used in CI for?"
+      },
+      "options": [
+        "Eseguire test unitari",
+        "Buildare container image dentro un container CI",
+        "Deployare in produzione",
+        "Gestire i secrets"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "DinD permette di buildare container image dentro un container CI.",
+        "en": "DinD allows building container images inside a CI container."
+      },
+      "difficulty": "medium",
+      "domain": "CI Infrastructure"
+    },
+    {
+      "question": {
+        "it": "Cos' è il shift-left testing?",
+        "en": "What is shift-left testing?"
+      },
+      "options": [
+        "Testare solo in produzione",
+        "Eseguire test il prima possibile nel ciclo di sviluppo",
+        "Spostare i test verso destra",
+        "Testare solo il frontend"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Shift-left testing significa eseguire test il prima possibile nel ciclo di sviluppo.",
+        "en": "Shift-left testing means running tests as early as possible in the development cycle."
+      },
+      "difficulty": "easy",
+      "domain": "CI/CD Concepts"
+    },
+    {
+      "question": {
+        "it": "GitOps promuove quale approccio per la gestione della configurazione?",
+        "en": "GitOps promotes which approach for configuration management?"
+      },
+      "options": [
+        "Configuration as Code nel Git",
+        "Configuration manuale sul cluster",
+        "Configuration via UI web",
+        "Configuration via CLI"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "GitOps promuove Configuration as Code: tutta la configurazione vive nel Git.",
+        "en": "GitOps promotes Configuration as Code: all configuration lives in Git."
+      },
+      "difficulty": "easy",
+      "domain": "GitOps Principles"
+    },
+    {
+      "question": {
+        "it": "In Flux, come si integra un pipeline CI con il deployment GitOps?",
+        "en": "In Flux, how do you integrate a CI pipeline with GitOps deployment?"
+      },
+      "options": [
+        "Il CI fa kubectl apply direttamente",
+        "Il CI aggiorna i file YAML nel repository Git",
+        "Il CI installa ArgoCD",
+        "Il CI crea nuovi namespace"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il CI aggiorna i file YAML nel Git e Flux riconcilia automaticamente.",
+        "en": "CI updates YAML files in Git and Flux reconciles automatically."
+      },
+      "difficulty": "medium",
+      "domain": "GitOps Pipeline"
+    },
+    {
+      "question": {
+        "it": "Cos'è un artifact in un pipeline CI?",
+        "en": "What is an artifact in a CI pipeline?"
+      },
+      "options": [
+        "Un file di log",
+        "Un output generato dal build (container image, package, binario)",
+        "Un errore",
+        "Un trigger"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un artifact è l'output del build: container image, package, o binario.",
+        "en": "An artifact is the build output: container image, package, or binary."
+      },
+      "difficulty": "easy",
+      "domain": "CI/CD Concepts"
+    },
+    {
+      "question": {
+        "it": "Quale è il vantaggio principale del pipeline as code?",
+        "en": "What is the main benefit of pipeline as code?"
+      },
+      "options": [
+        "È più veloce",
+        "Versionamento, review e riproducibilità della pipeline",
+        "Elimina la necessità di test",
+        "Riduce i costi cloud"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Pipeline as code permette versionamento, code review e riproducibilità.",
+        "en": "Pipeline as code enables versioning, code review, and reproducibility."
+      },
+      "difficulty": "medium",
+      "domain": "CI/CD Concepts"
+    }
+  ]
+}

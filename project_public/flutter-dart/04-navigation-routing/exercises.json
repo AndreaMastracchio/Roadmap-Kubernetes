@@ -1,0 +1,164 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Navigazione base con push/pop",
+        "en": "Basic navigation with push/pop"
+      },
+      "description": {
+        "it": "Creare due pagine: HomePage con un pulsante che naviga a DetailPage, e DetailPage con un pulsante per tornare indietro.",
+        "en": "Create two pages: HomePage with a button navigating to DetailPage, and DetailPage with a button to go back."
+      },
+      "startingCode": "import 'package:flutter/material.dart';\n\nvoid main() => runApp(const MyApp());\n\nclass MyApp extends StatelessWidget {\n  const MyApp({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return const MaterialApp(home: HomePage());\n  }\n}\n\nclass HomePage extends StatelessWidget {\n  const HomePage({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    // TODO: Aggiungere pulsante per navigare\n    return Scaffold(body: Center(child: Text('Home')));\n  }\n}\n\nclass DetailPage extends StatelessWidget {\n  const DetailPage({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    // TODO: Aggiungere pulsante per tornare\n    return Scaffold(body: Center(child: Text('Dettaglio')));\n  }\n}",
+      "solution": "import 'package:flutter/material.dart';\n\nvoid main() => runApp(const MyApp());\n\nclass MyApp extends StatelessWidget {\n  const MyApp({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return const MaterialApp(home: HomePage());\n  }\n}\n\nclass HomePage extends StatelessWidget {\n  const HomePage({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      appBar: AppBar(title: const Text('Home')),\n      body: Center(\n        child: ElevatedButton(\n          onPressed: () {\n            Navigator.push(\n              context,\n              MaterialPageRoute(builder: (context) => const DetailPage()),\n            );\n          },\n          child: const Text('Vai ai Dettagli'),\n        ),\n      ),\n    );\n  }\n}\n\nclass DetailPage extends StatelessWidget {\n  const DetailPage({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      appBar: AppBar(title: const Text('Dettaglio')),\n      body: Center(\n        child: ElevatedButton(\n          onPressed: () => Navigator.pop(context),\n          child: const Text('Torna indietro'),\n        ),\n      ),\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa Navigator.push con MaterialPageRoute per navigare, Navigator.pop per tornare.",
+        "en": "Use Navigator.push with MaterialPageRoute to navigate, Navigator.pop to go back."
+      }
+    },
+    {
+      "title": {
+        "it": "Passaggio dati con risultato",
+        "en": "Passing data with result"
+      },
+      "description": {
+        "it": "Creare una pagina di selezione che ritorna un valore alla pagina chiamante.",
+        "en": "Create a selection page that returns a value to the calling page."
+      },
+      "startingCode": "class SelectionPage extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    // TODO: Lista di opzioni cliccabili che ritornano il valore\n    return Scaffold(body: ListView());\n  }\n}",
+      "solution": "class SelectionPage extends StatelessWidget {\n  final List<String> options = ['Opzione 1', 'Opzione 2', 'Opzione 3'];\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      appBar: AppBar(title: const Text('Seleziona')),\n      body: ListView.builder(\n        itemCount: options.length,\n        itemBuilder: (context, index) {\n          return ListTile(\n            title: Text(options[index]),\n            onTap: () => Navigator.pop(context, options[index]),\n          );\n        },\n      ),\n    );\n  }\n}\n\n// Chiamante:\n// final result = await Navigator.push(context, MaterialPageRoute(builder: (_) => SelectionPage()));\n// if (result != null) print(result);",
+      "hint": {
+        "it": "Passa il valore come secondo parametro a Navigator.pop().",
+        "en": "Pass the value as second parameter to Navigator.pop()."
+      }
+    },
+    {
+      "title": {
+        "it": "Named routes",
+        "en": "Named routes"
+      },
+      "description": {
+        "it": "Configurare named routes nel MaterialApp e navigare usando i nomi.",
+        "en": "Setup named routes in MaterialApp and navigate using names."
+      },
+      "startingCode": "class MyApp extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    // TODO: Configurare named routes\n    return MaterialApp(home: HomePage());\n  }\n}",
+      "solution": "class MyApp extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    return MaterialApp(\n      initialRoute: '/',\n      routes: {\n        '/': (context) => const HomePage(),\n        '/dettaglio': (context) => const DetailPage(),\n        '/impostazioni': (context) => const SettingsPage(),\n      },\n    );\n  }\n}\n\n// Navigazione:\n// Navigator.pushNamed(context, '/dettaglio');\n// Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);",
+      "hint": {
+        "it": "Usa la proprietà routes di MaterialApp con mappa path → builder.",
+        "en": "Use MaterialApp's routes property with path → builder map."
+      }
+    },
+    {
+      "title": {
+        "it": "Argomenti tipizzati",
+        "en": "Typed arguments"
+      },
+      "description": {
+        "it": "Creare una classe arguments e passarla tramite named route.",
+        "en": "Create an arguments class and pass it via named route."
+      },
+      "startingCode": "class ProductArgs {\n  // TODO: Definire proprietà\n}\n\nclass ProductPage extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    // TODO: Leggere arguments\n    return Scaffold(body: Container());\n  }\n}",
+      "solution": "class ProductArgs {\n  final int id;\n  final String name;\n\n  ProductArgs({required this.id, required this.name});\n}\n\nclass ProductPage extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    final args = ModalRoute.of(context)!.settings.arguments as ProductArgs;\n\n    return Scaffold(\n      appBar: AppBar(title: Text(args.name)),\n      body: Center(child: Text('ID: ${args.id}')),\n    );\n  }\n}\n\n// Chiamata:\n// Navigator.pushNamed(context, '/prodotto', arguments: ProductArgs(id: 123, name: 'Prodotto'));\n//",
+      "hint": {
+        "it": "Usa ModalRoute.of(context)!.settings.arguments per leggere.",
+        "en": "Use ModalRoute.of(context)!.settings.arguments to read."
+      }
+    },
+    {
+      "title": {
+        "it": "GoRouter setup base",
+        "en": "Basic GoRouter setup"
+      },
+      "description": {
+        "it": "Configurare GoRouter con 3 rotte e usarlo in MaterialApp.",
+        "en": "Setup GoRouter with 3 routes and use it in MaterialApp."
+      },
+      "startingCode": "import 'package:go_router/go_router.dart';\n\n// TODO: Configurare router",
+      "solution": "import 'package:go_router/go_router.dart';\n\nfinal router = GoRouter(\n  routes: [\n    GoRoute(\n      path: '/',\n      builder: (context, state) => const HomePage(),\n    ),\n    GoRoute(\n      path: '/dettaglio/:id',\n      builder: (context, state) {\n        final id = state.pathParameters['id']!;\n        return DettaglioPage(id: id);\n      },\n    ),\n    GoRoute(\n      path: '/impostazioni',\n      builder: (context, state) => const ImpostazioniPage(),\n    ),\n  ],\n);\n\n// MaterialApp.router(routerConfig: router)\n// Navigazione: context.go('/dettaglio/123')",
+      "hint": {
+        "it": "Definisci GoRoute per ogni percorso e passa router a MaterialApp.router.",
+        "en": "Define GoRoute for each path and pass router to MaterialApp.router."
+      }
+    },
+    {
+      "title": {
+        "it": "GoRouter query parameters",
+        "en": "GoRouter query parameters"
+      },
+      "description": {
+        "it": "Leggere e usare query parameters in una rotta GoRouter.",
+        "en": "Read and use query parameters in a GoRouter route."
+      },
+      "startingCode": "GoRoute(\n  path: '/ricerca',\n  builder: (context, state) {\n    // TODO: Leggere q e pagina\n    return RicercaPage();\n  },\n)",
+      "solution": "GoRoute(\n  path: '/ricerca',\n  builder: (context, state) {\n    final query = state.uri.queryParameters['q'] ?? '';\n    final pagina = int.parse(state.uri.queryParameters['pagina'] ?? '1');\n\n    return RicercaPage(query: query, pagina: pagina);\n  },\n)\n\n// Navigazione: context.go('/ricerca?q=flutter&pagina=2')",
+      "hint": {
+        "it": "Usa state.uri.queryParameters['nome'] per accedere ai parametri query.",
+        "en": "Use state.uri.queryParameters['name'] to access query parameters."
+      }
+    },
+    {
+      "title": {
+        "it": "ShellRoute per navbar",
+        "en": "ShellRoute for navbar"
+      },
+      "description": {
+        "it": "Creare un ShellRoute che mostri una BottomNavigationBar attorno a 3 pagine.",
+        "en": "Create a ShellRoute showing a BottomNavigationBar around 3 pages."
+      },
+      "startingCode": "final router = GoRouter(\n  routes: [\n    // TODO: ShellRoute con navbar\n  ],\n);",
+      "solution": "final router = GoRouter(\n  routes: [\n    ShellRoute(\n      builder: (context, state, child) => Scaffold(\n        body: child,\n        bottomNavigationBar: NavigationBar(\n          destinations: const [\n            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),\n            NavigationDestination(icon: Icon(Icons.search), label: 'Cerca'),\n            NavigationDestination(icon: Icon(Icons.person), label: 'Profilo'),\n          ],\n          onDestinationSelected: (index) {\n            switch (index) {\n              case 0: context.go('/home'); break;\n              case 1: context.go('/cerca'); break;\n              case 2: context.go('/profilo'); break;\n            }\n          },\n        ),\n      ),\n      routes: [\n        GoRoute(path: '/home', builder: (_, __) => const HomePage()),\n        GoRoute(path: '/cerca', builder: (_, __) => const CercaPage()),\n        GoRoute(path: '/profilo', builder: (_, __) => const ProfiloPage()),\n      ],\n    ),\n  ],\n);",
+      "hint": {
+        "it": "ShellRoute avvolge le rotte figlie con un widget builder comune.",
+        "en": "ShellRoute wraps child routes with a common widget builder."
+      }
+    },
+    {
+      "title": {
+        "it": "Redirect condizionale",
+        "en": "Conditional redirect"
+      },
+      "description": {
+        "it": "Implementare un redirect che manda gli utenti non autenticati a /login.",
+        "en": "Implement a redirect that sends unauthenticated users to /login."
+      },
+      "startingCode": "final router = GoRouter(\n  routes: [...],\n  // TODO: Aggiungere redirect\n);",
+      "solution": "final router = GoRouter(\n  routes: [...],\n  redirect: (context, state) {\n    final isLoggedIn = AuthService.instance.isLoggedIn;\n    final isGoingToLogin = state.matchedLocation == '/login';\n    \n    if (!isLoggedIn && !isGoingToLogin) {\n      return '/login';\n    }\n    \n    if (isLoggedIn && isGoingToLogin) {\n      return '/home';\n    }\n    \n    return null; // Nessun redirect\n  },\n);",
+      "hint": {
+        "it": "La funzione redirect ritorna il path di destinazione o null per proseguire.",
+        "en": "The redirect function returns the destination path or null to proceed."
+      }
+    },
+    {
+      "title": {
+        "it": "Push vs Go",
+        "en": "Push vs Go"
+      },
+      "description": {
+        "it": "Dimostrare la differenza tra context.push e context.go in GoRouter.",
+        "en": "Demonstrate the difference between context.push and context.go in GoRouter."
+      },
+      "startingCode": "// TODO: Mostrare differenza con due pulsanti",
+      "solution": "// context.push('/dettaglio')\n// - Aggiunge allo stack di navigazione\n// - Pulsante back visibile\n// - L'utente può tornare indietro\n\n// context.go('/dettaglio')\n// - Sostituisce la rotta corrente\n// - Nessun pulsante back automatico\n// - Usato per navigation bar\n\nEsempio:\nElevatedButton(\n  onPressed: () => context.push('/dettaglio'),\n  child: Text('Push (con back)'),\n),\nElevatedButton(\n  onPressed: () => context.go('/dettaglio'),\n  child: Text('Go (senza back)'),\n),",
+      "hint": {
+        "it": "push mantiene lo stack, go sostituisce. Usare push per drill-down, go per navigation bar.",
+        "en": "push maintains stack, go replaces. Use push for drill-down, go for nav bar."
+      }
+    },
+    {
+      "title": {
+        "it": "Deep link handling",
+        "en": "Deep link handling"
+      },
+      "description": {
+        "it": "Configurare GoRouter per gestire deep link con parametri.",
+        "en": "Setup GoRouter to handle deep links with parameters."
+      },
+      "startingCode": "// TODO: Rotta per myapp://prodotto/123",
+      "solution": "// In GoRouter (già configurato per deep link):\nGoRoute(\n  path: '/prodotto/:id',\n  builder: (context, state) {\n    final id = state.pathParameters['id']!;\n    return ProdottoPage(id: id);\n  },\n),\n\n// Android: AndroidManifest.xml\n/*\n<intent-filter>\n  <action android:name=\"android.intent.action.VIEW\"/>\n  <category android:name=\"android.intent.category.DEFAULT\"/>\n  <category android:name=\"android.intent.category.BROWSABLE\"/>\n  <data android:scheme=\"myapp\" android:host=\"prodotto\"/>\n</intent-filter>\n*/\n\n// iOS: Info.plist\n/*\n<key>CFBundleURLSchemes</key>\n<array><string>myapp</string></array>\n*/\n\n// URL myapp://prodotto/123 apre ProdottoPage(id: '123')",
+      "hint": {
+        "it": "GoRouter gestisce automaticamente i deep link se le rotte corrispondono.",
+        "en": "GoRouter automatically handles deep links if routes match."
+      }
+    }
+  ]
+}

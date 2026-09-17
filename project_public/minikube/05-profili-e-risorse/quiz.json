@@ -1,0 +1,124 @@
+{
+  "quiz": [
+    {
+      "question": {"it": "Cosa è un profilo in Minikube?", "en": "What is a profile in Minikube?"},
+      "options": ["Una configurazione di rete", "Un cluster Minikube separato e indipendente", "Un utente del cluster", "Una versione di Kubernetes"],
+      "correct": 1,
+      "explanation": {"it": "Un profilo è un cluster Minikube separato con il suo nome, risorse e stato. Permette cluster multipli sulla stessa macchina.", "en": "A profile is a separate Minikube cluster with its own name, resources, and state. It allows multiple clusters on the same machine."},
+      "difficulty": "easy",
+      "domain": "profiles"
+    },
+    {
+      "question": {"it": "Quale flag crea un cluster con un nome specifico?", "en": "Which flag creates a cluster with a specific name?"},
+      "options": ["--name", "--cluster", "-p o --profile", "--id"],
+      "correct": 2,
+      "explanation": {"it": "'-p' o '--profile' crea e nomina un cluster. Esempio: 'minikube start -p test-cluster'.", "en": "'-p' or '--profile' creates and names a cluster. Example: 'minikube start -p test-cluster'."},
+      "difficulty": "easy",
+      "domain": "profiles"
+    },
+    {
+      "question": {"it": "Quale comando elenca tutti i profili?", "en": "Which command lists all profiles?"},
+      "options": ["minikube list", "minikube profile list", "minikube profile -l", "minikube get profiles"],
+      "correct": 1,
+      "explanation": {"it": "'minikube profile list' mostra tutti i profili con il loro stato e il profilo attivo.", "en": "'minikube profile list' shows all profiles with their status and the active profile."},
+      "difficulty": "easy",
+      "domain": "profiles"
+    },
+    {
+      "question": {"it": "Come si cambia il profilo attivo?", "en": "How do you change the active profile?"},
+      "options": ["minikube switch <nome>", "minikube profile <nome>", "minikube use <nome>", "kubectl set-profile <nome>"],
+      "correct": 1,
+      "explanation": {"it": "'minikube profile <nome>' imposta il cluster corrente per tutti i comandi e kubectl.", "en": "'minikube profile <name>' sets the current cluster for all commands and kubectl."},
+      "difficulty": "easy",
+      "domain": "profiles"
+    },
+    {
+      "question": {"it": "Quale flag imposta la memoria per il cluster?", "en": "Which flag sets memory for the cluster?"},
+      "options": ["--ram", "--memory", "--mem", "-m"],
+      "correct": 1,
+      "explanation": {"it": "'--memory' accetta valori come '4096', '4g', '4096mb'. Esempio: 'minikube start --memory=4096'.", "en": "'--memory' accepts values like '4096', '4g', '4096mb'. Example: 'minikube start --memory=4096'."},
+      "difficulty": "easy",
+      "domain": "resources"
+    },
+    {
+      "question": {"it": "Quale flag imposta il numero di CPU?", "en": "Which flag sets the number of CPUs?"},
+      "options": ["--cpu", "--cpus", "--cores", "--processors"],
+      "correct": 1,
+      "explanation": {"it": "'--cpus' specifica il numero di CPU virtuali. Esempio: 'minikube start --cpus=4'.", "en": "'--cpus' specifies the number of virtual CPUs. Example: 'minikube start --cpus=4'."},
+      "difficulty": "easy",
+      "domain": "resources"
+    },
+    {
+      "question": {"it": "Come si imposta la dimensione del disco?", "en": "How do you set the disk size?"},
+      "options": ["--disk", "--disk-size", "--storage", "--volume-size"],
+      "correct": 1,
+      "explanation": {"it": "'--disk-size' definisce la dimensione del disco persistente. Esempio: '--disk-size=50g'.", "en": "'--disk-size' defines the persistent disk size. Example: '--disk-size=50g'."},
+      "difficulty": "medium",
+      "domain": "resources"
+    },
+    {
+      "question": {"it": "Le modifiche alle risorse richiedono:", "en": "Resource changes require:"},
+      "options": ["Nessuna azione", "Riavvio del cluster (delete e start)", "Solo reload dei pod", "Restart della VM"],
+      "correct": 1,
+      "explanation": {"it": "Memoria, CPU e disco richiedono delete del cluster e nuovo start per essere applicate.", "en": "Memory, CPU, and disk require cluster deletion and new start to be applied."},
+      "difficulty": "medium",
+      "domain": "resources"
+    },
+    {
+      "question": {"it": "Quale comando monta una cartella host nel cluster?", "en": "Which command mounts a host folder in the cluster?"},
+      "options": ["minikube mount", "minikube volume", "minikube share", "minikube link"],
+      "correct": 0,
+      "explanation": {"it": "'minikube mount <host-path>:<cluster-path>' rende una cartella locale accessibile nel nodo.", "en": "'minikube mount <host-path>:<cluster-path>' makes a local folder accessible in the node."},
+      "difficulty": "medium",
+      "domain": "mounts"
+    },
+    {
+      "question": {"it": "Il mount è persistente dopo il riavvio?", "en": "Is the mount persistent after restart?"},
+      "options": ["Sì, automaticamente", "No, va rimontato manualmente", "Solo con flag speciale", "Solo su Linux"],
+      "correct": 1,
+      "explanation": {"it": "Il mount dura finché il comando è attivo. Va rieseguito dopo ogni stop/start del cluster.", "en": "The mount lasts as long as the command is running. It must be re-executed after each cluster stop/start."},
+      "difficulty": "medium",
+      "domain": "mounts"
+    },
+    {
+      "question": {"it": "Come si salva una configurazione di risorse in modo persistente?", "en": "How do you save a resource configuration persistently?"},
+      "options": ["Solo con --memory all'avvio", "'minikube config set memory 4096'", "Modificando ~/.minikube manually", "Non è possibile"],
+      "correct": 1,
+      "explanation": {"it": "'minikube config set <param> <valore>' salva in ~/.minikube/config/config.json per tutti i cluster futuri.", "en": "'minikube config set <param> <value>' saves to ~/.minikube/config/config.json for all future clusters."},
+      "difficulty": "medium",
+      "domain": "configuration"
+    },
+    {
+      "question": {"it": "Il profilo 'minikube' è quello di default?", "en": "Is the 'minikube' profile the default one?"},
+      "options": ["Sì, se non specificato", "No, va sempre nominato", "Solo su Linux", "Solo dopo il primo start"],
+      "correct": 0,
+      "explanation": {"it": "Il profilo 'minikube' è creato di default se non si specifica -p. È il cluster principale.", "en": "The 'minikube' profile is created by default if -p is not specified. It's the main cluster."},
+      "difficulty": "easy",
+      "domain": "profiles"
+    },
+    {
+      "question": {"it": "Quale risorsa è più importante per cluster con molte immagini?", "en": "Which resource is most important for clusters with many images?"},
+      "options": ["CPU", "Memoria", "Spazio disco", "Rete"],
+      "correct": 2,
+      "explanation": {"it": "Lo spazio disco cresce con le immagini container. Memoria e CPU contano per i workload in esecuzione.", "en": "Disk space grows with container images. Memory and CPU matter for running workloads."},
+      "difficulty": "medium",
+      "domain": "resources"
+    },
+    {
+      "question": {"it": "Come si elimina un profilo specifico?", "en": "How do you delete a specific profile?"},
+      "options": ["minikube delete", "minikube delete -p <nome>", "minikube profile delete <nome>", "kubectl delete cluster <nome>"],
+      "correct": 1,
+      "explanation": {"it": "'minikube delete -p <nome>' elimina solo quel profilo senza toccare gli altri.", "en": "'minikube delete -p <name>' deletes only that profile without touching others."},
+      "difficulty": "medium",
+      "domain": "profiles"
+    },
+    {
+      "question": {"it": "Quale è la memoria minima consigliata per Minikube?", "en": "What is the minimum recommended memory for Minikube?"},
+      "options": ["512MB", "1GB", "2GB", "4GB"],
+      "correct": 2,
+      "explanation": {"it": "2GB è il minimo per un cluster funzionale. 4GB+ è consigliato per workload reali.", "en": "2GB is the minimum for a functional cluster. 4GB+ is recommended for real workloads."},
+      "difficulty": "easy",
+      "domain": "resources"
+    }
+  ]
+}

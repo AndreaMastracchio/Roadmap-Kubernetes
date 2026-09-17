@@ -1,0 +1,204 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Creare un Job PreSync per backup",
+        "en": "Create a PreSync Job for backup"
+      },
+      "description": {
+        "it": "Implementare un hook PreSync che esegue un backup prima del sync.",
+        "en": "Implement a PreSync hook that runs a backup before sync."
+      },
+      "task": "1. Crea un Job con hook PreSync\n2. Il Job deve eseguire un backup di un database\n3. Configura l'hook per essere cancellato dopo successo\n4. Sincronizza e verifica l'esecuzione",
+      "hints": [
+        "Usa l'annotazione argocd.argoproj.io/hook: PreSync",
+        "hook-delete-policy: HookSucceeded",
+        "Verifica i log del job completato"
+      ],
+      "solution": "cat > presync-backup.yaml << 'EOF'\napiVersion: batch/v1\nkind: Job\nmetadata:\n  generateName: db-backup-\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\nspec:\n  template:\n    spec:\n      containers:\n      - name: backup\n        image: postgres:14\n        command: [\"pg_dump\", \"-h\", \"postgres\", \"-U\", \"user\", \"mydb\"]\n      restartPolicy: OnFailure\nEOF\nkubectl apply -f presync-backup.yaml -n argocd",
+      "validation": "Il Job deve essere stato eseguito e cancellato dopo il sync",
+      "difficulty": "medium",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare sync waves",
+        "en": "Implement sync waves"
+      },
+      "description": {
+        "it": "Configurare risorse per essere applicate in un ordine specifico.",
+        "en": "Configure resources to be applied in a specific order."
+      },
+      "task": "1. Crea tre risorse: Namespace, ConfigMap, Deployment\n2. Usa sync-wave per ordinare: Namespace (-1), ConfigMap (0), Deployment (1)\n3. Sincronizza e verifica l'ordine di applicazione",
+      "hints": [
+        "L'annotazione argocd.argoproj.io/sync-wave definisce l'ordine",
+        "Wave negative prima, positive dopo",
+        "Osserva i log del controller per l'ordine"
+      ],
+      "solution": "# Namespace\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: myapp\n  annotations:\n    argocd.argoproj.io/sync-wave: \"-1\"\n---\n# ConfigMap\napiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: app-config\n  namespace: myapp\n  annotations:\n    argocd.argoproj.io/sync-wave: \"0\"\ndata:\n  key: value\n---\n# Deployment\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: myapp\n  namespace: myapp\n  annotations:\n    argocd.argoproj.io/sync-wave: \"1\"\nspec:\n  replicas: 1\n  template:\n    spec:\n      containers:\n      - name: app\n        image: nginx",
+      "validation": "Verificare con 'argocd app logs' che le risorse sono state applicate nell'ordine",
+      "difficulty": "medium",
+      "timeEstimate": "25 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un hook PostSync per notifiche",
+        "en": "Create a PostSync hook for notifications"
+      },
+      "description": {
+        "it": "Inviare una notifica Slack dopo un sync riuscito.",
+        "en": "Send a Slack notification after a successful sync."
+      },
+      "task": "1. Crea un Job PostSync\n2. Il Job invia una notifica Slack\n3. Usa un secret per il webhook URL\n4. Verifica la ricezione della notifica",
+      "hints": [
+        "Usa curl per chiamare il webhook Slack",
+        "Monta il secret come env o volume",
+        "Il Job deve avere restartPolicy: OnFailure"
+      ],
+      "solution": "cat > postsync-notify.yaml << 'EOF'\napiVersion: batch/v1\nkind: Job\nmetadata:\n  generateName: notify-\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\nspec:\n  template:\n    spec:\n      containers:\n      - name: notify\n        image: curlimages/curl\n        command:\n        - curl\n        - -X\n        - POST\n        - -H\n        - 'Content-Type: application/json'\n        - -d\n        - '{\"text\":\"Sync completed successfully\"}'\n        - $(SLACK_WEBHOOK)\n        env:\n        - name: SLACK_WEBHOOK\n          valueFrom:\n            secretKeyRef:\n              name: slack-webhook\n              key: url\n      restartPolicy: OnFailure\nEOF",
+      "validation": "La notifica Slack deve essere ricevuta dopo il sync",
+      "difficulty": "medium",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare un hook SyncFail",
+        "en": "Implement a SyncFail hook"
+      },
+      "description": {
+        "it": "Gestire errori di sync con un hook dedicato.",
+        "en": "Handle sync errors with a dedicated hook."
+      },
+      "task": "1. Crea un Job SyncFail\n2. Il Job deve registrare l'errore e notificare\n3. Simula un sync fallendo\n4. Verifica l'esecuzione dell'hook",
+      "hints": [
+        "Usa argocd.argoproj.io/hook: SyncFail",
+        "Il sync può essere simulato fallendo con un Job non valido",
+        "Controlla i log per verificare l'esecuzione"
+      ],
+      "solution": "cat > syncfail-handler.yaml << 'EOF'\napiVersion: batch/v1\nkind: Job\nmetadata:\n  generateName: error-handler-\n  annotations:\n    argocd.argoproj.io/hook: SyncFail\nspec:\n  template:\n    spec:\n      containers:\n      - name: handler\n        image: curlimages/curl\n        command:\n        - curl\n        - -X\n        - POST\n        - -d\n        - 'Sync failed! Check logs for details.'\n        - $(ALERT_WEBHOOK)\n      restartPolicy: OnFailure\nEOF",
+      "validation": "Il Job SyncFail deve essere eseguito quando un sync fallisce",
+      "difficulty": "hard",
+      "timeEstimate": "30 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare health check personalizzato",
+        "en": "Configure custom health check"
+      },
+      "description": {
+        "it": "Definire regole di health check per una CRD.",
+        "en": "Define health check rules for a CRD."
+      },
+      "task": "1. Identifica una CRD nel cluster\n2. Configura health check in argocd-cm\n3. Verifica che lo stato di salute sia calcolato correttamente",
+      "hints": [
+        "Modifica argocd-cm ConfigMap",
+        "Usa Lua script per definire la logica",
+        "La sezione è resource.customizations.health.<group_kind>"
+      ],
+      "solution": "kubectl edit cm argocd-cm -n argocd\n# Aggiungi:\ndata:\n  resource.customizations.health.cert-manager.io_Certificate: |\n    hs = {}\n    if obj.status ~= nil then\n      if obj.status.conditions ~= nil then\n        for i, condition in ipairs(obj.status.conditions) do\n          if condition.type == 'Ready' and condition.status == 'True' then\n            hs.status = 'Healthy'\n            hs.message = 'Certificate is ready'\n            return hs\n          end\n        end\n      end\n    end\n    hs.status = 'Progressing'\n    hs.message = 'Waiting for certificate'\n    return hs",
+      "validation": "La CRD deve mostrare lo stato di salute corretto nella UI",
+      "difficulty": "hard",
+      "timeEstimate": "35 minuti"
+    },
+    {
+      "title": {
+        "it": "Eseguire rollback manuale",
+        "en": "Execute manual rollback"
+      },
+      "description": {
+        "it": "Tornare a una versione precedente di un'applicazione.",
+        "en": "Return to a previous version of an application."
+      },
+      "task": "1. Visualizza la cronologia delle revisioni\n2. Esegui rollback a una versione precedente\n3. Verifica lo stato dell'applicazione\n4. Riattiva l'auto-sync",
+      "hints": [
+        "argocd app history mostra le revisioni\n",
+        "argocd app rollback <revision>",
+        "L'auto-sync viene disabilitato dopo rollback"
+      ],
+      "solution": "# Visualizza cronologia\nargocd app history guestbook\n\n# Esegui rollback\nargocd app rollback guestbook 2\n\n# Verifica stato\nargocd app get guestbook\n\n# Riattiva auto-sync\nargocd app set guestbook --sync-policy automated",
+      "validation": "L'applicazione deve essere tornata alla versione specificata",
+      "difficulty": "easy",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare rollback automatico",
+        "en": "Implement automatic rollback"
+      },
+      "description": {
+        "it": "Configurare rollback automatico in caso di fallimento.",
+        "en": "Configure automatic rollback on failure."
+      },
+      "task": "1. Configura syncPolicy con retry\n2. Imposta rollback automatico dopo N tentativi falliti\n3. Simula un fallimento\n4. Verifica il rollback automatico",
+      "hints": [
+        "syncPolicy.retry per i tentativi",
+        "Non esiste rollback automatico nativo - usa hooks",
+        "Implementa con SyncFail hook che chiama API ArgoCD"
+      ],
+      "solution": "# ArgoCD non ha rollback automatico nativo\n# Soluzione: SyncFail hook che chiama API\n\napiVersion: batch/v1\nkind: Job\nmetadata:\n  generateName: auto-rollback-\n  annotations:\n    argocd.argoproj.io/hook: SyncFail\nspec:\n  template:\n    spec:\n      containers:\n      - name: rollback\n        image: argoproj/argocd:v2.8.0\n        command:\n        - sh\n        - -c\n        - |\n          argocd app rollback guestbook $(argocd app history guestbook -o json | jq '.[0].revision')\n      restartPolicy: OnFailure",
+      "validation": "Il rollback deve essere eseguito automaticamente dopo il fallimento",
+      "difficulty": "hard",
+      "timeEstimate": "40 minuti"
+    },
+    {
+      "title": {
+        "it": "Combinare waves e hooks",
+        "en": "Combine waves and hooks"
+      },
+      "description": {
+        "it": "Orchestrare deployment complessi con waves e hooks.",
+        "en": "Orchestrate complex deployments with waves and hooks."
+      },
+      "task": "1. Crea PreSync in wave -2\n2. Crea risorse Sync in wave 0 e 1\n3. Crea PostSync in wave 5\n4. Verifica l'ordine di esecuzione",
+      "hints": [
+        "sync-wave funziona anche con gli hooks",
+        "Ogni fase può avere multiple waves",
+        "Usa --dry-run per testare"
+      ],
+      "solution": "# Wave -2: PreSync\napiVersion: batch/v1\nkind: Job\nmetadata:\n  name: db-migrate\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/sync-wave: \"-2\"\n---\n# Wave 0: ConfigMap\napiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: app-config\n  annotations:\n    argocd.argoproj.io/sync-wave: \"0\"\n---\n# Wave 1: Deployment\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: app\n  annotations:\n    argocd.argoproj.io/sync-wave: \"1\"\n---\n# Wave 5: PostSync\napiVersion: batch/v1\nkind: Job\nmetadata:\n  name: validate\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/sync-wave: \"5\"",
+      "validation": "Verificare l'ordine nei log del controller",
+      "difficulty": "hard",
+      "timeEstimate": "35 minuti"
+    },
+    {
+      "title": {
+        "it": "Debug di un hook fallito",
+        "en": "Debug a failed hook"
+      },
+      "description": {
+        "it": "Analizzare e risolvere problemi di un hook.",
+        "en": "Analyze and troubleshoot hook issues."
+      },
+      "task": "1. Crea un hook che fallisce intenzionalmente\n2. Identifica la causa del fallimento\n3. Correggi il problema\n4. Verifica la risoluzione",
+      "hints": [
+        "Usa kubectl logs per vedere l'errore",
+        "kubectl describe job per dettagli",
+        "argocd app logs per log applicazione"
+      ],
+      "solution": "# Verifica stato Job\nkubectl get jobs -n argocd\n\n# Dettagli Job\nkubectl describe job <job-name> -n argocd\n\n# Log del pod\nkubectl logs <pod-name> -n argocd\n\n# Eventi\nkubectl get events -n argocd --field-selector involvedObject.name=<job-name>",
+      "validation": "L'hook deve essere corretto e eseguito con successo",
+      "difficulty": "medium",
+      "timeEstimate": "25 minuti"
+    },
+    {
+      "title": {
+        "it": "Gestire hook per deploy blue-green",
+        "en": "Manage hooks for blue-green deployment"
+      },
+      "description": {
+        "it": "Implementare pattern blue-green con hooks.",
+        "en": "Implement blue-green pattern with hooks."
+      },
+      "task": "1. Crea PreSync per verificare salute blue\n2. Crea Sync per green\n3. Crea PostSync per switch traffico\n4. Verifica la transizione",
+      "hints": [
+        "Usa Service e due Deployment",
+        "PostSync aggiorna il selettore del Service",
+        "Test con curl verso il servizio"
+      ],
+      "solution": "# Blue Deployment (esistente)\n---\n# Green Deployment (nuovo) - Sync\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: app-green\n  annotations:\n    argocd.argoproj.io/sync-wave: \"1\"\n---\n# PostSync: aggiorna Service\napiVersion: batch/v1\nkind: Job\nmetadata:\n  name: switch-traffic\n  annotations:\n    argocd.argoproj.io/hook: PostSync\nspec:\n  template:\n    spec:\n      containers:\n      - name: kubectl\n        image: bitnami/kubectl\n        command:\n        - kubectl\n        - patch\n        - service\n        - myapp\n        - -p\n        - '{\"spec\":{\"selector\":{\"version\":\"green\"}}}'\n      restartPolicy: OnFailure",
+      "validation": "Il traffico deve essere instradato verso il deployment green",
+      "difficulty": "hard",
+      "timeEstimate": "45 minuti"
+    }
+  ]
+}

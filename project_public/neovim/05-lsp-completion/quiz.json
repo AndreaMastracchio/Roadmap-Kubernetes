@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Cosa significa LSP?",
+        "en": "What does LSP stand for?"
+      },
+      "options": [
+        "Language System Protocol",
+        "Language Server Protocol",
+        "Language Service Provider",
+        "Local Server Protocol"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "LSP = Language Server Protocol, sviluppato da Microsoft.",
+        "en": "LSP = Language Server Protocol, developed by Microsoft."
+      }
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Quale plugin configura i language server in Neovim?",
+        "en": "Which plugin configures language servers in Neovim?"
+      },
+      "options": [
+        "nvim-cmp",
+        "nvim-lspconfig",
+        "mason.nvim",
+        "LuaSnip"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "nvim-lspconfig è il plugin base per configurare i server LSP.",
+        "en": "nvim-lspconfig is the base plugin to configure LSP servers."
+      }
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Quale plugin installa i language server?",
+        "en": "Which plugin installs language servers?"
+      },
+      "options": [
+        "nvim-lspconfig",
+        "nvim-cmp",
+        "mason.nvim",
+        "conform.nvim"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Mason è il gestore di pacchetti per tool esterni come LSP.",
+        "en": "Mason is the package manager for external tools like LSP."
+      }
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Quale è il language server per Lua?",
+        "en": "What is the language server for Lua?"
+      },
+      "options": [
+        "pyright",
+        "tsserver",
+        "lua_ls",
+        "rust_analyzer"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "lua_ls (o lua-language-server) è il server per Lua.",
+        "en": "lua_ls (or lua-language-server) is the server for Lua."
+      }
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Quale comando va alla definizione?",
+        "en": "Which command goes to definition?"
+      },
+      "options": [
+        "gr",
+        "gd",
+        "gy",
+        "gI"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "gd = go to definition, gr = go to references.",
+        "en": "gd = go to definition, gr = go to references."
+      }
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Quale plugin gestisce il completamento?",
+        "en": "Which plugin handles completion?"
+      },
+      "options": [
+        "nvim-lspconfig",
+        "mason.nvim",
+        "nvim-cmp",
+        "LuaSnip"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "nvim-cmp è il motore di completamento principale.",
+        "en": "nvim-cmp is the main completion engine."
+      }
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Quale source fornisce suggerimenti dal LSP?",
+        "en": "Which source provides suggestions from LSP?"
+      },
+      "options": [
+        "buffer",
+        "path",
+        "nvim_lsp",
+        "luasnip"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "nvim_lsp è la source che connette nvim-cmp al LSP.",
+        "en": "nvim_lsp is the source connecting nvim-cmp to LSP."
+      }
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Quale tasto mostra la documentazione hover?",
+        "en": "Which key shows hover documentation?"
+      },
+      "options": [
+        "gd",
+        "K",
+        "gh",
+        "<C-k>"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "K è il tasto standard per vim.lsp.buf.hover().",
+        "en": "K is the standard key for vim.lsp.buf.hover()."
+      }
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Quale comando rinomina un simbolo?",
+        "en": "Which command renames a symbol?"
+      },
+      "options": [
+        "<leader>ca",
+        "<leader>rn",
+        "<leader>f",
+        "<leader>rn"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "<leader>rn o :lua vim.lsp.buf.rename() per rinominare.",
+        "en": "<leader>rn or :lua vim.lsp.buf.rename() to rename."
+      }
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Quale plugin gestisce gli snippet?",
+        "en": "Which plugin handles snippets?"
+      },
+      "options": [
+        "nvim-cmp",
+        "friendly-snippets",
+        "LuaSnip",
+        "nvim-lspconfig"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "LuaSnip è il motore di snippet usato con nvim-cmp.",
+        "en": "LuaSnip is the snippet engine used with nvim-cmp."
+      }
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Quale formatter è usato per Lua?",
+        "en": "Which formatter is used for Lua?"
+      },
+      "options": [
+        "black",
+        "prettier",
+        "stylua",
+        "rustfmt"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "stylua è il formatter standard per Lua.",
+        "en": "stylua is the standard formatter for Lua."
+      }
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Quale plugin gestisce la formattazione?",
+        "en": "Which plugin handles formatting?"
+      },
+      "options": [
+        "mason.nvim",
+        "conform.nvim",
+        "nvim-cmp",
+        "trouble.nvim"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "conform.nvim è il formatter moderno per Neovim.",
+        "en": "conform.nvim is the modern formatter for Neovim."
+      }
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Quale comando mostra le azioni di codice?",
+        "en": "Which command shows code actions?"
+      },
+      "options": [
+        "<leader>rn",
+        "<leader>ca",
+        "<leader>f",
+        "<leader>e"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "<leader>ca = code action, mostra fix disponibili.",
+        "en": "<leader>ca = code action, shows available fixes."
+      }
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Quale plugin mostra diagnostica migliorata?",
+        "en": "Which plugin shows improved diagnostics?"
+      },
+      "options": [
+        "nvim-cmp",
+        "trouble.nvim",
+        "LuaSnip",
+        "nvim-lspconfig"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "trouble.nvim mostra diagnostica in una lista navigabile.",
+        "en": "trouble.nvim shows diagnostics in a navigable list."
+      }
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Quale tasto passa al prossimo snippet placeholder?",
+        "en": "Which key jumps to next snippet placeholder?"
+      },
+      "options": [
+        "Tab",
+        "Enter",
+        "Ctrl-n",
+        "Ctrl-y"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Tab è mappato per saltare al prossimo placeholder.",
+        "en": "Tab is mapped to jump to the next placeholder."
+      }
+    }
+  ]
+}

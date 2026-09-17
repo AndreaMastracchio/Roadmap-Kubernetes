@@ -1,0 +1,124 @@
+{
+  "quiz": [
+    {
+      "question": {"it": "Quale comando avvia il cluster Minikube?", "en": "Which command starts the Minikube cluster?"},
+      "options": ["minikube init", "minikube start", "minikube up", "minikube run"],
+      "correct": 1,
+      "explanation": {"it": "'minikube start' è il comando per avviare il cluster. Crea la VM/container e configura Kubernetes.", "en": "'minikube start' is the command to start the cluster. It creates the VM/container and configures Kubernetes."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Qual è la differenza tra 'minikube stop' e 'minikube pause'?", "en": "What is the difference between 'minikube stop' and 'minikube pause'?"},
+      "options": ["Nessuna differenza", "Stop spegne la VM, Pause sospende solo i container", "Stop cancella i dati", "Pause è irreversibile"],
+      "correct": 1,
+      "explanation": {"it": "'stop' spegne completamente la VM/container. 'pause' congela i container mantenendo la VM attiva, più veloce da riprendere.", "en": "'stop' shuts down the VM/container completely. 'pause' freezes containers keeping the VM running, faster to resume."},
+      "difficulty": "medium",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale comando elimina completamente il cluster Minikube?", "en": "Which command completely deletes the Minikube cluster?"},
+      "options": ["minikube stop --delete", "minikube delete", "minikube destroy", "minikube reset"],
+      "correct": 1,
+      "explanation": {"it": "'minikube delete' rimuove il cluster e tutti i dati. Attenzione: operazione distruttiva irreversibile.", "en": "'minikube delete' removes the cluster and all data. Warning: irreversible destructive operation."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Come si accede alla dashboard web di Kubernetes?", "en": "How do you access the Kubernetes web dashboard?"},
+      "options": ["kubectl dashboard", "minikube dashboard", "minikube ui", "kubectl open-dashboard"],
+      "correct": 1,
+      "explanation": {"it": "'minikube dashboard' avvia il proxy e apre la dashboard nel browser predefinito.", "en": "'minikube dashboard' starts the proxy and opens the dashboard in the default browser."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale comando lista gli add-on disponibili in Minikube?", "en": "Which command lists available add-ons in Minikube?"},
+      "options": ["minikube addons show", "minikube addons list", "minikube list-addons", "kubectl get addons"],
+      "correct": 1,
+      "explanation": {"it": "'minikube addons list' mostra tutti gli add-on disponibili con il loro stato (abilitato/disabilitato).", "en": "'minikube addons list' shows all available add-ons with their status (enabled/disabled)."},
+      "difficulty": "easy",
+      "domain": "addons"
+    },
+    {
+      "question": {"it": "Come si abilita un add-on in Minikube?", "en": "How do you enable an add-on in Minikube?"},
+      "options": ["minikube addon enable <nome>", "minikube addons enable <nome>", "kubectl enable addon <nome>", "minikube enable-addon <nome>"],
+      "correct": 1,
+      "explanation": {"it": "'minikube addons enable <nome>' attiva l'add-on specificato nel cluster.", "en": "'minikube addons enable <name>' enables the specified add-on in the cluster."},
+      "difficulty": "easy",
+      "domain": "addons"
+    },
+    {
+      "question": {"it": "Quale comando mostra lo stato dettagliato del cluster?", "en": "Which command shows detailed cluster status?"},
+      "options": ["minikube info", "minikube status", "kubectl status", "minikube inspect"],
+      "correct": 1,
+      "explanation": {"it": "'minikube status' mostra lo stato di host, kubelet, apiserver, kubeconfig e docker.", "en": "'minikube status' shows the state of host, kubelet, apiserver, kubeconfig, and docker."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Come si entra in SSH nel nodo Minikube?", "en": "How do you SSH into the Minikube node?"},
+      "options": ["ssh minikube@localhost", "minikube ssh", "kubectl ssh node", "docker exec -it minikube bash"],
+      "correct": 1,
+      "explanation": {"it": "'minikube ssh' gestisce automaticamente le credenziali e l'indirizzo per accedere al nodo.", "en": "'minikube ssh' automatically handles credentials and address to access the node."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale comando configura le variabili d'ambiente per kubectl?", "en": "Which command configures environment variables for kubectl?"},
+      "options": ["minikube env", "minikube config env", "minikube update-context", "Entrambe A e C"],
+      "correct": 3,
+      "explanation": {"it": "Sia 'minikube env' per Docker che 'minikube update-context' per kubectl configurano l'ambiente.", "en": "Both 'minikube env' for Docker and 'minikube update-context' for kubectl configure the environment."},
+      "difficulty": "medium",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Come si modifica la memoria allocata a Minikube?", "en": "How do you change the memory allocated to Minikube?"},
+      "options": ["minikube config set memory 4096", "minikube set memory 4096", "minikube start --memory 4096 solo all'avvio", "Entrambe A e C"],
+      "correct": 3,
+      "explanation": {"it": "'config set memory' è persistente. '--memory' all'avvio è temporaneo. Richiede riavvio del cluster.", "en": "'config set memory' is persistent. '--memory' at start is temporary. Requires cluster restart."},
+      "difficulty": "medium",
+      "domain": "configuration"
+    },
+    {
+      "question": {"it": "Quale flag imposta la versione di Kubernetes?", "en": "Which flag sets the Kubernetes version?"},
+      "options": ["--k8s-version", "--kubernetes-version", "--version", "--kv"],
+      "correct": 1,
+      "explanation": {"it": "'--kubernetes-version=v1.28.0' specifica la versione esatta di Kubernetes da usare.", "en": "'--kubernetes-version=v1.28.0' specifies the exact Kubernetes version to use."},
+      "difficulty": "medium",
+      "domain": "configuration"
+    },
+    {
+      "question": {"it": "Come si vede la configurazione corrente di Minikube?", "en": "How do you view Minikube's current configuration?"},
+      "options": ["minikube config show", "minikube config view", "minikube show-config", "minikube status --config"],
+      "correct": 1,
+      "explanation": {"it": "'minikube config view' mostra tutte le impostazioni salvate in formato leggibile.", "en": "'minikube config view' shows all saved settings in readable format."},
+      "difficulty": "easy",
+      "domain": "configuration"
+    },
+    {
+      "question": {"it": "Quale comando scarica le immagini Kubernetes localmente?", "en": "Which command downloads Kubernetes images locally?"},
+      "options": ["minikube cache add", "minikube image pull", "minikube download-images", "docker pull k8s-images"],
+      "correct": 0,
+      "explanation": {"it": "'minikube cache add <immagine>' scarica l'immagine e la rende disponibile al cluster senza registry.", "en": "'minikube cache add <image>' downloads the image and makes it available to the cluster without a registry."},
+      "difficulty": "medium",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Come si apre una shell interattiva nel cluster?", "en": "How do you open an interactive shell in the cluster?"},
+      "options": ["minikube bash", "minikube ssh", "minikube shell", "minikube exec -it bash"],
+      "correct": 1,
+      "explanation": {"it": "'minikube ssh' apre una shell SSH nel nodo. Si può poi eseguire 'docker exec' per i container.", "en": "'minikube ssh' opens an SSH shell in the node. You can then run 'docker exec' for containers."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale add-on fornisce metriche sulle risorse?", "en": "Which add-on provides resource metrics?"},
+      "options": ["dashboard", "metrics-server", "heapster", "prometheus"],
+      "correct": 1,
+      "explanation": {"it": "'metrics-server' raccoglie metriche di CPU e memoria, usate da 'kubectl top' e dalla dashboard.", "en": "'metrics-server' collects CPU and memory metrics, used by 'kubectl top' and the dashboard."},
+      "difficulty": "easy",
+      "domain": "addons"
+    }
+  ]
+}

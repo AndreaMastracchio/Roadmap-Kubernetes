@@ -1,0 +1,304 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Creare un Secret generico",
+        "en": "Create a generic Secret"
+      },
+      "description": {
+        "it": "Creare un Secret per credenziali database",
+        "en": "Create a Secret for database credentials"
+      },
+      "task": "1. Crea un Secret 'db-secret' nel namespace default\n2. Includi: username=admin, password=secret123\n3. Verifica che sia creato correttamente\n4. Decodifica i valori per verificarne il contenuto",
+      "hints": [
+        "kubectl create secret generic --help",
+        "Usa --from-literal per ogni coppia",
+        "base64 -d per decodificare"
+      ],
+      "solution": "kubectl create secret generic db-secret --from-literal=username=admin --from-literal=password=secret123\nkubectl get secret db-secret\nkubectl get secret db-secret -o jsonpath='{.data.username}' | base64 -d && echo\nkubectl get secret db-secret -o jsonpath='{.data.password}' | base64 -d && echo",
+      "validation": "kubectl get secret db-secret -o jsonpath='{.data.username}' | base64 -d",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Usare Secret come variabile d'ambiente",
+        "en": "Use Secret as environment variable"
+      },
+      "description": {
+        "it": "Iniettare credenziali da Secret in un Pod",
+        "en": "Inject credentials from Secret into a Pod"
+      },
+      "task": "1. Crea un Pod 'secret-pod' con immagine busybox\n2. Usa le credenziali dal Secret 'db-secret' come env vars\n3. Esegui: env | grep DB_\n4. Verifica che i valori siano presenti",
+      "hints": [
+        "valueFrom.secretKeyRef per singola chiave",
+        "Specificare name del Secret e key",
+        "envFrom.secretRef per tutto il Secret"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: secret-pod\nspec:\n  containers:\n  - name: test\n    image: busybox\n    command: ['sh', '-c', 'env | grep DB && sleep 3600']\n    env:\n    - name: DB_USERNAME\n      valueFrom:\n        secretKeyRef:\n          name: db-secret\n          key: username\n    - name: DB_PASSWORD\n      valueFrom:\n        secretKeyRef:\n          name: db-secret\n          key: password\nEOF\n\nkubectl wait --for=condition=Ready pod/secret-pod --timeout=30s\nkubectl exec secret-pod -- env | grep DB",
+      "validation": "kubectl exec secret-pod -- sh -c 'echo $DB_USERNAME'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un Secret TLS",
+        "en": "Create a TLS Secret"
+      },
+      "description": {
+        "it": "Generare certificato auto-firmato e creare Secret TLS",
+        "en": "Generate self-signed certificate and create TLS Secret"
+      },
+      "task": "1. Genera un certificato TLS auto-firmato (openssl)\n2. Crea un Secret 'tls-secret' di tipo kubernetes.io/tls\n3. Verifica che i campi tls.crt e tls.key siano presenti\n4. Controlla il tipo del Secret",
+      "hints": [
+        "openssl req -x509 -newkey rsa:2048",
+        "kubectl create secret tls",
+        "kubectl get secret -o yaml mostra il tipo"
+      ],
+      "solution": "# Genera certificato\nopenssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem \\\n  -days 365 -nodes -subj '/CN=localhost'\n\n# Crea Secret\nkubectl create secret tls tls-secret --cert=cert.pem --key=key.pem\n\n# Verifica\nkubectl get secret tls-secret -o jsonpath='{.type}'\nkubectl get secret tls-secret -o jsonpath='{.data.tls\\.crt}' | base64 -d | openssl x509 -text -noout | head",
+      "validation": "kubectl get secret tls-secret -o jsonpath='{.type}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Montare Secret come volume",
+        "en": "Mount Secret as volume"
+      },
+      "description": {
+        "it": "Accedere al Secret come file nel container",
+        "en": "Access Secret as files in the container"
+      },
+      "task": "1. Crea un Pod con volume montato da 'db-secret'\n2. Monta in /etc/secrets\n3. Verifica che i file siano presenti e leggibili\n4. Controlla i permessi dei file",
+      "hints": [
+        "Volume type: secret",
+        "defaultMode controlla i permessi",
+        "kubectl exec per verificare"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: secret-volume-pod\nspec:\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'while true; do ls -la /etc/secrets; sleep 60; done']\n    volumeMounts:\n    - name: secrets\n      mountPath: /etc/secrets\n      readOnly: true\n  volumes:\n  - name: secrets\n    secret:\n      name: db-secret\n      defaultMode: 0400\nEOF\n\nkubectl wait --for=condition=Ready pod/secret-volume-pod --timeout=30s\nkubectl exec secret-volume-pod -- ls -la /etc/secrets",
+      "validation": "kubectl exec secret-volume-pod -- cat /etc/secrets/username",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare securityContext",
+        "en": "Configure securityContext"
+      },
+      "description": {
+        "it": "Impostare contesto di sicurezza per un Pod",
+        "en": "Set security context for a Pod"
+      },
+      "task": "1. Crea un Pod 'secure-pod' con immagine nginx\n2. Imposta runAsUser: 1000, runAsGroup: 3000\n3. Imposta runAsNonRoot: true\n4. Imposta readOnlyRootFilesystem: true\n5. Verifica che il container non giri come root",
+      "hints": [
+        "securityContext a livello Pod e container",
+        "runAsNonRoot fallisce se l'immagine richiede root",
+        "nginx:alpine funziona come non-root con config"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: secure-pod\nspec:\n  securityContext:\n    runAsUser: 1000\n    runAsGroup: 3000\n    runAsNonRoot: true\n    fsGroup: 2000\n  containers:\n  - name: nginx\n    image: nginx:alpine\n    securityContext:\n      readOnlyRootFilesystem: true\n      allowPrivilegeEscalation: false\n      capabilities:\n        drop: ['ALL']\n    volumeMounts:\n    - name: cache\n      mountPath: /var/cache/nginx\n    - name: run\n      mountPath: /var/run\n  volumes:\n  - name: cache\n    emptyDir: {}\n  - name: run\n    emptyDir: {}\nEOF\n\nkubectl exec secure-pod -- id",
+      "validation": "kubectl exec secure-pod -- id | grep 1000",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare ServiceAccount",
+        "en": "Create ServiceAccount"
+      },
+      "description": {
+        "it": "Configurare un ServiceAccount dedicato per un Pod",
+        "en": "Configure a dedicated ServiceAccount for a Pod"
+      },
+      "task": "1. Crea un ServiceAccount 'app-sa'\n2. Crea un Pod che usa questo ServiceAccount\n3. Verifica che il token sia montato\n4. Controlla i mount nel container",
+      "hints": [
+        "kubectl create serviceaccount",
+        "serviceAccountName nel Pod spec",
+        "automountServiceAccountToken per disabilitare"
+      ],
+      "solution": "kubectl create serviceaccount app-sa\n\nkubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: sa-pod\nspec:\n  serviceAccountName: app-sa\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'ls -la /var/run/secrets/kubernetes.io/serviceaccount/ && sleep 3600']\nEOF\n\nkubectl wait --for=condition=Ready pod/sa-pod --timeout=30s\nkubectl exec sa-pod -- ls /var/run/secrets/kubernetes.io/serviceaccount/",
+      "validation": "kubectl get pod sa-pod -o jsonpath='{.spec.serviceAccountName}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare Role e RoleBinding",
+        "en": "Create Role and RoleBinding"
+      },
+      "description": {
+        "it": "Configurare permessi RBAC per un ServiceAccount",
+        "en": "Configure RBAC permissions for a ServiceAccount"
+      },
+      "task": "1. Crea una Role 'pod-reader' per leggere Pod\n2. Crea un RoleBinding che collega app-sa a pod-reader\n3. Testa l'accesso con kubectl auth can-i\n4. Verifica che possa leggere ma non creare Pod",
+      "hints": [
+        "Role: apiGroups, resources, verbs",
+        "RoleBinding: subjects (sa), roleRef",
+        "kubectl auth can-i --as=system:serviceaccount:ns:name"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: rbac.authorization.k8s.io/v1\nkind: Role\nmetadata:\n  name: pod-reader\nrules:\n- apiGroups: ['']\n  resources: ['pods']\n  verbs: ['get', 'list', 'watch']\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: RoleBinding\nmetadata:\n  name: app-sa-pod-reader\nsubjects:\n- kind: ServiceAccount\n  name: app-sa\nroleRef:\n  kind: Role\n  name: pod-reader\n  apiGroup: rbac.authorization.k8s.io\nEOF\n\nkubectl auth can-i list pods --as=system:serviceaccount:default:app-sa\nkubectl auth can-i create pods --as=system:serviceaccount:default:app-sa",
+      "validation": "kubectl auth can-i list pods --as=system:serviceaccount:default:app-sa",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare NetworkPolicy deny-all",
+        "en": "Implement NetworkPolicy deny-all"
+      },
+      "description": {
+        "it": "Bloccare tutto il traffico in ingresso/uscita",
+        "en": "Block all ingress/egress traffic"
+      },
+      "task": "1. Crea un namespace 'secured'\n2. Implementa una NetworkPolicy deny-all\n3. Crea un Pod nginx e testa l'accesso\n4. Verifica che il traffico è bloccato",
+      "hints": [
+        "policyTypes: [Ingress, Egress]",
+        "Nessuna regola = deny all",
+        "NetworkPolicy è additiva"
+      ],
+      "solution": "kubectl create namespace secured\n\nkubectl apply -n secured -f - << 'EOF'\napiVersion: networking.k8s.io/v1\nkind: NetworkPolicy\nmetadata:\n  name: deny-all\nspec:\n  podSelector: {}\n  policyTypes:\n  - Ingress\n  - Egress\nEOF\n\nkubectl run -n secured nginx --image=nginx:alpine\nkubectl wait -n secured --for=condition=Ready pod/nginx --timeout=30s\n\n# Test connessione (dovrebbe fallire con network policy)\nkubectl run -n secured test --image=busybox --rm -it --restart=Never -- wget -qO- http://nginx",
+      "validation": "kubectl get networkpolicy -n secured deny-all -o jsonpath='{.spec.policyTypes}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Permettere traffico specifico con NetworkPolicy",
+        "en": "Allow specific traffic with NetworkPolicy"
+      },
+      "description": {
+        "it": "Configurare regole allow per traffico selezionato",
+        "en": "Configure allow rules for selected traffic"
+      },
+      "task": "1. Crea una NetworkPolicy che permette traffico da Pod con label 'app=frontend'\n2. Permetti traffico solo sulla porta 80\n3. Testa da un Pod frontend e uno non autorizzato\n4. Verifica che solo frontend può connettersi",
+      "hints": [
+        "ingress: from: podSelector matchLabels",
+        "ports: port: 80",
+        "I selector sono AND tra loro"
+      ],
+      "solution": "kubectl apply -n secured -f - << 'EOF'\napiVersion: networking.k8s.io/v1\nkind: NetworkPolicy\nmetadata:\n  name: allow-frontend\nspec:\n  podSelector:\n    matchLabels:\n      app: nginx\n  policyTypes:\n  - Ingress\n  ingress:\n  - from:\n    - podSelector:\n        matchLabels:\n          app: frontend\n    ports:\n    - port: 80\nEOF\n\nkubectl run -n secured frontend --image=busybox --labels=app=frontend -- sh -c 'wget -qO- http://nginx && sleep 3600'\nkubectl run -n secured backend --image=busybox --labels=app=backend -- sh -c 'wget -qO- http://nginx || echo Failed'",
+      "validation": "kubectl get networkpolicy -n secured allow-frontend -o yaml | grep -A 5 'ingress:'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare Secret docker-registry",
+        "en": "Create docker-registry Secret"
+      },
+      "description": {
+        "it": "Configurare accesso a registry privato",
+        "en": "Configure private registry access"
+      },
+      "task": "1. Crea un Secret 'regcred' per un registry privato (simulato)\n2. Configura il Secret come imagePullSecrets in un Pod\n3. Verifica la configurazione\n4. Controlla il tipo del Secret",
+      "hints": [
+        "kubectl create secret docker-registry",
+        "--docker-server, --docker-username, --docker-password",
+        "imagePullSecrets nel Pod spec"
+      ],
+      "solution": "kubectl create secret docker-registry regcred \\\n  --docker-server=registry.example.com \\\n  --docker-username=admin \\\n  --docker-password=password123 \\\n  --docker-email=admin@example.com\n\nkubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: private-pod\nspec:\n  containers:\n  - name: app\n    image: registry.example.com/myapp:v1\n  imagePullSecrets:\n  - name: regcred\nEOF\n\nkubectl get secret regcred -o jsonpath='{.type}'",
+      "validation": "kubectl get secret regcred -o jsonpath='{.type}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Applicare Pod Security Standard",
+        "en": "Apply Pod Security Standard"
+      },
+      "description": {
+        "it": "Forzare PSS Restricted su un namespace",
+        "en": "Enforce PSS Restricted on a namespace"
+      },
+      "task": "1. Crea un namespace 'restricted'\n2. Applica l'annotazione PSS restricted\n3. Prova a creare un Pod senza security context\n4. Verifica che venga rifiutato",
+      "hints": [
+        "pod-security.kubernetes.io/enforce: restricted",
+        "kubectl apply --dry-run=client per testare",
+        "I Pod esistenti non vengono eliminati"
+      ],
+      "solution": "kubectl create namespace restricted\nkubectl label namespace restricted pod-security.kubernetes.io/enforce=restricted\n\n# Questo fallirà o genererà warning\nkubectl apply -n restricted -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: insecure-pod\nspec:\n  containers:\n  - name: app\n    image: nginx\nEOF\n\nkubectl get namespace restricted -o jsonpath='{.metadata.labels}'",
+      "validation": "kubectl get namespace restricted -o jsonpath='{.metadata.labels}'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Gestire capabilities Linux",
+        "en": "Manage Linux capabilities"
+      },
+      "description": {
+        "it": "Aggiungere e rimuovere capabilities",
+        "en": "Add and remove capabilities"
+      },
+      "task": "1. Crea un Pod con capabilities drop ALL\n2. Aggiungi solo CAP_NET_BIND_SERVICE\n3. Verifica che non può fare operazioni privilegiate\n4. Testa binding su porta 80 (richiede capability)",
+      "hints": [
+        "capabilities: add: drop: nella securityContext",
+        "CAP_NET_BIND_SERVICE permette porte < 1024",
+        "La maggior parte delle app non necessita capabilities"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: caps-pod\nspec:\n  containers:\n  - name: app\n    image: nginx:alpine\n    securityContext:\n      capabilities:\n        drop: ['ALL']\n        add: ['NET_BIND_SERVICE']\n    ports:\n    - containerPort: 80\nEOF\n\nkubectl wait --for=condition=Ready pod/caps-pod --timeout=30s\nkubectl exec caps-pod -- capsh --print",
+      "validation": "kubectl get pod caps-pod -o jsonpath='{.spec.containers[0].securityContext.capabilities.add}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Disabilitare automount ServiceAccount",
+        "en": "Disable ServiceAccount automount"
+      },
+      "description": {
+        "it": "Prevenire mount automatico del token",
+        "en": "Prevent automatic token mounting"
+      },
+      "task": "1. Crea un ServiceAccount 'no-mount-sa' con automount disabilitato\n2. Crea un Pod che usa questo SA\n3. Verifica che la directory del token non esiste\n4. Confronta con un Pod che ha automount abilitato",
+      "hints": [
+        "automountServiceAccountToken: false nel SA",
+        "Il Pod può sovrascrivere il default del SA",
+        "Sicurezza: usare solo se il Pod non parla con API"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: ServiceAccount\nmetadata:\n  name: no-mount-sa\nautomountServiceAccountToken: false\n---\napiVersion: v1\nkind: Pod\nmetadata:\n  name: no-mount-pod\nspec:\n  serviceAccountName: no-mount-sa\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'ls -la /var/run/secrets/ 2>&1 || echo \"No secrets\"; sleep 3600']\nEOF\n\nkubectl wait --for=condition=Ready pod/no-mount-pod --timeout=30s\nkubectl exec no-mount-pod -- ls /var/run/secrets/ 2>&1 || echo 'No automount'",
+      "validation": "kubectl get sa no-mount-sa -o jsonpath='{.automountServiceAccountToken}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare ClusterRole per accesso read-only",
+        "en": "Create ClusterRole for read-only access"
+      },
+      "description": {
+        "it": "Dare accesso read-only a tutto il cluster",
+        "en": "Grant read-only access to entire cluster"
+      },
+      "task": "1. Crea un ClusterRole 'cluster-viewer'\n2. Crea un ClusterRoleBinding per app-sa\n3. Testa che può leggere Pod in tutti i namespace\n4. Verifica che non può creare risorse",
+      "hints": [
+        "ClusterRole: resources: ['*'], verbs: ['get', 'list', 'watch']",
+        "ClusterRoleBinding collega ClusterRole a SA",
+        "kubectl auth can-i --all-namespaces"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRole\nmetadata:\n  name: cluster-viewer\nrules:\n- apiGroups: ['']\n  resources: ['*']\n  verbs: ['get', 'list', 'watch']\n---\napiVersion: rbac.authorization.k8s.io/v1\nkind: ClusterRoleBinding\nmetadata:\n  name: app-sa-viewer\nsubjects:\n- kind: ServiceAccount\n  name: app-sa\n  namespace: default\nroleRef:\n  kind: ClusterRole\n  name: cluster-viewer\n  apiGroup: rbac.authorization.k8s.io\nEOF\n\nkubectl auth can-i list pods --all-namespaces --as=system:serviceaccount:default:app-sa",
+      "validation": "kubectl auth can-i list pods --all-namespaces --as=system:serviceaccount:default:app-sa",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Esempio completo di sicurezza",
+        "en": "Complete security example"
+      },
+      "description": {
+        "it": "Applicare tutte le best practice di sicurezza",
+        "en": "Apply all security best practices"
+      },
+      "task": "1. Crea un Pod con: utente non-root, capabilities minime, filesystem read-only, no privilege escalation\n2. Configura NetworkPolicy per isolamento\n3. Usa Secret per password\n4. Imposta ResourceQuota per limiti",
+      "hints": [
+        "Combinare tutti gli elementi appresi",
+        "Verificare ogni aspetto separatamente",
+        "Documentare le scelte fatte"
+      ],
+      "solution": "kubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Secret\nmetadata:\n  name: app-secret\ntype: Opaque\nstringData:\n  password: supersecret\n---\napiVersion: v1\nkind: Pod\nmetadata:\n  name: secure-app\n  labels:\n    app: secure\nspec:\n  securityContext:\n    runAsNonRoot: true\n    runAsUser: 1000\n    fsGroup: 1000\n  containers:\n  - name: app\n    image: nginx:alpine\n    securityContext:\n      readOnlyRootFilesystem: true\n      allowPrivilegeEscalation: false\n      capabilities:\n        drop: ['ALL']\n        add: ['NET_BIND_SERVICE']\n    env:\n    - name: PASSWORD\n      valueFrom:\n        secretKeyRef:\n          name: app-secret\n          key: password\n    volumeMounts:\n    - name: cache\n      mountPath: /var/cache/nginx\n    - name: run\n      mountPath: /var/run\n    resources:\n      limits:\n        cpu: 500m\n        memory: 256Mi\n      requests:\n        cpu: 100m\n        memory: 128Mi\n  volumes:\n  - name: cache\n    emptyDir: {}\n  - name: run\n    emptyDir: {}\n---\napiVersion: networking.k8s.io/v1\nkind: NetworkPolicy\nmetadata:\n  name: secure-isolation\nspec:\n  podSelector:\n    matchLabels:\n      app: secure\n  policyTypes: [Ingress, Egress]\n  ingress:\n  - ports: [{port: 80}]\n  egress:\n  - to:\n    - namespaceSelector: {}\nEOF",
+      "validation": "kubectl exec secure-app -- id && kubectl exec secure-app -- sh -c 'echo $PASSWORD'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    }
+  ]
+}

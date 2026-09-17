@@ -1,0 +1,164 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "State lifting",
+        "en": "State lifting"
+      },
+      "description": {
+        "it": "Creare un widget genitore che gestisce lo stato condiviso tra due figli: un input e un display.",
+        "en": "Create a parent widget that manages shared state between two children: an input and a display."
+      },
+      "startingCode": "class InputWidget extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    return TextField();\n  }\n}\n\nclass DisplayWidget extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    return Text('');\n  }\n}",
+      "solution": "class StatoCondiviso extends StatefulWidget {\n  @override\n  State<StatoCondiviso> createState() => _StatoCondivisoState();\n}\n\nclass _StatoCondivisoState extends State<StatoCondiviso> {\n  String _testo = '';\n\n  void _aggiorna(String nuovo) => setState(() => _testo = nuovo);\n\n  @override\n  Widget build(BuildContext context) {\n    return Column(\n      children: [\n        InputWidget(onChanged: _aggiorna),\n        DisplayWidget(testo: _testo),\n      ],\n    );\n  }\n}\n\nclass InputWidget extends StatelessWidget {\n  final Function(String) onChanged;\n  InputWidget({required this.onChanged});\n\n  @override\n  Widget build(BuildContext context) {\n    return TextField(onChanged: onChanged);\n  }\n}\n\nclass DisplayWidget extends StatelessWidget {\n  final String testo;\n  DisplayWidget({required this.testo});\n\n  @override\n  Widget build(BuildContext context) {\n    return Text(testo);\n  }\n}",
+      "hint": {
+        "it": "Solleva lo stato nel genitore e passalo ai figli come parametri.",
+        "en": "Lift state to the parent and pass it to children as parameters."
+      }
+    },
+    {
+      "title": {
+        "it": "ChangeNotifier base",
+        "en": "Basic ChangeNotifier"
+      },
+      "description": {
+        "it": "Creare un CounterModel che estende ChangeNotifier con increment e decrement.",
+        "en": "Create a CounterModel extending ChangeNotifier with increment and decrement."
+      },
+      "startingCode": "import 'package:flutter/foundation.dart';\n\nclass CounterModel extends ChangeNotifier {\n  // TODO: Implementare stato e metodi\n}",
+      "solution": "import 'package:flutter/foundation.dart';\n\nclass CounterModel extends ChangeNotifier {\n  int _value = 0;\n\n  int get value => _value;\n\n  void increment() {\n    _value++;\n    notifyListeners();\n  }\n\n  void decrement() {\n    _value--;\n    notifyListeners();\n  }\n\n  void reset() {\n    _value = 0;\n    notifyListeners();\n  }\n}",
+      "hint": {
+        "it": "Usa notifyListeners() dopo ogni modifica dello stato.",
+        "en": "Use notifyListeners() after each state modification."
+      }
+    },
+    {
+      "title": {
+        "it": "Provider setup",
+        "en": "Provider setup"
+      },
+      "description": {
+        "it": "Configurare un ChangeNotifierProvider nel main e usarlo in un widget.",
+        "en": "Setup a ChangeNotifierProvider in main and use it in a widget."
+      },
+      "startingCode": "import 'package:flutter/material.dart';\nimport 'package:provider/provider.dart';\n\nvoid main() {\n  runApp(const MyApp());\n}\n\nclass MyApp extends StatelessWidget {\n  const MyApp({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    // TODO: Wrap with Provider\n    return MaterialApp(home: CounterPage());\n  }\n}",
+      "solution": "import 'package:flutter/material.dart';\nimport 'package:provider/provider.dart';\n\nvoid main() {\n  runApp(\n    ChangeNotifierProvider(\n      create: (_) => CounterModel(),\n      child: const MyApp(),\n    ),\n  );\n}\n\nclass MyApp extends StatelessWidget {\n  const MyApp({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return MaterialApp(home: CounterPage());\n  }\n}\n\nclass CounterPage extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      body: Center(\n        child: Consumer<CounterModel>(\n          builder: (_, model, __) => Text('${model.value}'),\n        ),\n      ),\n      floatingActionButton: FloatingActionButton(\n        onPressed: () => context.read<CounterModel>().increment(),\n        child: Icon(Icons.add),\n      ),\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa ChangeNotifierProvider al top e Consumer per leggere.",
+        "en": "Use ChangeNotifierProvider at the top and Consumer to read."
+      }
+    },
+    {
+      "title": {
+        "it": "Consumer vs Provider.of",
+        "en": "Consumer vs Provider.of"
+      },
+      "description": {
+        "it": "Mostrare la differenza tra Consumer e Provider.of con rebuild mirati.",
+        "en": "Show the difference between Consumer and Provider.of with targeted rebuilds."
+      },
+      "startingCode": "class EsempioWidget extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    // TODO: Usare Consumer per rebuild mirato\n    final counter = Provider.of<CounterModel>(context);\n    return Column(children: [\n      Text('Valore: ${counter.value}'),\n      Text('Statico: questo non deve rebuildare'),\n    ]);\n  }\n}",
+      "solution": "class EsempioWidget extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    return Column(children: [\n      Consumer<CounterModel>(\n        builder: (_, counter, __) => Text('Valore: ${counter.value}'),\n      ),\n      Text('Statico: questo non deve rebuildare'),\n    ]);\n  }\n}",
+      "hint": {
+        "it": "Consumer rebuilda solo il suo builder, Provider.of rebuilda tutto il widget.",
+        "en": "Consumer rebuilds only its builder, Provider.of rebuilds the whole widget."
+      }
+    },
+    {
+      "title": {
+        "it": "Selector per performance",
+        "en": "Selector for performance"
+      },
+      "description": {
+        "it": "Usare Selector per rebuildare solo quando cambia una proprietà specifica.",
+        "en": "Use Selector to rebuild only when a specific property changes."
+      },
+      "startingCode": "class UserModel extends ChangeNotifier {\n  String nome = '';\n  int eta = 0;\n  bool attivo = true;\n}\n\nclass NomeWidget extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    // TODO: Usare Selector per solo nome\n    return Text('');\n  }\n}",
+      "solution": "class UserModel extends ChangeNotifier {\n  String nome = '';\n  int eta = 0;\n  bool attivo = true;\n}\n\nclass NomeWidget extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    return Selector<UserModel, String>(\n      selector: (_, user) => user.nome,\n      builder: (_, nome, __) => Text(nome),\n    );\n  }\n}",
+      "hint": {
+        "it": "Selector permette di selezionare solo una proprietà del modello.",
+        "en": "Selector allows selecting only one property from the model."
+      }
+    },
+    {
+      "title": {
+        "it": "Riverpod StateProvider",
+        "en": "Riverpod StateProvider"
+      },
+      "description": {
+        "it": "Creare un StateProvider con Riverpod e usarlo in un ConsumerWidget.",
+        "en": "Create a StateProvider with Riverpod and use it in a ConsumerWidget."
+      },
+      "startingCode": "import 'package:flutter_riverpod/flutter_riverpod.dart';\n\n// TODO: Definire provider\n\nvoid main() {\n  runApp(const ProviderScope(child: MyApp()));\n}",
+      "solution": "import 'package:flutter_riverpod/flutter_riverpod.dart';\n\nfinal counterProvider = StateProvider<int>((ref) => 0);\n\nvoid main() {\n  runApp(const ProviderScope(child: MyApp()));\n}\n\nclass MyApp extends StatelessWidget {\n  const MyApp({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return MaterialApp(home: CounterPage());\n  }\n}\n\nclass CounterPage extends ConsumerWidget {\n  @override\n  Widget build(BuildContext context, WidgetRef ref) {\n    final count = ref.watch(counterProvider);\n\n    return Scaffold(\n      body: Center(child: Text('$count')),\n      floatingActionButton: FloatingActionButton(\n        onPressed: () => ref.read(counterProvider.notifier).state++,\n        child: Icon(Icons.add),\n      ),\n    );\n  }\n}",
+      "hint": {
+        "it": "StateProvider è il modo più semplice per stato semplice.",
+        "en": "StateProvider is the simplest way for simple state."
+      }
+    },
+    {
+      "title": {
+        "it": "Riverpod StateNotifier",
+        "en": "Riverpod StateNotifier"
+      },
+      "description": {
+        "it": "Creare un StateNotifier con logica complessa e usarlo con Riverpod.",
+        "en": "Create a StateNotifier with complex logic and use it with Riverpod."
+      },
+      "startingCode": "import 'package:flutter_riverpod/flutter_riverpod.dart';\n\n// TODO: State, StateNotifier, Provider",
+      "solution": "import 'package:flutter_riverpod/flutter_riverpod.dart';\n\nclass CounterState {\n  final int value;\n  final bool isLoading;\n\n  CounterState({this.value = 0, this.isLoading = false});\n\n  CounterState copyWith({int? value, bool? isLoading}) => CounterState(\n    value: value ?? this.value,\n    isLoading: isLoading ?? this.isLoading,\n  );\n}\n\nclass CounterNotifier extends StateNotifier<CounterState> {\n  CounterNotifier() : super(CounterState());\n\n  void increment() => state = state.copyWith(value: state.value + 1);\n  void decrement() => state = state.copyWith(value: state.value - 1);\n\n  Future<void> incrementAsync() async {\n    state = state.copyWith(isLoading: true);\n    await Future.delayed(Duration(seconds: 1));\n    state = state.copyWith(value: state.value + 1, isLoading: false);\n  }\n}\n\nfinal counterNotifierProvider = StateNotifierProvider<CounterNotifier, CounterState>(\n  (ref) => CounterNotifier(),\n);",
+      "hint": {
+        "it": "StateNotifier gestisce stato immutabile con metodi che chiamano state = newState.",
+        "en": "StateNotifier manages immutable state with methods that call state = newState."
+      }
+    },
+    {
+      "title": {
+        "it": "BLoC Events e State",
+        "en": "BLoC Events and State"
+      },
+      "description": {
+        "it": "Definire Events e State per un contatore con BLoC.",
+        "en": "Define Events and State for a counter with BLoC."
+      },
+      "startingCode": "import 'package:equatable/equatable.dart';\n\n// TODO: Definire CounterEvent e CounterState",
+      "solution": "import 'package:equatable/equatable.dart';\n\nabstract class CounterEvent extends Equatable {\n  const CounterEvent();\n  @override\n  List<Object?> get props => [];\n}\n\nclass CounterIncrement extends CounterEvent {}\nclass CounterDecrement extends CounterEvent {}\nclass CounterReset extends CounterEvent {}\n\nclass CounterState extends Equatable {\n  final int value;\n\n  const CounterState({this.value = 0});\n\n  CounterState copyWith({int? value}) => CounterState(value: value ?? this.value);\n\n  @override\n  List<Object?> get props => [value];\n}",
+      "hint": {
+        "it": "Event e State devono estendere Equatable per confronti efficienti.",
+        "en": "Event and State should extend Equatable for efficient comparisons."
+      }
+    },
+    {
+      "title": {
+        "it": "BLoC implementation",
+        "en": "BLoC implementation"
+      },
+      "description": {
+        "it": "Implementare il BLoC che gestisce gli eventi del contatore.",
+        "en": "Implement the BLoC that handles counter events."
+      },
+      "startingCode": "import 'package:flutter_bloc/flutter_bloc.dart';\n\n// TODO: Implementare CounterBloc",
+      "solution": "import 'package:flutter_bloc/flutter_bloc.dart';\n\nclass CounterBloc extends Bloc<CounterEvent, CounterState> {\n  CounterBloc() : super(const CounterState()) {\n    on<CounterIncrement>((event, emit) {\n      emit(state.copyWith(value: state.value + 1));\n    });\n\n    on<CounterDecrement>((event, emit) {\n      emit(state.copyWith(value: state.value - 1));\n    });\n\n    on<CounterReset>((event, emit) {\n      emit(const CounterState());\n    });\n  }\n}",
+      "hint": {
+        "it": "Registra handler per ogni evento con on<TipoEvento>((event, emit) => ...).",
+        "en": "Register handler for each event with on<EventType>((event, emit) => ...)."
+      }
+    },
+    {
+      "title": {
+        "it": "Multi-provider setup",
+        "en": "Multi-provider setup"
+      },
+      "description": {
+        "it": "Configurare MultiProvider con più provider di diverso tipo.",
+        "en": "Setup MultiProvider with multiple providers of different types."
+      },
+      "startingCode": "void main() {\n  runApp(const MyApp());\n}",
+      "solution": "void main() {\n  runApp(\n    MultiProvider(\n      providers: [\n        ChangeNotifierProvider(create: (_) => UtenteModel()),\n        ChangeNotifierProvider(create: (_) => CarrelloModel()),\n        Provider(create: (_) => ApiService()),\n        ProxyProvider<UtenteModel, OrdiniModel>(\n          update: (_, utente, ordini) => OrdiniModel(utente: utente),\n        ),\n      ],\n      child: const MyApp(),\n    ),\n  );\n}",
+      "hint": {
+        "it": "MultiProvider accetta una lista di provider di qualsiasi tipo.",
+        "en": "MultiProvider accepts a list of providers of any type."
+      }
+    }
+  ]
+}

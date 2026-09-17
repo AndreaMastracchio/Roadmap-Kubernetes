@@ -1,0 +1,37 @@
+{
+  "id": "flutter-dart",
+  "title": {
+    "it": "Flutter & Dart",
+    "en": "Flutter & Dart"
+  },
+  "description": {
+    "it": "Impara a costruire app mobile native per iOS e Android con Flutter e Dart, dalle basi del linguaggio alla pubblicazione su Play Store e App Store.",
+    "en": "Learn to build native mobile apps for iOS and Android with Flutter and Dart, from language basics to publishing on Play Store and App Store."
+  },
+  "icon": "PhoneIphoneIcon",
+  "isPrivate": false,
+  "comingSoon": false,
+  "duration": {
+    "it": "30 ore",
+    "en": "30 hours"
+  },
+  "color": "#0175C2",
+  "languages": ["it", "en"],
+  "name": {
+    "it": "Flutter & Dart",
+    "en": "Flutter & Dart"
+  },
+  "group": "mobile",
+  "modules": [
+    { "id": "01", "title": { "it": "Modulo 01: Dart Fundamentals", "en": "Module 01: Dart Fundamentals" } },
+    { "id": "02", "title": { "it": "Modulo 02: Flutter Widgets", "en": "Module 02: Flutter Widgets" } },
+    { "id": "03", "title": { "it": "Modulo 03: State Management", "en": "Module 03: State Management" } },
+    { "id": "04", "title": { "it": "Modulo 04: Navigation & Routing", "en": "Module 04: Navigation & Routing" } },
+    { "id": "05", "title": { "it": "Modulo 05: Forms & Validation", "en": "Module 05: Forms & Validation" } },
+    { "id": "06", "title": { "it": "Modulo 06: Networking & APIs", "en": "Module 06: Networking & APIs" } },
+    { "id": "07", "title": { "it": "Modulo 07: Local Storage", "en": "Module 07: Local Storage" } },
+    { "id": "08", "title": { "it": "Modulo 08: Animations", "en": "Module 08: Animations" } },
+    { "id": "09", "title": { "it": "Modulo 09: Testing", "en": "Module 09: Testing" } },
+    { "id": "10", "title": { "it": "Modulo 10: Publishing & Deployment", "en": "Module 10: Publishing & Deployment" } }
+  ]
+}

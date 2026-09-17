@@ -1,0 +1,164 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Variabili e tipi",
+        "en": "Variables and types"
+      },
+      "description": {
+        "it": "Dichiarare una variabile 'nome' con il tuo nome usando var, una 'eta' con la tua età usando final, e una 'PI' con il valore di π usando const.",
+        "en": "Declare a variable 'name' with your name using var, an 'age' with your age using final, and a 'PI' with the value of π using const."
+      },
+      "startingCode": "void main() {\n  // TODO: Dichiarare le variabili\n  \n  \n  print('Nome: $nome');\n  print('Età: $eta');\n  print('PI: $PI');\n}",
+      "solution": "void main() {\n  var nome = 'Mario';\n  final eta = 25;\n  const PI = 3.14159;\n  \n  print('Nome: $nome');\n  print('Età: $eta');\n  print('PI: $PI');\n}",
+      "hint": {
+        "it": "var inferisce il tipo, final è per valori a runtime, const per valori a compile-time.",
+        "en": "var infers the type, final is for runtime values, const for compile-time values."
+      }
+    },
+    {
+      "title": {
+        "it": "Null safety",
+        "en": "Null safety"
+      },
+      "description": {
+        "it": "Creare una variabile nullable 'email' e usare l'operatore ?? per stampare 'non specificata' se è null.",
+        "en": "Create a nullable variable 'email' and use the ?? operator to print 'not specified' if it's null."
+      },
+      "startingCode": "void main() {\n  String? email;\n  \n  // TODO: Stampare email o 'non specificata'\n  \n}",
+      "solution": "void main() {\n  String? email;\n  \n  String displayEmail = email ?? 'non specificata';\n  print('Email: $displayEmail');\n}",
+      "hint": {
+        "it": "L'operatore ?? restituisce il valore a destra se quello a sinistra è null.",
+        "en": "The ?? operator returns the right value if the left is null."
+      }
+    },
+    {
+      "title": {
+        "it": "Liste e iterazione",
+        "en": "Lists and iteration"
+      },
+      "description": {
+        "it": "Creare una lista di numeri da 1 a 5, poi usare un ciclo for-in per stampare solo i numeri pari.",
+        "en": "Create a list of numbers from 1 to 5, then use a for-in loop to print only the even numbers."
+      },
+      "startingCode": "void main() {\n  // TODO: Creare lista e filtrare pari\n  \n}",
+      "solution": "void main() {\n  var numeri = [1, 2, 3, 4, 5];\n  \n  for (var n in numeri) {\n    if (n % 2 == 0) {\n      print(n);\n    }\n  }\n}",
+      "hint": {
+        "it": "Usa l'operatore modulo % per verificare se un numero è pari.",
+        "en": "Use the modulo operator % to check if a number is even."
+      }
+    },
+    {
+      "title": {
+        "it": "Mappe",
+        "en": "Maps"
+      },
+      "description": {
+        "it": "Creare una mappa con 3 studenti e i loro voti, poi stampare solo gli studenti con voto >= 18.",
+        "en": "Create a map with 3 students and their grades, then print only students with grade >= 18."
+      },
+      "startingCode": "void main() {\n  // TODO: Creare mappa e filtrare\n  \n}",
+      "solution": "void main() {\n  var voti = {\n    'Mario': 28,\n    'Luigi': 15,\n    'Anna': 30\n  };\n  \n  voti.forEach((nome, voto) {\n    if (voto >= 18) {\n      print('$nome: $voto');\n    }\n  });\n}",
+      "hint": {
+        "it": "Usa forEach per iterare su chiave e valore contemporaneamente.",
+        "en": "Use forEach to iterate over key and value simultaneously."
+      }
+    },
+    {
+      "title": {
+        "it": "Funzioni con parametri nominati",
+        "en": "Functions with named parameters"
+      },
+      "description": {
+        "it": "Creare una funzione creaProfilo che accetta nome (obbligatorio), eta (opzionale con default 0) e restituisce una stringa descrittiva.",
+        "en": "Create a createProfile function that accepts name (required), age (optional with default 0) and returns a descriptive string."
+      },
+      "startingCode": "// TODO: Definire la funzione creaProfilo\n\nvoid main() {\n  print(creaProfilo(nome: 'Mario'));\n  print(creaProfilo(nome: 'Luigi', eta: 25));\n}",
+      "solution": "String creaProfilo({required String nome, int eta = 0}) {\n  return 'Nome: $nome, Età: $eta';\n}\n\nvoid main() {\n  print(creaProfilo(nome: 'Mario'));\n  print(creaProfilo(nome: 'Luigi', eta: 25));\n}",
+      "hint": {
+        "it": "Usa required per parametri obbligatori e = valore per i default.",
+        "en": "Use required for mandatory parameters and = value for defaults."
+      }
+    },
+    {
+      "title": {
+        "it": "Classi e costruttori",
+        "en": "Classes and constructors"
+      },
+      "description": {
+        "it": "Creare una classe Rettangolo con larghezza e altezza, un costruttore, e un metodo calcolaArea().",
+        "en": "Create a Rectangle class with width and height, a constructor, and a calculateArea() method."
+      },
+      "startingCode": "// TODO: Definire la classe Rettangolo\n\nvoid main() {\n  var r = Rettangolo(5, 3);\n  print('Area: ${r.calcolaArea()}');\n}",
+      "solution": "class Rettangolo {\n  final double larghezza;\n  final double altezza;\n  \n  Rettangolo(this.larghezza, this.altezza);\n  \n  double calcolaArea() => larghezza * altezza;\n}\n\nvoid main() {\n  var r = Rettangolo(5, 3);\n  print('Area: ${r.calcolaArea()}');\n}",
+      "hint": {
+        "it": "Usa this.parametro nel costruttore per assegnare direttamente i campi.",
+        "en": "Use this.parameter in the constructor to directly assign fields."
+      }
+    },
+    {
+      "title": {
+        "it": "Getter e Setter",
+        "en": "Getter and Setter"
+      },
+      "description": {
+        "it": "Aggiungere alla classe ContoBancario un getter saldo e un setter deposita che non permette importi negativi.",
+        "en": "Add to the BankAccount class a balance getter and a deposit setter that doesn't allow negative amounts."
+      },
+      "startingCode": "class ContoBancario {\n  double _saldo = 0;\n  \n  // TODO: Aggiungere getter e setter\n}",
+      "solution": "class ContoBancario {\n  double _saldo = 0;\n  \n  double get saldo => _saldo;\n  \n  set deposita(double importo) {\n    if (importo > 0) {\n      _saldo += importo;\n    }\n  }\n}",
+      "hint": {
+        "it": "I getter non hanno parentesi, i setter usano set e un singolo parametro.",
+        "en": "Getters have no parentheses, setters use set and a single parameter."
+      }
+    },
+    {
+      "title": {
+        "it": "Async/await",
+        "en": "Async/await"
+      },
+      "description": {
+        "it": "Creare una funzione asincrona scaricaDati che simula un download con delay di 2 secondi e restituisce 'Dati scaricati'.",
+        "en": "Create an asynchronous downloadData function that simulates a download with a 2-second delay and returns 'Data downloaded'."
+      },
+      "startingCode": "// TODO: Implementare scaricaDati\n\nvoid main() async {\n  print('Inizio');\n  var dati = await scaricaDati();\n  print(dati);\n}",
+      "solution": "Future<String> scaricaDati() async {\n  await Future.delayed(Duration(seconds: 2));\n  return 'Dati scaricati';\n}\n\nvoid main() async {\n  print('Inizio');\n  var dati = await scaricaDati();\n  print(dati);\n}",
+      "hint": {
+        "it": "Usa Future.delayed per simulare un'operazione asincrona.",
+        "en": "Use Future.delayed to simulate an asynchronous operation."
+      }
+    },
+    {
+      "title": {
+        "it": "Gestione errori",
+        "en": "Error handling"
+      },
+      "description": {
+        "it": "Creare una funzione dividi che lancia un'eccezione se il divisore è 0, poi gestirla con try-catch nel main.",
+        "en": "Create a divide function that throws an exception if the divisor is 0, then handle it with try-catch in main."
+      },
+      "startingCode": "// TODO: Implementare dividi e gestione errori\n\nvoid main() {\n  // Chiamare dividi(10, 0) con try-catch\n}",
+      "solution": "double dividi(double a, double b) {\n  if (b == 0) {\n    throw Exception('Divisione per zero non permessa');\n  }\n  return a / b;\n}\n\nvoid main() {\n  try {\n    print(dividi(10, 0));\n  } catch (e) {\n    print('Errore: $e');\n  }\n}",
+      "hint": {
+        "it": "Usa throw per lanciare un'eccezione e Exception() per crearla.",
+        "en": "Use throw to throw an exception and Exception() to create it."
+      }
+    },
+    {
+      "title": {
+        "it": "Mixins",
+        "en": "Mixins"
+      },
+      "description": {
+        "it": "Creare un mixin Loggable con un metodo log(String messaggio), poi applicarlo a una classe Utente.",
+        "en": "Create a Loggable mixin with a log(String message) method, then apply it to a User class."
+      },
+      "startingCode": "// TODO: Definire mixin Loggable e classe Utente\n\nvoid main() {\n  var u = Utente('Mario');\n  u.log('Accesso effettuato');\n}",
+      "solution": "mixin Loggable {\n  void log(String messaggio) {\n    print('[LOG] $messaggio');\n  }\n}\n\nclass Utente with Loggable {\n  final String nome;\n  Utente(this.nome);\n}\n\nvoid main() {\n  var u = Utente('Mario');\n  u.log('Accesso effettuato');\n}",
+      "hint": {
+        "it": "Usa mixin per definire e with per applicare a una classe.",
+        "en": "Use mixin to define and with to apply to a class."
+      }
+    }
+  ]
+}

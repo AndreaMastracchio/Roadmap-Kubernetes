@@ -1,0 +1,384 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Qual è il primo passo nel troubleshooting di un'applicazione Kubernetes?",
+        "en": "What is the first step in troubleshooting a Kubernetes application?"
+      },
+      "options": [
+        "Riavviare i pod",
+        "Controllare lo stato dei pod",
+        "Aumentare le risorse",
+        "Eliminare e ricreare il deployment"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il primo passo è sempre verificare lo stato attuale con kubectl get pods per capire cosa sta succedendo.",
+        "en": "The first step is always checking current status with kubectl get pods to understand what's happening."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra perché un pod è in stato Pending?",
+        "en": "Which command shows why a pod is in Pending state?"
+      },
+      "options": [
+        "kubectl get pods",
+        "kubectl describe pod <name>",
+        "kubectl logs <name>",
+        "kubectl status <name>"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl describe pod mostra gli eventi del ciclo di vita, inclusi i motivi di fallimento dello scheduling.",
+        "en": "kubectl describe pod shows lifecycle events, including scheduling failure reasons."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Cosa indica un pod con stato Error?",
+        "en": "What does a pod with Error status indicate?"
+      },
+      "options": [
+        "Il pod non ha risorse",
+        "Il container è terminato con codice non-zero",
+        "L'immagine non esiste",
+        "Il pod è in pending"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Error indica che il container ha terminato con un codice di uscita diverso da zero (fallimento applicativo).",
+        "en": "Error indicates the container terminated with a non-zero exit code (application failure)."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale comando verifica se il DNS sta funzionando nel cluster?",
+        "en": "Which command verifies if DNS is working in the cluster?"
+      },
+      "options": [
+        "kubectl get dns",
+        "kubectl run test --image=busybox -- nslookup kubernetes",
+        "kubectl describe dns",
+        "kubectl check dns"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "nslookup kubernetes da un pod di test verifica che CoreDNS stia risolvendo correttamente i nomi.",
+        "en": "nslookup kubernetes from a test pod verifies CoreDNS is resolving names correctly."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si verifica se un Service ha Endpoints validi?",
+        "en": "How do you verify if a Service has valid Endpoints?"
+      },
+      "options": [
+        "kubectl get service",
+        "kubectl get endpoints <service-name>",
+        "kubectl describe service | grep endpoints",
+        "kubectl check endpoints"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl get endpoints mostra gli IP dei pod che il Service sta bilanciando.",
+        "en": "kubectl get endpoints shows the IPs of pods the Service is load balancing."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale exit code indica OOMKilled?",
+        "en": "Which exit code indicates OOMKilled?"
+      },
+      "options": [
+        "0",
+        "1",
+        "137",
+        "255"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Exit code 137 = 128 + 9 (SIGKILL). Indica che il processo è stato ucciso, spesso per OOM.",
+        "en": "Exit code 137 = 128 + 9 (SIGKILL). Indicates the process was killed, often due to OOM."
+      },
+      "difficulty": "easy",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si controllano i log di un nodo Kubernetes?",
+        "en": "How do you check Kubernetes node logs?"
+      },
+      "options": [
+        "kubectl logs node/<name>",
+        "SSH nel nodo e verifica /var/log/",
+        "kubectl describe node",
+        "kubectl get node -o yaml"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "I log del nodo sono sul filesystem del nodo stesso, accessibili via SSH o tramite logging centralizzato.",
+        "en": "Node logs are on the node's filesystem, accessible via SSH or through centralized logging."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra i permessi RBAC di un ServiceAccount?",
+        "en": "Which command shows RBAC permissions for a ServiceAccount?"
+      },
+      "options": [
+        "kubectl get permissions",
+        "kubectl auth can-i --list --as=system:serviceaccount:ns:sa",
+        "kubectl describe rolebinding",
+        "kubectl check rbac"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl auth can-i --list mostra tutti i permessi per un determinato ServiceAccount.",
+        "en": "kubectl auth can-i --list shows all permissions for a specific ServiceAccount."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Cosa causa l'errore 'connection refused' tra pod nello stesso cluster?",
+        "en": "What causes 'connection refused' between pods in the same cluster?"
+      },
+      "options": [
+        "DNS non funzionante",
+        "L'applicazione target non è in ascolto sulla porta",
+        "NetworkPolicy che blocca",
+        "Tutte le precedenti possono causarlo"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Connection refused può essere causato da applicazione non in ascolto, NetworkPolicy, DNS, o problemi di rete.",
+        "en": "Connection refused can be caused by application not listening, NetworkPolicy, DNS, or network issues."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si verifica se una NetworkPolicy sta bloccando il traffico?",
+        "en": "How do you verify if a NetworkPolicy is blocking traffic?"
+      },
+      "options": [
+        "kubectl get networkpolicy e basta",
+        "Verificare le rules e testare con pod che matchano/non matchano",
+        "Controllare i log del nodo",
+        "Non si può verificare"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Analizzare le rules e creare pod di test per verificare che il traffico sia permesso/bloccato come previsto.",
+        "en": "Analyze the rules and create test pods to verify traffic is allowed/blocked as expected."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra lo stato dei componenti del control plane?",
+        "en": "Which command shows control plane component status?"
+      },
+      "options": [
+        "kubectl get nodes",
+        "kubectl get componentstatuses",
+        "kubectl describe control-plane",
+        "kubectl cluster-info"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl get componentstatuses (o cs) mostra lo stato di scheduler, controller-manager, etcd.",
+        "en": "kubectl get componentstatuses (or cs) shows scheduler, controller-manager, etcd status."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si debugga un pod che fallisce per problemi di permessi?",
+        "en": "How do you debug a pod failing due to permission issues?"
+      },
+      "options": [
+        "Aumentare le risorse",
+        "Verificare SecurityContext e RBAC del ServiceAccount",
+        "Riavviare il pod",
+        "Cambiare namespace"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "I problemi di permessi derivano da SecurityContext (runAsUser, capabilities) o RBAC (Role/RoleBinding).",
+        "en": "Permission issues come from SecurityContext (runAsUser, capabilities) or RBAC (Role/RoleBinding)."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Cosa fare se un PVC rimane in Pending?",
+        "en": "What to do if a PVC stays Pending?"
+      },
+      "options": [
+        "Riavviare il pod",
+        "Verificare StorageClass, capacità PV, e eventi del PVC",
+        "Creare un nuovo PVC",
+        "Aumentare la dimensione richiesta"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "PVC Pending può essere causato da StorageClass inesistente, esaurimento storage, o problemi di provisioning.",
+        "en": "Pending PVC can be caused by missing StorageClass, storage exhaustion, or provisioning issues."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si identifica quale nodo sta avendo problemi?",
+        "en": "How do you identify which node is having issues?"
+      },
+      "options": [
+        "kubectl get pods",
+        "kubectl describe node <name> | grep -A5 Conditions",
+        "kubectl logs node",
+        "kubectl get nodes -o wide"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Conditions nel describe node mostra MemoryPressure, DiskPressure, PIDPressure, Ready.",
+        "en": "Conditions in describe node shows MemoryPressure, DiskPressure, PIDPressure, Ready."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale strumento è utile per testare la connettività di rete nel cluster?",
+        "en": "Which tool is useful for testing network connectivity in the cluster?"
+      },
+      "options": [
+        "kubectl test-network",
+        "Pod con nslookup, curl, telnet, nc",
+        "kubectl network-status",
+        "kubectl ping"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Pod di test con strumenti di rete permettono di verificare DNS, TCP, HTTP interni al cluster.",
+        "en": "Test pods with network tools allow verifying DNS, TCP, HTTP inside the cluster."
+      },
+      "difficulty": "medium",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si verifica se un Certificate è valido in Kubernetes?",
+        "en": "How do you verify if a Certificate is valid in Kubernetes?"
+      },
+      "options": [
+        "kubectl get certificate",
+        "kubectl describe certificate e verificare status/tls.crt",
+        "openssl s_client dal pod",
+        "B e C sono corretti"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Descrivere il Certificate resource e testare con openssl per verificare validità e scadenza.",
+        "en": "Describe the Certificate resource and test with openssl to verify validity and expiration."
+      },
+      "difficulty": "hard",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale è la causa comune di 'FailedScheduling' con '0/3 nodes are available'?",
+        "en": "What's a common cause of 'FailedScheduling' with '0/3 nodes are available'?"
+      },
+      "options": [
+        "Pod senza requests",
+        "Nodi con taints senza tolerations corrette o risorse insufficienti",
+        "Namespace sbagliato",
+        "ServiceAccount mancante"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "0/3 nodes disponibile significa che nessun nodo soddisfa i requisiti: taints, risorse, nodeSelector, affinity.",
+        "en": "0/3 nodes available means no node meets requirements: taints, resources, nodeSelector, affinity."
+      },
+      "difficulty": "hard",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si debugga un errore 'ImagePullBackOff' con immagine esistente?",
+        "en": "How do you debug 'ImagePullBackOff' with an existing image?"
+      },
+      "options": [
+        "Riavviare il pod",
+        "Verificare imagePullSecrets, credenziali registry, e policy RBAC",
+        "Cambiare versione immagine",
+        "Aumentare memoria"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Anche con immagine valida, servono credenziali per registry privato e permessi per accedere al secret.",
+        "en": "Even with valid image, you need credentials for private registry and permissions to access the secret."
+      },
+      "difficulty": "hard",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Quale comando verifica se un utente può eseguire un'azione?",
+        "en": "Which command verifies if a user can perform an action?"
+      },
+      "options": [
+        "kubectl check-permissions",
+        "kubectl auth can-i <verb> <resource>",
+        "kubectl get roles",
+        "kubectl who-can"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl auth can-i è il comando per testare i permessi RBAC per l'utente corrente o impersonato.",
+        "en": "kubectl auth can-i is the command to test RBAC permissions for current or impersonated user."
+      },
+      "difficulty": "hard",
+      "domain": "Application Resources and Scheduling"
+    },
+    {
+      "question": {
+        "it": "Come si raccoglie informazioni complete per un ticket di supporto?",
+        "en": "How do you gather comprehensive information for a support ticket?"
+      },
+      "options": [
+        "Solo kubectl get pods",
+        "kubectl describe, logs, events, e dati del cluster",
+        "Solo kubectl logs",
+        "kubectl cluster-info dump"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un ticket completo richiede: describe delle risorse, log, eventi, e info del cluster per context completo.",
+        "en": "A complete ticket needs: describe resources, logs, events, and cluster info for full context."
+      },
+      "difficulty": "hard",
+      "domain": "Application Resources and Scheduling"
+    }
+  ]
+}

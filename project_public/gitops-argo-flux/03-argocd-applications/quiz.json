@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale campo della risorsa Application definisce il repository Git sorgente?",
+        "en": "Which field in the Application resource defines the source Git repository?"
+      },
+      "options": [
+        "spec.destination",
+        "spec.source.repoURL",
+        "spec.repository",
+        "spec.git.url"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "spec.source.repoURL specifica l'URL del repository Git da cui ArgoCD preleverà i manifest.",
+        "en": "spec.source.repoURL specifies the Git repository URL from which ArgoCD will fetch manifests."
+      },
+      "difficulty": "easy",
+      "domain": "Application CRD"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di sorgente NON è supportato da ArgoCD per le applicazioni?",
+        "en": "Which source type is NOT supported by ArgoCD for applications?"
+      },
+      "options": [
+        "Directory (YAML raw)",
+        "Helm Chart",
+        "Kustomize",
+        "Docker Compose"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "ArgoCD supporta Directory, Helm, Kustomize, e Jsonnet. Docker Compose non è supportato.",
+        "en": "ArgoCD supports Directory, Helm, Kustomize, and Jsonnet. Docker Compose is not supported."
+      },
+      "difficulty": "easy",
+      "domain": "Source configuration"
+    },
+    {
+      "question": {
+        "it": "Quale opzione di syncPolicy abilita la cancellazione automatica delle risorse non più definite in Git?",
+        "en": "Which syncPolicy option enables automatic deletion of resources no longer defined in Git?"
+      },
+      "options": [
+        "selfHeal",
+        "prune",
+        "automated",
+        "replace"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "prune: true in syncPolicy.automated abilita la cancellazione di risorse rimosse dal repository.",
+        "en": "prune: true in syncPolicy.automated enables deletion of resources removed from the repository."
+      },
+      "difficulty": "medium",
+      "domain": "Sync policies"
+    },
+    {
+      "question": {
+        "it": "Cosa significa lo stato 'OutOfSync' per un'applicazione ArgoCD?",
+        "en": "What does 'OutOfSync' status mean for an ArgoCD application?"
+      },
+      "options": [
+        "L'applicazione ha errori di runtime",
+        "Lo stato del cluster differisce da quello in Git",
+        "Il repository Git non è raggiungibile",
+        "Il pod ArgoCD è in crash"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "OutOfSync indica che lo stato live del cluster differisce dallo stato desiderato in Git.",
+        "en": "OutOfSync indicates that the live cluster state differs from the desired state in Git."
+      },
+      "difficulty": "easy",
+      "domain": "Application status"
+    },
+    {
+      "question": {
+        "it": "Quale parametro di Helm permette di sovrascrivere i values default?",
+        "en": "Which Helm parameter allows overriding default values?"
+      },
+      "options": [
+        "spec.source.helm.config",
+        "spec.source.helm.parameters",
+        "spec.source.helm.valueFiles",
+        "spec.source.helm.values"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "valueFiles permette di specificare file values.yaml aggiuntivi. Puoi anche usare 'values' per inline.",
+        "en": "valueFiles allows specifying additional values.yaml files. You can also use 'values' for inline values."
+      },
+      "difficulty": "medium",
+      "domain": "Helm configuration"
+    },
+    {
+      "question": {
+        "it": "Quale CRD ArgoCD permette di generare multiple Application da un template?",
+        "en": "Which ArgoCD CRD allows generating multiple Applications from a template?"
+      },
+      "options": [
+        "ApplicationTemplate",
+        "ApplicationSet",
+        "MultiApplication",
+        "AppGenerator"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ApplicationSet è la CRD per generare multiple Application da un template, utile per multi-cluster.",
+        "en": "ApplicationSet is the CRD for generating multiple Applications from a template, useful for multi-cluster."
+      },
+      "difficulty": "medium",
+      "domain": "Application sets"
+    },
+    {
+      "question": {
+        "it": "Come si specifica una versione specifica di un chart Helm in ArgoCD?",
+        "en": "How do you specify a specific Helm chart version in ArgoCD?"
+      },
+      "options": [
+        "spec.source.helm.version",
+        "spec.source.targetRevision",
+        "spec.source.helm.chartVersion",
+        "spec.source.chart.version"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "targetRevision specifica la versione del chart, branch Git, o commit hash.",
+        "en": "targetRevision specifies the chart version, Git branch, or commit hash."
+      },
+      "difficulty": "medium",
+      "domain": "Helm configuration"
+    },
+    {
+      "question": {
+        "it": "Quale politica di sync richiede approvazione manuale prima di applicare cambiamenti?",
+        "en": "Which sync policy requires manual approval before applying changes?"
+      },
+      "options": [
+        "automated",
+        "manual",
+        "Prune: false",
+        "Non esiste questa opzione"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "La politica manuale (assenza di syncPolicy.automated) richiede che un utente clicchi 'Sync'.",
+        "en": "The manual policy (absence of syncPolicy.automated) requires a user to click 'Sync'."
+      },
+      "difficulty": "easy",
+      "domain": "Sync policies"
+    },
+    {
+      "question": {
+        "it": "Quale generatore ApplicationSet itera su elementi di una lista definita?",
+        "en": "Which ApplicationSet generator iterates over elements of a defined list?"
+      },
+      "options": [
+        "Cluster generator",
+        "Git generator",
+        "List generator",
+        "Matrix generator"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Il List generator permette di definire una lista statica di elementi per generare applicazioni.",
+        "en": "The List generator allows defining a static list of elements to generate applications."
+      },
+      "difficulty": "medium",
+      "domain": "Application sets"
+    },
+    {
+      "question": {
+        "it": "Cosa succede quando selfHeal è abilitato?",
+        "en": "What happens when selfHeal is enabled?"
+      },
+      "options": [
+        "ArgoCD riavvia i pod in errore",
+        "ArgoCD ripristina le modifiche manuali al cluster",
+        "ArgoCD invia notifiche",
+        "ArgoCD aumenta le repliche automaticamente"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "selfHeal true fa si che ArgoCD ripristini le modifiche fatte manualmente al cluster per riallinearsi a Git.",
+        "en": "selfHeal true causes ArgoCD to revert manual cluster changes to realign with Git."
+      },
+      "difficulty": "medium",
+      "domain": "Sync policies"
+    },
+    {
+      "question": {
+        "it": "Quale campo specifica il namespace di destinazione per un'applicazione?",
+        "en": "Which field specifies the destination namespace for an application?"
+      },
+      "options": [
+        "spec.namespace",
+        "spec.destination.namespace",
+        "spec.targetNamespace",
+        "metadata.namespace"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "spec.destination.namespace definisce il namespace Kubernetes dove le risorse verranno create.",
+        "en": "spec.destination.namespace defines the Kubernetes namespace where resources will be created."
+      },
+      "difficulty": "easy",
+      "domain": "Application CRD"
+    },
+    {
+      "question": {
+        "it": "Quale annotazione impedisce ad ArgoCD di gestire una risorsa specifica?",
+        "en": "Which annotation prevents ArgoCD from managing a specific resource?"
+      },
+      "options": [
+        "argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true",
+        "argocd.argoproj.io/compare-options: IgnoreExtraneous",
+        "argocd.argoproj.io/resource-actions: disable",
+        "argocd.argoproj.io/skip-reconcile: \"true\""
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "argocd.argoproj.io/compare-options: IgnoreExtraneous fa ignorare la risorsa durante il confronto.",
+        "en": "argocd.argoproj.io/compare-options: IgnoreExtraneous causes the resource to be ignored during comparison."
+      },
+      "difficulty": "hard",
+      "domain": "Application configuration"
+    },
+    {
+      "question": {
+        "it": "Come si configura una Application per usare Kustomize con overlays specifici?",
+        "en": "How do you configure an Application to use Kustomize with specific overlays?"
+      },
+      "options": [
+        "spec.source.kustomize.overlays",
+        "spec.source.kustomize.patches",
+        "spec.source.kustomize.namePrefix",
+        "spec.source.path specifica la directory overlay"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Il path punta alla directory Kustomize. Si possono usare namePrefix/nameSuffix/patches.",
+        "en": "The path points to the Kustomize directory. You can use namePrefix/nameSuffix/patches."
+      },
+      "difficulty": "medium",
+      "domain": "Kustomize configuration"
+    },
+    {
+      "question": {
+        "it": "Quale generatore combina due generatori ApplicationSet?",
+        "en": "Which generator combines two ApplicationSet generators?"
+      },
+      "options": [
+        "Combine generator",
+        "Merge generator",
+        "Matrix generator",
+        "Union generator"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Il Matrix generator combina due generatori, creando il prodotto cartesiano dei risultati.",
+        "en": "The Matrix generator combines two generators, creating the Cartesian product of results."
+      },
+      "difficulty": "hard",
+      "domain": "Application sets"
+    },
+    {
+      "question": {
+        "it": "Quale comando CLI sincronizza un'applicazione ArgoCD?",
+        "en": "Which CLI command syncs an ArgoCD application?"
+      },
+      "options": [
+        "argocd app apply",
+        "argocd app sync",
+        "argocd sync app",
+        "argocd app deploy"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "argocd app sync <app-name> avvia la sincronizzazione di un'applicazione.",
+        "en": "argocd app sync <app-name> starts the synchronization of an application."
+      },
+      "difficulty": "easy",
+      "domain": "CLI commands"
+    }
+  ]
+}

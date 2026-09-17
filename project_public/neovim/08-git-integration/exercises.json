@@ -1,0 +1,244 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Installare Gitsigns Base",
+        "en": "Install Basic Gitsigns"
+      },
+      "description": {
+        "it": "Installa gitsigns.nvim con configurazione base e mappature per navigare gli hunk.",
+        "en": "Install gitsigns.nvim with basic configuration and hunk navigation mappings."
+      },
+      "difficulty": "beginner",
+      "steps": [
+        "Crea lua/plugins/gitsigns.lua",
+        "Aggiungi lewis6991/gitsigns.nvim",
+        "Configura ]h e [h per navigare",
+        "Configura <leader>hp per preview",
+        "Testa in un repository Git"
+      ],
+      "hints": [
+        "Usa event = 'VeryLazy' per performance",
+        "require('gitsigns').setup() nel config"
+      ],
+      "solution": "return {\n  'lewis6991/gitsigns.nvim',\n  event = 'VeryLazy',\n  config = function()\n    local gitsigns = require('gitsigns')\n    gitsigns.setup()\n    vim.keymap.set('n', ']h', gitsigns.next_hunk)\n    vim.keymap.set('n', '[h', gitsigns.prev_hunk)\n    vim.keymap.set('n', '<leader>hp', gitsigns.preview_hunk)\n  end,\n}"
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Stage e Reset Hunk",
+        "en": "Stage and Reset Hunk"
+      },
+      "description": {
+        "it": "Aggiungi keymap per stage, reset e undo stage di singoli hunk.",
+        "en": "Add keymaps for stage, reset, and undo stage of individual hunks."
+      },
+      "difficulty": "beginner",
+      "steps": [
+        "Aggiungi <leader>hs per stage_hunk",
+        "Aggiungi <leader>hr per reset_hunk",
+        "Aggiungi <leader>hu per undo_stage_hunk",
+        "Testa su un file modificato",
+        "Verifica con git status"
+      ],
+      "hints": [
+        "stage_hunk aggiunge l'hunk all'index",
+        "reset_hunk scarta le modifiche dell'hunk"
+      ],
+      "solution": "vim.keymap.set('n', '<leader>hs', gitsigns.stage_hunk, { desc = '[H]unk [S]tage' })\nvim.keymap.set('n', '<leader>hr', gitsigns.reset_hunk, { desc = '[H]unk [R]eset' })\nvim.keymap.set('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = '[H]unk [U]ndo stage' })"
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Abilitare Line Blame",
+        "en": "Enable Line Blame"
+      },
+      "description": {
+        "it": "Configura Gitsigns per mostrare l'autore e il messaggio di commit inline.",
+        "en": "Configure Gitsigns to show author and commit message inline."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Imposta current_line_blame = true",
+        "Configura il formatter personalizzato",
+        "Imposta delay a 500ms",
+        "Aggiungi toggle per attivare/disattivare",
+        "Testa su un file con history"
+      ],
+      "hints": [
+        "Il formatter usa placeholders come <author>",
+        "toggle_current_line_blame() per toggling"
+      ],
+      "solution": "gitsigns.setup({\n  current_line_blame = true,\n  current_line_blame_opts = {\n    delay = 500,\n  },\n  current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',\n})\n\nvim.keymap.set('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle [B]lame' })"
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "Integrare Lazygit",
+        "en": "Integrate Lazygit"
+      },
+      "description": {
+        "it": "Configura toggleterm per aprire Lazygit in una finestra flottante.",
+        "en": "Configure toggleterm to open Lazygit in a floating window."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi akinsho/toggleterm.nvim",
+        "Crea un terminale dedicato per Lazygit",
+        "Imposta direction = 'float'",
+        "Mappa <leader>gg per toggling",
+        "Assicurati che lazygit sia installato nel sistema"
+      ],
+      "hints": [
+        "Terminal:new crea un terminale dedicato",
+        "on_open per inserire modalità insert"
+      ],
+      "solution": "local Terminal = require('toggleterm.terminal').Terminal\nlocal lazygit = Terminal:new({\n  cmd = 'lazygit',\n  direction = 'float',\n  hidden = true,\n})\n\nvim.keymap.set('n', '<leader>gg', function()\n  lazygit:toggle()\nend, { desc = 'Lazygit' })"
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Diffview per Code Review",
+        "en": "Diffview for Code Review"
+      },
+      "description": {
+        "it": "Configura Diffview per revisionare le modifiche prima di un commit.",
+        "en": "Configure Diffview to review changes before a commit."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi sindrets/diffview.nvim",
+        "Configura keymaps per DiffviewOpen",
+        "Aggiungi DiffviewFileHistory per il file corrente",
+        "Testa confrontando due branch",
+        "Usa i comandi di navigazione"
+      ],
+      "hints": [
+        "cmd evita il caricamento eager",
+        "% è il percorso del file corrente"
+      ],
+      "solution": "vim.keymap.set('n', '<leader>gdo', '<cmd>DiffviewOpen<cr>', { desc = 'Diffview Open' })\nvim.keymap.set('n', '<leader>gdc', '<cmd>DiffviewClose<cr>', { desc = 'Diffview Close' })\nvim.keymap.set('n', '<leader>gdf', '<cmd>DiffviewFileHistory %<cr>', { desc = 'Diffview File History' })"
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Fugitive Basics",
+        "en": "Fugitive Basics"
+      },
+      "description": {
+        "it": "Imposta i comandi base di Fugitive per status, diff e blame.",
+        "en": "Set up basic Fugitive commands for status, diff, and blame."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi tpope/vim-fugitive",
+        "Mappa <leader>gs per :Git",
+        "Mappa <leader>gd per :Gdiffsplit",
+        "Mappa <leader>gb per :Git blame",
+        "Esplora la finestra di status"
+      ],
+      "hints": [
+        ":Git è equivalente a :Git status",
+        "Premi '?' nella finestra status per help"
+      ],
+      "solution": "vim.keymap.set('n', '<leader>gs', '<cmd>Git<cr>', { desc = '[G]it [S]tatus' })\nvim.keymap.set('n', '<leader>gd', '<cmd>Gdiffsplit<cr>', { desc = '[G]it [D]iff' })\nvim.keymap.set('n', '<leader>gb', '<cmd>Git blame<cr>', { desc = '[G]it [B]lame' })"
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "Neogit Status Window",
+        "en": "Neogit Status Window"
+      },
+      "description": {
+        "it": "Configura Neogit con integrazione Telescope per un flusso di lavoro moderno.",
+        "en": "Configure Neogit with Telescope integration for a modern workflow."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Aggiungi NeogitOrg/neogit",
+        "Imposta use_telescope = true",
+        "Configura integrazione con diffview",
+        "Mappa <leader>gn per aprire",
+        "Usa la status window per stage/unstage"
+      ],
+      "hints": [
+        "Integrations section per collegare plugin",
+        "'s' nella status window stage/unstage"
+      ],
+      "solution": "require('neogit').setup({\n  use_telescope = true,\n  integrations = {\n    diffview = true,\n  },\n})\n\nvim.keymap.set('n', '<leader>gn', '<cmd>Neogit<cr>', { desc = '[G]it [N]eogit' })"
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "Telescope Git Pickers",
+        "en": "Telescope Git Pickers"
+      },
+      "description": {
+        "it": "Configura keymap per tutti i picker Git di Telescope.",
+        "en": "Configure keymaps for all Telescope Git pickers."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi keymap per git_files",
+        "Aggiungi keymap per git_status",
+        "Aggiungi keymap per git_commits",
+        "Aggiungi keymap per git_branches",
+        "Aggiungi keymap per git_stash"
+      ],
+      "hints": [
+        "Tutti i picker sono in telescope.builtin",
+        "Usa mnemonici [G]it [X]"
+      ],
+      "solution": "local builtin = require('telescope.builtin')\nvim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = '[G]it [F]iles' })\nvim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = '[G]it [S]tatus' })\nvim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = '[G]it [C]ommits' })\nvim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = '[G]it [B]ranches' })\nvim.keymap.set('n', '<leader>gS', builtin.git_stash, { desc = '[G]it [S]tash' })"
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "Hunk Preview Float",
+        "en": "Hunk Preview Float"
+      },
+      "description": {
+        "it": "Crea un comando personalizzato per mostrare un preview flottante dell'hunk.",
+        "en": "Create a custom command to show a floating preview of the hunk."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Crea autocommand per mostrare preview",
+        "Usa nvim_open_win per float",
+        "Popola con diff dell'hunk",
+        "Aggiungi keymap per chiudere",
+        "Testa la persistenza"
+      ],
+      "hints": [
+        "gitsigns.get_hunks() ritorna gli hunks",
+        "vim.api.nvim_open_win crea la finestra"
+      ],
+      "solution": "vim.keymap.set('n', '<leader>hp', function()\n  gitsigns.preview_hunk_inline()\nend, { desc = '[H]unk [P]review inline' })\n\n-- Float preview con gitsigns\nvim.keymap.set('n', '<leader>hP', function()\n  gitsigns.preview_hunk()\nend, { desc = '[H]unk [P]review float' })"
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Git Workflow Completo",
+        "en": "Complete Git Workflow"
+      },
+      "description": {
+        "it": "Crea una configurazione Git completa con tutti i plugin e keymap organizzati.",
+        "en": "Create a complete Git configuration with all plugins and organized keymaps."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Crea lua/plugins/git.lua unificato",
+        "Configura Gitsigns con tutte le features",
+        "Aggiungi Diffview, Neogit, Lazygit",
+        "Organizza keymap con prefisso <leader>g",
+        "Testa il workflow completo"
+      ],
+      "hints": [
+        "Usa una tabella di plugin nel return",
+        "Prefissi consistenti: h = hunk, g = git"
+      ],
+      "solution": "-- Vedi configurazione completa nel README\n-- Keymap organizzati:\n-- <leader>g* = operazioni git globali\n-- <leader>h* = operazioni su hunk\n-- <leader>t* = toggle (blame, deleted, etc.)"
+    }
+  ]
+}

@@ -1,22 +1,130 @@
 {
   "id": "k8s-fondamentali",
-  "title": "Kubernetes Fondamentali",
+  "title": {
+    "it": "Kubernetes Fondamentali",
+    "en": "Kubernetes Fundamentals"
+  },
   "icon": "LayersIcon",
   "color": "#326ce5",
   "isPrivate": false,
   "comingSoon": false,
   "price": 0,
-  "description": "Il percorso completo per padroneggiare i container e l'orchestrazione con Kubernetes, dai concetti base agli operatori avanzati.",
+  "description": {
+    "it": "Il percorso completo per padroneggiare i container e l'orchestrazione con Kubernetes, dai concetti base agli operatori avanzati.",
+    "en": "The complete path to master containers and orchestration with Kubernetes, from basic concepts to advanced operators."
+  },
   "modules": [
-    { "id": "01", "title": "1. Fondamentali", "icon": "LayersIcon", "level": "Base", "time": "25 min" },
-    { "id": "02", "title": "2. Architettura", "icon": "ArchitectureIcon", "level": "Intermedio", "time": "30 min" },
-    { "id": "03", "title": "3. Risorse Base", "icon": "InventoryIcon", "level": "Base", "time": "25 min" },
-    { "id": "04", "title": "4. Networking", "icon": "NetworkIcon", "level": "Avanzato", "time": "40 min" },
-    { "id": "05", "title": "5. Storage", "icon": "StorageIcon", "level": "Intermedio", "time": "30 min" },
-    { "id": "06", "title": "6. Sicurezza", "icon": "SecurityIcon", "level": "Avanzato", "time": "35 min" },
-    { "id": "07", "title": "7. Helm", "icon": "TerminalIcon", "level": "Intermedio", "time": "20 min" },
-    { "id": "08", "title": "8. Operatori Go", "icon": "CodeIcon", "level": "Avanzato", "time": "60 min" },
-    { "id": "09", "title": "9. Cheat Sheet Comandi", "icon": "TerminalIcon", "level": "Base", "time": "10 min" },
-    { "id": "10", "title": "10. Esame Finale", "icon": "ExamIcon", "level": "Avanzato", "time": "45 min" }
-  ]
+    {
+      "id": "01",
+      "title": {
+        "it": "1. Fondamentali",
+        "en": "1. Fundamentals"
+      },
+      "icon": "LayersIcon",
+      "level": "Base",
+      "time": "25 min"
+    },
+    {
+      "id": "02",
+      "title": {
+        "it": "2. Architettura",
+        "en": "2. Architecture"
+      },
+      "icon": "ArchitectureIcon",
+      "level": "Intermedio",
+      "time": "30 min"
+    },
+    {
+      "id": "03",
+      "title": {
+        "it": "3. Risorse Base",
+        "en": "3. Core Resources"
+      },
+      "icon": "InventoryIcon",
+      "level": "Base",
+      "time": "25 min"
+    },
+    {
+      "id": "04",
+      "title": {
+        "it": "4. Networking",
+        "en": "4. Networking"
+      },
+      "icon": "NetworkIcon",
+      "level": "Avanzato",
+      "time": "40 min"
+    },
+    {
+      "id": "05",
+      "title": {
+        "it": "5. Storage",
+        "en": "5. Storage"
+      },
+      "icon": "StorageIcon",
+      "level": "Intermedio",
+      "time": "30 min"
+    },
+    {
+      "id": "06",
+      "title": {
+        "it": "6. Sicurezza",
+        "en": "6. Security"
+      },
+      "icon": "SecurityIcon",
+      "level": "Avanzato",
+      "time": "35 min"
+    },
+    {
+      "id": "07",
+      "title": {
+        "it": "7. Helm",
+        "en": "7. Helm"
+      },
+      "icon": "TerminalIcon",
+      "level": "Intermedio",
+      "time": "20 min"
+    },
+    {
+      "id": "08",
+      "title": {
+        "it": "8. Operatori Go",
+        "en": "8. Go Operators"
+      },
+      "icon": "CodeIcon",
+      "level": "Avanzato",
+      "time": "60 min"
+    },
+    {
+      "id": "09",
+      "title": {
+        "it": "9. Cheat Sheet Comandi",
+        "en": "9. Command Cheat Sheet"
+      },
+      "icon": "TerminalIcon",
+      "level": "Base",
+      "time": "10 min"
+    },
+    {
+      "id": "10",
+      "title": {
+        "it": "10. Esame Finale",
+        "en": "10. Final Exam"
+      },
+      "icon": "ExamIcon",
+      "level": "Avanzato",
+      "time": "45 min"
+    }
+  ],
+  "duration": {
+    "it": "6 ore",
+    "en": "6 hours"
+  },
+  "languages": [
+    "it"
+  ],
+  "name": {
+    "it": "Kubernetes Fondamentali",
+    "en": "Kubernetes Fundamentals"
+  },
+  "group": "fundamentals"
 }

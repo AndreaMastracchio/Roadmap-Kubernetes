@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Quale funzione Lua si usa per definire una keymap?",
+        "en": "Which Lua function is used to define a keymap?"
+      },
+      "options": [
+        "vim.map.set()",
+        "vim.keymap.set()",
+        "vim.api.nvim_set_key()",
+        "vim.set.keymap()"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "vim.keymap.set() è la funzione moderna per definire keymap in Lua.",
+        "en": "vim.keymap.set() is the modern function to define keymaps in Lua."
+      }
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Cosa significa 'lhs' in vim.keymap.set()?",
+        "en": "What does 'lhs' mean in vim.keymap.set()?"
+      },
+      "options": [
+        "Last hand side",
+        "Left-hand side",
+        "Large hotkey sequence",
+        "Logical hotkey syntax"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "lhs sta per Left-Hand Side, ovvero i tasti da mappare.",
+        "en": "lhs stands for Left-Hand Side, meaning the keys to be mapped."
+      }
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Quale modalità si indica con 'n'?",
+        "en": "Which mode is indicated by 'n'?"
+      },
+      "options": [
+        "Insert mode",
+        "Visual mode",
+        "Normal mode",
+        "Command mode"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "'n' indica la normal mode, dove si eseguono comandi.",
+        "en": "'n' indicates normal mode, where commands are executed."
+      }
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Come si imposta la leader key?",
+        "en": "How do you set the leader key?"
+      },
+      "options": [
+        "vim.leader = ' '",
+        "vim.g.mapleader = ' '",
+        "vim.opt.leader = ' '",
+        "vim.set.leader = ' '"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "vim.g.mapleader è la variabile globale per la leader key.",
+        "en": "vim.g.mapleader is the global variable for the leader key."
+      }
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Quale opzione rende una keymap buffer-local?",
+        "en": "Which option makes a keymap buffer-local?"
+      },
+      "options": [
+        "local = true",
+        "buffer = true",
+        "buf = true",
+        "scope = 'buffer'"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "buffer = true rende la keymap specifica del buffer.",
+        "en": "buffer = true makes the keymap specific to the buffer."
+      }
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Quale plugin mostra un popup con le keymap disponibili?",
+        "en": "Which plugin shows a popup with available keymaps?"
+      },
+      "options": [
+        "nvim-notify",
+        "which-key",
+        "telescope",
+        "noice"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Which-key mostra un popup interattivo quando premi un prefisso.",
+        "en": "Which-key shows an interactive popup when you press a prefix."
+      }
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Come si mappa una funzione Lua invece di un comando?",
+        "en": "How do you map a Lua function instead of a command?"
+      },
+      "options": [
+        "Usando una stringa con 'lua:'",
+        "Passando la funzione direttamente come rhs",
+        "Non è possibile",
+        "Usando vim.eval()"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Si può passare direttamente una funzione Lua come rhs.",
+        "en": "You can pass a Lua function directly as the rhs."
+      }
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Quale modalità si usa per i comandi nel terminale?",
+        "en": "Which mode is used for terminal commands?"
+      },
+      "options": [
+        "'i'",
+        "'c'",
+        "'t'",
+        "'n'"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "'t' indica la terminal mode.",
+        "en": "'t' indicates terminal mode."
+      }
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Come si aggiunge una descrizione a una keymap?",
+        "en": "How do you add a description to a keymap?"
+      },
+      "options": [
+        "Usando l'opzione 'desc'",
+        "Usando l'opzione 'help'",
+        "Non è possibile",
+        "Con un commento sopra"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "L'opzione desc = 'testo' aggiunge una descrizione.",
+        "en": "The desc = 'text' option adds a description."
+      }
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Quale tasto è convenzione standard per la leader key?",
+        "en": "Which key is the standard convention for the leader key?"
+      },
+      "options": [
+        "Tab",
+        "Backslash",
+        "Space",
+        "Comma"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Space è diventato lo standard moderno per la leader key.",
+        "en": "Space has become the modern standard for the leader key."
+      }
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Come si mappano più modalità contemporaneamente?",
+        "en": "How do you map multiple modes at once?"
+      },
+      "options": [
+        "Non è possibile",
+        "Usando un array di modalità",
+        "Separando con virgola",
+        "Usando 'all'"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Si passa una tabella di modalità: {'n', 'v', 'i'}.",
+        "en": "You pass a table of modes: {'n', 'v', 'i'}."
+      }
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Quale opzione evita che la keymap appaia nel command-line?",
+        "en": "Which option prevents the keymap from showing in command-line?"
+      },
+      "options": [
+        "quiet = true",
+        "silent = true",
+        "hidden = true",
+        "noremap = true"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "silent = true sopprime l'output nel command-line.",
+        "en": "silent = true suppresses output in command-line."
+      }
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Come si esce dalla terminal mode?",
+        "en": "How do you exit terminal mode?"
+      },
+      "options": [
+        "<Esc>",
+        "<C-\\><C-n>",
+        ":q",
+        "<C-c>"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "<C-\\><C-n> è la combinazione standard per uscire dal terminale.",
+        "en": "<C-\\><C-n> is the standard combination to exit terminal."
+      }
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Quale prefisso è convenzione per Telescope?",
+        "en": "Which prefix is the convention for Telescope?"
+      },
+      "options": [
+        "<leader>t",
+        "<leader>f",
+        "<leader>s",
+        "<leader>p"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "<leader>f (find) è la convenzione per Telescope.",
+        "en": "<leader>f (find) is the convention for Telescope."
+      }
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Dove si dovrebbero mettere le keymap LSP?",
+        "en": "Where should LSP keymaps be placed?"
+      },
+      "options": [
+        "In un file globale",
+        "Nell'evento LspAttach",
+        "Nel config del plugin LSP",
+        "Non servono keymap LSP"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "LspAttach permette keymap buffer-local per ogni server.",
+        "en": "LspAttach allows buffer-local keymaps for each server."
+      }
+    }
+  ]
+}

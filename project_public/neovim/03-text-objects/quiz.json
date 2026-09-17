@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Qual è la formula per un comando con text object?",
+        "en": "What is the formula for a command with text object?"
+      },
+      "options": [
+        "[text object] [operatore]",
+        "[operatore] [count] [text object]",
+        "[text object] [operatore] [count]",
+        "[count] [text object] [operatore]"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "La formula corretta è: operatore + count (opzionale) + text object.",
+        "en": "The correct formula is: operator + count (optional) + text object."
+      }
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Cosa significa 'i' in 'diw'?",
+        "en": "What does 'i' mean in 'diw'?"
+      },
+      "options": [
+        "Insert",
+        "Inner",
+        "Inside",
+        "Interactive"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "i = inner/inside, opera sul contenuto interno.",
+        "en": "i = inner/inside, operates on the internal content."
+      }
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Qual è la differenza tra diw e daw?",
+        "en": "What's the difference between diw and daw?"
+      },
+      "options": [
+        "Nessuna differenza",
+        "diw cancella solo la parola, daw include lo spazio",
+        "diw è più veloce",
+        "daw cancella solo lo spazio"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "diw = delete inner word (solo parola), daw = delete a word (include spazio dopo).",
+        "en": "diw = delete inner word (only word), daw = delete a word (includes trailing space)."
+      }
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Quale comando cambia il contenuto dentro parentesi tonde?",
+        "en": "Which command changes content inside parentheses?"
+      },
+      "options": [
+        "da(",
+        "di(",
+        "ci(",
+        "ca("
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "ci( = change inner (parentesi). Cancella contenuto e entra in insert mode.",
+        "en": "ci( = change inner (parentheses). Deletes content and enters insert mode."
+      }
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Quale text object rappresenta un paragrafo?",
+        "en": "Which text object represents a paragraph?"
+      },
+      "options": [
+        "w",
+        "s",
+        "p",
+        "b"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "p = paragraph. Unità di testo separata da righe vuote.",
+        "en": "p = paragraph. Text unit separated by blank lines."
+      }
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Come si cancella una stringa con virgolette incluse?",
+        "en": "How do you delete a string including quotes?"
+      },
+      "options": [
+        "di\"",
+        "da\"",
+        "c\"",
+        "d\""
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "da\" = delete around quotes. Include le virgolette e il contenuto.",
+        "en": "da\" = delete around quotes. Includes quotes and content."
+      }
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Quale plugin estende i text objects con Treesitter?",
+        "en": "Which plugin extends text objects with Treesitter?"
+      },
+      "options": [
+        "nvim-surround",
+        "targets.vim",
+        "nvim-treesitter-textobjects",
+        "vim-textobj-user"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "nvim-treesitter-textobjects aggiunge text objects per funzioni, classi, ecc.",
+        "en": "nvim-treesitter-textobjects adds text objects for functions, classes, etc."
+      }
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Cosa fa 'if' con Treesitter?",
+        "en": "What does 'if' do with Treesitter?"
+      },
+      "options": [
+        "Seleziona l'if statement",
+        "Seleziona inner function",
+        "Seleziona il corpo della funzione",
+        "Seleziona la funzione intera"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "if = inner function. Seleziona il corpo interno della funzione.",
+        "en": "if = inner function. Selects the internal body of the function."
+      }
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Quale comando converte una parola in maiuscolo?",
+        "en": "Which command converts a word to uppercase?"
+      },
+      "options": [
+        "guiw",
+        "gUiw",
+        "g~iw",
+        "Uw"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "gUiw = go Uppercase inner word. U = maiuscolo.",
+        "en": "gUiw = go Uppercase inner word. U = uppercase."
+      }
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Come si seleziona un paragrafo in visual mode?",
+        "en": "How do you select a paragraph in visual mode?"
+      },
+      "options": [
+        "viw",
+        "vip",
+        "vis",
+        "vib"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "vip = visual inner paragraph. Seleziona il paragrafo.",
+        "en": "vip = visual inner paragraph. Selects the paragraph."
+      }
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Quale comando copia una funzione intera con Treesitter?",
+        "en": "Which command yanks an entire function with Treesitter?"
+      },
+      "options": [
+        "yif",
+        "yaf",
+        "yip",
+        "yap"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "yaf = yank around function. Copia la funzione completa.",
+        "en": "yaf = yank around function. Copies the complete function."
+      }
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Cosa fa 'dap'?",
+        "en": "What does 'dap' do?"
+      },
+      "options": [
+        "Cancella un paragrafo",
+        "Cancella una parola",
+        "Cancella tutto il paragrafo con riga vuota",
+        "Duplica il paragrafo"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "dap = delete a paragraph. Include la riga vuota dopo.",
+        "en": "dap = delete a paragraph. Includes the blank line after."
+      }
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Quale è la differenza tra iW e iw?",
+        "en": "What's the difference between iW and iw?"
+      },
+      "options": [
+        "iW è più veloce",
+        "iW considera WORD (non-word chars inclusi), iw considera solo word",
+        "iw considera WORD, iW considera word",
+        "Nessuna differenza"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "iW = inner WORD (qualsiasi cosa non spazio), iw = inner word (solo alfanumerici).",
+        "en": "iW = inner WORD (anything non-space), iw = inner word (only alphanumeric)."
+      }
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Come si formatta un blocco dentro parentesi graffe?",
+        "en": "How do you format a block inside braces?"
+      },
+      "options": [
+        ">i{",
+        "<i{",
+        "=i{",
+        "!i{"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "=i{ = format inner braces. = è l'operatore di formattazione.",
+        "en": "=i{ = format inner braces. = is the format operator."
+      }
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Quale plugin permette di circondare testo con delimitatori?",
+        "en": "Which plugin allows surrounding text with delimiters?"
+      },
+      "options": [
+        "nvim-treesitter",
+        "nvim-surround",
+        "targets.vim",
+        "vim-textobj-user"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "nvim-surround permette di aggiungere, rimuovere, cambiare delimitatori.",
+        "en": "nvim-surround allows adding, removing, changing delimiters."
+      }
+    }
+  ]
+}

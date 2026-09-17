@@ -1,0 +1,164 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Form di login",
+        "en": "Login form"
+      },
+      "description": {
+        "it": "Creare un form con email e password con validazione.",
+        "en": "Create a form with email and password with validation."
+      },
+      "startingCode": "class LoginForm extends StatefulWidget {\n  @override\n  State<LoginForm> createState() => _LoginFormState();\n}\n\nclass _LoginFormState extends State<LoginForm> {\n  // TODO: Implementare form con validazione\n  @override\n  Widget build(BuildContext context) {\n    return Container();\n  }\n}",
+      "solution": "class LoginForm extends StatefulWidget {\n  @override\n  State<LoginForm> createState() => _LoginFormState();\n}\n\nclass _LoginFormState extends State<LoginForm> {\n  final _formKey = GlobalKey<FormState>();\n  final _emailController = TextEditingController();\n  final _passwordController = TextEditingController();\n\n  String? _validateEmail(String? value) {\n    if (value == null || value.isEmpty) return 'Email obbligatoria';\n    if (!RegExp(r'^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$').hasMatch(value)) {\n      return 'Email non valida';\n    }\n    return null;\n  }\n\n  String? _validatePassword(String? value) {\n    if (value == null || value.isEmpty) return 'Password obbligatoria';\n    if (value.length < 6) return 'Minimo 6 caratteri';\n    return null;\n  }\n\n  void _submit() {\n    if (_formKey.currentState!.validate()) {\n      ScaffoldMessenger.of(context).showSnackBar(\n        SnackBar(content: Text('Login in corso...')),\n      );\n    }\n  }\n\n  @override\n  void dispose() {\n    _emailController.dispose();\n    _passwordController.dispose();\n    super.dispose();\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return Form(\n      key: _formKey,\n      child: Column(\n        children: [\n          TextFormField(\n            controller: _emailController,\n            decoration: InputDecoration(labelText: 'Email'),\n            validator: _validateEmail,\n          ),\n          TextFormField(\n            controller: _passwordController,\n            decoration: InputDecoration(labelText: 'Password'),\n            obscureText: true,\n            validator: _validatePassword,\n          ),\n          ElevatedButton(onPressed: _submit, child: Text('Login')),\n        ],\n      ),\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa GlobalKey<FormState> e TextFormField con validator.",
+        "en": "Use GlobalKey<FormState> and TextFormField with validator."
+      }
+    },
+    {
+      "title": {
+        "it": "Campo password con toggle",
+        "en": "Password field with toggle"
+      },
+      "description": {
+        "it": "Creare un campo password con pulsante per mostrare/nascondere.",
+        "en": "Create a password field with button to show/hide."
+      },
+      "startingCode": "class PasswordField extends StatefulWidget {\n  @override\n  State<PasswordField> createState() => _PasswordFieldState();\n}\n\nclass _PasswordFieldState extends State<PasswordField> {\n  // TODO: Implementare toggle visibilità\n  @override\n  Widget build(BuildContext context) {\n    return TextFormField();\n  }\n}",
+      "solution": "class PasswordField extends StatefulWidget {\n  @override\n  State<PasswordField> createState() => _PasswordFieldState();\n}\n\nclass _PasswordFieldState extends State<PasswordField> {\n  bool _obscureText = true;\n\n  @override\n  Widget build(BuildContext context) {\n    return TextFormField(\n      decoration: InputDecoration(\n        labelText: 'Password',\n        suffixIcon: IconButton(\n          icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),\n          onPressed: () => setState(() => _obscureText = !_obscureText),\n        ),\n      ),\n      obscureText: _obscureText,\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa setState per cambiare obscureText e aggiorna l'icona.",
+        "en": "Use setState to change obscureText and update the icon."
+      }
+    },
+    {
+      "title": {
+        "it": "Dropdown con validazione",
+        "en": "Dropdown with validation"
+      },
+      "description": {
+        "it": "Creare un DropdownButtonFormField con validazione.",
+        "en": "Create a DropdownButtonFormField with validation."
+      },
+      "startingCode": "class CountryDropdown extends StatefulWidget {\n  @override\n  State<CountryDropdown> createState() => _CountryDropdownState();\n}",
+      "solution": "class CountryDropdown extends StatefulWidget {\n  @override\n  State<CountryDropdown> createState() => _CountryDropdownState();\n}\n\nclass _CountryDropdownState extends State<CountryDropdown> {\n  String? _selectedCountry;\n\n  final _countries = ['Italia', 'Francia', 'Germania', 'Spagna'];\n\n  @override\n  Widget build(BuildContext context) {\n    return DropdownButtonFormField<String>(\n      value: _selectedCountry,\n      decoration: InputDecoration(labelText: 'Paese'),\n      items: _countries.map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(),\n      onChanged: (v) => setState(() => _selectedCountry = v),\n      validator: (v) => v == null ? 'Seleziona un paese' : null,\n    );\n  }\n}",
+      "hint": {
+        "it": "DropdownButtonFormField accetta validator come TextFormField.",
+        "en": "DropdownButtonFormField accepts validator like TextFormField."
+      }
+    },
+    {
+      "title": {
+        "it": "Input solo numeri",
+        "en": "Numbers only input"
+      },
+      "description": {
+        "it": "Creare un campo che accetta solo numeri di 5 cifre (CAP).",
+        "en": "Create a field accepting only 5-digit numbers (ZIP)."
+      },
+      "startingCode": "TextFormField(\n  decoration: InputDecoration(labelText: 'CAP'),\n  // TODO: Limitare a 5 cifre numeriche\n)",
+      "solution": "TextFormField(\n  decoration: InputDecoration(labelText: 'CAP'),\n  keyboardType: TextInputType.number,\n  inputFormatters: [\n    FilteringTextInputFormatter.digitsOnly,\n    LengthLimitingTextInputFormatter(5),\n  ],\n  validator: (v) {\n    if (v == null || v.isEmpty) return 'CAP obbligatorio';\n    if (v.length != 5) return 'CAP deve avere 5 cifre';\n    return null;\n  },\n)",
+      "hint": {
+        "it": "Usa FilteringTextInputFormatter.digitsOnly e LengthLimitingTextInputFormatter.",
+        "en": "Use FilteringTextInputFormatter.digitsOnly and LengthLimitingTextInputFormatter."
+      }
+    },
+    {
+      "title": {
+        "it": "DatePicker integration",
+        "en": "DatePicker integration"
+      },
+      "description": {
+        "it": "Creare un campo che apre un DatePicker quando toccato.",
+        "en": "Create a field that opens a DatePicker when tapped."
+      },
+      "startingCode": "class DateField extends StatefulWidget {\n  @override\n  State<DateField> createState() => _DateFieldState();\n}",
+      "solution": "class DateField extends StatefulWidget {\n  @override\n  State<DateField> createState() => _DateFieldState();\n}\n\nclass _DateFieldState extends State<DateField> {\n  DateTime? _selectedDate;\n\n  Future<void> _pickDate() async {\n    final picked = await showDatePicker(\n      context: context,\n      initialDate: _selectedDate ?? DateTime.now(),\n      firstDate: DateTime(1900),\n      lastDate: DateTime.now(),\n    );\n    if (picked != null) setState(() => _selectedDate = picked);\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return TextFormField(\n      readOnly: true,\n      decoration: InputDecoration(\n        labelText: 'Data di nascita',\n        suffixIcon: Icon(Icons.calendar_today),\n      ),\n      controller: TextEditingController(\n        text: _selectedDate != null\n          ? DateFormat('dd/MM/yyyy').format(_selectedDate!)\n          : '',\n      ),\n      onTap: _pickDate,\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa TextFormField readOnly con onTap che chiama showDatePicker.",
+        "en": "Use readOnly TextFormField with onTap calling showDatePicker."
+      }
+    },
+    {
+      "title": {
+        "it": "Radio group",
+        "en": "Radio group"
+      },
+      "description": {
+        "it": "Creare un gruppo di Radio per selezionare un metodo di pagamento.",
+        "en": "Create a Radio group to select a payment method."
+      },
+      "startingCode": "class PaymentMethodSelector extends StatefulWidget {\n  @override\n  State<PaymentMethodSelector> createState() => _PaymentMethodSelectorState();\n}",
+      "solution": "class PaymentMethodSelector extends StatefulWidget {\n  @override\n  State<PaymentMethodSelector> createState() => _PaymentMethodSelectorState();\n}\n\nclass _PaymentMethodSelectorState extends State<PaymentMethodSelector> {\n  String? _selectedMethod;\n\n  final _methods = {\n    'carta': 'Carta di credito',\n    'paypal': 'PayPal',\n    'bonifico': 'Bonifico',\n  };\n\n  @override\n  Widget build(BuildContext context) {\n    return Column(\n      children: _methods.entries.map((e) {\n        return RadioListTile<String>(\n          title: Text(e.value),\n          value: e.key,\n          groupValue: _selectedMethod,\n          onChanged: (v) => setState(() => _selectedMethod = v),\n        );\n      }).toList(),\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa RadioListTile con stesso groupValue per mutua esclusione.",
+        "en": "Use RadioListTile with same groupValue for mutual exclusion."
+      }
+    },
+    {
+      "title": {
+        "it": "Checkbox termini",
+        "en": "Terms checkbox"
+      },
+      "description": {
+        "it": "Creare un checkbox per accettare termini e condizioni che abilita il pulsante di submit.",
+        "en": "Create a checkbox to accept terms that enables the submit button."
+      },
+      "startingCode": "class TermsCheckbox extends StatefulWidget {\n  @override\n  State<TermsCheckbox> createState() => _TermsCheckboxState();\n}",
+      "solution": "class TermsCheckbox extends StatefulWidget {\n  @override\n  State<TermsCheckbox> createState() => _TermsCheckboxState();\n}\n\nclass _TermsCheckboxState extends State<TermsCheckbox> {\n  bool _accepted = false;\n\n  @override\n  Widget build(BuildContext context) {\n    return Column(\n      children: [\n        CheckboxListTile(\n          title: Text('Accetto i termini e condizioni'),\n          value: _accepted,\n          onChanged: (v) => setState(() => _accepted = v!),\n        ),\n        ElevatedButton(\n          onPressed: _accepted ? () {} : null,\n          child: Text('Continua'),\n        ),\n      ],\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa setState per aggiornare _accepted e il pulsante con onPressed condizionale.",
+        "en": "Use setState to update _accepted and button with conditional onPressed."
+      }
+    },
+    {
+      "title": {
+        "it": "Form completo registrazione",
+        "en": "Complete registration form"
+      },
+      "description": {
+        "it": "Creare un form di registrazione con nome, email, password, conferma password.",
+        "en": "Create a registration form with name, email, password, confirm password."
+      },
+      "startingCode": "// TODO: Form con validazione password match",
+      "solution": "class RegistrationForm extends StatefulWidget {\n  @override\n  State<RegistrationForm> createState() => _RegistrationFormState();\n}\n\nclass _RegistrationFormState extends State<RegistrationForm> {\n  final _formKey = GlobalKey<FormState>();\n  final _passwordController = TextEditingController();\n\n  @override\n  void dispose() {\n    _passwordController.dispose();\n    super.dispose();\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return Form(\n      key: _formKey,\n      child: Column(\n        children: [\n          TextFormField(\n            decoration: InputDecoration(labelText: 'Nome'),\n            validator: (v) => v!.isEmpty ? 'Nome obbligatorio' : null,\n          ),\n          TextFormField(\n            decoration: InputDecoration(labelText: 'Email'),\n            keyboardType: TextInputType.emailAddress,\n            validator: (v) {\n              if (v!.isEmpty) return 'Email obbligatoria';\n              if (!v.contains('@')) return 'Email non valida';\n              return null;\n            },\n          ),\n          TextFormField(\n            controller: _passwordController,\n            decoration: InputDecoration(labelText: 'Password'),\n            obscureText: true,\n            validator: (v) {\n              if (v!.isEmpty) return 'Password obbligatoria';\n              if (v.length < 8) return 'Minimo 8 caratteri';\n              return null;\n            },\n          ),\n          TextFormField(\n            decoration: InputDecoration(labelText: 'Conferma Password'),\n            obscureText: true,\n            validator: (v) {\n              if (v != _passwordController.text) {\n                return 'Le password non coincidono';\n              }\n              return null;\n            },\n          ),\n          ElevatedButton(\n            onPressed: () {\n              if (_formKey.currentState!.validate()) {\n                ScaffoldMessenger.of(context).showSnackBar(\n                  SnackBar(content: Text('Registrazione completata!')),\n                );\n              }\n            },\n            child: Text('Registrati'),\n          ),\n        ],\n      ),\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa un controller per la password e confronta nel validator di conferma.",
+        "en": "Use a controller for password and compare in confirm validator."
+      }
+    },
+    {
+      "title": {
+        "it": "InputFormatter custom",
+        "en": "Custom InputFormatter"
+      },
+      "description": {
+        "it": "Creare un InputFormatter per formattare numeri di telefono (XXX-XXX-XXXX).",
+        "en": "Create an InputFormatter to format phone numbers (XXX-XXX-XXXX)."
+      },
+      "startingCode": "class PhoneFormatter extends TextInputFormatter {\n  @override\n  TextEditingValue formatEditUpdate(oldValue, newValue) {\n    // TODO: Implementare formattazione\n  }\n}",
+      "solution": "class PhoneFormatter extends TextInputFormatter {\n  @override\n  TextEditingValue formatEditUpdate(\n    TextEditingValue oldValue,\n    TextEditingValue newValue,\n  ) {\n    final digits = newValue.text.replaceAll(RegExp(r'\\D'), '');\n    \n    final buffer = StringBuffer();\n    for (var i = 0; i < digits.length && i < 10; i++) {\n      if (i == 3 || i == 6) buffer.write('-');\n      buffer.write(digits[i]);\n    }\n    \n    final formatted = buffer.toString();\n    return TextEditingValue(\n      text: formatted,\n      selection: TextSelection.collapsed(offset: formatted.length),\n    );\n  }\n}\n\n// Uso:\nTextFormField(\n  inputFormatters: [PhoneFormatter()],\n  keyboardType: TextInputType.phone,\n)",
+      "hint": {
+        "it": "Rimuovi non-cifre, poi inserisci trattini alle posizioni 3 e 6.",
+        "en": "Remove non-digits, then insert dashes at positions 3 and 6."
+      }
+    },
+    {
+      "title": {
+        "it": "TimePicker",
+        "en": "TimePicker"
+      },
+      "description": {
+        "it": "Creare un campo che apre un TimePicker per selezionare un orario.",
+        "en": "Create a field that opens a TimePicker to select a time."
+      },
+      "startingCode": "class TimeField extends StatefulWidget {\n  @override\n  State<TimeField> createState() => _TimeFieldState();\n}",
+      "solution": "class TimeField extends StatefulWidget {\n  @override\n  State<TimeField> createState() => _TimeFieldState();\n}\n\nclass _TimeFieldState extends State<TimeField> {\n  TimeOfDay? _selectedTime;\n\n  Future<void> _pickTime() async {\n    final picked = await showTimePicker(\n      context: context,\n      initialTime: _selectedTime ?? TimeOfDay.now(),\n    );\n    if (picked != null) {\n      setState(() => _selectedTime = picked);\n    }\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return TextFormField(\n      readOnly: true,\n      decoration: InputDecoration(\n        labelText: 'Orario',\n        suffixIcon: Icon(Icons.access_time),\n      ),\n      controller: TextEditingController(\n        text: _selectedTime != null\n          ? _selectedTime!.format(context)\n          : '',\n      ),\n      onTap: _pickTime,\n    );\n  }\n}",
+      "hint": {
+        "it": "Usa showTimePicker e TimeOfDay.format(context) per la visualizzazione.",
+        "en": "Use showTimePicker and TimeOfDay.format(context) for display."
+      }
+    }
+  ]
+}

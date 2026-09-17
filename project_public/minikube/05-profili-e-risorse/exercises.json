@@ -1,48 +1,54 @@
 {
-  "quiz": [
-    {
-      "id": "q1",
-      "question": "Qual è il flag per creare un nuovo cluster con un nome specifico (Profilo)?",
-      "options": [
-        "-n",
-        "--name",
-        "-p",
-        "--profile"
-      ],
-      "correct": 2,
-      "explanation": "-p (o --profile) permette di creare e gestire più cluster indipendenti."
-    },
-    {
-      "id": "q2",
-      "question": "Come si cambia il profilo attivo corrente?",
-      "options": [
-        "minikube switch profile-name",
-        "minikube profile profile-name",
-        "minikube use profile-name",
-        "kubectl set profile profile-name"
-      ],
-      "correct": 1,
-      "explanation": "Il comando 'minikube profile <nome>' imposta il cluster corrente per kubectl."
-    }
-  ],
   "exercises": [
     {
-      "id": "e1",
-      "title": "Crea Profilo",
-      "hint": "Crea un cluster con profilo 'test'",
-      "template": ["minikube start -p {{name}}"],
-      "answers": [
-        { "id": "name", "accepted": ["test"], "placeholder": "nome" }
-      ]
+      "title": {"it": "Crea Profilo Dev", "en": "Create Dev Profile"},
+      "description": {"it": "Crea un nuovo profilo chiamato 'dev' per sviluppo.", "en": "Create a new profile called 'dev' for development."},
+      "hint": {"it": "'minikube start -p dev' crea il profilo 'dev'.", "en": "'minikube start -p dev' creates the 'dev' profile."}
     },
     {
-      "id": "e2",
-      "title": "Risorse personalizzate",
-      "hint": "Avvia con 4GB di RAM",
-      "template": ["minikube start --memory {{size}}"],
-      "answers": [
-        { "id": "size", "accepted": ["4096", "4096mb", "4g"], "placeholder": "dimensione" }
-      ]
+      "title": {"it": "Lista Profili", "en": "List Profiles"},
+      "description": {"it": "Elenca tutti i profili esistenti e verifica quale è attivo.", "en": "List all existing profiles and verify which one is active."},
+      "hint": {"it": "'minikube profile list' mostra tutti i cluster.", "en": "'minikube profile list' shows all clusters."}
+    },
+    {
+      "title": {"it": "Cambia Profilo Attivo", "en": "Change Active Profile"},
+      "description": {"it": "Passa dal profilo default a 'dev'.", "en": "Switch from the default profile to 'dev'."},
+      "hint": {"it": "'minikube profile dev' imposta 'dev' come attivo.", "en": "'minikube profile dev' sets 'dev' as active."}
+    },
+    {
+      "title": {"it": "Alloca Memoria", "en": "Allocate Memory"},
+      "description": {"it": "Avvia un cluster con 4GB di memoria.", "en": "Start a cluster with 4GB memory."},
+      "hint": {"it": "'minikube start --memory=4096' o 'minikube config set memory 4096'.", "en": "'minikube start --memory=4096' or 'minikube config set memory 4096'."}
+    },
+    {
+      "title": {"it": "Configura CPU", "en": "Configure CPU"},
+      "description": {"it": "Imposta 2 CPU per il cluster.", "en": "Set 2 CPUs for the cluster."},
+      "hint": {"it": "'minikube start --cpus=2' per avvio singolo, 'config set cpus 2' persistente.", "en": "'minikube start --cpus=2' for single start, 'config set cpus 2' persistent."}
+    },
+    {
+      "title": {"it": "Imposta Disco", "en": "Set Disk"},
+      "description": {"it": "Configura un disco da 30GB per il cluster.", "en": "Configure a 30GB disk for the cluster."},
+      "hint": {"it": "'minikube start --disk-size=30g'. Richiede delete e restart.", "en": "'minikube start --disk-size=30g'. Requires delete and restart."}
+    },
+    {
+      "title": {"it": "Monta Cartella", "en": "Mount Folder"},
+      "description": {"it": "Monta una cartella locale nel nodo Minikube.", "en": "Mount a local folder into the Minikube node."},
+      "hint": {"it": "'minikube mount $(pwd)/data:/data' in un altro terminale.", "en": "'minikube mount $(pwd)/data:/data' in another terminal."}
+    },
+    {
+      "title": {"it": "Verifica Risorse", "en": "Verify Resources"},
+      "description": {"it": "Controlla quante risorse ha il cluster attivo.", "en": "Check how many resources the active cluster has."},
+      "hint": {"it": "'kubectl describe node' mostra CPU e memoria allocata.", "en": "'kubectl describe node' shows allocated CPU and memory."}
+    },
+    {
+      "title": {"it": "Elimina Profilo Specifico", "en": "Delete Specific Profile"},
+      "description": {"it": "Rimuovi solo il profilo 'dev' senza toccare gli altri.", "en": "Remove only the 'dev' profile without touching others."},
+      "hint": {"it": "'minikube delete -p dev' elimina solo quel profilo.", "en": "'minikube delete -p dev' deletes only that profile."}
+    },
+    {
+      "title": {"it": "Scenario Multi-Cluster", "en": "Multi-Cluster Scenario"},
+      "description": {"it": "Crea due profili per simulare dev e staging con risorse diverse.", "en": "Create two profiles to simulate dev and staging with different resources."},
+      "hint": {"it": "Crea 'dev' (2GB, 2CPU) e 'staging' (4GB, 4CPU) con -p.", "en": "Create 'dev' (2GB, 2CPU) and 'staging' (4GB, 4CPU) with -p."}
     }
   ]
 }

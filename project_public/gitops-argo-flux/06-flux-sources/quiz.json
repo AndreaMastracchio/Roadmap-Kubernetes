@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quali tipi di fonti supporta Flux source-controller?",
+        "en": "What source types does Flux source-controller support?"
+      },
+      "options": [
+        "Solo Git",
+        "Git, Helm, OCI e Bucket",
+        "Git e Helm soltanto",
+        "Git, Docker e S3"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Flux supporta Git, Helm, OCI e Bucket come fonti.",
+        "en": "Flux supports Git, Helm, OCI, and Bucket as sources."
+      },
+      "difficulty": "easy",
+      "domain": "Flux Sources"
+    },
+    {
+      "question": {
+        "it": "Che cos'è un OCIRepository in Flux?",
+        "en": "What is an OCIRepository in Flux?"
+      },
+      "options": [
+        "Un repository Git in formato OCI",
+        "Una fonte che recupera manifest da registry OCI",
+        "Un container image registry",
+        "Un backup OCI del cluster"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "OCIRepository recupera manifest Kubernetes da un registry OCI.",
+        "en": "OCIRepository fetches Kubernetes manifests from an OCI registry."
+      },
+      "difficulty": "medium",
+      "domain": "Flux CRDs"
+    },
+    {
+      "question": {
+        "it": "Come si autentica un GitRepository con SSH?",
+        "en": "How do you authenticate a GitRepository with SSH?"
+      },
+      "options": [
+        "Con un token OAuth",
+        "Con un Secret contenente la chiave SSH privata",
+        "Con un certificato TLS",
+        "Con una password nel URL"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Si usa un Secret con la chiave SSH privata, referenziato nel GitRepository.",
+        "en": "You use a Secret containing the SSH private key, referenced in the GitRepository."
+      },
+      "difficulty": "medium",
+      "domain": "Authentication"
+    },
+    {
+      "question": {
+        "it": "Come si verifica la firma di un'immagine OCI in Flux?",
+        "en": "How do you verify an OCI image signature in Flux?"
+      },
+      "options": [
+        "Con Docker Content Trust",
+        "Con Cosign tramite provider verification",
+        "Con GPG direttamente",
+        "Non è possibile"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Flux usa Cosign per verificare le firme delle immagini OCI.",
+        "en": "Flux uses Cosign to verify OCI image signatures."
+      },
+      "difficulty": "hard",
+      "domain": "Security"
+    },
+    {
+      "question": {
+        "it": "Che cos'è un Kustomization remote in Flux?",
+        "en": "What is a remote Kustomization in Flux?"
+      },
+      "options": [
+        "Un Kustomization su un cluster remoto",
+        "Un Kustomization che referenzia fonti da repository esterni",
+        "Un Kustomization con dipendenze remote",
+        "Un alias per un cluster"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un Kustomization remote referenzia fonti da repository Git esterni.",
+        "en": "A remote Kustomization references sources from external Git repositories."
+      },
+      "difficulty": "medium",
+      "domain": "Flux CRDs"
+    },
+    {
+      "question": {
+        "it": "Quale campo specifica l'intervallo di riconciliazione in una CRD Flux?",
+        "en": "Which field specifies the reconciliation interval in a Flux CRD?"
+      },
+      "options": [
+        "schedule",
+        "interval",
+        "period",
+        "frequency"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il campo interval specifica ogni quanto Flux riconcilia lo stato.",
+        "en": "The interval field specifies how often Flux reconciles state."
+      },
+      "difficulty": "easy",
+      "domain": "Configuration"
+    },
+    {
+      "question": {
+        "it": "Flux supporta la gestione di segreti con External Secrets Operator?",
+        "en": "Does Flux support secret management with External Secrets Operator?"
+      },
+      "options": [
+        "No, usa solo SOPS",
+        "Sì, con il controller external-secrets-operator integrato",
+        "Sì, tramite un provider esterno",
+        "Solo con ArgoCD"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Flux si integra con External Secrets Operator per gestire i segreti esterni.",
+        "en": "Flux integrates with External Secrets Operator for external secret management."
+      },
+      "difficulty": "hard",
+      "domain": "Secret Management"
+    },
+    {
+      "question": {
+        "it": "Che cos'è un Bucket source in Flux?",
+        "en": "What is a Bucket source in Flux?"
+      },
+      "options": [
+        "Un container Docker",
+        "Una fonte che recupera oggetti da un bucket S3-compatible",
+        "Un backup del cluster",
+        "Un volume persistente"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un Bucket source recupera oggetti da bucket S3, GCS o Azure Blob.",
+        "en": "A Bucket source fetches objects from S3, GCS, or Azure Blob buckets."
+      },
+      "difficulty": "medium",
+      "domain": "Flux Sources"
+    },
+    {
+      "question": {
+        "it": "Come si crea una dipendenza tra due Kustomization in Flux?",
+        "en": "How do you create a dependency between two Kustomizations in Flux?"
+      },
+      "options": [
+        "Con un ordine nel file YAML",
+        "Con il campo dependsOn nella CRD",
+        "Con un init container",
+        "Non è possibile"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il campo dependsOn definisce le dipendenze tra Kustomization.",
+        "en": "The dependsOn field defines dependencies between Kustomizations."
+      },
+      "difficulty": "medium",
+      "domain": "Dependencies"
+    },
+    {
+      "question": {
+        "it": "Flux può monitorare un repository Git privato su Bitbucket?",
+        "en": "Can Flux monitor a private Git repository on Bitbucket?"
+      },
+      "options": [
+        "No, solo GitHub",
+        "Sì, con token di autenticazione",
+        "Solo con SSH",
+        "Solo con deploy key"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Flux supporta repository privati con token di autenticazione (HTTPS) o chiavi SSH.",
+        "en": "Flux supports private repositories with authentication tokens (HTTPS) or SSH keys."
+      },
+      "difficulty": "easy",
+      "domain": "Authentication"
+    },
+    {
+      "question": {
+        "it": "Cos'è il prune in Flux?",
+        "en": "What is prune in Flux?"
+      },
+      "options": [
+        "Eliminare vecchie versioni",
+        "Rimuovere risorse che non esistono più nel Git",
+        "Pulire i log",
+        "Eliminare namespace vuoti"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il prune rimuove automaticamente le risorse rimosse dal Git.",
+        "en": "Prune automatically removes resources that have been deleted from Git."
+      },
+      "difficulty": "easy",
+      "domain": "GitOps Principles"
+    },
+    {
+      "question": {
+        "it": "Quale CRD Flux gestisce le release Helm in modo dichiarativo?",
+        "en": "Which Flux CRD manages Helm releases declaratively?"
+      },
+      "options": [
+        "HelmChart",
+        "HelmRelease",
+        "HelmConfig",
+        "HelmOperation"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "HelmRelease è la CRD per gestire release Helm dichiarativamente.",
+        "en": "HelmRelease is the CRD for declaratively managing Helm releases."
+      },
+      "difficulty": "easy",
+      "domain": "Flux CRDs"
+    },
+    {
+      "question": {
+        "it": "Come si aggiorna manualmente la revisione di un GitRepository?",
+        "en": "How do you manually update the revision of a GitRepository?"
+      },
+      "options": [
+        "flux update git",
+        "flux reconcile source git",
+        "flux refresh git",
+        "flux reload git"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "flux reconcile source git forza il re-fetch del repository.",
+        "en": "flux reconcile source git forces a re-fetch of the repository."
+      },
+      "difficulty": "easy",
+      "domain": "Flux CLI"
+    },
+    {
+      "question": {
+        "it": "Flux può gestire cluster multipli?",
+        "en": "Can Flux manage multiple clusters?"
+      },
+      "options": [
+        "No, solo cluster singolo",
+        "Sì, con la modality multi-cluster",
+        "Solo con plugin aggiuntivi",
+        "Solo con ArgoCD"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Flux supporta la gestione multi-cluster con Flux remote clusters.",
+        "en": "Flux supports multi-cluster management with Flux remote clusters."
+      },
+      "difficulty": "medium",
+      "domain": "Multi-cluster"
+    },
+    {
+      "question": {
+        "it": "Quale campo in una Kustomization Flux definisce i controlli di health?",
+        "en": "Which field in a Flux Kustomization defines health checks?"
+      },
+      "options": [
+        "healthCheck",
+        "healthChecks",
+        "validation",
+        "readinessProbes"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il campo healthChecks definisce i controlli di salute per verificare che le risorse siano pronte.",
+        "en": "The healthChecks field defines health checks to verify that resources are ready."
+      },
+      "difficulty": "medium",
+      "domain": "Flux CRDs"
+    }
+  ]
+}

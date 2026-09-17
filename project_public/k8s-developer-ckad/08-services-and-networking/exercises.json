@@ -1,0 +1,319 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Creare un Service ClusterIP",
+        "en": "Create a ClusterIP Service"
+      },
+      "description": {
+        "it": "Esporre un deployment come Service interno",
+        "en": "Expose a deployment as internal Service"
+      },
+      "task": "1. Crea un deployment nginx con 2 repliche\n2. Esponi come Service ClusterIP su porta 80\n3. Verifica che il Service abbia un IP del cluster\n4. Testa la connettività con un pod di test",
+      "hints": [
+        "kubectl create deployment nginx --image=nginx --replicas=2",
+        "kubectl expose deployment nginx --port=80",
+        "kubectl get svc nginx",
+        "Usa un pod busybox per wget"
+      ],
+      "solution": "kubectl create deployment nginx --image=nginx --replicas=2\nkubectl expose deployment nginx --port=80 --target-port=80\nkubectl get svc nginx\nkubectl run test --image=busybox --rm -it -- wget -qO- nginx",
+      "validation": "kubectl get svc nginx -o jsonpath='{.spec.clusterIP}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un Service NodePort",
+        "en": "Create a NodePort Service"
+      },
+      "description": {
+        "it": "Esporre un'applicazione su una porta del nodo",
+        "en": "Expose an application on a node port"
+      },
+      "task": "1. Crea un deployment web\n2. Esponi come NodePort su porta 30080\n3. Verifica che il Service sia accessibile\n4. Identifica la porta NodePort assegnata",
+      "hints": [
+        "kubectl expose deployment web --type=NodePort --port=80",
+        "Per specificare la porta: --nodePort=30080 nel manifest",
+        "kubectl get svc -o wide",
+        "La NodePort è nella colonna PORT(S)"
+      ],
+      "solution": "kubectl create deployment web --image=nginx\nkubectl expose deployment web --type=NodePort --port=80\nkubectl get svc web -o jsonpath='{.spec.ports[0].nodePort}'\nkubectl run test --image=busybox --rm -it -- wget -qO- web",
+      "validation": "kubectl get svc web -o jsonpath='{.spec.type}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un Service senza selector",
+        "en": "Create a Service without selector"
+      },
+      "description": {
+        "it": "Esporre un endpoint esterno",
+        "en": "Expose an external endpoint"
+      },
+      "task": "1. Crea un Service senza selector che punta a 8.8.8.8:53\n2. Crea manualmente gli Endpoints\n3. Verifica che il Service punti all'IP esterno\n4. Testa la risoluzione DNS attraverso il Service",
+      "hints": [
+        "Crea il Service senza selector nel manifest",
+        "Crea Endpoints con stesso nome del Service",
+        "L'IP degli Endpoints è quello esterno",
+        "Test con nslookup"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Service\nmetadata:\n  name: external-dns\nspec:\n  ports:\n  - port: 53\n    targetPort: 53\n    protocol: UDP\n---\napiVersion: v1\nkind: Endpoints\nmetadata:\n  name: external-dns\nsubsets:\n- addresses:\n  - ip: 8.8.8.8\n  ports:\n  - port: 53\n    protocol: UDP\nEOF\n\nkubectl describe svc external-dns",
+      "validation": "kubectl get endpoints external-dns -o jsonpath='{.subsets[0].addresses[0].ip}'",
+      "difficulty": "easy",
+      "timeEstimate": "6 minuti"
+    },
+    {
+      "title": {
+        "it": "Verificare DNS del Service",
+        "en": "Verify Service DNS"
+      },
+      "description": {
+        "it": "Testare la risoluzione DNS interna",
+        "en": "Test internal DNS resolution"
+      },
+      "task": "1. Crea un Service my-app nel namespace default\n2. Da un pod di test, risolvi il DNS del Service\n3. Testa tutte le forme DNS: nome, nome.namespace, FQDN\n4. Verifica che l'IP risolto corrisponda al ClusterIP",
+      "hints": [
+        "kubectl run test --image=busybox --rm -it -- nslookup",
+        "my-app, my-app.default, my-app.default.svc.cluster.local",
+        "nslookup <service-name> nel pod",
+        "Confronta con kubectl get svc"
+      ],
+      "solution": "kubectl create deployment my-app --image=nginx\nkubectl expose deployment my-app --port=80\nkubectl run test --image=busybox --rm -it -- nslookup my-app\nkubectl run test --image=busybox --rm -it -- nslookup my-app.default.svc.cluster.local\nCLUSTER_IP=$(kubectl get svc my-app -o jsonpath='{.spec.clusterIP}') && echo $CLUSTER_IP",
+      "validation": "kubectl get svc my-app -o jsonpath='{.spec.clusterIP}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un Ingress semplice",
+        "en": "Create a simple Ingress"
+      },
+      "description": {
+        "it": "Configurare routing HTTP base",
+        "en": "Configure basic HTTP routing"
+      },
+      "task": "1. Crea un deployment e Service web\n2. Crea un Ingress per myapp.local\n3. Verifica che l'Ingress punti al Service\n4. Controlla l'indirizzo IP dell'Ingress",
+      "hints": [
+        "Richiede Ingress Controller nel cluster",
+        "spec.rules[].http.paths[].backend.service",
+        "kubectl get ingress",
+        "kubectl describe ingress"
+      ],
+      "solution": "kubectl create deployment web --image=nginx\nkubectl expose deployment web --port=80\n\ncat <<EOF | kubectl apply -f -\napiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:\n  name: web-ingress\nspec:\n  rules:\n  - host: myapp.local\n    http:\n      paths:\n      - path: /\n        pathType: Prefix\n        backend:\n          service:\n            name: web\n            port:\n              number: 80\nEOF\n\nkubectl get ingress web-ingress",
+      "validation": "kubectl get ingress web-ingress -o jsonpath='{.spec.rules[0].host}'",
+      "difficulty": "medium",
+      "timeEstimate": "7 minuti"
+    },
+    {
+      "title": {
+        "it": "Path-based routing Ingress",
+        "en": "Path-based routing Ingress"
+      },
+      "description": {
+        "it": "Instradare percorsi diversi a Service diversi",
+        "en": "Route different paths to different Services"
+      },
+      "task": "1. Crea due deployment: frontend e api\n2. Crea i rispettivi Service\n3. Configura Ingress con /frontend e /api\n4. Verifica il routing degli endpoint",
+      "hints": [
+        "Ogni path ha un backend diverso",
+        "pathType: Prefix per match flessibile",
+        "I Service devono esistere prima",
+        "kubectl describe ingress"
+      ],
+      "solution": "kubectl create deployment frontend --image=nginx\nkubectl create deployment api --image=nginx\nkubectl expose deployment frontend --port=80\nkubectl expose deployment api --port=80\n\ncat <<EOF | kubectl apply -f -\napiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:\n  name: multi-path\nspec:\n  rules:\n  - host: app.local\n    http:\n      paths:\n      - path: /frontend\n        pathType: Prefix\n        backend:\n          service:\n            name: frontend\n            port: { number: 80 }\n      - path: /api\n        pathType: Prefix\n        backend:\n          service:\n            name: api\n            port: { number: 80 }\nEOF",
+      "validation": "kubectl get ingress multi-path -o jsonpath='{.spec.rules[0].http.paths[*].path}'",
+      "difficulty": "medium",
+      "timeEstimate": "8 minuti"
+    },
+    {
+      "title": {
+        "it": "Ingress con TLS",
+        "en": "Ingress with TLS"
+      },
+      "description": {
+        "it": "Configurare HTTPS in un Ingress",
+        "en": "Configure HTTPS in an Ingress"
+      },
+      "task": "1. Crea un Secret TLS con certificato self-signed\n2. Crea un deployment e Service\n3. Configura Ingress con TLS usando il Secret\n4. Verifica che TLS sia configurato",
+      "hints": [
+        "kubectl create secret tls <name> --cert=path --key=path",
+        "spec.tls[].secretName riferimento il secret",
+        "hosts deve essere specificato",
+        "kubectl get ingress -o yaml"
+      ],
+      "solution": "openssl req -x509 -nodes -days 365 -newkey rsa:2048 \\\n  -keyout tls.key -out tls.crt -subj '/CN=app.local/O=test'\nkubectl create secret tls app-tls --cert=tls.crt --key=tls.key\n\ncat <<EOF | kubectl apply -f -\napiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:\n  name: tls-ingress\nspec:\n  tls:\n  - hosts:\n    - app.local\n    secretName: app-tls\n  rules:\n  - host: app.local\n    http:\n      paths:\n      - path: /\n        pathType: Prefix\n        backend:\n          service:\n            name: web\n            port: { number: 80 }\nEOF",
+      "validation": "kubectl get ingress tls-ingress -o jsonpath='{.spec.tls[0].secretName}'",
+      "difficulty": "medium",
+      "timeEstimate": "8 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare NetworkPolicy di base",
+        "en": "Create basic NetworkPolicy"
+      },
+      "description": {
+        "it": "Limitare l'accesso a un pod",
+        "en": "Restrict access to a pod"
+      },
+      "task": "1. Crea un deployment backend\n2. Crea una NetworkPolicy che permette traffico solo dai pod con label access: allowed\n3. Crea un pod test che può accedere\n4. Crea un pod che non può accedere",
+      "hints": [
+        "podSelector seleziona i pod da proteggere",
+        "ingress[].from[].podSelector per allow",
+        "Crea due pod di test con label diversi",
+        "Test con wget o curl"
+      ],
+      "solution": "kubectl create deployment backend --image=nginx\nkubectl expose deployment backend --port=80\n\ncat <<EOF | kubectl apply -f -\napiVersion: networking.k8s.io/v1\nkind: NetworkPolicy\nmetadata:\n  name: backend-policy\nspec:\n  podSelector:\n    matchLabels:\n      app: backend\n  ingress:\n  - from:\n    - podSelector:\n        matchLabels:\n          access: allowed\nEOF\n\nkubectl run allowed --image=busybox --labels='access=allowed' --rm -it -- wget -qO- backend\nkubectl run denied --image=busybox --labels='access=denied' --rm -it -- wget -qO- backend --timeout=5",
+      "validation": "kubectl get networkpolicy backend-policy -o jsonpath='{.spec.ingress[0].from[0].podSelector.matchLabels.access}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "NetworkPolicy per namespace",
+        "en": "NetworkPolicy for namespace"
+      },
+      "description": {
+        "it": "Limitare traffico tra namespace",
+        "en": "Restrict traffic between namespaces"
+      },
+      "task": "1. Crea namespace dev e prod\n2. Crea un Service in prod\n3. Crea NetworkPolicy che permette solo da namespace dev\n4. Verifica che solo pod in dev possano accedere",
+      "hints": [
+        "namespaceSelector nel from",
+        "Crea pod in namespace diversi",
+        "kubectl apply -n <namespace>",
+        "Test cross-namespace"
+      ],
+      "solution": "kubectl create namespace dev\nkubectl create namespace prod\n\nkubectl create deployment api -n prod --image=nginx\nkubectl expose deployment api -n prod --port=80\n\ncat <<EOF | kubectl apply -f -\napiVersion: networking.k8s.io/v1\nkind: NetworkPolicy\nmetadata:\n  name: ns-policy\n  namespace: prod\nspec:\n  podSelector:\n    matchLabels:\n      app: api\n  ingress:\n  - from:\n    - namespaceSelector:\n        matchLabels:\n          kubernetes.io/metadata.name: dev\nEOF",
+      "validation": "kubectl get networkpolicy -n prod ns-policy -o jsonpath='{.spec.ingress[0].from[0].namespaceSelector.matchLabels}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Service headless",
+        "en": "Headless Service"
+      },
+      "description": {
+        "it": "Creare un Service senza ClusterIP",
+        "en": "Create a Service without ClusterIP"
+      },
+      "task": "1. Crea un Service headless\n2. Verifica che non abbia ClusterIP\n3. Controlla che i DNS restituiscano gli IP dei pod\n4. Crea un StatefulSet per testare",
+      "hints": [
+        "clusterIP: None",
+        "StatefulSet crea pod con DNS stabili",
+        "nslookup restituisce tutti gli IP",
+        "kubectl get svc -o wide"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  name: web\nspec:\n  serviceName: web-headless\n  replicas: 3\n  selector:\n    matchLabels:\n      app: web\n  template:\n    metadata:\n      labels:\n        app: web\n    spec:\n      containers:\n      - name: nginx\n        image: nginx\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: web-headless\nspec:\n  clusterIP: None\n  selector:\n    app: web\n  ports:\n  - port: 80\nEOF\n\nkubectl run test --image=busybox --rm -it -- nslookup web-headless",
+      "validation": "kubectl get svc web-headless -o jsonpath='{.spec.clusterIP}'",
+      "difficulty": "medium",
+      "timeEstimate": "8 minuti"
+    },
+    {
+      "title": {
+        "it": "Service ExternalName",
+        "en": "ExternalName Service"
+      },
+      "description": {
+        "it": "Mappare un servizio esterno",
+        "en": "Map an external service"
+      },
+      "task": "1. Crea un Service ExternalName per google.com\n2. Verifica che punti al nome esterno\n3. Testa la risoluzione DNS dal pod\n4. Il Service non dovrebbe avere ClusterIP",
+      "hints": [
+        "type: ExternalName",
+        "externalName: google.com",
+        "kubectl get svc -o yaml",
+        "nslookup restituisce CNAME"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Service\nmetadata:\n  name: google\nspec:\n  type: ExternalName\n  externalName: google.com\nEOF\n\nkubectl describe svc google\nkubectl run test --image=busybox --rm -it -- nslookup google",
+      "validation": "kubectl get svc google -o jsonpath='{.spec.externalName}'",
+      "difficulty": "medium",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Deny all NetworkPolicy",
+        "en": "Deny all NetworkPolicy"
+      },
+      "description": {
+        "it": "Bloccare tutto il traffico in ingresso",
+        "en": "Block all ingress traffic"
+      },
+      "task": "1. Crea un deployment esposto\n2. Verifica che sia accessibile\n3. Applica una NetworkPolicy deny-all\n4. Verifica che non sia più accessibile",
+      "hints": [
+        "NetworkPolicy senza ingress rules blocca",
+        "Oppure spec con ingress vuoto",
+        "podSelector matcha i pod da isolare",
+        "Test prima e dopo"
+      ],
+      "solution": "kubectl create deployment private --image=nginx\nkubectl expose deployment private --port=80\nkubectl run test --image=busybox --rm -it -- wget -qO- private\n\ncat <<EOF | kubectl apply -f -\napiVersion: networking.k8s.io/v1\nkind: NetworkPolicy\nmetadata:\n  name: deny-all\nspec:\n  podSelector:\n    matchLabels:\n      app: private\n  policyTypes:\n  - Ingress\nEOF\n\nkubectl run test2 --image=busybox --rm -it -- wget -qO- private --timeout=5",
+      "validation": "kubectl get networkpolicy deny-all -o jsonpath='{.spec.policyTypes}'",
+      "difficulty": "hard",
+      "timeEstimate": "8 minuti"
+    },
+    {
+      "title": {
+        "it": "Limitare Egress",
+        "en": "Restrict Egress"
+      },
+      "description": {
+        "it": "Bloccare traffico in uscita",
+        "en": "Block outgoing traffic"
+      },
+      "task": "1. Crea un pod che può chiamare esterno\n2. Crea NetworkPolicy che blocca Egress\n3. Verifica che il pod non possa più uscire\n4. Permetti solo DNS e specifici IP",
+      "hints": [
+        "policyTypes: - Egress",
+        "egress: [] per bloccare tutto",
+        "Per DNS servono regole specifiche",
+        "Testa kubernetes.io e altri"
+      ],
+      "solution": "kubectl run client --image=busybox -- sleep 3600\nkubectl exec client -- wget -qO- http://example.com\n\ncat <<EOF | kubectl apply -f -\napiVersion: networking.k8s.io/v1\nkind: NetworkPolicy\nmetadata:\n  name: restrict-egress\nspec:\n  podSelector:\n    matchLabels:\n      run: client\n  policyTypes:\n  - Egress\n  egress:\n  - to:\n    - ipBlock:\n        cidr: 10.96.0.0/12  # Kubernetes services\n    - namespaceSelector: {}  # Allow within cluster\n  - ports:\n    - port: 53\n      protocol: UDP\nEOF\n\nkubectl exec client -- wget -qO- http://example.com --timeout=5",
+      "validation": "kubectl get networkpolicy restrict-egress -o jsonpath='{.spec.policyTypes}'",
+      "difficulty": "hard",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Multi-service architecture",
+        "en": "Multi-service architecture"
+      },
+      "description": {
+        "it": "Creare un'applicazione multi-tier",
+        "en": "Create a multi-tier application"
+      },
+      "task": "1. Crea deployment frontend, backend, database\n2. Crea i rispettivi Service\n3. Configura NetworkPolicy per isolamento\n4. Frontend può chiamare backend, backend può chiamare db",
+      "hints": [
+        "Tre deployment con label diversi",
+        "Tre Service con selector appropriati",
+        "NetworkPolicy per ogni tier",
+        "Testa la catena di chiamate"
+      ],
+      "solution": "# Frontend\nkubectl create deployment frontend --image=nginx --dry-run=client -o yaml | kubectl apply -f -\nkubectl expose deployment frontend --port=80\n\n# Backend\nkubectl create deployment backend --image=nginx --dry-run=client -o yaml | kubectl apply -f -\nkubectl expose deployment backend --port=80\n\n# Database\nkubectl create deployment database --image=redis --dry-run=client -o yaml | kubectl apply -f -\nkubectl expose deployment database --port=6379\n\n# NetworkPolicies\ncat <<EOF | kubectl apply -f -\napiVersion: networking.k8s.io/v1\nkind: NetworkPolicy\nmetadata:\n  name: backend-ingress\nspec:\n  podSelector:\n    matchLabels:\n      app: backend\n  ingress:\n  - from:\n    - podSelector:\n        matchLabels:\n          app: frontend\nEOF",
+      "validation": "kubectl get deployments,services,networkpolicies",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Ingress con default backend",
+        "en": "Ingress with default backend"
+      },
+      "description": {
+        "it": "Gestire richieste non matchate",
+        "en": "Handle unmatched requests"
+      },
+      "task": "1. Crea deployment default-backend\n2. Configura Ingress con backend di default\n3. Testa un host non configurato\n4. Verifica che ritorni il backend di default",
+      "hints": [
+        "Ingress spec.defaultBackend.service",
+        "Crea un Service per il default backend",
+        "Test con host non esistente",
+        "Ogni Ingress controller ha configurazione diversa"
+      ],
+      "solution": "kubectl create deployment default-backend --image=nginx\nkubectl expose deployment default-backend --port=80\n\ncat <<EOF | kubectl apply -f -\napiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:\n  name: default-ingress\nspec:\n  defaultBackend:\n    service:\n      name: default-backend\n      port:\n        number: 80\nEOF\n\nkubectl get ingress default-ingress",
+      "validation": "kubectl get ingress default-ingress -o jsonpath='{.spec.defaultBackend.service.name}'",
+      "difficulty": "hard",
+      "timeEstimate": "8 minuti"
+    }
+  ]
+}

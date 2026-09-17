@@ -1,0 +1,304 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Costruire un'immagine Docker base",
+        "en": "Build a basic Docker image"
+      },
+      "description": {
+        "it": "Creare e costruire un'immagine Docker da zero",
+        "en": "Create and build a Docker image from scratch"
+      },
+      "task": "1. Crea un file Dockerfile nella directory corrente\n2. Usa nginx:alpine come base\n3. Copia un file index.html personalizzato\n4. Esegui la build con tag 'my-nginx:v1'\n5. Verifica che l'immagine sia presente nella lista",
+      "hints": [
+        "Il flag -t permette di taggare l'immagine",
+        "Crea prima il file index.html",
+        "Usa docker images per verificare"
+      ],
+      "solution": "echo '<h1>Benvenuto!</h1>' > index.html\ncat > Dockerfile << 'EOF'\nFROM nginx:alpine\nCOPY index.html /usr/share/nginx/html/\nEOF\ndocker build -t my-nginx:v1 .\ndocker images my-nginx:v1",
+      "validation": "docker images my-nginx:v1 --format '{{.Repository}}:{{.Tag}}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Ottimizzare un Dockerfile esistente",
+        "en": "Optimize an existing Dockerfile"
+      },
+      "description": {
+        "it": "Analizzare e ottimizzare un Dockerfile per sfruttare la cache",
+        "en": "Analyze and optimize a Dockerfile to leverage caching"
+      },
+      "task": "1. Analizza il Dockerfile fornito\n2. Riordina le istruzioni per massimizzare la cache\n3. Combina RUN statement quando possibile\n4. Ricostruisci e confronta i tempi",
+      "hints": [
+        "Metti prima le istruzioni che cambiano meno",
+        "Combina apt-get update e install",
+        "Usa && per concatenare comandi"
+      ],
+      "solution": "# Dockerfile originale:\n# FROM ubuntu:22.04\n# RUN apt-get update\n# COPY . /app\n# RUN apt-get install -y python3\n# RUN apt-get install -y pip\n\n# Dockerfile ottimizzato:\ncat > Dockerfile << 'EOF'\nFROM ubuntu:22.04\nRUN apt-get update && apt-get install -y \\\n    python3 \\\n    python3-pip \\\n    && rm -rf /var/lib/apt/lists/*\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip3 install --no-cache-dir -r requirements.txt\nCOPY . .\nEOF",
+      "validation": "docker build -t optimized-app . 2>&1 | grep -E 'Using cache|DONE'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Taggare e pushare su registro locale",
+        "en": "Tag and push to local registry"
+      },
+      "description": {
+        "it": "Eseguire il tag e push di un'immagine verso un registro",
+        "en": "Tag and push an image to a registry"
+      },
+      "task": "1. Avvia un registro locale sulla porta 5000\n2. Costruisci un'immagine semplice\n3. Tagga l'immagine per il registro locale\n4. Pusha l'immagine\n5. Verifica che sia presente nel registro",
+      "hints": [
+        "Usa docker run -d -p 5000:5000 registry:2",
+        "Il formato tag è localhost:5000/image:tag",
+        "Usa curl per verificare il catalogo"
+      ],
+      "solution": "docker run -d -p 5000:5000 --name registry registry:2\nsleep 3\necho 'FROM alpine' | docker build -t test-image:v1 -\ndocker tag test-image:v1 localhost:5000/test-image:v1\ndocker push localhost:5000/test-image:v1\ncurl -s http://localhost:5000/v2/_catalog",
+      "validation": "curl -s http://localhost:5000/v2/test-image/tags/list | grep 'v1'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Analizzare i layer di un'immagine",
+        "en": "Analyze image layers"
+      },
+      "description": {
+        "it": "Ispezionare i layer di un'immagine Docker",
+        "en": "Inspect the layers of a Docker image"
+      },
+      "task": "1. Costruisci un'immagine multi-stage\n2. Usa docker history per vedere i layer\n3. Identifica quali layer contribuiscono di più\n4. Documenta le dimensioni di ogni layer importante",
+      "hints": [
+        "docker history --no-trunc mostra dettagli completi",
+        "I layer vuoti hanno 0B",
+        "Ogni istruzione crea un layer"
+      ],
+      "solution": "cat > Dockerfile << 'EOF'\nFROM golang:1.21-alpine AS builder\nWORKDIR /app\nRUN echo 'package main; import \"fmt\"; func main() { fmt.Println(\"Hello\") }' > main.go\nRUN go build -o app main.go\nFROM alpine:3.18\nCOPY --from=builder /app/app /app\nCMD [\"/app\"]\nEOF\ndocker build -t layer-analysis .\ndocker history layer-analysis --no-trunc --format 'table {{.CreatedBy}}\t{{.Size}}'",
+      "validation": "docker history layer-analysis --format '{{.Size}}' | head -5",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare una build multi-stage per Java",
+        "en": "Create a multi-stage build for Java"
+      },
+      "description": {
+        "it": "Implementare una build multi-stage per un'applicazione Java",
+        "en": "Implement a multi-stage build for a Java application"
+      },
+      "task": "1. Crea un Dockerfile con stage di build Maven\n2. Compila l'applicazione con Maven\n3. Crea lo stage finale con solo il JAR\n4. Usa eclipse-temurin JRE per runtime\n5. Verifica che l'immagine finale sia minimale",
+      "hints": [
+        " Usa maven:3.9-eclipse-temurin-17 per il build",
+        "Copia solo il JAR dal target",
+        "Il runtime stage usa JRE, non JDK"
+      ],
+      "solution": "cat > Dockerfile << 'EOF'\n# Build stage\nFROM maven:3.9-eclipse-temurin-17 AS builder\nWORKDIR /app\nCOPY pom.xml .\nRUN mvn dependency:go-offline\nCOPY src ./src\nRUN mvn package -DskipTests\n\n# Runtime stage\nFROM eclipse-temurin:17-jre-alpine\nWORKDIR /app\nCOPY --from=builder /app/target/*.jar app.jar\nEXPOSE 8080\nENTRYPOINT [\"java\", \"-jar\", \"app.jar\"]\nEOF",
+      "validation": "docker build -t java-multi . && docker images java-multi --format 'Size: {{.Size}}'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Usare build arguments",
+        "en": "Use build arguments"
+      },
+      "description": {
+        "it": "Parametrizzare la build con ARG",
+        "en": "Parameterize the build with ARG"
+      },
+      "task": "1. Crea un Dockerfile con ARG per VERSION e APP_NAME\n2. Usa gli ARG per configurare la build\n3. Passa i valori durante la build\n4. Verifica che i valori siano usati correttamente",
+      "hints": [
+        "ARG VERSION=latest definisce un default",
+        "--build-arg VERSION=v1.0 passa il valore",
+        "ARG è disponibile solo durante la build"
+      ],
+      "solution": "cat > Dockerfile << 'EOF'\nARG VERSION=latest\nARG APP_NAME=myapp\nFROM alpine:${VERSION}\nARG APP_NAME\nRUN echo \"Building ${APP_NAME} with Alpine ${VERSION}\"\nENTRYPOINT [\"echo\", \"${APP_NAME}\"]\nEOF\ndocker build --build-arg VERSION=3.18 --build-arg APP_NAME=hello -t arg-demo .",
+      "validation": "docker run --rm arg-demo",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Eseguire un container temporaneo per debug",
+        "en": "Run a temporary container for debugging"
+      },
+      "description": {
+        "it": "Usare container temporanei per esplorare immagini",
+        "en": "Use temporary containers to explore images"
+      },
+      "task": "1. Esegui un container alpine interattivo\n2. Installa curl e verifica connettività\n3. Ispeziona il filesystem\n4. Rimuovi il container alla fine",
+      "hints": [
+        "docker run -it --rm per container interattivi temporanei",
+        "apk add curl installa su Alpine",
+        "exit per uscire"
+      ],
+      "solution": "docker run -it --rm --name debug-container alpine:3.18 sh\n# Nel container:\napk add curl\ncurl -s https://kubernetes.io | head -10\nls -la /",
+      "validation": "docker ps -a | grep debug-container || echo 'Container rimosso correttamente'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare Secret per registro privato",
+        "en": "Create Secret for private registry"
+      },
+      "description": {
+        "it": "Configurare l'accesso a un registro Docker privato",
+        "en": "Configure access to a private Docker registry"
+      },
+      "task": "1. Crea un Secret di tipo docker-registry\n2. Configura le credenziali per un registro fittizio\n3. Crea un Pod che usa il Secret come imagePullSecrets\n4. Verifica la configurazione",
+      "hints": [
+        "kubectl create secret docker-registry",
+        "Il flag --docker-server specifica il registro",
+        "imagePullSecrets è nella sezione spec del Pod"
+      ],
+      "solution": "kubectl create secret docker-registry my-registry-secret \\\n  --docker-server=registry.example.com \\\n  --docker-username=admin \\\n  --docker-password=password123 \\\n  --docker-email=admin@example.com\n\nkubectl apply -f - << 'EOF'\napiVersion: v1\nkind: Pod\nmetadata:\n  name: private-pod\nspec:\n  containers:\n  - name: app\n    image: registry.example.com/myapp:v1\n  imagePullSecrets:\n  - name: my-registry-secret\nEOF",
+      "validation": "kubectl get secret my-registry-secret -o jsonpath='{.type}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Usare kubectl debug con container temporaneo",
+        "en": "Use kubectl debug with ephemeral container"
+      },
+      "description": {
+        "it": "Eseguire debug di un Pod esistente con container temporaneo",
+        "en": "Debug an existing Pod with ephemeral container"
+      },
+      "task": "1. Crea un Pod nginx\n2. Usa kubectl debug per aggiungere un container temporaneo\n3. Esegui ispezione dal container temporaneo\n4. Verifica la connettività di rete",
+      "hints": [
+        "kubectl debug -it <pod> --image=<image>",
+        "--target specifica il container da debuggare",
+        "Il container temporaneo condivide il namespace di rete"
+      ],
+      "solution": "kubectl run nginx --image=nginx:alpine\nkubectl wait --for=condition=Ready pod/nginx --timeout=30s\nkubectl debug -it nginx --image=busybox:1.36 --target=nginx\n# Nel container temporaneo:\nwget -qO- http://localhost:80 | head -5",
+      "validation": "kubectl describe pod nginx | grep -A 5 'Ephemeral Containers'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Ridurre dimensione immagine Python",
+        "en": "Reduce Python image size"
+      },
+      "description": {
+        "it": "Ottimizzare un'immagine Python per produzione",
+        "en": "Optimize a Python image for production"
+      },
+      "task": "1. Parti da un'immagine Python full\n2. Applica tutte le ottimizzazioni possibili\n3. Confronta la dimensione finale\n4. Documenta le riduzioni ottenute",
+      "hints": [
+        "Usa python:slim al posto di python:latest",
+        "Crea utente non-root",
+        "Rimuovi cache pip"
+      ],
+      "solution": "cat > Dockerfile << 'EOF'\nFROM python:3.11-slim AS builder\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install --no-cache-dir --user -r requirements.txt\n\nFROM python:3.11-slim\nWORKDIR /app\nRUN useradd -m appuser\nCOPY --from=builder /root/.local /home/appuser/.local\nCOPY --chown=appuser:appuser . .\nENV PATH=/home/appuser/.local/bin:$PATH\nUSER appuser\nEXPOSE 8000\nCMD [\"python\", \"app.py\"]\nEOF\ndocker build -t python-optimized .",
+      "validation": "docker images python:3.11 --format 'Original: {{.Size}}' && docker images python-optimized --format 'Optimized: {{.Size}}'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare Dockerfile con sicurezza avanzata",
+        "en": "Create Dockerfile with advanced security"
+      },
+      "description": {
+        "it": "Implementare tutte le best practice di sicurezza",
+        "en": "Implement all security best practices"
+      },
+      "task": "1. Crea un Dockerfile con security context completo\n2. Implementa utente non-root\n3. Filesystem read-only\n4. Capabilities limitate\n5. Verifica con docker inspect",
+      "hints": [
+        "RUN useradd per creare utente",
+        "COPY --chown per evitare RUN chown",
+        "Verifica con docker image inspect"
+      ],
+      "solution": "cat > Dockerfile << 'EOF'\nFROM alpine:3.18\nRUN addgroup -S appgroup && adduser -S appuser -G appgroup\nWORKDIR /app\nCOPY --chown=appuser:appgroup . .\nUSER appuser\nRUN chmod 555 /app\nEOF\ndocker build -t secure-image .\ndocker run --rm --read-only --cap-drop=ALL secure-image id",
+      "validation": "docker run --rm secure-image whoami",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Simulare cache invalidation",
+        "en": "Simulate cache invalidation"
+      },
+      "description": {
+        "it": "Comprendere quando la cache viene invalidata",
+        "en": "Understand when cache is invalidated"
+      },
+      "task": "1. Crea un Dockerfile con più istruzioni\n2. Esegui la build due volte\n3. Modifica un file copiato a metà Dockerfile\n4. Ricostruisci e osserva quali layer sono ricostruiti",
+      "hints": [
+        "Docker mostra 'Using cache' per layer riutilizzati",
+        "Una modifica invalida tutti i layer successivi",
+        "Usa --no-cache per forzare rebuild completo"
+      ],
+      "solution": "cat > Dockerfile << 'EOF'\nFROM alpine:3.18\nRUN echo 'Layer 1'\nCOPY file1.txt .\nRUN echo 'Layer 2'\nCOPY file2.txt .\nRUN echo 'Layer 3'\nEOF\necho 'original' > file1.txt\necho 'original' > file2.txt\ndocker build -t cache-test .\necho 'modified' > file2.txt\ndocker build -t cache-test .",
+      "validation": "docker build -t cache-test . 2>&1 | grep -c 'Using cache'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Eseguire scan sicurezza immagine",
+        "en": "Run image security scan"
+      },
+      "description": {
+        "it": "Analizzare vulnerabilità di un'immagine",
+        "en": "Analyze image vulnerabilities"
+      },
+      "task": "1. Usa docker scan su un'immagine nota\n2. Analizza i risultati\n3. Identifica CVEs critici\n4. Proponi una versione sicura",
+      "hints": [
+        "docker scan richiede Snyk account",
+        "Trivy è un'alternativa open source",
+        "Controlla CVE database per risoluzioni"
+      ],
+      "solution": "# Con docker scan\nif docker scan --version &>/dev/null; then\n  docker scan alpine:3.15\nelse\n  # Alternativa: usare hadolint per linting\n  docker run --rm -i hadolint/hadolint < Dockerfile\nfi",
+      "validation": "which docker || echo 'Docker CLI disponibile'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Comparare immagini con docker diff",
+        "en": "Compare images with docker diff"
+      },
+      "description": {
+        "it": "Analizzare differenze tra immagini",
+        "en": "Analyze differences between images"
+      },
+      "task": "1. Crea due immagini simili con piccole differenze\n2. Confronta i layer con docker history\n3. Identifica le differenze\n4. Documenta le modifiche",
+      "hints": [
+        "docker history mostra ogni layer",
+        "Usa --format per output JSON",
+        "Confronta CreatedBy e Size"
+      ],
+      "solution": "cat > Dockerfile.v1 << 'EOF'\nFROM alpine:3.18\nRUN echo 'Version 1' > /version\nEOF\ncat > Dockerfile.v2 << 'EOF'\nFROM alpine:3.18\nRUN echo 'Version 2' > /version\nEOF\ndocker build -t app:v1 -f Dockerfile.v1 .\ndocker build -t app:v2 -f Dockerfile.v2 .\ndocker history app:v1\ndocker history app:v2",
+      "validation": "docker history app:v1 --format '{{.CreatedBy}}' | grep 'Version'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Push su Harbor registry",
+        "en": "Push to Harbor registry"
+      },
+      "description": {
+        "it": "Eseguire push verso registro Harbor",
+        "en": "Push to Harbor registry"
+      },
+      "task": "1. Configura accesso a registro Harbor\n2. Tagga immagine per Harbor\n3. Esegui push\n4. Verifica nel catalogo Harbor",
+      "hints": [
+        "Harbor richiede login con docker login",
+        "Il formato è harbor.example.com/project/image:tag",
+        "Verifica con API Harbor o UI"
+      ],
+      "solution": "# Esempio generico per registro Harbor\n# docker login harbor.example.com\n# docker tag myapp:v1 harbor.example.com/myproject/myapp:v1\n# docker push harbor.example.com/myproject/myapp:v1\necho 'Comandi completi da eseguire con credenziali Harbor reali'",
+      "validation": "echo 'Verifica effettuabile solo con registro Harbor reale'",
+      "difficulty": "hard",
+      "timeEstimate": "15 minuti"
+    }
+  ]
+}

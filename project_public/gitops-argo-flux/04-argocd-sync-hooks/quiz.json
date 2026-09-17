@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "In quale fase di sync viene eseguito un hook con 'argocd.argoproj.io/hook: PreSync'?",
+        "en": "In which sync phase is a hook with 'argocd.argoproj.io/hook: PreSync' executed?"
+      },
+      "options": [
+        "Durante l'applicazione delle risorse principali",
+        "Prima di applicare qualsiasi risorsa",
+        "Dopo che tutte le risorse sono state applicate",
+        "In parallelo alle risorse principali"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "PreSync viene eseguito prima di qualsiasi risorsa Sync, utile per backup o validazioni preliminari.",
+        "en": "PreSync runs before any Sync resource, useful for backups or preliminary validations."
+      },
+      "difficulty": "easy",
+      "domain": "Sync phases"
+    },
+    {
+      "question": {
+        "it": "Quale annotazione definisce l'ordine di esecuzione tra risorse nella stessa fase?",
+        "en": "Which annotation defines the execution order among resources in the same phase?"
+      },
+      "options": [
+        "argocd.argoproj.io/hook",
+        "argocd.argoproj.io/sync-wave",
+        "argocd.argoproj.io/order",
+        "argocd.argoproj.io/priority"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "sync-wave definisce l'ordine. Wave negative vengono prima, positive dopo. Default è wave 0.",
+        "en": "sync-wave defines order. Negative waves run first, positive after. Default is wave 0."
+      },
+      "difficulty": "easy",
+      "domain": "Sync waves"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di hook viene utilizzato per eseguire task dopo un sync riuscito?",
+        "en": "Which hook type is used to execute tasks after a successful sync?"
+      },
+      "options": [
+        "PreSync",
+        "Sync",
+        "PostSync",
+        "SyncFail"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "PostSync viene eseguito dopo che il sync è completato con successo, utile per notifiche o cleanup.",
+        "en": "PostSync runs after sync completes successfully, useful for notifications or cleanup."
+      },
+      "difficulty": "easy",
+      "domain": "Sync phases"
+    },
+    {
+      "question": {
+        "it": "Cosa succede se un hook PostSync fallisce?",
+        "en": "What happens if a PostSync hook fails?"
+      },
+      "options": [
+        "Il sync viene comunque considerato riuscito",
+        "Il sync viene marcato come fallito",
+        "ArgoCD ritenta il sync automaticamente",
+        "L'hook viene ignorato silenziosamente"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il fallimento di qualsiasi hook (incluso PostSync) marca il sync come Failed.",
+        "en": "Failure of any hook (including PostSync) marks the sync as Failed."
+      },
+      "difficulty": "medium",
+      "domain": "Sync hooks"
+    },
+    {
+      "question": {
+        "it": "Quale valore di sync-wave viene eseguito per primo?",
+        "en": "Which sync-wave value is executed first?"
+      },
+      "options": [
+        "0",
+        "1",
+        "-1",
+        "10"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Wave negative vengono eseguite prima di quelle positive. -1 viene prima di 0.",
+        "en": "Negative waves run before positive ones. -1 runs before 0."
+      },
+      "difficulty": "easy",
+      "domain": "Sync waves"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di risorsa è comunemente usata per gli hook di sync?",
+        "en": "Which resource type is commonly used for sync hooks?"
+      },
+      "options": [
+        "Deployment",
+        "Job",
+        "Service",
+        "ConfigMap"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Job è il tipo più comune per gli hook perché esegue un task e termina, permettendo ad ArgoCD di rilevare il completamento.",
+        "en": "Job is the most common type for hooks because it runs a task and terminates, allowing ArgoCD to detect completion."
+      },
+      "difficulty": "easy",
+      "domain": "Sync hooks"
+    },
+    {
+      "question": {
+        "it": "Quale annotazione impedisce ad ArgoCD di applicare una risorsa durante il sync?",
+        "en": "Which annotation prevents ArgoCD from applying a resource during sync?"
+      },
+      "options": [
+        "argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true",
+        "argocd.argoproj.io/hook: Skip",
+        "argocd.argoproj.io/resource-policy: keep",
+        "argocd.argoproj.io/sync-options: Replace=true"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "argocd.argoproj.io/hook: Skip fa si che ArgoCD ignori la risorsa durante il sync, utile per risorse esistenti.",
+        "en": "argocd.argoproj.io/hook: Skip causes ArgoCD to ignore the resource during sync, useful for existing resources."
+      },
+      "difficulty": "medium",
+      "domain": "Sync hooks"
+    },
+    {
+      "question": {
+        "it": "Come si può configurare un hook per essere cancellato dopo l'esecuzione?",
+        "en": "How can you configure a hook to be deleted after execution?"
+      },
+      "options": [
+        "Non è possibile",
+        "argocd.argoproj.io/hook-delete-policy: HookSucceeded",
+        "argocd.argoproj.io/delete-after: true",
+        "kubectl delete-job: true"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "hook-delete-policy può essere HookSucceeded, HookFailed, o BeforeHookCreation per gestire il lifecycle dell'hook.",
+        "en": "hook-delete-policy can be HookSucceeded, HookFailed, or BeforeHookCreation to manage hook lifecycle."
+      },
+      "difficulty": "medium",
+      "domain": "Sync hooks"
+    },
+    {
+      "question": {
+        "it": "In quale ordine vengono eseguite le fasi di sync?",
+        "en": "In which order are sync phases executed?"
+      },
+      "options": [
+        "Sync, PreSync, PostSync",
+        "PreSync, PostSync, Sync",
+        "PreSync, Sync, PostSync",
+        "Sync, PostSync, PreSync"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "L'ordine corretto è PreSync (preparazione) → Sync (applicazione) → PostSync (finalizzazione).",
+        "en": "Correct order is PreSync (preparation) → Sync (application) → PostSync (finalization)."
+      },
+      "difficulty": "easy",
+      "domain": "Sync phases"
+    },
+    {
+      "question": {
+        "it": "Quale comando CLI esegue un rollback ad una versione precedente?",
+        "en": "Which CLI command executes a rollback to a previous version?"
+      },
+      "options": [
+        "argocd app undo",
+        "argocd app revert",
+        "argocd app rollback",
+        "argocd app history rollback"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "argocd app rollback <app> <revision> ripristina una versione precedente e disabilita l'auto-sync.",
+        "en": "argocd app rollback <app> <revision> restores a previous version and disables auto-sync."
+      },
+      "difficulty": "easy",
+      "domain": "Rollback strategies"
+    },
+    {
+      "question": {
+        "it": "Quando viene eseguito un hook SyncFail?",
+        "en": "When is a SyncFail hook executed?"
+      },
+      "options": [
+        "Prima di PreSync",
+        "Quando il sync fallisce",
+        "Dopo ogni sync indipendentemente dal risultato",
+        "Solo su richiesta manuale"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "SyncFail viene eseguito quando il sync fallisce, utile per notificare errori o fare cleanup.",
+        "en": "SyncFail runs when sync fails, useful for notifying errors or doing cleanup."
+      },
+      "difficulty": "medium",
+      "domain": "Sync phases"
+    },
+    {
+      "question": {
+        "it": "Quale strategia di rollback mantiene più revisioni?",
+        "en": "Which rollback strategy keeps more revisions?"
+      },
+      "options": [
+        "Rollback con --force",
+        "Utilizzare revisionHistoryLimit nell'Application",
+        "Non è possibile mantenere più revisioni",
+        "Rollback automatico"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "revisionHistoryLimit (default 10) controlla quante revisioni mantenere per il rollback.",
+        "en": "revisionHistoryLimit (default 10) controls how many revisions to keep for rollback."
+      },
+      "difficulty": "hard",
+      "domain": "Rollback strategies"
+    },
+    {
+      "question": {
+        "it": "Come si può verificare la salute di una risorsa personalizzata?",
+        "en": "How can you verify the health of a custom resource?"
+      },
+      "options": [
+        "Non è possibile",
+        "Configurando un custom health check in argocd-cm",
+        "Aggiungendo annotazioni alla risorsa",
+        "Usando solo liveness probe"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Custom health checks in argocd-cm permettono di definire regole per risorse custom.",
+        "en": "Custom health checks in argocd-cm allow defining rules for custom resources."
+      },
+      "difficulty": "hard",
+      "domain": "Health checks"
+    },
+    {
+      "question": {
+        "it": "Quale opzione permette di applicare risorse solo se sono OutOfSync?",
+        "en": "Which option allows applying resources only if they are OutOfSync?"
+      },
+      "options": [
+        "--sync-option ApplyOutOfSyncOnly=false",
+        "--sync-option ApplyOutOfSyncOnly=true",
+        "--prune",
+        "--dry-run"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ApplyOutOfSyncOnly=true applica solo le risorse con stato OutOfSync, riducendo il carico.",
+        "en": "ApplyOutOfSyncOnly=true applies only resources with OutOfSync status, reducing load."
+      },
+      "difficulty": "medium",
+      "domain": "Sync options"
+    },
+    {
+      "question": {
+        "it": "Quale hook-delete-policy cancella l'hook indipendentemente dall'esito?",
+        "en": "Which hook-delete-policy deletes the hook regardless of outcome?"
+      },
+      "options": [
+        "HookSucceeded",
+        "HookFailed",
+        "BeforeHookCreation",
+        "HookSucceeded,HookFailed"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Specificando entrambi HookSucceeded,HookFailed l'hook viene cancellato in ogni caso.",
+        "en": "Specifying both HookSucceeded,HookFailed the hook is deleted in any case."
+      },
+      "difficulty": "hard",
+      "domain": "Sync hooks"
+    }
+  ]
+}

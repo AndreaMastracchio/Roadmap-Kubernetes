@@ -1,0 +1,244 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale Service espone un'applicazione all'esterno del cluster?",
+        "en": "Which Service exposes an application outside the cluster?"
+      },
+      "options": ["ClusterIP", "NodePort", "Headless", "ExternalName"],
+      "correct": 1,
+      "explanation": {
+        "it": "NodePort espone il Service su una porta di ogni nodo del cluster, accessibile dall'esterno.",
+        "en": "NodePort exposes the Service on a port of each cluster node, accessible from outside."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Quale CNI usa eBPF per alte performance?",
+        "en": "Which CNI uses eBPF for high performance?"
+      },
+      "options": ["Flannel", "Calico", "Cilium", "Weave"],
+      "correct": 2,
+      "explanation": {
+        "it": "Cilium usa eBPF per routing ad alte performance senza iptables.",
+        "en": "Cilium uses eBPF for high-performance routing without iptables."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Quale è il FQDN completo di un Service 'api' nel namespace 'prod'?",
+        "en": "What is the full FQDN of a Service 'api' in namespace 'prod'?"
+      },
+      "options": ["api.prod", "api.prod.svc", "api.prod.svc.cluster.local", "prod.api.cluster.local"],
+      "correct": 2,
+      "explanation": {
+        "it": "Il formato FQDN è <service>.<namespace>.svc.cluster.local",
+        "en": "The FQDN format is <service>.<namespace>.svc.cluster.local"
+      },
+      "difficulty": "medium",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di Network Policy controlla il traffico in uscita?",
+        "en": "Which type of Network Policy controls outbound traffic?"
+      },
+      "options": ["Ingress", "Egress", "Both", "Namespace"],
+      "correct": 1,
+      "explanation": {
+        "it": "Egress Network Policy controlla il traffico in uscita dai Pod.",
+        "en": "Egress Network Policy controls outbound traffic from Pods."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Di default, qual è la policy di rete in Kubernetes?",
+        "en": "What is the default network policy in Kubernetes?"
+      },
+      "options": [
+        "Tutto bloccato",
+        "Tutto permesso (rete aperta)",
+        "Solo traffico interno al namespace",
+        "Solo traffico HTTPS"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Di default, tutti i Pod possono comunicare con tutti gli altri Pod.",
+        "en": "By default, all Pods can communicate with all other Pods."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Cosa sono gli Endpoints in Kubernetes?",
+        "en": "What are Endpoints in Kubernetes?"
+      },
+      "options": [
+        "I nodi del cluster",
+        "Gli IP dei Pod pronti per il traffico",
+        "Le porte dei Service",
+        "I certificati TLS"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Gli Endpoints elencano gli IP dei Pod che hanno superato il Readiness Probe.",
+        "en": "Endpoints list the IPs of Pods that passed the Readiness Probe."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Quale CNI è ottimo per Network Policies e usa BGP?",
+        "en": "Which CNI is great for Network Policies and uses BGP?"
+      },
+      "options": ["Flannel", "Calico", "Cilium", "Weave"],
+      "correct": 1,
+      "explanation": {
+        "it": "Calico supporta Network Policies avanzate e usa BGP per il routing.",
+        "en": "Calico supports advanced Network Policies and uses BGP for routing."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Quale Service type non ha IP cluster assegnato?",
+        "en": "Which Service type has no cluster IP assigned?"
+      },
+      "options": ["ClusterIP", "NodePort", "LoadBalancer", "Headless (ClusterIP: None)"],
+      "correct": 3,
+      "explanation": {
+        "it": "Un Headless Service (ClusterIP: None) non ha IP virtuale, restituisce gli IP dei Pod.",
+        "en": "A Headless Service (ClusterIP: None) has no virtual IP, returns Pod IPs directly."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Quale pathType fa match esatto del path in Ingress?",
+        "en": "Which pathType does exact path matching in Ingress?"
+      },
+      "options": ["Prefix", "Exact", "ImplementationSpecific", "Regex"],
+      "correct": 1,
+      "explanation": {
+        "it": "pathType: Exact richiede un match esatto del path.",
+        "en": "pathType: Exact requires an exact match of the path."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa sta sostituendo gli Ingress?",
+        "en": "Which resource is replacing Ingress?"
+      },
+      "options": ["Service Mesh", "Gateway API", "LoadBalancer v2", "NetworkPolicy v2"],
+      "correct": 1,
+      "explanation": {
+        "it": "Gateway API è il successore di Ingress con un modello più espressivo.",
+        "en": "Gateway API is the successor to Ingress with a more expressive model."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Come testi la connettività DNS da un Pod?",
+        "en": "How do you test DNS connectivity from a Pod?"
+      },
+      "options": [
+        "kubectl dns test",
+        "kubectl exec -it <pod> -- nslookup <service>",
+        "kubectl check dns",
+        "kubectl describe dns"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Puoi eseguire nslookup o dig dentro un Pod con kubectl exec.",
+        "en": "You can run nslookup or dig inside a Pod with kubectl exec."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Quale Service type usa un load balancer esterno?",
+        "en": "Which Service type uses an external load balancer?"
+      },
+      "options": ["ClusterIP", "NodePort", "LoadBalancer", "ExternalName"],
+      "correct": 2,
+      "explanation": {
+        "it": "LoadBalancer crea un load balancer cloud (AWS ELB, GCP LB) e un NodePort.",
+        "en": "LoadBalancer creates a cloud load balancer (AWS ELB, GCP LB) and a NodePort."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Cosa fa kubectl port-forward?",
+        "en": "What does kubectl port-forward do?"
+      },
+      "options": [
+        "Configura un Service NodePort",
+        "Crea un tunnel locale verso un Pod/Service",
+        "Modifica le porte di un container",
+        "Espone un Service all'esterno"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl port-forward crea un tunnel dalla macchina locale al cluster.",
+        "en": "kubectl port-forward creates a tunnel from local machine to the cluster."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Se un Service non ha Endpoints, qual è la causa probabile?",
+        "en": "If a Service has no Endpoints, what is the likely cause?"
+      },
+      "options": [
+        "Il Service è di tipo LoadBalancer",
+        "Il selector non trova Pod o Readiness Probe fallito",
+        "Il DNS non funziona",
+        "Il cluster non ha risorse"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Endpoints vuoti = selector sbagliato o Pod non ready.",
+        "en": "Empty Endpoints = wrong selector or Pods not ready."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-networking"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di routing può fare un Ingress?",
+        "en": "What type of routing can an Ingress do?"
+      },
+      "options": [
+        "Solo host-based",
+        "Solo path-based",
+        "Sia host-based che path-based",
+        "Solo TCP/UDP"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Ingress può fare routing per dominio (host) e per path.",
+        "en": "Ingress can route by domain (host) and by path."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-networking"
+    }
+  ]
+}

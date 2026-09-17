@@ -1,0 +1,124 @@
+{
+  "quiz": [
+    {
+      "question": {"it": "Quale comando apre la dashboard Kubernetes?", "en": "Which command opens the Kubernetes dashboard?"},
+      "options": ["minikube ui", "minikube dashboard", "kubectl dashboard", "minikube web"],
+      "correct": 1,
+      "explanation": {"it": "'minikube dashboard' avvia il proxy e apre l'interfaccia web nel browser.", "en": "'minikube dashboard' starts the proxy and opens the web interface in the browser."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale add-on fornisce un controller Ingress?", "en": "Which add-on provides an Ingress controller?"},
+      "options": ["nginx-controller", "ingress", "ingress-nginx", "loadbalancer"],
+      "correct": 2,
+      "explanation": {"it": "L'add-on 'ingress' o 'ingress-nginx' installa NGINX Ingress Controller nel cluster.", "en": "The 'ingress' or 'ingress-nginx' add-on installs NGINX Ingress Controller in the cluster."},
+      "difficulty": "easy",
+      "domain": "addons"
+    },
+    {
+      "question": {"it": "Quale comando elenca gli add-on disponibili?", "en": "Which command lists available add-ons?"},
+      "options": ["minikube addons", "minikube addons list", "minikube list-addons", "kubectl get addons"],
+      "correct": 1,
+      "explanation": {"it": "'minikube addons list' mostra tutti gli add-on con stato abilitato/disabilitato.", "en": "'minikube addons list' shows all add-ons with enabled/disabled status."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Come si abilita un add-on?", "en": "How do you enable an add-on?"},
+      "options": ["minikube addons start <nome>", "minikube addons enable <nome>", "minikube addons on <nome>", "kubectl enable <nome>"],
+      "correct": 1,
+      "explanation": {"it": "'minikube addons enable <nome>' attiva l'add-on nel cluster corrente.", "en": "'minikube addons enable <name>' activates the add-on in the current cluster."},
+      "difficulty": "easy",
+      "domain": "addons"
+    },
+    {
+      "question": {"it": "Come si disabilita un add-on?", "en": "How do you disable an add-on?"},
+      "options": ["minikube addons stop <nome>", "minikube addons disable <nome>", "minikube addons off <nome>", "kubectl disable <nome>"],
+      "correct": 1,
+      "explanation": {"it": "'minikube addons disable <nome>' rimuove l'add-on dal cluster.", "en": "'minikube addons disable <name>' removes the add-on from the cluster."},
+      "difficulty": "easy",
+      "domain": "addons"
+    },
+    {
+      "question": {"it": "Quale add-on fornisce un registry Docker locale?", "en": "Which add-on provides a local Docker registry?"},
+      "options": ["docker-registry", "registry", "local-registry", "container-registry"],
+      "correct": 1,
+      "explanation": {"it": "L'add-on 'registry' avvia un registry Docker locale accessibile dal cluster.", "en": "The 'registry' add-on starts a local Docker registry accessible from the cluster."},
+      "difficulty": "medium",
+      "domain": "addons"
+    },
+    {
+      "question": {"it": "Quale add-on permette di vedere le metriche con 'kubectl top'?", "en": "Which add-on allows seeing metrics with 'kubectl top'?"},
+      "options": ["prometheus", "metrics-server", "heapster", "grafana"],
+      "correct": 1,
+      "explanation": {"it": "'metrics-server' raccoglie metriche di CPU/memoria usate da kubectl top.", "en": "'metrics-server' collects CPU/memory metrics used by kubectl top."},
+      "difficulty": "easy",
+      "domain": "addons"
+    },
+    {
+      "question": {"it": "L'add-on dashboard richiede metrics-server?", "en": "Does the dashboard add-on require metrics-server?"},
+      "options": ["Sì, obbligatorio", "No, ma mostra grafici solo se abilitato", "Sì, sempre", "Non compatibile"],
+      "correct": 1,
+      "explanation": {"it": "La dashboard funziona senza, ma i grafici di utilizzo risorse richiedono metrics-server.", "en": "The dashboard works without it, but resource usage graphs require metrics-server."},
+      "difficulty": "medium",
+      "domain": "addons"
+    },
+    {
+      "question": {"it": "Come si accede al registry locale?", "en": "How do you access the local registry?"},
+      "options": ["docker push localhost:5000", "docker push $(minikube ip):5000", "Usa la porta esposta da minikube service", "Entrambe B e C"],
+      "correct": 3,
+      "explanation": {"it": "Si può usare l'IP di Minikube o la porta mappata con 'minikube service registry'.", "en": "You can use Minikube's IP or the port mapped with 'minikube service registry'."},
+      "difficulty": "medium",
+      "domain": "addons"
+    },
+    {
+      "question": {"it": "Quale add-on fornisce storage dinamico?", "en": "Which add-on provides dynamic storage?"},
+      "options": ["storageclass", "default-storageclass", "csi", "pv-driver"],
+      "correct": 1,
+      "explanation": {"it": "'default-storageclass' crea una StorageClass predefinita per provisioning automatico.", "en": "'default-storageclass' creates a default StorageClass for automatic provisioning."},
+      "difficulty": "medium",
+      "domain": "addons"
+    },
+    {
+      "question": {"it": "Gli add-on sono namespace-scoped o cluster-wide?", "en": "Are add-ons namespace-scoped or cluster-wide?"},
+      "options": ["Sempre namespace-scoped", "Sempre cluster-wide", "Dipende dall'add-on", "Nel namespace kube-system"],
+      "correct": 3,
+      "explanation": {"it": "La maggior parte degli add-on gira in 'kube-system', ma alcuni usano namespace dedicati.", "en": "Most add-ons run in 'kube-system', but some use dedicated namespaces."},
+      "difficulty": "medium",
+      "domain": "addons"
+    },
+    {
+      "question": {"it": "Come si verificano i pod degli add-on?", "en": "How do you check add-on pods?"},
+      "options": ["kubectl get pods", "kubectl get pods -n kube-system", "minikube addons pods", "kubectl get addons"],
+      "correct": 1,
+      "explanation": {"it": "'kubectl get pods -n kube-system' mostra i pod degli add-on di sistema.", "en": "'kubectl get pods -n kube-system' shows system add-on pods."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale add-on abilita volumi persistenti hostPath?", "en": "Which add-on enables hostPath persistent volumes?"},
+      "options": ["hostpath-provisioner", "hostpath-storage", "local-path", "storage-provisioner"],
+      "correct": 3,
+      "explanation": {"it": "'storage-provisioner' (o storage-provisioner-rancher.io) gestisce PV locali.", "en": "'storage-provisioner' (or storage-provisioner-rancher.io) manages local PVs."},
+      "difficulty": "medium",
+      "domain": "addons"
+    },
+    {
+      "question": {"it": "Dashboard richiede autenticazione?", "en": "Does Dashboard require authentication?"},
+      "options": ["No, mai", "Sì, sempre", "Sì, ma minikube crea token automatici", "Solo in produzione"],
+      "correct": 2,
+      "explanation": {"it": "Kubernetes richiede autenticazione, ma 'minikube dashboard' genera token automaticamente.", "en": "Kubernetes requires authentication, but 'minikube dashboard' generates tokens automatically."},
+      "difficulty": "medium",
+      "domain": "dashboard"
+    },
+    {
+      "question": {"it": "Quale comando verifica lo stato di un add-on?", "en": "Which command checks an add-on's status?"},
+      "options": ["minikube addons status <nome>", "minikube addons list | grep <nome>", "kubectl get addon <nome>", "Entrambe A e B"],
+      "correct": 3,
+      "explanation": {"it": "Sia 'addons status' che filtrare 'addons list' mostrano lo stato dell'add-on.", "en": "Both 'addons status' and filtering 'addons list' show the add-on's status."},
+      "difficulty": "medium",
+      "domain": "commands"
+    }
+  ]
+}

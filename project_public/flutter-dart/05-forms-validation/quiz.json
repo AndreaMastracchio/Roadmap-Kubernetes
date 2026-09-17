@@ -1,0 +1,439 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "A cosa serve GlobalKey<FormState>?",
+        "en": "What is GlobalKey<FormState> used for?"
+      },
+      "options": [
+        {
+          "it": "Per lo styling",
+          "en": "For styling"
+        },
+        {
+          "it": "Per accedere ai metodi validate(), save(), reset() del Form",
+          "en": "To access Form's validate(), save(), reset() methods"
+        },
+        {
+          "it": "Per la navigazione",
+          "en": "For navigation"
+        },
+        {
+          "it": "Per le animazioni",
+          "en": "For animations"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "GlobalKey permette di accedere a FormState per validare, salvare o resettare tutti i campi del form.",
+        "en": "GlobalKey allows accessing FormState to validate, save, or reset all form fields."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa deve ritornare un validator valido?",
+        "en": "What should a valid validator return?"
+      },
+      "options": [
+        {
+          "it": "true",
+          "en": "true"
+        },
+        {
+          "it": "null",
+          "en": "null"
+        },
+        {
+          "it": "Una stringa di errore",
+          "en": "An error string"
+        },
+        {
+          "it": "false",
+          "en": "false"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un validator ritorna null quando il valore è valido, o una stringa di errore quando non lo è.",
+        "en": "A validator returns null when the value is valid, or an error string when it's not."
+      }
+    },
+    {
+      "question": {
+        "it": "Qual è la differenza tra onSaved e onChanged in TextFormField?",
+        "en": "What's the difference between onSaved and onChanged in TextFormField?"
+      },
+      "options": [
+        {
+          "it": "Sono identici",
+          "en": "They are identical"
+        },
+        {
+          "it": "onSaved è chiamato con form.save(), onChanged a ogni cambio",
+          "en": "onSaved is called with form.save(), onChanged on every change"
+        },
+        {
+          "it": "onChanged è deprecato",
+          "en": "onChanged is deprecated"
+        },
+        {
+          "it": "onSaved è per animazioni",
+          "en": "onSaved is for animations"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "onSaved viene chiamato quando form.save() è invocato, onChanged viene chiamato a ogni modifica del testo.",
+        "en": "onSaved is called when form.save() is invoked, onChanged is called on every text modification."
+      }
+    },
+    {
+      "question": {
+        "it": "A cosa serve obscureText in TextFormField?",
+        "en": "What is obscureText used for in TextFormField?"
+      },
+      "options": [
+        {
+          "it": "Nasconde il testo (per password)",
+          "en": "Hides the text (for passwords)"
+        },
+        {
+          "it": "Disabilita il campo",
+          "en": "Disables the field"
+        },
+        {
+          "it": "Cambia il colore",
+          "en": "Changes the color"
+        },
+        {
+          "it": "Aggiunge un'icona",
+          "en": "Adds an icon"
+        }
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "obscureText: true nasconde i caratteri con pallini o asterischi, usato per campi password.",
+        "en": "obscureText: true hides characters with dots or asterisks, used for password fields."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si limita l'input a soli numeri?",
+        "en": "How do you limit input to numbers only?"
+      },
+      "options": [
+        {
+          "it": "keyboardType: TextInputType.number",
+          "en": "keyboardType: TextInputType.number"
+        },
+        {
+          "it": "inputFormatters con FilteringTextInputFormatter.digitsOnly",
+          "en": "inputFormatters with FilteringTextInputFormatter.digitsOnly"
+        },
+        {
+          "it": "Entrambi sono validi",
+          "en": "Both are valid"
+        },
+        {
+          "it": "Nessuno dei due",
+          "en": "Neither"
+        }
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "keyboardType cambia la tastiera, inputFormatters impedisce l'inserimento di altri caratteri.",
+        "en": "keyboardType changes the keyboard, inputFormatters prevents entering other characters."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si mostra un DatePicker?",
+        "en": "How do you show a DatePicker?"
+      },
+      "options": [
+        {
+          "it": "DatePicker.show()",
+          "en": "DatePicker.show()"
+        },
+        {
+          "it": "showDatePicker()",
+          "en": "showDatePicker()"
+        },
+        {
+          "it": "DatePickerDialog()",
+          "en": "DatePickerDialog()"
+        },
+        {
+          "it": "MaterialDatePicker()",
+          "en": "MaterialDatePicker()"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "showDatePicker(context, initialDate, firstDate, lastDate) è la funzione per mostrare un selettore data.",
+        "en": "showDatePicker(context, initialDate, firstDate, lastDate) is the function to show a date picker."
+      }
+    },
+    {
+      "question": {
+        "it": "Quale widget per una lista di opzioni selezionabili?",
+        "en": "Which widget for a list of selectable options?"
+      },
+      "options": [
+        {
+          "it": "ListView",
+          "en": "ListView"
+        },
+        {
+          "it": "DropdownButtonFormField",
+          "en": "DropdownButtonFormField"
+        },
+        {
+          "it": "Column",
+          "en": "Column"
+        },
+        {
+          "it": "GridView",
+          "en": "GridView"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "DropdownButtonFormField mostra un menu a tendina con opzioni selezionabili, integrato nei form.",
+        "en": "DropdownButtonFormField shows a dropdown menu with selectable options, integrated in forms."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si valida un DropdownButtonFormField?",
+        "en": "How do you validate a DropdownButtonFormField?"
+      },
+      "options": [
+        {
+          "it": "Non necessita validazione",
+          "en": "It doesn't need validation"
+        },
+        {
+          "it": "Con validator che controlla se value è null",
+          "en": "With validator checking if value is null"
+        },
+        {
+          "it": "Solo con onChanged",
+          "en": "Only with onChanged"
+        },
+        {
+          "it": "Non è possibile",
+          "en": "It's not possible"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il validator controlla se il valore selezionato è null (nessuna selezione) e ritorna un errore.",
+        "en": "The validator checks if the selected value is null (no selection) and returns an error."
+      }
+    },
+    {
+      "question": {
+        "it": "Quando usare CheckboxListTile invece di Checkbox?",
+        "en": "When to use CheckboxListTile instead of Checkbox?"
+      },
+      "options": [
+        {
+          "it": "Sono identici",
+          "en": "They are identical"
+        },
+        {
+          "it": "Quando serve un'etichetta accanto al checkbox",
+          "en": "When you need a label next to the checkbox"
+        },
+        {
+          "it": "Solo in ListView",
+          "en": "Only in ListView"
+        },
+        {
+          "it": "CheckboxListTile è deprecato",
+          "en": "CheckboxListTile is deprecated"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "CheckboxListTile combina Checkbox con ListTile per mostrare titolo e sottotitolo accanto al controllo.",
+        "en": "CheckboxListTile combines Checkbox with ListTile to show title and subtitle next to the control."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si raggruppano i Radio in un'unica selezione?",
+        "en": "How do you group Radio buttons for single selection?"
+      },
+      "options": [
+        {
+          "it": "Con RadioGroup widget",
+          "en": "With RadioGroup widget"
+        },
+        {
+          "it": "Tutti con lo stesso groupValue",
+          "en": "All with the same groupValue"
+        },
+        {
+          "it": "Non è possibile",
+          "en": "It's not possible"
+        },
+        {
+          "it": "Con onChanged uguale",
+          "en": "With same onChanged"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Radio con lo stesso groupValue si escludono a vicenda: solo uno può essere selezionato.",
+        "en": "Radio with the same groupValue are mutually exclusive: only one can be selected."
+      }
+    },
+    {
+      "question": {
+        "it": "A cosa serve TextEditingController?",
+        "en": "What is TextEditingController used for?"
+      },
+      "options": [
+        {
+          "it": "Per lo styling",
+          "en": "For styling"
+        },
+        {
+          "it": "Per controllare il testo programmaticamente e ascoltare cambiamenti",
+          "en": "To control text programmatically and listen to changes"
+        },
+        {
+          "it": "Per la validazione",
+          "en": "For validation"
+        },
+        {
+          "it": "È deprecato",
+          "en": "It's deprecated"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "TextEditingController permette di leggere/scrivere il testo, ascoltare cambiamenti e gestire la selezione.",
+        "en": "TextEditingController allows reading/writing text, listening to changes and managing selection."
+      }
+    },
+    {
+      "question": {
+        "it": "Bisogna fare dispose() di TextEditingController?",
+        "en": "Do you need to dispose() TextEditingController?"
+      },
+      "options": [
+        {
+          "it": "No, è automatico",
+          "en": "No, it's automatic"
+        },
+        {
+          "it": "Sì, nel dispose() dello State",
+          "en": "Yes, in the State's dispose()"
+        },
+        {
+          "it": "Solo in debug",
+          "en": "Only in debug"
+        },
+        {
+          "it": "Solo con TextFormField",
+          "en": "Only with TextFormField"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Bisogna chiamare dispose() per evitare memory leak quando il widget viene distrutto.",
+        "en": "You must call dispose() to avoid memory leaks when the widget is destroyed."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si formatta automaticamente l'input mentre si digita?",
+        "en": "How do you automatically format input while typing?"
+      },
+      "options": [
+        {
+          "it": "Con onChanged",
+          "en": "With onChanged"
+        },
+        {
+          "it": "Con inputFormatters e TextInputFormatter personalizzato",
+          "en": "With inputFormatters and custom TextInputFormatter"
+        },
+        {
+          "it": "Non è possibile",
+          "en": "It's not possible"
+        },
+        {
+          "it": "Solo con TextEditingController",
+          "en": "Only with TextEditingController"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "TextInputFormatter permette di trasformare, filtrare o formattare l'input in tempo reale.",
+        "en": "TextInputFormatter allows transforming, filtering or formatting input in real time."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa fa formKey.currentState.reset()?",
+        "en": "What does formKey.currentState.reset() do?"
+      },
+      "options": [
+        {
+          "it": "Resetta la validazione",
+          "en": "Resets validation"
+        },
+        {
+          "it": "Ripristina tutti i campi ai valori iniziali e cancella errori",
+          "en": "Restores all fields to initial values and clears errors"
+        },
+        {
+          "it": "Elimina il form",
+          "en": "Deletes the form"
+        },
+        {
+          "it": "Salva i dati",
+          "en": "Saves data"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "reset() riporta i campi allo stato iniziale e rimuove tutti i messaggi di errore.",
+        "en": "reset() returns fields to initial state and removes all error messages."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si implementa validazione asincrona (es. email unica)?",
+        "en": "How do you implement async validation (e.g., unique email)?"
+      },
+      "options": [
+        {
+          "it": "Il validator può ritornare Future<String?>",
+          "en": "The validator can return Future<String?>"
+        },
+        {
+          "it": "Con onChanged che chiama un'API",
+          "en": "With onChanged calling an API"
+        },
+        {
+          "it": "Non è supportato nativamente",
+          "en": "It's not natively supported"
+        },
+        {
+          "it": "Solo con TextEditingController",
+          "en": "Only with TextEditingController"
+        }
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Dart permette async nel validator, ritornando Future<String?> per validazioni che richiedono chiamate API.",
+        "en": "Dart allows async in validator, returning Future<String?> for validations requiring API calls."
+      }
+    }
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Qual è il comando per avviare il tutorial interattivo di Neovim?",
+        "en": "What is the command to start Neovim's interactive tutorial?"
+      },
+      "options": [
+        ":help",
+        ":Tutor",
+        ":tutorial",
+        ":learn"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il comando :Tutor apre il tutorial interattivo che insegna le basi di Vim/Neovim.",
+        "en": "The :Tutor command opens the interactive tutorial that teaches Vim/Neovim basics."
+      }
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Dove si trova il file di configurazione principale di Neovim?",
+        "en": "Where is Neovim's main configuration file located?"
+      },
+      "options": [
+        "~/.vimrc",
+        "~/.config/nvim/init.lua",
+        "~/.neovim/config.lua",
+        "~/.nvim/init.vim"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "La configurazione moderna di Neovim usa ~/.config/nvim/init.lua per configurazioni in Lua.",
+        "en": "Modern Neovim configuration uses ~/.config/nvim/init.lua for Lua configurations."
+      }
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Quale linguaggio è il preferito per configurare Neovim moderno?",
+        "en": "Which language is preferred for configuring modern Neovim?"
+      },
+      "options": [
+        "Python",
+        "Vimscript",
+        "Lua",
+        "JavaScript"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Lua è integrato nativamente in Neovim ed è il linguaggio preferito per configurazioni moderne.",
+        "en": "Lua is natively integrated in Neovim and is the preferred language for modern configurations."
+      }
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Come si esce da Neovim senza salvare?",
+        "en": "How do you exit Neovim without saving?"
+      },
+      "options": [
+        ":q",
+        ":q!",
+        ":exit",
+        ":close"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": ":q! forza l'uscita ignorando eventuali modifiche non salvate.",
+        "en": ":q! forces exit ignoring any unsaved changes."
+      }
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Quale variabile globale definisce il tasto leader in Neovim?",
+        "en": "Which global variable defines the leader key in Neovim?"
+      },
+      "options": [
+        "vim.g.leader",
+        "vim.g.mapleader",
+        "vim.opt.leader",
+        "vim.keymap.leader"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "vim.g.mapleader è la variabile globale che definisce il tasto leader per le mappature.",
+        "en": "vim.g.mapleader is the global variable that defines the leader key for mappings."
+      }
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Come si imposta l'opzione 'number' per mostrare i numeri di riga?",
+        "en": "How do you set the 'number' option to show line numbers?"
+      },
+      "options": [
+        "vim.set.number = true",
+        "vim.opt.number = true",
+        "vim.option.number = true",
+        "vim.conf.number = true"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "vim.opt è l'API preferita per impostare le opzioni in Neovim Lua.",
+        "en": "vim.opt is the preferred API for setting options in Neovim Lua."
+      }
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Quale plugin manager è usato da Kickstart.nvim?",
+        "en": "Which plugin manager is used by Kickstart.nvim?"
+      },
+      "options": [
+        "vim-plug",
+        "packer.nvim",
+        "Lazy.nvim",
+        "minipack"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Lazy.nvim è il plugin manager moderno usato da Kickstart.nvim e dalla maggior parte delle configurazioni attuali.",
+        "en": "Lazy.nvim is the modern plugin manager used by Kickstart.nvim and most current configurations."
+      }
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Qual è il comando per verificare la salute di Neovim?",
+        "en": "What is the command to check Neovim's health?"
+      },
+      "options": [
+        ":check",
+        ":diagnose",
+        ":checkhealth",
+        ":health"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": ":checkhealth esegue una diagnostica completa di Neovim, plugin e dipendenze.",
+        "en": ":checkhealth runs a complete diagnostic of Neovim, plugins and dependencies."
+      }
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Come si installa Neovim su macOS con Homebrew?",
+        "en": "How do you install Neovim on macOS with Homebrew?"
+      },
+      "options": [
+        "brew install nvim",
+        "brew install neovim",
+        "brew add neovim",
+        "brew get nvim"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il nome del pacchetto in Homebrew è 'neovim', non 'nvim'.",
+        "en": "The package name in Homebrew is 'neovim', not 'nvim'."
+      }
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Quale opzione salva l'historia degli undo anche dopo la chiusura?",
+        "en": "Which option saves undo history even after closing?"
+      },
+      "options": [
+        "vim.opt.backup = true",
+        "vim.opt.swapfile = true",
+        "vim.opt.undofile = true",
+        "vim.opt.history = true"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "undofile abilita il salvataggio persistente dell'historia degli undo.",
+        "en": "undofile enables persistent saving of undo history."
+      }
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Cosa fa Treesitter in Neovim?",
+        "en": "What does Treesitter do in Neovim?"
+      },
+      "options": [
+        "Gestisce i plugin",
+        "Fornisce evidenziazione della sintassi intelligente",
+        "Esegue test automatici",
+        "Gestisce il version control"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Treesitter usa parsing strutturale per evidenziare la sintassi in modo intelligente.",
+        "en": "Treesitter uses structural parsing to highlight syntax intelligently."
+      }
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Come si crea una mappatura con vim.keymap.set()?",
+        "en": "How do you create a mapping with vim.keymap.set()?"
+      },
+      "options": [
+        "vim.keymap.set(mode, lhs, rhs, opts)",
+        "vim.keymap.set(lhs, rhs, mode)",
+        "vim.keymap.set(lhs, rhs)",
+        "vim.keymap.create(mode, lhs, rhs)"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il formato è vim.keymap.set(mode, lhs, rhs, opts) dove mode è la modalità, lhs è il tasto, rhs è l'azione.",
+        "en": "The format is vim.keymap.set(mode, lhs, rhs, opts) where mode is the mode, lhs is the key, rhs is the action."
+      }
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Quale comando apre il dashboard di Lazy.nvim?",
+        "en": "Which command opens the Lazy.nvim dashboard?"
+      },
+      "options": [
+        ":Plugins",
+        ":Lazy",
+        ":PluginManager",
+        ":Manage"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": ":Lazy apre il dashboard interattivo del plugin manager Lazy.nvim.",
+        "en": ":Lazy opens the interactive dashboard of the Lazy.nvim plugin manager."
+      }
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Qual è il vantaggio principale di Neovim rispetto a Vim?",
+        "en": "What is Neovim's main advantage over Vim?"
+      },
+      "options": [
+        "È più veloce in tutto",
+        "Supporto asincrono nativo e Lua integration",
+        "Usa meno memoria",
+        "Ha più plugin"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Neovim offre supporto asincrono nativo e integrazione Lua, che mancano in Vim classico.",
+        "en": "Neovim offers native async support and Lua integration, which are missing in classic Vim."
+      }
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Prima di installare Kickstart.nvim, cosa dovresti fare?",
+        "en": "Before installing Kickstart.nvim, what should you do?"
+      },
+      "options": [
+        "Installare Vim prima",
+        "Fare backup della configurazione esistente",
+        "Disinstallare tutti i plugin",
+        "Niente, si può installare direttamente"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "È sempre consigliabile fare backup della configurazione esistente prima di sovrascriverla.",
+        "en": "It's always recommended to backup your existing configuration before overwriting it."
+      }
+    }
+  ]
+}

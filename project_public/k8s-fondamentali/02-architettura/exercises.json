@@ -1,7 +1,10 @@
 {
   "quiz": [
     {
-      "question": "Quale componente di Kubernetes è il database principale per lo stato del cluster?",
+      "question": {
+        "it": "Quale componente di Kubernetes è il database principale per lo stato del cluster?",
+        "en": "Quale componente di Kubernetes è il database principale per lo stato del cluster?"
+      },
       "options": [
         "kube-scheduler",
         "etcd",
@@ -9,10 +12,16 @@
         "kube-apiserver"
       ],
       "correct": 1,
-      "explanation": "etcd è un archivio key-value distribuito che memorizza tutte le informazioni sulla configurazione e lo stato del cluster."
+      "explanation": {
+        "it": "etcd è un archivio key-value distribuito che memorizza tutte le informazioni sulla configurazione e lo stato del cluster.",
+        "en": "etcd è un archivio key-value distribuito che memorizza tutte le informazioni sulla configurazione e lo stato del cluster."
+      }
     },
     {
-      "question": "A cosa serve il componente `kubelet`?",
+      "question": {
+        "it": "A cosa serve il componente `kubelet`?",
+        "en": "A cosa serve il componente `kubelet`?"
+      },
       "options": [
         "Per gestire il traffico di rete",
         "Per inviare i log al cloud",
@@ -20,10 +29,16 @@
         "Per decidere su quale nodo deve andare un nuovo Pod"
       ],
       "correct": 2,
-      "explanation": "kubelet è l'agente che gira su ogni nodo e si assicura che i container descritti nei PodSpec siano correttamente avviati."
+      "explanation": {
+        "it": "kubelet è l'agente che gira su ogni nodo e si assicura che i container descritti nei PodSpec siano correttamente avviati.",
+        "en": "kubelet è l'agente che gira su ogni nodo e si assicura che i container descritti nei PodSpec siano correttamente avviati."
+      }
     },
     {
-      "question": "Quale componente decide su quale nodo deve essere eseguito un Pod?",
+      "question": {
+        "it": "Quale componente decide su quale nodo deve essere eseguito un Pod?",
+        "en": "Quale componente decide su quale nodo deve essere eseguito un Pod?"
+      },
       "options": [
         "kube-controller-manager",
         "kube-proxy",
@@ -31,10 +46,16 @@
         "containerd"
       ],
       "correct": 2,
-      "explanation": "Lo scheduler monitora i Pod senza un nodo assegnato e sceglie il nodo migliore in base alle risorse e ai vincoli."
+      "explanation": {
+        "it": "Lo scheduler monitora i Pod senza un nodo assegnato e sceglie il nodo migliore in base alle risorse e ai vincoli.",
+        "en": "Lo scheduler monitora i Pod senza un nodo assegnato e sceglie il nodo migliore in base alle risorse e ai vincoli."
+      }
     },
     {
-      "question": "Cos'è il `kube-proxy`?",
+      "question": {
+        "it": "Cos'è il `kube-proxy`?",
+        "en": "Cos'è il `kube-proxy`?"
+      },
       "options": [
         "Un componente che gestisce il traffico di rete sui nodi",
         "Un database per le credenziali degli utenti",
@@ -42,10 +63,16 @@
         "L'interfaccia a riga di comando di Kubernetes"
       ],
       "correct": 0,
-      "explanation": "kube-proxy mantiene le regole di rete sui nodi, permettendo la comunicazione tra i Pod e verso l'esterno."
+      "explanation": {
+        "it": "kube-proxy mantiene le regole di rete sui nodi, permettendo la comunicazione tra i Pod e verso l'esterno.",
+        "en": "kube-proxy mantiene le regole di rete sui nodi, permettendo la comunicazione tra i Pod e verso l'esterno."
+      }
     },
     {
-      "question": "Quale componente è responsabile del mantenimento dei cicli di controllo (es. assicurarsi che ci sia il numero giusto di repliche)?",
+      "question": {
+        "it": "Quale componente è responsabile del mantenimento dei cicli di controllo (es. assicurarsi che ci sia il numero giusto di repliche)?",
+        "en": "Quale componente è responsabile del mantenimento dei cicli di controllo (es. assicurarsi che ci sia il numero giusto di repliche)?"
+      },
       "options": [
         "etcd",
         "kube-apiserver",
@@ -53,10 +80,16 @@
         "CRI"
       ],
       "correct": 2,
-      "explanation": "Il controller manager esegue i loop di controllo che mantengono lo stato desiderato del cluster."
+      "explanation": {
+        "it": "Il controller manager esegue i loop di controllo che mantengono lo stato desiderato del cluster.",
+        "en": "Il controller manager esegue i loop di controllo che mantengono lo stato desiderato del cluster."
+      }
     },
     {
-      "question": "Cosa significa CNI?",
+      "question": {
+        "it": "Cosa significa CNI?",
+        "en": "Cosa significa CNI?"
+      },
       "options": [
         "Container Network Interface",
         "Cluster Node Integration",
@@ -64,10 +97,16 @@
         "Cloud Native Infrastructure"
       ],
       "correct": 0,
-      "explanation": "CNI è lo standard che permette a Kubernetes di integrarsi con diversi provider di rete (es. Calico, Flannel)."
+      "explanation": {
+        "it": "CNI è lo standard che permette a Kubernetes di integrarsi con diversi provider di rete (es. Calico, Flannel).",
+        "en": "CNI è lo standard che permette a Kubernetes di integrarsi con diversi provider di rete (es. Calico, Flannel)."
+      }
     },
     {
-      "question": "Quale componente è l'unico che può scrivere direttamente in etcd?",
+      "question": {
+        "it": "Quale componente è l'unico che può scrivere direttamente in etcd?",
+        "en": "Quale componente è l'unico che può scrivere direttamente in etcd?"
+      },
       "options": [
         "kubelet",
         "kube-apiserver",
@@ -75,10 +114,16 @@
         "kube-scheduler"
       ],
       "correct": 1,
-      "explanation": "Per motivi di sicurezza e coerenza, solo l'API Server comunica direttamente con etcd."
+      "explanation": {
+        "it": "Per motivi di sicurezza e coerenza, solo l'API Server comunica direttamente con etcd.",
+        "en": "Per motivi di sicurezza e coerenza, solo l'API Server comunica direttamente con etcd."
+      }
     },
     {
-      "question": "Cos'è il cloud-controller-manager?",
+      "question": {
+        "it": "Cos'è il cloud-controller-manager?",
+        "en": "Cos'è il cloud-controller-manager?"
+      },
       "options": [
         "Un componente per gestire i backup del cluster",
         "Il ponte tra Kubernetes e il cloud provider specifico",
@@ -86,10 +131,16 @@
         "Il componente che gestisce i costi del cloud"
       ],
       "correct": 1,
-      "explanation": "Il cloud-controller-manager separa la logica specifica del cloud provider (AWS, GCP, Azure) dal core di Kubernetes."
+      "explanation": {
+        "it": "Il cloud-controller-manager separa la logica specifica del cloud provider (AWS, GCP, Azure) dal core di Kubernetes.",
+        "en": "Il cloud-controller-manager separa la logica specifica del cloud provider (AWS, GCP, Azure) dal core di Kubernetes."
+      }
     },
     {
-      "question": "A cosa servono gli Admission Controllers?",
+      "question": {
+        "it": "A cosa servono gli Admission Controllers?",
+        "en": "A cosa servono gli Admission Controllers?"
+      },
       "options": [
         "Per autenticare gli utenti",
         "Per validare e/o mutare le richieste prima della persistenza in etcd",
@@ -97,10 +148,16 @@
         "Per monitorare le performance del cluster"
       ],
       "correct": 1,
-      "explanation": "Gli Admission Controllers intercettano le richieste dopo autenticazione/autorizzazione e possono validarle o modificarle prima che vengano salvate."
+      "explanation": {
+        "it": "Gli Admission Controllers intercettano le richieste dopo autenticazione/autorizzazione e possono validarle o modificarle prima che vengano salvate.",
+        "en": "Gli Admission Controllers intercettano le richieste dopo autenticazione/autorizzazione e possono validarle o modificarle prima che vengano salvate."
+      }
     },
     {
-      "question": "Qual è il pattern fondamentale che rende Kubernetes self-healing?",
+      "question": {
+        "it": "Qual è il pattern fondamentale che rende Kubernetes self-healing?",
+        "en": "Qual è il pattern fondamentale che rende Kubernetes self-healing?"
+      },
       "options": [
         "Polling continuo",
         "Reconciliation Loop",
@@ -108,10 +165,16 @@
         "Microservices pattern"
       ],
       "correct": 1,
-      "explanation": "Il Reconciliation Loop osserva continuamente lo stato attuale, lo confronta con lo stato desiderato e agisce per convergere."
+      "explanation": {
+        "it": "Il Reconciliation Loop osserva continuamente lo stato attuale, lo confronta con lo stato desiderato e agisce per convergere.",
+        "en": "Il Reconciliation Loop osserva continuamente lo stato attuale, lo confronta con lo stato desiderato e agisce per convergere."
+      }
     },
     {
-      "question": "Quanti nodi etcd sono consigliati per un cluster HA in produzione?",
+      "question": {
+        "it": "Quanti nodi etcd sono consigliati per un cluster HA in produzione?",
+        "en": "Quanti nodi etcd sono consigliati per un cluster HA in produzione?"
+      },
       "options": [
         "2 nodi per ridondanza",
         "Numero dispari (3, 5, 7) per il quorum",
@@ -119,10 +182,16 @@
         "1 nodo è sufficiente se ha backup"
       ],
       "correct": 1,
-      "explanation": "etcd richiede un numero dispari di nodi per raggiungere il quorum (maggioranza) necessario per le decisioni distribuite."
+      "explanation": {
+        "it": "etcd richiede un numero dispari di nodi per raggiungere il quorum (maggioranza) necessario per le decisioni distribuite.",
+        "en": "etcd richiede un numero dispari di nodi per raggiungere il quorum (maggioranza) necessario per le decisioni distribuite."
+      }
     },
     {
-      "question": "Cos'è CoreDNS in Kubernetes?",
+      "question": {
+        "it": "Cos'è CoreDNS in Kubernetes?",
+        "en": "Cos'è CoreDNS in Kubernetes?"
+      },
       "options": [
         "Un tool per il debugging dei Pod",
         "Il servizio DNS interno per la service discovery",
@@ -130,10 +199,16 @@
         "Un database alternativo a etcd"
       ],
       "correct": 1,
-      "explanation": "CoreDNS risolve i nomi dei Service in indirizzi IP, permettendo ai Pod di comunicare usando nomi invece di IP."
+      "explanation": {
+        "it": "CoreDNS risolve i nomi dei Service in indirizzi IP, permettendo ai Pod di comunicare usando nomi invece di IP.",
+        "en": "CoreDNS risolve i nomi dei Service in indirizzi IP, permettendo ai Pod di comunicare usando nomi invece di IP."
+      }
     },
     {
-      "question": "Cosa sono gli Static Pods?",
+      "question": {
+        "it": "Cosa sono gli Static Pods?",
+        "en": "Cosa sono gli Static Pods?"
+      },
       "options": [
         "Pod che non possono essere modificati dopo la creazione",
         "Pod definiti in file locali gestiti direttamente da kubelet",
@@ -141,10 +216,16 @@
         "Pod che girano sempre sullo stesso nodo"
       ],
       "correct": 1,
-      "explanation": "Gli Static Pods sono definiti in file locali (es. /etc/kubernetes/manifests/) e gestiti da kubelet senza passare per l'API Server."
+      "explanation": {
+        "it": "Gli Static Pods sono definiti in file locali (es. /etc/kubernetes/manifests/) e gestiti da kubelet senza passare per l'API Server.",
+        "en": "Gli Static Pods sono definiti in file locali (es. /etc/kubernetes/manifests/) e gestiti da kubelet senza passare per l'API Server."
+      }
     },
     {
-      "question": "Qual è la differenza tra Role e ClusterRole in RBAC?",
+      "question": {
+        "it": "Qual è la differenza tra Role e ClusterRole in RBAC?",
+        "en": "Qual è la differenza tra Role e ClusterRole in RBAC?"
+      },
       "options": [
         "Role è per utenti, ClusterRole per ServiceAccount",
         "Role è namespace-scoped, ClusterRole è cluster-scoped",
@@ -152,10 +233,16 @@
         "Non c'è differenza, sono sinonimi"
       ],
       "correct": 1,
-      "explanation": "Role definisce permessi all'interno di un namespace specifico, mentre ClusterRole definisce permessi a livello di cluster."
+      "explanation": {
+        "it": "Role definisce permessi all'interno di un namespace specifico, mentre ClusterRole definisce permessi a livello di cluster.",
+        "en": "Role definisce permessi all'interno di un namespace specifico, mentre ClusterRole definisce permessi a livello di cluster."
+      }
     },
     {
-      "question": "Quale modalità di kube-proxy è più performante per cluster grandi?",
+      "question": {
+        "it": "Quale modalità di kube-proxy è più performante per cluster grandi?",
+        "en": "Quale modalità di kube-proxy è più performante per cluster grandi?"
+      },
       "options": [
         "iptables",
         "IPVS",
@@ -163,10 +250,16 @@
         "nftables"
       ],
       "correct": 1,
-      "explanation": "IPVS (IP Virtual Server) è più performante di iptables per cluster con molti Service, grazie a algoritmi di load balancing più efficienti."
+      "explanation": {
+        "it": "IPVS (IP Virtual Server) è più performante di iptables per cluster con molti Service, grazie a algoritmi di load balancing più efficienti.",
+        "en": "IPVS (IP Virtual Server) è più performante di iptables per cluster con molti Service, grazie a algoritmi di load balancing più efficienti."
+      }
     },
     {
-      "question": "Cosa significa che un'API è in versione 'alpha' (es. v1alpha1)?",
+      "question": {
+        "it": "Cosa significa che un'API è in versione 'alpha' (es. v1alpha1)?",
+        "en": "Cosa significa che un'API è in versione 'alpha' (es. v1alpha1)?"
+      },
       "options": [
         "È la versione più stabile e consigliata",
         "È sperimentale e può cambiare o essere rimossa",
@@ -174,109 +267,242 @@
         "È disponibile solo per amministratori"
       ],
       "correct": 1,
-      "explanation": "Le API alpha sono sperimentali, possono cambiare senza preavviso o essere rimosse. Non vanno usate in produzione."
+      "explanation": {
+        "it": "Le API alpha sono sperimentali, possono cambiare senza preavviso o essere rimosse. Non vanno usate in produzione.",
+        "en": "Le API alpha sono sperimentali, possono cambiare senza preavviso o essere rimosse. Non vanno usate in produzione."
+      }
     }
   ],
   "exercises": [
     {
-      "title": "Verifica i Nodi",
-      "hint": "Usa il verbo 'get' seguito dalla risorsa.",
+      "title": {
+        "it": "Verifica i Nodi",
+        "en": "Verifica i Nodi"
+      },
+      "hint": {
+        "it": "Usa il verbo 'get' seguito dalla risorsa.",
+        "en": "Usa il verbo 'get' seguito dalla risorsa."
+      },
       "template": [
         "kubectl {{verb}} nodes"
       ],
       "answers": [
-        { "id": "verb", "accepted": ["get"], "width": "60px" }
+        {
+          "id": "verb",
+          "accepted": [
+            "get"
+          ],
+          "width": "60px"
+        }
       ]
     },
     {
-      "title": "Info del Cluster",
-      "hint": "Cerca informazioni sul 'cluster'.",
+      "title": {
+        "it": "Info del Cluster",
+        "en": "Info del Cluster"
+      },
+      "hint": {
+        "it": "Cerca informazioni sul 'cluster'.",
+        "en": "Cerca informazioni sul 'cluster'."
+      },
       "template": [
         "kubectl {{info_cmd}}"
       ],
       "answers": [
-        { "id": "info_cmd", "accepted": ["cluster-info"], "width": "120px" }
+        {
+          "id": "info_cmd",
+          "accepted": [
+            "cluster-info"
+          ],
+          "width": "120px"
+        }
       ]
     },
     {
-      "title": "Dettagli Nodo",
-      "hint": "Usa il comando 'describe' per i dettagli.",
+      "title": {
+        "it": "Dettagli Nodo",
+        "en": "Dettagli Nodo"
+      },
+      "hint": {
+        "it": "Usa il comando 'describe' per i dettagli.",
+        "en": "Usa il comando 'describe' per i dettagli."
+      },
       "template": [
         "kubectl {{desc_cmd}} {{resource}} worker-1"
       ],
       "answers": [
-        { "id": "desc_cmd", "accepted": ["describe"], "width": "100px" },
-        { "id": "resource", "accepted": ["node", "nodes"], "width": "60px" }
+        {
+          "id": "desc_cmd",
+          "accepted": [
+            "describe"
+          ],
+          "width": "100px"
+        },
+        {
+          "id": "resource",
+          "accepted": [
+            "node",
+            "nodes"
+          ],
+          "width": "60px"
+        }
       ]
     },
     {
-      "title": "Configurazione Contesti",
-      "hint": "Config view mostra la configurazione attuale.",
+      "title": {
+        "it": "Configurazione Contesti",
+        "en": "Configurazione Contesti"
+      },
+      "hint": {
+        "it": "Config view mostra la configurazione attuale.",
+        "en": "Config view mostra la configurazione attuale."
+      },
       "template": [
         "kubectl config {{view_cmd}}"
       ],
       "answers": [
-        { "id": "view_cmd", "accepted": ["view"], "width": "60px" }
+        {
+          "id": "view_cmd",
+          "accepted": [
+            "view"
+          ],
+          "width": "60px"
+        }
       ]
     },
     {
-      "title": "Visualizza API Resources",
-      "hint": "Usa api-resources per vedere tutte le risorse disponibili.",
+      "title": {
+        "it": "Visualizza API Resources",
+        "en": "Visualizza API Resources"
+      },
+      "hint": {
+        "it": "Usa api-resources per vedere tutte le risorse disponibili.",
+        "en": "Usa api-resources per vedere tutte le risorse disponibili."
+      },
       "template": [
         "kubectl {{api_cmd}}"
       ],
       "answers": [
-        { "id": "api_cmd", "accepted": ["api-resources"], "width": "140px" }
+        {
+          "id": "api_cmd",
+          "accepted": [
+            "api-resources"
+          ],
+          "width": "140px"
+        }
       ]
     },
     {
-      "title": "Pod del Control Plane",
-      "hint": "I componenti del control plane sono nel namespace kube-system.",
+      "title": {
+        "it": "Pod del Control Plane",
+        "en": "Pod del Control Plane"
+      },
+      "hint": {
+        "it": "I componenti del control plane sono nel namespace kube-system.",
+        "en": "I componenti del control plane sono nel namespace kube-system."
+      },
       "template": [
         "kubectl get pods -n {{namespace}}"
       ],
       "answers": [
-        { "id": "namespace", "accepted": ["kube-system"], "width": "120px" }
+        {
+          "id": "namespace",
+          "accepted": [
+            "kube-system"
+          ],
+          "width": "120px"
+        }
       ]
     },
     {
-      "title": "Verifica CoreDNS",
-      "hint": "CoreDNS ha il label k8s-app=kube-dns nel namespace kube-system.",
+      "title": {
+        "it": "Verifica CoreDNS",
+        "en": "Verifica CoreDNS"
+      },
+      "hint": {
+        "it": "CoreDNS ha il label k8s-app=kube-dns nel namespace kube-system.",
+        "en": "CoreDNS ha il label k8s-app=kube-dns nel namespace kube-system."
+      },
       "template": [
         "kubectl get pods -n kube-system {{label_flag}} k8s-app=kube-dns"
       ],
       "answers": [
-        { "id": "label_flag", "accepted": ["-l", "--selector"], "width": "100px" }
+        {
+          "id": "label_flag",
+          "accepted": [
+            "-l",
+            "--selector"
+          ],
+          "width": "100px"
+        }
       ]
     },
     {
-      "title": "Visualizza ClusterRoles",
-      "hint": "ClusterRole è una risorsa cluster-scoped per RBAC.",
+      "title": {
+        "it": "Visualizza ClusterRoles",
+        "en": "Visualizza ClusterRoles"
+      },
+      "hint": {
+        "it": "ClusterRole è una risorsa cluster-scoped per RBAC.",
+        "en": "ClusterRole è una risorsa cluster-scoped per RBAC."
+      },
       "template": [
         "kubectl get {{resource}}"
       ],
       "answers": [
-        { "id": "resource", "accepted": ["clusterroles", "clusterrole"], "width": "140px" }
+        {
+          "id": "resource",
+          "accepted": [
+            "clusterroles",
+            "clusterrole"
+          ],
+          "width": "140px"
+        }
       ]
     },
     {
-      "title": "API Group Specifico",
-      "hint": "Usa --api-group per filtrare le risorse di un gruppo specifico.",
+      "title": {
+        "it": "API Group Specifico",
+        "en": "API Group Specifico"
+      },
+      "hint": {
+        "it": "Usa --api-group per filtrare le risorse di un gruppo specifico.",
+        "en": "Usa --api-group per filtrare le risorse di un gruppo specifico."
+      },
       "template": [
         "kubectl api-resources {{group_flag}}=apps"
       ],
       "answers": [
-        { "id": "group_flag", "accepted": ["--api-group"], "width": "120px" }
+        {
+          "id": "group_flag",
+          "accepted": [
+            "--api-group"
+          ],
+          "width": "120px"
+        }
       ]
     },
     {
-      "title": "ServiceAccounts in Tutti i Namespace",
-      "hint": "Usa --all-namespaces o -A per vedere risorse in tutti i namespace.",
+      "title": {
+        "it": "ServiceAccounts in Tutti i Namespace",
+        "en": "ServiceAccounts in Tutti i Namespace"
+      },
+      "hint": {
+        "it": "Usa --all-namespaces o -A per vedere risorse in tutti i namespace.",
+        "en": "Usa --all-namespaces o -A per vedere risorse in tutti i namespace."
+      },
       "template": [
         "kubectl get serviceaccounts {{all_ns_flag}}"
       ],
       "answers": [
-        { "id": "all_ns_flag", "accepted": ["--all-namespaces", "-A"], "width": "180px" }
+        {
+          "id": "all_ns_flag",
+          "accepted": [
+            "--all-namespaces",
+            "-A"
+          ],
+          "width": "180px"
+        }
       ]
     }
   ]

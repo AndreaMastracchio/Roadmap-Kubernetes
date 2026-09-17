@@ -1,0 +1,124 @@
+{
+  "quiz": [
+    {
+      "question": {"it": "Quale flag crea un cluster multi-nodo?", "en": "Which flag creates a multi-node cluster?"},
+      "options": ["--multi-node", "--nodes", "--cluster-size", "--replicas"],
+      "correct": 1,
+      "explanation": {"it": "'--nodes N' crea un cluster con N nodi. Il primo è il control plane, gli altri worker.", "en": "'--nodes N' creates a cluster with N nodes. The first is the control plane, others are workers."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Qual è il ruolo del primo nodo in un cluster Minikube multi-nodo?", "en": "What is the role of the first node in a multi-node Minikube cluster?"},
+      "options": ["Worker", "Control plane", "Load balancer", "Storage node"],
+      "correct": 1,
+      "explanation": {"it": "Il primo nodo esegue il control plane (API server, etcd, scheduler, controller-manager).", "en": "The first node runs the control plane (API server, etcd, scheduler, controller-manager)."},
+      "difficulty": "easy",
+      "domain": "architecture"
+    },
+    {
+      "question": {"it": "Come si aggiunge un nodo a un cluster esistente?", "en": "How do you add a node to an existing cluster?"},
+      "options": ["minikube scale --nodes +1", "minikube node add", "kubectl add node", "minikube expand"],
+      "correct": 1,
+      "explanation": {"it": "'minikube node add' aggiunge un nuovo nodo worker al profilo corrente.", "en": "'minikube node add' adds a new worker node to the current profile."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Come si elencano i nodi del cluster?", "en": "How do you list cluster nodes?"},
+      "options": ["minikube nodes", "kubectl get nodes", "minikube node list", "Entrambe B e C"],
+      "correct": 3,
+      "explanation": {"it": "'kubectl get nodes' e 'minikube node list' mostrano i nodi del cluster.", "en": "'kubectl get nodes' and 'minikube node list' show cluster nodes."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Come si rimuove un nodo specifico?", "en": "How do you remove a specific node?"},
+      "options": ["minikube node delete <nome>", "kubectl delete node <nome>", "minikube remove node <nome>", "Entrambe A e B"],
+      "correct": 3,
+      "explanation": {"it": "'minikube node delete' è il modo preferito. 'kubectl delete node' funziona ma è più manuale.", "en": "'minikube node delete' is the preferred way. 'kubectl delete node' works but is more manual."},
+      "difficulty": "medium",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "I nodi aggiuntivi sono VM o container separati?", "en": "Are additional nodes separate VMs or containers?"},
+      "options": ["Tutti nella stessa VM", "Ogni nodo è una VM/container separato", "Solo container", "Dipende dal driver"],
+      "correct": 1,
+      "explanation": {"it": "Ogni nodo è un'istanza separata (container con Docker driver, VM con VM driver).", "en": "Each node is a separate instance (container with Docker driver, VM with VM driver)."},
+      "difficulty": "medium",
+      "domain": "architecture"
+    },
+    {
+      "question": {"it": "Quale comando accede in SSH a un nodo specifico?", "en": "Which command SSHs into a specific node?"},
+      "options": ["minikube ssh --node <nome>", "kubectl ssh <nome>", "minikube node ssh <nome>", "docker exec -it <nome>"],
+      "correct": 0,
+      "explanation": {"it": "'minikube ssh --node <nome>' permette di accedere a un nodo specifico nel cluster multi-nodo.", "en": "'minikube ssh --node <name>' allows access to a specific node in the multi-node cluster."},
+      "difficulty": "medium",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Le risorse sono assegnate per nodo?", "en": "Are resources allocated per node?"},
+      "options": ["No, sono condivise", "Sì, ogni nodo ha le sue risorse", "Solo per il control plane", "Dipende dal driver"],
+      "correct": 1,
+      "explanation": {"it": "Ogni nodo riceve CPU e memoria assegnate al momento della creazione, non condivise.", "en": "Each node receives CPU and memory allocated at creation time, not shared."},
+      "difficulty": "medium",
+      "domain": "resources"
+    },
+    {
+      "question": {"it": "Come si specificano risorse diverse per i nodi worker?", "en": "How do you specify different resources for worker nodes?"},
+      "options": ["Non è possibile", "--nodes=3 --cpus=2 --memory=4096", "--extra-cpus e --extra-memory", "Solo via YAML"],
+      "correct": 2,
+      "explanation": {"it": "'--extra-cpus' e '--extra-memory' assegnano risorse ai nodi worker aggiuntivi.", "en": "'--extra-cpus' and '--extra-memory' allocate resources to additional worker nodes."},
+      "difficulty": "hard",
+      "domain": "resources"
+    },
+    {
+      "question": {"it": "Il cluster multi-nodo simula HA?", "en": "Does multi-node cluster simulate HA?"},
+      "options": ["Sì, completamente", "No, il control plane è singolo", "Solo con configurazione speciale", "Solo su cloud"],
+      "correct": 1,
+      "explanation": {"it": "Il control plane resta singolo. Per HA serve kubeadm o soluzioni cloud managed.", "en": "The control plane remains single. For HA you need kubeadm or cloud-managed solutions."},
+      "difficulty": "medium",
+      "domain": "architecture"
+    },
+    {
+      "question": {"it": "Come si ferma un nodo specifico?", "en": "How do you stop a specific node?"},
+      "options": ["minikube node stop <nome>", "kubectl cordon <nome>", "Entrambe funzionano", "Non è possibile"],
+      "correct": 2,
+      "explanation": {"it": "'minikube node stop' ferma il nodo. 'kubectl cordon' lo rende non-schedulabile.", "en": "'minikube node stop' stops the node. 'kubectl cordon' makes it unschedulable."},
+      "difficulty": "medium",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "I nodi worker possono eseguire solo pod utente?", "en": "Can worker nodes run only user pods?"},
+      "options": ["Sì, solo workload", "No, possono avere componenti di sistema", "Solo con permessi speciali", "Dipende dal namespace"],
+      "correct": 1,
+      "explanation": {"it": "I worker possono eseguire DaemonSet di sistema (CNI, monitoring, logging).", "en": "Workers can run system DaemonSets (CNI, monitoring, logging)."},
+      "difficulty": "medium",
+      "domain": "architecture"
+    },
+    {
+      "question": {"it": "Come si controlla quale nodo esegue un pod?", "en": "How do you check which node runs a pod?"},
+      "options": ["kubectl describe pod", "kubectl get pods -o wide", "Entrambe", "minikube pod list"],
+      "correct": 2,
+      "explanation": {"it": "'kubectl get pods -o wide' mostra il nodo. 'describe pod' ha più dettagli.", "en": "'kubectl get pods -o wide' shows the node. 'describe pod' has more details."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale è il numero minimo di nodi per testare scheduling?", "en": "What is the minimum number of nodes to test scheduling?"},
+      "options": ["1", "2", "3", "4"],
+      "correct": 1,
+      "explanation": {"it": "Con 2 nodi puoi testare scheduling, taints, tolerations e distribuzione dei pod.", "en": "With 2 nodes you can test scheduling, taints, tolerations and pod distribution."},
+      "difficulty": "easy",
+      "domain": "use-cases"
+    },
+    {
+      "question": {"it": "Come si fa il drain di un nodo?", "en": "How do you drain a node?"},
+      "options": ["minikube node drain <nome>", "kubectl drain <nome>", "minikube drain <nome>", "kubectl evict <nome>"],
+      "correct": 1,
+      "explanation": {"it": "'kubectl drain <node>' evacua i pod da un nodo per manutenzione.", "en": "'kubectl drain <node>' evacuates pods from a node for maintenance."},
+      "difficulty": "medium",
+      "domain": "commands"
+    }
+  ]
+}

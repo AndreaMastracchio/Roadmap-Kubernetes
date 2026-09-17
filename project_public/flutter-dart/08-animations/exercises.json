@@ -1,0 +1,184 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Pulsante Animato",
+        "en": "Animated Button"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Crea un pulsante che scala quando premuto usando AnimatedContainer.",
+        "en": "Create a button that scales when pressed using AnimatedContainer."
+      },
+      "requirements": [
+        "Usa GestureDetector per rilevare il tap",
+        "Scala il pulsante a 0.9 quando premuto",
+        "Usa una curva elastica"
+      ],
+      "starter_code": "class AnimatedButton extends StatefulWidget {\n  const AnimatedButton({super.key});\n  \n  @override\n  State<AnimatedButton> createState() => _AnimatedButtonState();\n}\n\nclass _AnimatedButtonState extends State<AnimatedButton> {\n  bool _isPressed = false;\n  \n  @override\n  Widget build(BuildContext context) {\n    // TODO: Implementa AnimatedContainer\n  }\n}"
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Fade In Image",
+        "en": "Fade In Image"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Crea un'immagine che appare con un fade in progressivo.",
+        "en": "Create an image that appears with a progressive fade in."
+      },
+      "requirements": [
+        "Usa AnimatedOpacity",
+        "Avvia con un delay di 500ms",
+        "Durata totale di 800ms"
+      ],
+      "starter_code": "class FadeInImage extends StatefulWidget {\n  const FadeInImage({super.key});\n  \n  @override\n  State<FadeInImage> createState() => _FadeInImageState();\n}"
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Cross Fade Toggle",
+        "en": "Cross Fade Toggle"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Implementa un toggle che cross-fade tra due icone.",
+        "en": "Implement a toggle that cross-fades between two icons."
+      },
+      "requirements": [
+        "Usa AnimatedCrossFade",
+        "Icone: Icons.favorite e Icons.favorite_border",
+        "Durata di 300ms"
+      ],
+      "starter_code": "class IconToggle extends StatefulWidget {\n  const IconToggle({super.key});\n  \n  @override\n  State<IconToggle> createState() => _IconToggleState();\n}"
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "AnimationController Base",
+        "en": "Basic AnimationController"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Crea un cerchio che ruota continuamente usando AnimationController.",
+        "en": "Create a circle that rotates continuously using AnimationController."
+      },
+      "requirements": [
+        "Usa SingleTickerProviderStateMixin",
+        "Animazione repeat() con reverse",
+        "Curva Curves.easeInOut"
+      ],
+      "starter_code": "class RotatingCircle extends StatefulWidget {\n  const RotatingCircle({super.key});\n  \n  @override\n  State<RotatingCircle> createState() => _RotatingCircleState();\n}"
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Tween Multi-valore",
+        "en": "Multi-value Tween"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Crea un quadrato che cambia dimensione, colore e rotazione simultaneamente.",
+        "en": "Create a square that changes size, color, and rotation simultaneously."
+      },
+      "requirements": [
+        "Usa Tween per size e ColorTween per colore",
+        "AnimatedBuilder per coordinare",
+        "Durata di 2 secondi"
+      ],
+      "starter_code": "class MultiTweenAnimation extends StatefulWidget {\n  const MultiTweenAnimation({super.key});\n  \n  @override\n  State<MultiTweenAnimation> createState() => _MultiTweenAnimationState();\n}"
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Hero Transition",
+        "en": "Hero Transition"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Implementa una transizione Hero tra lista e dettaglio prodotto.",
+        "en": "Implement a Hero transition between product list and detail."
+      },
+      "requirements": [
+        "Tag dinamico basato su ID prodotto",
+        "Hero in lista e in dettaglio",
+        "Navigazione con MaterialPageRoute"
+      ],
+      "starter_code": "class ProductListScreen extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    // TODO: Lista con Hero per ogni prodotto\n  }\n}\n\nclass ProductDetailScreen extends StatelessWidget {\n  final Product product;\n  // TODO: Hero nel dettaglio\n}"
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "Staggered List",
+        "en": "Staggered List"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Crea una lista che anima ogni elemento con un delay progressivo.",
+        "en": "Create a list that animates each item with progressive delay."
+      },
+      "requirements": [
+        "Usa Interval per delay per elemento",
+        "5 elementi con delay di 0.1s ciascuno",
+        "Animazione slide in da destra"
+      ],
+      "starter_code": "class StaggeredList extends StatefulWidget {\n  const StaggeredList({super.key});\n  \n  @override\n  State<StaggeredList> createState() => _StaggeredListState();\n}"
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "Custom Painter Animato",
+        "en": "Animated Custom Painter"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Crea un CustomPainter che disegna un cerchio che si riempie progressivamente.",
+        "en": "Create a CustomPainter that draws a circle that fills progressively."
+      },
+      "requirements": [
+        "Usa CustomPaint con CustomPainter",
+        "AnimatedBuilder per rebuild",
+        "Arc circle con sweepAngle animato"
+      ],
+      "starter_code": "class ProgressCircle extends StatefulWidget {\n  const ProgressCircle({super.key});\n  \n  @override\n  State<ProgressCircle> createState() => _ProgressCircleState();\n}\n\nclass ProgressPainter extends CustomPainter {\n  final double progress;\n  // TODO: Implementa paint\n}"
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "Lottie Controlled",
+        "en": "Controlled Lottie"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Carica un'animazione Lottie e controllala con uno slider.",
+        "en": "Load a Lottie animation and control it with a slider."
+      },
+      "requirements": [
+        "Usa Lottie.asset con AnimationController",
+        "Slider per controllare progress",
+        "Play/Pause button"
+      ],
+      "starter_code": "class ControlledLottie extends StatefulWidget {\n  const ControlledLottie({super.key});\n  \n  @override\n  State<ControlledLottie> createState() => _ControlledLottieState();\n}"
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "StateMachine Rive",
+        "en": "Rive StateMachine"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Implementa un personaggio Rive con StateMachine controllato da input.",
+        "en": "Implement a Rive character with StateMachine controlled by inputs."
+      },
+      "requirements": [
+        "Carica file .riv con StateMachineController",
+        "Input booleano per 'jump'",
+        "Input numerico per 'speed'"
+      ],
+      "starter_code": "class RiveCharacter extends StatefulWidget {\n  const RiveCharacter({super.key});\n  \n  @override\n  State<RiveCharacter> createState() => _RiveCharacterState();\n}"
+    }
+  ]
+}

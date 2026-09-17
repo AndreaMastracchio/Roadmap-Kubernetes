@@ -1,0 +1,384 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale istruzione Dockerfile viene utilizzata per definire il comando che viene eseguito quando un container avvia?",
+        "en": "Which Dockerfile instruction is used to define the command that runs when a container starts?"
+      },
+      "options": [
+        "RUN",
+        "CMD",
+        "ENTRYPOINT",
+        "EXEC"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "CMD definisce il comando predefinito eseguito all'avvio del container. Può essere sovrascritto passando argomenti a 'docker run'. ENTRYPOINT è simile ma più difficile da sovrascrivere.",
+        "en": "CMD defines the default command executed when the container starts. It can be overridden by passing arguments to 'docker run'. ENTRYPOINT is similar but harder to override."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale pattern di container viene utilizzato quando un container secondario estende o migliora la funzionalità del container principale?",
+        "en": "Which container pattern is used when a secondary container extends or enhances the main container's functionality?"
+      },
+      "options": [
+        "Ambassador pattern",
+        "Adapter pattern",
+        "Sidecar pattern",
+        "Proxy pattern"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Il sidecar pattern prevede un container secondario che coesiste con il container principale, estendendone le funzionalità (es. log forwarding, monitoring, sync).",
+        "en": "The sidecar pattern involves a secondary container that coexists with the main container, extending its functionality (e.g., log forwarding, monitoring, sync)."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "In una build multi-stage, quale parola chiave viene utilizzata per referenziare un'immagine costruita in una fase precedente?",
+        "en": "In a multi-stage build, which keyword is used to reference an image built in a previous stage?"
+      },
+      "options": [
+        "FROM",
+        "COPY --from",
+        "AS",
+        "IMPORT"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "COPY --from=<stage> permette di copiare artefatti da una fase precedente. Ogni stage può essere nominato con 'AS' nella sua istruzione FROM.",
+        "en": "COPY --from=<stage> allows copying artifacts from a previous stage. Each stage can be named using 'AS' in its FROM instruction."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale file viene utilizzato per escludere file non necessari dal contesto di build Docker?",
+        "en": "Which file is used to exclude unnecessary files from the Docker build context?"
+      },
+      "options": [
+        "Dockerfile.exclude",
+        ".dockerignore",
+        ".dockerexclude",
+        "docker.ignore"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": ".dockerignore funziona come .gitignore, escludendo file e directory dal contesto di build, riducendo dimensione e tempo di build.",
+        "en": ".dockerignore works like .gitignore, excluding files and directories from the build context, reducing build size and time."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è la pratica migliore per le istruzioni RUN in un Dockerfile?",
+        "en": "What is the best practice for RUN instructions in a Dockerfile?"
+      },
+      "options": [
+        "Usare una singola istruzione RUN per comando",
+        "Concatenare più comandi con && in una singola istruzione RUN",
+        "Evitare completamente le istruzioni RUN",
+        "Usare solo script esterni"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Concatenare comandi con && riduce i layer dell'immagine e mantiene la cache più efficiente. Ogni istruzione RUN crea un nuovo layer.",
+        "en": "Chaining commands with && reduces image layers and keeps caching more efficient. Each RUN instruction creates a new layer."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale pattern di container viene utilizzato per trasformare il formato dell'output del container principale?",
+        "en": "Which container pattern is used to transform the output format of the main container?"
+      },
+      "options": [
+        "Sidecar pattern",
+        "Ambassador pattern",
+        "Adapter pattern",
+        "Proxy pattern"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "L'adapter pattern trasforma l'output del container principale in un formato standardizzato (es. convertire log in formato JSON).",
+        "en": "The adapter pattern transforms the main container's output into a standardized format (e.g., converting logs to JSON format)."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa Kubernetes viene utilizzata per eseguire container prima che il container principale avvii?",
+        "en": "Which Kubernetes resource is used to run containers before the main container starts?"
+      },
+      "options": [
+        "Sidecar container",
+        "Init container",
+        "DaemonSet",
+        "Job"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Gli init container vengono eseguiti sequenzialmente prima del container principale. Devono completare con successo prima che il container principale avvii.",
+        "en": "Init containers run sequentially before the main container. They must complete successfully before the main container starts."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è il valore predefinito di imagePullPolicy se non viene specificato e il tag è 'latest'?",
+        "en": "What is the default value of imagePullPolicy if not specified and the tag is 'latest'?"
+      },
+      "options": [
+        "IfNotPresent",
+        "Always",
+        "Never",
+        "Latest"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Quando il tag è 'latest' o assente, imagePullPolicy predefinito è Always. Per altri tag, è IfNotPresent.",
+        "en": "When the tag is 'latest' or absent, the default imagePullPolicy is Always. For other tags, it's IfNotPresent."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "In un Pod con più container, quanti container falliti possono essere riavviati per causare un CrashLoopBackOff?",
+        "en": "In a Pod with multiple containers, how many failed container restarts can cause a CrashLoopBackOff?"
+      },
+      "options": [
+        "Dipende dalla politica di restart",
+        "Solo il container principale",
+        "Qualsiasi container nel Pod",
+        "Nessuno, i container vengono solo terminati"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Il comportamento dipende dalla restartPolicy del Pod (Always, OnFailure, Never). Con Always, i container falliti vengono riavviati con backoff esponenziale.",
+        "en": "The behavior depends on the Pod's restartPolicy (Always, OnFailure, Never). With Always, failed containers are restarted with exponential backoff."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale opzione di kubectl run crea un deployment invece di un Pod singolo?",
+        "en": "Which kubectl run option creates a deployment instead of a single Pod?"
+      },
+      "options": [
+        "--deployment",
+        "--replicas",
+        "--generator=deployment/apps.v1",
+        "Nessuna, kubectl run crea sempre solo Pod in Kubernetes v1.18+"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Da Kubernetes 1.18+, 'kubectl run' crea solo Pod. Per creare deployment, usare 'kubectl create deployment'.",
+        "en": "Since Kubernetes 1.18+, 'kubectl run' only creates Pods. To create deployments, use 'kubectl create deployment'."
+      },
+      "difficulty": "hard",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale pattern utilizza un container proxy per nascondere la complessità della connessione a servizi esterni?",
+        "en": "Which pattern uses a proxy container to hide the complexity of connecting to external services?"
+      },
+      "options": [
+        "Adapter pattern",
+        "Sidecar pattern",
+        "Ambassador pattern",
+        "Facade pattern"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "L'ambassador pattern utilizza un container proxy che gestisce le connessioni a servizi esterni, semplificando la logica del container principale.",
+        "en": "The ambassador pattern uses a proxy container that manages connections to external services, simplifying the main container's logic."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale sezione nel Dockerfile determina la directory di lavoro per le istruzioni successive?",
+        "en": "Which Dockerfile section determines the working directory for subsequent instructions?"
+      },
+      "options": [
+        "CD",
+        "WORKDIR",
+        "RUN cd",
+        "BASEDIR"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "WORKDIR imposta la directory di lavoro per le istruzioni RUN, CMD, ENTRYPOINT, COPY e ADD successive.",
+        "en": "WORKDIR sets the working directory for subsequent RUN, CMD, ENTRYPOINT, COPY, and ADD instructions."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale istruzione Docker fornisce valori predefiniti per variabili d'ambiente?",
+        "en": "Which Docker instruction provides default values for environment variables?"
+      },
+      "options": [
+        "VAR",
+        "ENV",
+        "ARG",
+        "SETENV"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ENV imposta variabili d'ambiente che persistono nel container in esecuzione. ARG è usato solo durante la build.",
+        "en": "ENV sets environment variables that persist in the running container. ARG is only used during the build."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Qual è la differenza tra CMD e ENTRYPOINT in un Dockerfile?",
+        "en": "What is the difference between CMD and ENTRYPOINT in a Dockerfile?"
+      },
+      "options": [
+        "CMD è per comandi, ENTRYPOINT per script",
+        "CMD può essere sovrascritto facilmente, ENTRYPOINT è più difficile da sovrascrivere",
+        "Non c'è differenza",
+        "ENTRYPOINT viene eseguito dopo CMD"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "CMD può essere completamente sovrascritto passando argomenti a docker run. ENTRYPOINT richiede --entrypoint per essere sovrascritto.",
+        "en": "CMD can be completely overridden by passing arguments to docker run. ENTRYPOINT requires --entrypoint to be overridden."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è il modo corretto di specificare un init container in un Pod YAML?",
+        "en": "What is the correct way to specify an init container in a Pod YAML?"
+      },
+      "options": [
+        "Nella sezione initContainers",
+        "Nella sezione containers con init: true",
+        "Prima della sezione containers",
+        "Come un container separato con tipo: init"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Gli init container sono specificati nella sezione 'initContainers' allo stesso livello di 'containers' nella specifica del Pod.",
+        "en": "Init containers are specified in the 'initContainers' section at the same level as 'containers' in the Pod spec."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale flag di kubectl è usato per esporre una porta del container in un Pod?",
+        "en": "Which kubectl flag is used to expose a container port in a Pod?"
+      },
+      "options": [
+        "--port",
+        "--expose",
+        "--container-port",
+        "Sia --port che --container-port"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "kubectl run accetta --port per specificare la porta del container. La porta viene documentata ma non crea un Service.",
+        "en": "kubectl run accepts --port to specify the container port. The port is documented but doesn't create a Service."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale strategia di build Docker sfrutta meglio la cache?",
+        "en": "Which Docker build strategy best leverages caching?"
+      },
+      "options": [
+        "Ordinare le istruzioni dalla più frequente alla meno frequente",
+        "Ordinare le istruzioni dalla meno frequente alla più frequente",
+        "Non importa l'ordine",
+        "Usare solo istruzioni COPY"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Mettere prima le istruzioni che cambiano meno frequentemente (come FROM, RUN apt-get) permette di riutilizzare la cache più efficacemente.",
+        "en": "Putting instructions that change less frequently first (like FROM, RUN apt-get) allows more effective cache reuse."
+      },
+      "difficulty": "hard",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "In una build multi-stage, cosa succede ai file intermedi non copiati nello stage finale?",
+        "en": "In a multi-stage build, what happens to intermediate files not copied to the final stage?"
+      },
+      "options": [
+        "Vengono salvati come layer nascosti",
+        "Vengono inclusi come layer vuoti",
+        "Non vengono inclusi nell'immagine finale",
+        "Generano un errore di build"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "I file non copiati nello stage finale vengono scartati, riducendo drasticamente le dimensioni dell'immagine finale.",
+        "en": "Files not copied to the final stage are discarded, drastically reducing the final image size."
+      },
+      "difficulty": "hard",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è il base image più comune per applicazioni Go in produzione?",
+        "en": "What is the most common base image for Go applications in production?"
+      },
+      "options": [
+        "golang:latest",
+        "golang:alpine",
+        "scratch o distroless",
+        "ubuntu:latest"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Per Go, si compila in un binario statico e si usa scratch o distroless come base per immagini minimali (spesso <10MB).",
+        "en": "For Go, you compile to a static binary and use scratch or distroless as base for minimal images (often <10MB)."
+      },
+      "difficulty": "hard",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale formato di Dockerfile è preferibile per applicazioni Python con dipendenze?",
+        "en": "Which Dockerfile format is preferred for Python applications with dependencies?"
+      },
+      "options": [
+        "FROM python → COPY . → RUN pip install",
+        "FROM python → COPY requirements.txt → RUN pip install → COPY .",
+        "FROM python → RUN pip install → COPY .",
+        "FROM ubuntu → RUN apt-get install python"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Copiare solo requirements.txt prima permette di cachare le dipendenze separatamente dal codice sorgente, velocizzando rebuild.",
+        "en": "Copying only requirements.txt first allows caching dependencies separately from source code, speeding up rebuilds."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    }
+  ]
+}

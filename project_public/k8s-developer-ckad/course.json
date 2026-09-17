@@ -1,9 +1,100 @@
 {
   "id": "k8s-developer-ckad",
-  "title": "Kubernetes Developer (CKAD)",
-  "description": "Tutto quello che uno sviluppatore deve sapere per far girare le app in modo efficiente e scalabile.",
+  "title": {
+    "it": "Kubernetes Developer (CKAD)",
+    "en": "Kubernetes Developer (CKAD)"
+  },
+  "description": {
+    "it": "Tutto quello che uno sviluppatore deve sapere per far girare le app in modo efficiente e scalabile su Kubernetes.",
+    "en": "Everything a developer needs to know to run applications efficiently and scalably on Kubernetes."
+  },
   "icon": "CodeIcon",
-  "price": 44.99,
-  "isPrivate": true,
-  "comingSoon": true
+  "isPrivate": false,
+  "comingSoon": false,
+  "modules": [
+    {
+      "id": "01",
+      "title": {
+        "it": "Modulo 01: Application Design & Containers",
+        "en": "Module 01: Application Design & Containers"
+      }
+    },
+    {
+      "id": "02",
+      "title": {
+        "it": "Modulo 02: Build & Image Creation",
+        "en": "Module 02: Build & Image Creation"
+      }
+    },
+    {
+      "id": "03",
+      "title": {
+        "it": "Modulo 03: Deployment Strategies",
+        "en": "Module 03: Deployment Strategies"
+      }
+    },
+    {
+      "id": "04",
+      "title": {
+        "it": "Modulo 04: Environment & Configuration",
+        "en": "Module 04: Environment & Configuration"
+      }
+    },
+    {
+      "id": "05",
+      "title": {
+        "it": "Modulo 05: Secrets & Security",
+        "en": "Module 05: Secrets & Security"
+      }
+    },
+    {
+      "id": "06",
+      "title": {
+        "it": "Modulo 06: Health Probes & Readiness",
+        "en": "Module 06: Health Probes & Readiness"
+      }
+    },
+    {
+      "id": "07",
+      "title": {
+        "it": "Modulo 07: Observability & Debugging",
+        "en": "Module 07: Observability & Debugging"
+      }
+    },
+    {
+      "id": "08",
+      "title": {
+        "it": "Modulo 08: Services & Networking",
+        "en": "Module 08: Services & Networking"
+      }
+    },
+    {
+      "id": "09",
+      "title": {
+        "it": "Modulo 09: Storage & Persistent Volumes",
+        "en": "Module 09: Storage & Persistent Volumes"
+      }
+    },
+    {
+      "id": "10",
+      "title": {
+        "it": "Modulo 10: Troubleshooting Mastery",
+        "en": "Module 10: Troubleshooting Mastery"
+      }
+    }
+  ],
+  "duration": {
+    "it": "20 ore",
+    "en": "20 hours"
+  },
+  "color": "#00897b",
+  "languages": [
+    "it",
+    "en"
+  ],
+  "name": {
+    "it": "Kubernetes Developer (CKAD)",
+    "en": "Kubernetes Developer (CKAD)"
+  },
+  "group": "certifications"
 }

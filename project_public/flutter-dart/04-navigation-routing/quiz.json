@@ -1,0 +1,439 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Cosa fa Navigator.push()?",
+        "en": "What does Navigator.push() do?"
+      },
+      "options": [
+        {
+          "it": "Rimuove la schermata corrente",
+          "en": "Removes the current screen"
+        },
+        {
+          "it": "Aggiunge una nuova schermata allo stack di navigazione",
+          "en": "Adds a new screen to the navigation stack"
+        },
+        {
+          "it": "Sostituisce la schermata corrente",
+          "en": "Replaces the current screen"
+        },
+        {
+          "it": "Chiude l'app",
+          "en": "Closes the app"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Navigator.push() aggiunge una nuova Route in cima allo stack, permettendo di navigare a una nuova schermata mantenendo quella precedente.",
+        "en": "Navigator.push() adds a new Route on top of the stack, allowing navigation to a new screen while keeping the previous one."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si ritorna un valore da una schermata chiusa?",
+        "en": "How do you return a value from a closed screen?"
+      },
+      "options": [
+        {
+          "it": "Con setState()",
+          "en": "With setState()"
+        },
+        {
+          "it": "Passandolo come parametro a Navigator.pop()",
+          "en": "Passing it as parameter to Navigator.pop()"
+        },
+        {
+          "it": "Non è possibile",
+          "en": "It's not possible"
+        },
+        {
+          "it": "Con un callback globale",
+          "en": "With a global callback"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Navigator.pop(context, valore) permette di ritornare un valore alla schermata chiamante, che può aspettarlo con await.",
+        "en": "Navigator.pop(context, value) allows returning a value to the calling screen, which can await it."
+      }
+    },
+    {
+      "question": {
+        "it": "Qual è lo scopo delle named routes?",
+        "en": "What is the purpose of named routes?"
+      },
+      "options": [
+        {
+          "it": "Rendere la navigazione più lenta",
+          "en": "Make navigation slower"
+        },
+        {
+          "it": "Definire rotte in un punto centrale e riferirsi a esse per nome",
+          "en": "Define routes in a central place and refer to them by name"
+        },
+        {
+          "it": "Solo per deep linking",
+          "en": "Only for deep linking"
+        },
+        {
+          "it": "Sono deprecate",
+          "en": "They are deprecated"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Le named routes permettono di centralizzare la definizione delle rotte nel MaterialApp e usarle con nomi stringa.",
+        "en": "Named routes allow centralizing route definitions in MaterialApp and use them with string names."
+      }
+    },
+    {
+      "question": {
+        "it": "A cosa serve onGenerateRoute?",
+        "en": "What is onGenerateRoute used for?"
+      },
+      "options": [
+        {
+          "it": "Generare widget casuali",
+          "en": "Generate random widgets"
+        },
+        {
+          "it": "Gestire rotte dinamicamente con logica personalizzata",
+          "en": "Handle routes dynamically with custom logic"
+        },
+        {
+          "it": "Creare animazioni",
+          "en": "Create animations"
+        },
+        {
+          "it": "Ottimizzare performance",
+          "en": "Optimize performance"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "onGenerateRoute viene chiamato per ogni rotta e permette di gestire parametri, logica condizionale e creazione dinamica di pagine.",
+        "en": "onGenerateRoute is called for each route and allows handling parameters, conditional logic, and dynamic page creation."
+      }
+    },
+    {
+      "question": {
+        "it": "Vantaggio principale di GoRouter rispetto a Navigator?",
+        "en": "Main advantage of GoRouter over Navigator?"
+      },
+      "options": [
+        {
+          "it": "È più vecchio",
+          "en": "It's older"
+        },
+        {
+          "it": "API dichiarativa, deep linking automatico, gestione stato URL",
+          "en": "Declarative API, automatic deep linking, URL state management"
+        },
+        {
+          "it": "Usa meno memoria",
+          "en": "Uses less memory"
+        },
+        {
+          "it": "Nessun vantaggio",
+          "en": "No advantage"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "GoRouter offre navigazione dichiarativa, supporto nativo per deep linking, URL sincronizzati e shell route per layout condivisi.",
+        "en": "GoRouter offers declarative navigation, native deep linking support, synchronized URLs, and shell routes for shared layouts."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si accede a un parametro di path in GoRouter?",
+        "en": "How do you access a path parameter in GoRouter?"
+      },
+      "options": [
+        {
+          "it": "Con Navigator.getParam()",
+          "en": "With Navigator.getParam()"
+        },
+        {
+          "it": "Con state.pathParameters['nome']",
+          "en": "With state.pathParameters['name']"
+        },
+        {
+          "it": "Non è possibile",
+          "en": "It's not possible"
+        },
+        {
+          "it": "Solo con Provider",
+          "en": "Only with Provider"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "In GoRouter, state.pathParameters contiene tutti i parametri definiti nel path (es. /prodotto/:id → id).",
+        "en": "In GoRouter, state.pathParameters contains all parameters defined in the path (e.g., /product/:id → id)."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa fa ShellRoute in GoRouter?",
+        "en": "What does ShellRoute do in GoRouter?"
+      },
+      "options": [
+        {
+          "it": "Crea animazioni di transizione",
+          "en": "Creates transition animations"
+        },
+        {
+          "it": "Permette layout condivisi (navbar, sidebar) attorno a più rotte",
+          "en": "Allows shared layouts (navbar, sidebar) around multiple routes"
+        },
+        {
+          "it": "Gestisce gli errori",
+          "en": "Handles errors"
+        },
+        {
+          "it": "Ottimizza la memoria",
+          "en": "Optimizes memory"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ShellRoute avvolge un gruppo di rotte con un widget comune, perfetto per bottom navigation bar o sidebar persistenti.",
+        "en": "ShellRoute wraps a group of routes with a common widget, perfect for persistent bottom navigation bar or sidebars."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si legge un argument passato con Navigator.pushNamed?",
+        "en": "How do you read an argument passed with Navigator.pushNamed?"
+      },
+      "options": [
+        {
+          "it": "Router.getArgument()",
+          "en": "Router.getArgument()"
+        },
+        {
+          "it": "ModalRoute.of(context)!.settings.arguments",
+          "en": "ModalRoute.of(context)!.settings.arguments"
+        },
+        {
+          "it": "RouteSettings.argument",
+          "en": "RouteSettings.argument"
+        },
+        {
+          "it": "Navigator.argument",
+          "en": "Navigator.argument"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ModalRoute.of(context)!.settings.arguments contiene il valore passato come arguments in pushNamed.",
+        "en": "ModalRoute.of(context)!.settings.arguments contains the value passed as arguments in pushNamed."
+      }
+    },
+    {
+      "question": {
+        "it": "Navigator.pushNamedAndRemoveUntil fa cosa?",
+        "en": "What does Navigator.pushNamedAndRemoveUntil do?"
+      },
+      "options": [
+        {
+          "it": "Aggiunge una rotta in cima",
+          "en": "Adds a route on top"
+        },
+        {
+          "it": "Pusha una nuova rotta e rimuove tutte le rotte che soddisfano il predicato",
+          "en": "Pushes a new route and removes all routes matching the predicate"
+        },
+        {
+          "it": "Non esiste",
+          "en": "Doesn't exist"
+        },
+        {
+          "it": "È equivalente a push",
+          "en": "Is equivalent to push"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "pushNamedAndRemoveUntil naviga a una rotta e rimuove quelle sottostanti. Utile per logout (torna a login rimuovendo tutto).",
+        "en": "pushNamedAndRemoveUntil navigates to a route and removes those below. Useful for logout (return to login removing everything)."
+      }
+    },
+    {
+      "question": {
+        "it": "Qual è il vantaggio di context.go() vs context.push() in GoRouter?",
+        "en": "What's the advantage of context.go() vs context.push() in GoRouter?"
+      },
+      "options": [
+        {
+          "it": "go() è più lento",
+          "en": "go() is slower"
+        },
+        {
+          "it": "go() sostituisce la URL corrente, push() aggiunge allo stack",
+          "en": "go() replaces current URL, push() adds to stack"
+        },
+        {
+          "it": "Sono identici",
+          "en": "They are identical"
+        },
+        {
+          "it": "push() è deprecato",
+          "en": "push() is deprecated"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "go() aggiorna l'URL sostituendo la rotta corrente (no stack), push() mantiene lo stack. go() per navigation bar, push() per drill-down.",
+        "en": "go() updates URL replacing current route (no stack), push() maintains stack. go() for nav bar, push() for drill-down."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si implementano query parameters in GoRouter?",
+        "en": "How do you implement query parameters in GoRouter?"
+      },
+      "options": [
+        {
+          "it": "Non supportati",
+          "en": "Not supported"
+        },
+        {
+          "it": "state.uri.queryParameters['nome']",
+          "en": "state.uri.queryParameters['name']"
+        },
+        {
+          "it": "Solo via Provider",
+          "en": "Only via Provider"
+        },
+        {
+          "it": "Router.queryParam()",
+          "en": "Router.queryParam()"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "state.uri.queryParameters è una Map che contiene tutti i parametri query passati nell'URL.",
+        "en": "state.uri.queryParameters is a Map containing all query parameters passed in the URL."
+      }
+    },
+    {
+      "question": {
+        "it": "Navigation 2.0 si usa quando?",
+        "en": "When is Navigation 2.0 used?"
+      },
+      "options": [
+        {
+          "it": "Mai, è deprecata",
+          "en": "Never, it's deprecated"
+        },
+        {
+          "it": "Per casi complessi: deep linking, browser URL sincrono, stato navigazione gestito esternamente",
+          "en": "For complex cases: deep linking, synchronized browser URL, externally managed navigation state"
+        },
+        {
+          "it": "Solo in sviluppo",
+          "en": "Only in development"
+        },
+        {
+          "it": "Per app molto piccole",
+          "en": "For very small apps"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Navigation 2.0 (RouterDelegate) serve per casi complessi dove Navigator semplice non basta. GoRouter lo astrae per noi.",
+        "en": "Navigation 2.0 (RouterDelegate) serves complex cases where simple Navigator isn't enough. GoRouter abstracts it for us."
+      }
+    },
+    {
+      "question": {
+        "it": "Come si implementa un redirect condizionale in GoRouter?",
+        "en": "How do you implement a conditional redirect in GoRouter?"
+      },
+      "options": [
+        {
+          "it": "Nel builder di ogni rotta",
+          "en": "In each route's builder"
+        },
+        {
+          "it": "Con la funzione redirect nel GoRouter",
+          "en": "With the redirect function in GoRouter"
+        },
+        {
+          "it": "Non è possibile",
+          "en": "It's not possible"
+        },
+        {
+          "it": "Solo con BLoC",
+          "en": "Only with BLoC"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "La funzione redirect: (context, state) → String? permette di controllare e reindirizzare prima che la rotta venga mostrata.",
+        "en": "The redirect: (context, state) → String? function allows checking and redirecting before the route is shown."
+      }
+    },
+    {
+      "question": {
+        "it": "Cos'è un deep link?",
+        "en": "What is a deep link?"
+      },
+      "options": [
+        {
+          "it": "Un link molto lungo",
+          "en": "A very long link"
+        },
+        {
+          "it": "Un URL che apre l'app direttamente su una schermata specifica",
+          "en": "A URL that opens the app directly to a specific screen"
+        },
+        {
+          "it": "Un tipo di animazione",
+          "en": "A type of animation"
+        },
+        {
+          "it": "Un widget",
+          "en": "A widget"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "I deep link permettono di aprire un'app a una schermata specifica tramite URL, es: myapp://prodotto/123.",
+        "en": "Deep links allow opening an app to a specific screen via URL, e.g., myapp://product/123."
+      }
+    },
+    {
+      "question": {
+        "it": "Dove si configura il deep linking su Android?",
+        "en": "Where is deep linking configured on Android?"
+      },
+      "options": [
+        {
+          "it": "Nel file main.dart",
+          "en": "In the main.dart file"
+        },
+        {
+          "it": "Nel file AndroidManifest.xml",
+          "en": "In the AndroidManifest.xml file"
+        },
+        {
+          "it": "Non serve configurazione",
+          "en": "No configuration needed"
+        },
+        {
+          "it": "Nel file pubspec.yaml",
+          "en": "In the pubspec.yaml file"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Su Android, il deep linking si configura in AndroidManifest.xml con intent-filter che specifica scheme e host.",
+        "en": "On Android, deep linking is configured in AndroidManifest.xml with intent-filter specifying scheme and host."
+      }
+    }
+  ]
+}

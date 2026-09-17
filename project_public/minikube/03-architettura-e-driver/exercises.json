@@ -1,40 +1,54 @@
 {
-  "quiz": [
-    {
-      "id": "q1",
-      "question": "Quale driver di Minikube è considerato il più leggero e veloce?",
-      "options": [
-        "VirtualBox",
-        "VMware",
-        "Docker",
-        "Hyper-V"
-      ],
-      "correct": 2,
-      "explanation": "Docker è il driver consigliato perché evita il sovraccarico di una macchina virtuale completa."
-    },
-    {
-      "id": "q2",
-      "question": "Come si imposta il driver Docker come predefinito per i futuri avvii?",
-      "options": [
-        "minikube set driver docker",
-        "minikube config set driver docker",
-        "minikube start --driver=docker",
-        "minikube init docker"
-      ],
-      "correct": 1,
-      "explanation": "Il comando 'minikube config set driver docker' salva la preferenza in modo persistente."
-    }
-  ],
   "exercises": [
     {
-      "id": "e1",
-      "title": "Configurazione Driver",
-      "hint": "Imposta il driver virtualbox come predefinito",
-      "template": ["minikube config set {{param}} {{value}}"],
-      "answers": [
-        { "id": "param", "accepted": ["driver"], "placeholder": "parametro" },
-        { "id": "value", "accepted": ["virtualbox"], "placeholder": "valore" }
-      ]
+      "title": {"it": "Ispeziona il Nodo Minikube", "en": "Inspect the Minikube Node"},
+      "description": {"it": "Entra in SSH nel nodo e esplora i componenti Kubernetes in esecuzione.", "en": "SSH into the node and explore the running Kubernetes components."},
+      "hint": {"it": "Usa 'minikube ssh' poi 'docker ps' per vedere i container del control plane.", "en": "Use 'minikube ssh' then 'docker ps' to see control plane containers."}
+    },
+    {
+      "title": {"it": "Identifica i Container Runtime", "en": "Identify Container Runtimes"},
+      "description": {"it": "Determina quale container runtime sta usando il cluster Minikube.", "en": "Determine which container runtime the Minikube cluster is using."},
+      "hint": {"it": "In SSH: 'docker info' o 'crictl --version' rivelano il runtime.", "en": "In SSH: 'docker info' or 'crictl --version' reveal the runtime."}
+    },
+    {
+      "title": {"it": "Trova l'IP del Cluster", "en": "Find the Cluster IP"},
+      "description": {"it": "Ottieni l'indirizzo IP del nodo Minikube e verifica la raggiungibilità.", "en": "Get the IP address of the Minikube node and verify reachability."},
+      "hint": {"it": "'minikube ip' mostra l'IP. Prova 'ping' o 'curl' verso quel nodo.", "en": "'minikube ip' shows the IP. Try 'ping' or 'curl' to that node."}
+    },
+    {
+      "title": {"it": "Esplora la Configurazione", "en": "Explore Configuration"},
+      "description": {"it": "Esamina il file di configurazione di Minikube.", "en": "Examine Minikube's configuration file."},
+      "hint": {"it": "Il file è in ~/.minikube/config/config.json. Usa 'cat' o 'minikube config view'.", "en": "The file is in ~/.minikube/config/config.json. Use 'cat' or 'minikube config view'."}
+    },
+    {
+      "title": {"it": "Verifica Certificati", "en": "Verify Certificates"},
+      "description": {"it": "Trova e ispeziona i certificati TLS usati dal cluster.", "en": "Find and inspect the TLS certificates used by the cluster."},
+      "hint": {"it": "I cert sono in ~/.minikube/ o in /var/lib/minikube/certs dentro il nodo.", "en": "Certs are in ~/.minikube/ or in /var/lib/minikube/certs inside the node."}
+    },
+    {
+      "title": {"it": "Confronta Driver Docker vs VM", "en": "Compare Docker vs VM Drivers"},
+      "description": {"it": "Avvia un cluster con driver Docker e uno con VirtualBox, confronta i tempi.", "en": "Start a cluster with Docker driver and one with VirtualBox, compare times."},
+      "hint": {"it": "'time minikube start --driver=docker' vs 'time minikube start --driver=virtualbox'.", "en": "'time minikube start --driver=docker' vs 'time minikube start --driver=virtualbox'."}
+    },
+    {
+      "title": {"it": "Ottieni Info API Server", "en": "Get API Server Info"},
+      "description": {"it": "Recupera informazioni dettagliate sull'API server Kubernetes.", "en": "Retrieve detailed information about the Kubernetes API server."},
+      "hint": {"it": "'kubectl cluster-info' mostra endpoint. 'kubectl get --raw='/healthz' per health check.", "en": "'kubectl cluster-info' shows endpoints. 'kubectl get --raw='/healthz' for health check."}
+    },
+    {
+      "title": {"it": "Esamina etcd", "en": "Examine etcd"},
+      "description": {"it": "Verifica che etcd sia in esecuzione e integro.", "en": "Verify that etcd is running and healthy."},
+      "hint": {"it": "In SSH: 'docker ps | grep etcd' o 'kubectl get pods -n kube-system | grep etcd'.", "en": "In SSH: 'docker ps | grep etcd' or 'kubectl get pods -n kube-system | grep etcd'."}
+    },
+    {
+      "title": {"it": "Testa Docker Environment", "en": "Test Docker Environment"},
+      "description": {"it": "Configura l'ambiente Docker per puntare a Minikube ed esegui un container.", "en": "Configure Docker environment to point to Minikube and run a container."},
+      "hint": {"it": "'eval $(minikube docker-env)' poi 'docker run hello-world'.", "en": "'eval $(minikube docker-env)' then 'docker run hello-world'."}
+    },
+    {
+      "title": {"it": "Diagramma Architettura", "en": "Architecture Diagram"},
+      "description": {"it": "Disegna un diagramma dei componenti del tuo cluster Minikube.", "en": "Draw a diagram of your Minikube cluster components."},
+      "hint": {"it": "Includi: control plane pods, kubelet, kube-proxy, container runtime, rete.", "en": "Include: control plane pods, kubelet, kube-proxy, container runtime, network."}
     }
   ]
 }

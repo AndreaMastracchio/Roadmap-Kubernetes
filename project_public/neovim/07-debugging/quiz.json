@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Cosa significa DAP?",
+        "en": "What does DAP stand for?"
+      },
+      "options": [
+        "Debug Application Protocol",
+        "Debug Adapter Protocol",
+        "Development Adapter Protocol",
+        "Debug Application Platform"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "DAP sta per Debug Adapter Protocol, un protocollo standardizzato per la comunicazione tra editor e debugger.",
+        "en": "DAP stands for Debug Adapter Protocol, a standardized protocol for communication between editors and debuggers."
+      }
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Quale plugin fornisce l'interfaccia grafica per DAP?",
+        "en": "Which plugin provides the GUI for DAP?"
+      },
+      "options": [
+        "nvim-dap",
+        "nvim-dap-ui",
+        "mason-nvim-dap",
+        "nvim-dap-virtual-text"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "nvim-dap-ui fornisce un'interfaccia grafica completa con pannelli per variabili, stack, etc.",
+        "en": "nvim-dap-ui provides a complete graphical interface with panels for variables, stack, etc."
+      }
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Quale tasto è convenzione per 'Continue' nel debug?",
+        "en": "Which key is conventionally used for 'Continue' debugging?"
+      },
+      "options": [
+        "F1",
+        "F5",
+        "F10",
+        "F12"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "F5 è lo standard per Continue, ereditato da VS Code e altri IDE.",
+        "en": "F5 is the standard for Continue, inherited from VS Code and other IDEs."
+      }
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Quale comando aggiunge un breakpoint condizionale?",
+        "en": "Which command adds a conditional breakpoint?"
+      },
+      "options": [
+        "dap.toggle_breakpoint()",
+        "dap.add_condition()",
+        "dap.set_breakpoint(condition)",
+        "dap.conditional_breakpoint()"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "dap.set_breakpoint(condition) permette di specificare una condizione per il breakpoint.",
+        "en": "dap.set_breakpoint(condition) allows specifying a condition for the breakpoint."
+      }
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Quale debug adapter è usato per Python?",
+        "en": "Which debug adapter is used for Python?"
+      },
+      "options": [
+        "delve",
+        "codelldb",
+        "debugpy",
+        "js-debug"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "debugpy è l'adapter ufficiale per Python, installabile tramite Mason.",
+        "en": "debugpy is the official adapter for Python, installable through Mason."
+      }
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Cosa fa 'Step Over'?",
+        "en": "What does 'Step Over' do?"
+      },
+      "options": [
+        "Entra nella funzione chiamata",
+        "Salta l'istruzione corrente",
+        "Esegue la funzione senza entrare",
+        "Esce dalla funzione corrente"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Step Over esegue la riga corrente senza entrare nelle funzioni chiamate.",
+        "en": "Step Over executes the current line without entering called functions."
+      }
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Quale plugin mostra i valori delle variabili inline?",
+        "en": "Which plugin shows variable values inline?"
+      },
+      "options": [
+        "nvim-dap-ui",
+        "nvim-dap-virtual-text",
+        "telescope-dap",
+        "mason-nvim-dap"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "nvim-dap-virtual-text mostra i valori come virtual text accanto alle variabili.",
+        "en": "nvim-dap-virtual-text shows values as virtual text next to variables."
+      }
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Come si apre la DAP UI manualmente?",
+        "en": "How do you open DAP UI manually?"
+      },
+      "options": [
+        "dap.open()",
+        "dapui.toggle()",
+        "require('dap').ui()",
+        ":DapUIOpen"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "dapui.toggle() apre o chiude l'interfaccia grafica.",
+        "en": "dapui.toggle() opens or closes the graphical interface."
+      }
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Quale adapter si usa per Go?",
+        "en": "Which adapter is used for Go?"
+      },
+      "options": [
+        "debugpy",
+        "delve",
+        "codelldb",
+        "js-debug"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Delve è il debugger nativo per Go, con adapter DAP dedicato.",
+        "en": "Delve is the native debugger for Go, with a dedicated DAP adapter."
+      }
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Cosa è un 'Watch Expression'?",
+        "en": "What is a 'Watch Expression'?"
+      },
+      "options": [
+        "Un breakpoint con log",
+        "Una variabile da monitorare",
+        "Un comando di stepping",
+        "Una configurazione di avvio"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Una Watch Expression è un'espressione monitorata il cui valore viene aggiornato durante l'esecuzione.",
+        "en": "A Watch Expression is a monitored expression whose value updates during execution."
+      }
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Come si termina una sessione di debug?",
+        "en": "How do you terminate a debug session?"
+      },
+      "options": [
+        "dap.stop()",
+        "dap.terminate()",
+        "dap.quit()",
+        "dap.end()"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "dap.terminate() ferma la sessione di debug e chiude il processo.",
+        "en": "dap.terminate() stops the debug session and closes the process."
+      }
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Quale tasto è usato per 'Step Into'?",
+        "en": "Which key is used for 'Step Into'?"
+      },
+      "options": [
+        "F5",
+        "F10",
+        "F11",
+        "F12"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "F11 è la convenzione standard per Step Into (entrare nella funzione).",
+        "en": "F11 is the standard convention for Step Into (enter the function)."
+      }
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Cosa fa dap.run_to_cursor()?",
+        "en": "What does dap.run_to_cursor() do?"
+      },
+      "options": [
+        "Esegue fino al prossimo breakpoint",
+        "Esegue fino alla riga del cursore",
+        "Esegue l'intero programma",
+        "Salta alla riga del cursore"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "run_to_cursor esegue il codice fino a raggiungere la riga dove si trova il cursore.",
+        "en": "run_to_cursor executes code until reaching the line where the cursor is positioned."
+      }
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Come si aggiunge un breakpoint che logga un messaggio?",
+        "en": "How do you add a breakpoint that logs a message?"
+      },
+      "options": [
+        "dap.log_point()",
+        "dap.set_breakpoint(nil, nil, msg)",
+        "dap.message_breakpoint(msg)",
+        "dap.print(msg)"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il terzo parametro di set_breakpoint è il messaggio di log per i log points.",
+        "en": "The third parameter of set_breakpoint is the log message for log points."
+      }
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Quale plugin installa automaticamente i debug adapter?",
+        "en": "Which plugin automatically installs debug adapters?"
+      },
+      "options": [
+        "nvim-dap",
+        "nvim-dap-ui",
+        "mason-nvim-dap",
+        "nvim-dap-virtual-text"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "mason-nvim-dap integra Mason per installare automaticamente gli adapter necessari.",
+        "en": "mason-nvim-dap integrates Mason to automatically install required adapters."
+      }
+    }
+  ]
+}

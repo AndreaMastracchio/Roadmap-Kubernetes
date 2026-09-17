@@ -1,0 +1,124 @@
+{
+  "quiz": [
+    {
+      "question": {"it": "Quale comando mostra lo stato di tutti i componenti Minikube?", "en": "Which command shows the status of all Minikube components?"},
+      "options": ["minikube info", "minikube status", "minikube health", "kubectl status"],
+      "correct": 1,
+      "explanation": {"it": "'minikube status' mostra lo stato di host, kubelet, apiserver, kubeconfig e docker.", "en": "'minikube status' shows the state of host, kubelet, apiserver, kubeconfig, and docker."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale comando elenca tutti i comandi disponibili di Minikube?", "en": "Which command lists all available Minikube commands?"},
+      "options": ["minikube help", "minikube --help", "minikube list", "Entrambe A e B"],
+      "correct": 3,
+      "explanation": {"it": "Sia 'minikube help' che 'minikube --help' mostrano tutti i comandi disponibili.", "en": "Both 'minikube help' and 'minikube --help' show all available commands."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Come si verifica la versione di Kubernetes nel cluster?", "en": "How do you check the Kubernetes version in the cluster?"},
+      "options": ["minikube version", "kubectl version", "minikube kubectl version", "Entrambe B e C"],
+      "correct": 3,
+      "explanation": {"it": "'kubectl version' e 'minikube kubectl version' mostrano la versione del cluster.", "en": "'kubectl version' and 'minikube kubectl version' show the cluster version."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale comando mostra la configurazione salvata?", "en": "Which command shows the saved configuration?"},
+      "options": ["minikube config list", "minikube config view", "minikube show-config", "kubectl config view"],
+      "correct": 1,
+      "explanation": {"it": "'minikube config view' mostra tutte le impostazioni salvate.", "en": "'minikube config view' shows all saved settings."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Come si ottiene aiuto su un comando specifico?", "en": "How do you get help on a specific command?"},
+      "options": ["minikube <cmd> help", "minikube <cmd> --help", "minikube --help <cmd>", "Entrambe B e C"],
+      "correct": 3,
+      "explanation": {"it": "'minikube <cmd> --help' e 'minikube --help <cmd>' mostrano aiuto specifico.", "en": "'minikube <cmd> --help' and 'minikube --help <cmd>' show specific help."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale workflow è comune per uno sviluppo locale?", "en": "What is a common workflow for local development?"},
+      "options": ["start -> build -> deploy -> test -> stop", "build -> start -> deploy -> test", "start -> deploy -> build -> test", "deploy -> start -> test -> build"],
+      "correct": 0,
+      "explanation": {"it": "Flusso tipico: avvi cluster, build immagini, deploy manifest, test, e ferma quando finito.", "en": "Typical flow: start cluster, build images, deploy manifests, test, and stop when done."},
+      "difficulty": "easy",
+      "domain": "workflow"
+    },
+    {
+      "question": {"it": "Come si fa troubleshooting di un pod in CrashLoopBackOff?", "en": "How do you troubleshoot a pod in CrashLoopBackOff?"},
+      "options": ["minikube logs <pod>", "kubectl logs <pod> e kubectl describe pod <pod>", "minikube debug <pod>", "kubectl fix <pod>"],
+      "correct": 1,
+      "explanation": {"it": "'kubectl logs' mostra l'output, 'kubectl describe' mostra eventi e stato.", "en": "'kubectl logs' shows output, 'kubectl describe' shows events and status."},
+      "difficulty": "medium",
+      "domain": "troubleshooting"
+    },
+    {
+      "question": {"it": "Dove si trovano i log di Minikube?", "en": "Where are Minikube logs located?"},
+      "options": ["Solo in console", "~/.minikube/logs/", "/var/log/minikube/", "Entrambe B e C"],
+      "correct": 3,
+      "explanation": {"it": "I log sono in ~/.minikube/logs/ sull'host e in /var/log/ dentro il nodo.", "en": "Logs are in ~/.minikube/logs/ on host and in /var/log/ inside the node."},
+      "difficulty": "medium",
+      "domain": "troubleshooting"
+    },
+    {
+      "question": {"it": "Quale comando verifica che il cluster sia accessibile?", "en": "Which command verifies the cluster is accessible?"},
+      "options": ["minikube ping", "kubectl cluster-info", "minikube health", "kubectl get cluster"],
+      "correct": 1,
+      "explanation": {"it": "'kubectl cluster-info' verifica che l'API server risponda.", "en": "'kubectl cluster-info' verifies the API server is responding."},
+      "difficulty": "easy",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Come si resetta completamente Minikube?", "en": "How do you completely reset Minikube?"},
+      "options": ["minikube reset", "minikube delete --all --purge", "minikube destroy", "Entrambe B e C"],
+      "correct": 1,
+      "explanation": {"it": "'minikube delete --all --purge' elimina tutti i profili e i dati.", "en": "'minikube delete --all --purge' deletes all profiles and data."},
+      "difficulty": "medium",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale problema comune causa errori 'ImagePullBackOff'?", "en": "What common issue causes 'ImagePullBackOff' errors?"},
+      "options": ["Cluster down", "Immagine non presente o non accessibile", "Troppi pod", "Porta occupata"],
+      "correct": 1,
+      "explanation": {"it": "L'immagine non esiste nel registry o non è accessibile (autenticazione, rete).", "en": "The image doesn't exist in the registry or isn't accessible (auth, network)."},
+      "difficulty": "medium",
+      "domain": "troubleshooting"
+    },
+    {
+      "question": {"it": "Come si aggiorna Minikube?", "en": "How do you update Minikube?"},
+      "options": ["minikube update", "brew upgrade minikube (macOS) / reinstallazione", "minikube upgrade", "kubectl update minikube"],
+      "correct": 1,
+      "explanation": {"it": "Si reinstalla con il package manager usato inizialmente (brew, apt, chocolatey).", "en": "Reinstall using the package manager used initially (brew, apt, chocolatey)."},
+      "difficulty": "easy",
+      "domain": "maintenance"
+    },
+    {
+      "question": {"it": "Quale flag riavvia Minikube con nuova versione Kubernetes?", "en": "Which flag restarts Minikube with a new Kubernetes version?"},
+      "options": ["--update", "--kubernetes-version", "--upgrade-k8s", "--force-version"],
+      "correct": 1,
+      "explanation": {"it": "'--kubernetes-version=v1.29.0' specifica la versione desiderata all'avvio.", "en": "'--kubernetes-version=v1.29.0' specifies the desired version at startup."},
+      "difficulty": "medium",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Come si controlla l'uso di risorse del cluster?", "en": "How do you check cluster resource usage?"},
+      "options": ["minikube stats", "kubectl top nodes && kubectl top pods", "kubectl stats", "minikube resources"],
+      "correct": 1,
+      "explanation": {"it": "'kubectl top' richiede metrics-server abilitato.", "en": "'kubectl top' requires metrics-server enabled."},
+      "difficulty": "medium",
+      "domain": "commands"
+    },
+    {
+      "question": {"it": "Quale è la pratica migliore per evitare problemi di porta?", "en": "What's the best practice to avoid port conflicts?"},
+      "options": ["Usare solo NodePort", "Non esporre le stesse porte su profili diversi contemporaneamente", "Usare solo ClusterIP", "Riavviare Minikube spesso"],
+      "correct": 1,
+      "explanation": {"it": "Più cluster condividono le porte host, quindi attenzione a servizi esposti contemporaneamente.", "en": "Multiple clusters share host ports, so be careful with services exposed simultaneously."},
+      "difficulty": "medium",
+      "domain": "best-practices"
+    }
+  ]
+}

@@ -1,0 +1,384 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale tipo di probe verifica se un container è in esecuzione e riavvia il container se il probe fallisce?",
+        "en": "Which probe type checks if a container is running and restarts the container if the probe fails?"
+      },
+      "options": [
+        "readinessProbe",
+        "livenessProbe",
+        "startupProbe",
+        "lifecycle"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il livenessProbe verifica se il container è ancora in esecuzione. Se fallisce, Kubernetes riavvia il container secondo la restartPolicy del pod.",
+        "en": "The livenessProbe checks if the container is still running. If it fails, Kubernetes restarts the container according to the pod's restartPolicy."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale probe impedisce a un pod di ricevere traffico fino a quando non è pronto a gestirlo?",
+        "en": "Which probe prevents a pod from receiving traffic until it's ready to handle it?"
+      },
+      "options": [
+        "livenessProbe",
+        "readinessProbe",
+        "startupProbe",
+        "initProbe"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il readinessProbe controlla se il container è pronto a servire richieste. Se fallisce, il pod viene rimosso dagli endpoint dei Service.",
+        "en": "The readinessProbe checks if the container is ready to serve requests. If it fails, the pod is removed from Service endpoints."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale parametro specifica quanto tempo attendere dopo l'avvio del container prima di iniziare i probe?",
+        "en": "Which parameter specifies how long to wait after the container starts before beginning probes?"
+      },
+      "options": [
+        "periodSeconds",
+        "timeoutSeconds",
+        "initialDelaySeconds",
+        "successThreshold"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "initialDelaySeconds indica quanti secondi attendere dopo l'avvio del container prima di iniziare a eseguire i probe.",
+        "en": "initialDelaySeconds indicates how many seconds to wait after the container starts before beginning to execute probes."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di handler probe esegue un comando all'interno del container?",
+        "en": "Which probe handler type executes a command inside the container?"
+      },
+      "options": [
+        "httpGet",
+        "tcpSocket",
+        "exec",
+        "grpc"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Il handler exec esegue un comando direttamente all'interno del container. Il probe ha successo se il comando termina con codice 0.",
+        "en": "The exec handler runs a command directly inside the container. The probe succeeds if the command exits with code 0."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale probe è utile per le applicazioni che richiedono molto tempo per l'avvio?",
+        "en": "Which probe is useful for applications that take a long time to start?"
+      },
+      "options": [
+        "livenessProbe",
+        "readinessProbe",
+        "startupProbe",
+        "initProbe"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Il startupProbe disabilita gli altri probe fino a quando non ha successo, permettendo a applicazioni lente di completare l'avvio senza essere riavviate.",
+        "en": "The startupProbe disables other probes until it succeeds, allowing slow applications to complete startup without being restarted."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è il valore predefinito di periodSeconds per i probe?",
+        "en": "What is the default value of periodSeconds for probes?"
+      },
+      "options": [
+        "5 secondi",
+        "10 secondi",
+        "30 secondi",
+        "1 secondo"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il valore predefinito di periodSeconds è 10 secondi, ovvero i probe vengono eseguiti ogni 10 secondi.",
+        "en": "The default value of periodSeconds is 10 seconds, meaning probes are executed every 10 seconds."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale parametro specifica quanti successi consecutivi sono necessari affinché un readinessProbe consideri il pod pronto?",
+        "en": "Which parameter specifies how many consecutive successes are needed for a readinessProbe to consider the pod ready?"
+      },
+      "options": [
+        "failureThreshold",
+        "successThreshold",
+        "periodSeconds",
+        "timeoutSeconds"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "successThreshold indica il numero minimo di successi consecutivi affinché il probe sia considerato riuscito. Il default è 1 per readiness.",
+        "en": "successThreshold indicates the minimum number of consecutive successes for the probe to be considered successful. Default is 1 for readiness."
+      },
+      "difficulty": "easy",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Cosa succede se un livenessProbe fallisce?",
+        "en": "What happens if a livenessProbe fails?"
+      },
+      "options": [
+        "Il pod viene terminato immediatamente",
+        "Il container viene riavviato secondo la restartPolicy",
+        "Il pod viene rimosso dal Service",
+        "Viene generato un evento ma nessuna azione"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Quando un livenessProbe fallisce per failureThreshold volte, Kubernetes riavvia il container secondo la restartPolicy del pod.",
+        "en": "When a livenessProbe fails failureThreshold times, Kubernetes restarts the container according to the pod's restartPolicy."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale restartPolicy permette il riavvio automatico dei container falliti?",
+        "en": "Which restartPolicy allows automatic restart of failed containers?"
+      },
+      "options": [
+        "Solo Always",
+        "Always e OnFailure",
+        "Solo OnFailure",
+        "Always, OnFailure e Never"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "La restartPolicy Always riavvia sempre i container, OnFailure riavvia solo quando terminano con errore. Never non riavvia mai.",
+        "en": "The restartPolicy Always always restarts containers, OnFailure restarts only when they exit with error. Never never restarts."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale parametro definisce quanto tempo attendere prima di rinunciare a un probe?",
+        "en": "Which parameter defines how long to wait before giving up on a probe?"
+      },
+      "options": [
+        "periodSeconds",
+        "timeoutSeconds",
+        "initialDelaySeconds",
+        "failureThreshold"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "timeoutSeconds specifica quanti secondi attendere prima che il probe vada in timeout. Il default è 1 secondo.",
+        "en": "timeoutSeconds specifies how many seconds to wait before the probe times out. Default is 1 second."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è il valore predefinito di failureThreshold per i probe?",
+        "en": "What is the default value of failureThreshold for probes?"
+      },
+      "options": [
+        "1",
+        "3",
+        "5",
+        "10"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il valore predefinito di failureThreshold è 3, ovvero il probe deve fallire 3 volte consecutive prima di essere considerato fallito.",
+        "en": "The default value of failureThreshold is 3, meaning the probe must fail 3 consecutive times before being considered failed."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale handler probe può essere usato per verificare una connessione TCP?",
+        "en": "Which probe handler can be used to check a TCP connection?"
+      },
+      "options": [
+        "exec",
+        "httpGet",
+        "tcpSocket",
+        "grpc"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Il handler tcpSocket tenta di aprire una connessione TCP sulla porta specificata. Il probe ha successo se la connessione riesce.",
+        "en": "The tcpSocket handler attempts to open a TCP connection on the specified port. The probe succeeds if the connection succeeds."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Cosa succede se un readinessProbe fallisce?",
+        "en": "What happens if a readinessProbe fails?"
+      },
+      "options": [
+        "Il container viene riavviato",
+        "Il pod viene rimosso dagli endpoint dei Service",
+        "Il pod viene eliminato",
+        "Viene inviato un segnale SIGTERM"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Quando un readinessProbe fallisce, il pod viene marcato come 'NotReady' e rimosso dagli endpoint di tutti i Service, ma non viene riavviato.",
+        "en": "When a readinessProbe fails, the pod is marked 'NotReady' and removed from all Service endpoints, but is not restarted."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale comando kubectl può essere usato per vedere lo stato dei probe di un pod?",
+        "en": "Which kubectl command can be used to see the probe status of a pod?"
+      },
+      "options": [
+        "kubectl get pod <name> --probes",
+        "kubectl describe pod <name>",
+        "kubectl logs <pod>",
+        "kubectl probe pod <name>"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl describe pod mostra lo stato dei probe, inclusi eventuali fallimenti e il numero di restart dovuti a probe falliti.",
+        "en": "kubectl describe pod shows probe status, including any failures and restart counts due to failed probes."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale configurazione httpGet include un header HTTP personalizzato?",
+        "en": "Which httpGet configuration includes a custom HTTP header?"
+      },
+      "options": [
+        "httpHeaders: [{\"name\": \"Custom-Header\", \"value\": \"value\"}]",
+        "headers: [{\"name\": \"Custom-Header\", \"value\": \"value\"}]",
+        "customHeaders: [{\"name\": \"Custom-Header\", \"value\": \"value\"}]",
+        "httpGetHeaders: [{\"name\": \"Custom-Header\", \"value\": \"value\"}]"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La chiave corretta è httpHeaders, una lista di oggetti con campi name e value per specificare header HTTP personalizzati.",
+        "en": "The correct key is httpHeaders, a list of objects with name and value fields to specify custom HTTP headers."
+      },
+      "difficulty": "medium",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è il valore predefinito di successThreshold per un livenessProbe?",
+        "en": "What is the default value of successThreshold for a livenessProbe?"
+      },
+      "options": [
+        "1",
+        "3",
+        "Non può essere configurato per livenessProbe",
+        "Deve essere 1 per livenessProbe"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "successThreshold per livenessProbe DEVE essere 1. Non può essere configurato con un valore diverso perché un container vivo è già considerato vivo.",
+        "en": "successThreshold for livenessProbe MUST be 1. It cannot be configured with a different value because a living container is already considered alive."
+      },
+      "difficulty": "hard",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale combinazione di probe è consigliata per applicazioni con avvio lento?",
+        "en": "Which combination of probes is recommended for slow-starting applications?"
+      },
+      "options": [
+        "Solo livenessProbe con alto initialDelaySeconds",
+        "startupProbe + livenessProbe + readinessProbe",
+        "Solo readinessProbe",
+        "livenessProbe con failureThreshold alto"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "startupProbe permette all'app di completare l'avvio, poi livenessProbe controlla che rimanga viva, readinessProbe gestisce il traffico. Questa è la combinazione ideale.",
+        "en": "startupProbe allows the app to complete startup, then livenessProbe checks it stays alive, readinessProbe manages traffic. This is the ideal combination."
+      },
+      "difficulty": "hard",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Come si configura un probe gRPC?",
+        "en": "How do you configure a gRPC probe?"
+      },
+      "options": [
+        "exec: {\"command\": [\"grpc_health_probe\"]}",
+        "grpc: {\"port\": 50051, \"service\": \"myapp\"}",
+        "httpGet: {\"path\": \"/health\", \"port\": 50051}",
+        "tcpSocket: {\"port\": 50051}"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il probe gRPC usa il handler grpc con porta e opzionalmente il nome del servizio. Il campo service è opzionale se si usa il default health gRPC.",
+        "en": "The gRPC probe uses the grpc handler with port and optionally service name. The service field is optional if using default gRPC health."
+      },
+      "difficulty": "hard",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale evento viene generato quando un livenessProbe fallisce ripetutamente?",
+        "en": "Which event is generated when a livenessProbe fails repeatedly?"
+      },
+      "options": [
+        "ProbeFailed",
+        "ContainerFailed",
+        "BackOff",
+        "LivenessProbeFailed"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Viene generato un evento 'LivenessProbeFailed' seguito da 'Killing' e poi 'Started' quando il container viene riavviato.",
+        "en": "A 'LivenessProbeFailed' event is generated followed by 'Killing' and then 'Started' when the container is restarted."
+      },
+      "difficulty": "hard",
+      "domain": "Application Design and Build"
+    },
+    {
+      "question": {
+        "it": "Quale è il modo corretto per configurare un probe su una porta HTTPS?",
+        "en": "What is the correct way to configure a probe on an HTTPS port?"
+      },
+      "options": [
+        "httpGet: {\"port\": 443, \"scheme\": \"https\"}",
+        "httpGet: {\"port\": 443, \"tls\": true}",
+        "tcpSocket: {\"port\": 443}",
+        "httpGet: {\"port\": 443, \"secure\": true}"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Per HTTPS, usare httpGet con scheme: \"https\". Di default scheme è HTTP. È possibile anche specificare un certificato CA personalizzato.",
+        "en": "For HTTPS, use httpGet with scheme: \"https\". Default scheme is HTTP. You can also specify a custom CA certificate."
+      },
+      "difficulty": "hard",
+      "domain": "Application Design and Build"
+    }
+  ]
+}

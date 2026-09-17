@@ -1,48 +1,54 @@
 {
-  "quiz": [
-    {
-      "id": "q1",
-      "question": "Qual è il flag per specificare il numero di nodi all'avvio?",
-      "options": [
-        "-c",
-        "--nodes",
-        "--cluster-size",
-        "-n"
-      ],
-      "correct": 1,
-      "explanation": "--nodes specifica il numero di istanze (container o VM) da avviare per il cluster."
-    },
-    {
-      "id": "q2",
-      "question": "Qual è il comando per aggiungere un nodo a un cluster già attivo?",
-      "options": [
-        "minikube node add",
-        "minikube start --add-node",
-        "kubectl add node",
-        "minikube scale nodes +1"
-      ],
-      "correct": 0,
-      "explanation": "minikube node add crea istantaneamente un nuovo nodo worker nel profilo corrente."
-    }
-  ],
   "exercises": [
     {
-      "id": "e1",
-      "title": "Aggiungi Nodo",
-      "hint": "Espandi il cluster con un nuovo nodo",
-      "template": ["minikube node {{action}}"],
-      "answers": [
-        { "id": "action", "accepted": ["add"], "placeholder": "azione" }
-      ]
+      "title": {"it": "Crea Cluster Multi-Nodo", "en": "Create Multi-Node Cluster"},
+      "description": {"it": "Avvia un cluster con 3 nodi.", "en": "Start a cluster with 3 nodes."},
+      "hint": {"it": "'minikube start --nodes=3'.", "en": "'minikube start --nodes=3'."}
     },
     {
-      "id": "e2",
-      "title": "Avvio Multi-Nodo",
-      "hint": "Avvia un cluster con 3 nodi",
-      "template": ["minikube start --nodes {{count}}"],
-      "answers": [
-        { "id": "count", "accepted": ["3"], "placeholder": "numero" }
-      ]
+      "title": {"it": "Lista Nodi", "en": "List Nodes"},
+      "description": {"it": "Verifica che i 3 nodi siano presenti e Ready.", "en": "Verify that the 3 nodes are present and Ready."},
+      "hint": {"it": "'kubectl get nodes'.", "en": "'kubectl get nodes'."}
+    },
+    {
+      "title": {"it": "Aggiungi Nodo", "en": "Add Node"},
+      "description": {"it": "Aggiungi un quarto nodo al cluster esistente.", "en": "Add a fourth node to the existing cluster."},
+      "hint": {"it": "'minikube node add'.", "en": "'minikube node add'."}
+    },
+    {
+      "title": {"it": "SSH in Nodo Worker", "en": "SSH into Worker Node"},
+      "description": {"it": "Entra in SSH su un nodo worker (non il primo).", "en": "SSH into a worker node (not the first one)."},
+      "hint": {"it": "'minikube ssh --node minikube-m02'.", "en": "'minikube ssh --node minikube-m02'."}
+    },
+    {
+      "title": {"it": "Verifica Distribuzione Pod", "en": "Verify Pod Distribution"},
+      "description": {"it": "Crea un deployment multi-replica e controlla la distribuzione.", "en": "Create a multi-replica deployment and check distribution."},
+      "hint": {"it": "'kubectl get pods -o wide' mostra il nodo di ogni pod.", "en": "'kubectl get pods -o wide' shows each pod's node."}
+    },
+    {
+      "title": {"it": "Rimuovi Nodo", "en": "Remove Node"},
+      "description": {"it": "Rimuovi il nodo aggiunto precedentemente.", "en": "Remove the previously added node."},
+      "hint": {"it": "'minikube node delete minikube-m04'.", "en": "'minikube node delete minikube-m04'."}
+    },
+    {
+      "title": {"it": "Drain Nodo", "en": "Drain Node"},
+      "description": {"it": "Draina un nodo worker per manutenzione.", "en": "Drain a worker node for maintenance."},
+      "hint": {"it": "'kubectl drain <nome-nodo> --ignore-daemonsets'.", "en": "'kubectl drain <node-name> --ignore-daemonsets'."}
+    },
+    {
+      "title": {"it": "Riattiva Nodo", "en": "Reactivate Node"},
+      "description": {"it": "Rendi di nuovo schedulabile il nodo drainato.", "en": "Make the drained node schedulable again."},
+      "hint": {"it": "'kubectl uncordon <nome-nodo>'.", "en": "'kubectl uncordon <node-name>'."}
+    },
+    {
+      "title": {"it": "Ispeziona Risorse per Nodo", "en": "Inspect Resources per Node"},
+      "description": {"it": "Controlla CPU e memoria allocate per ogni nodo.", "en": "Check CPU and memory allocated to each node."},
+      "hint": {"it": "'kubectl describe node <nome>' | grep -A 5 'Allocated resources'.", "en": "'kubectl describe node <name>' | grep -A 5 'Allocated resources'."}
+    },
+    {
+      "title": {"it": "Test Node Affinity", "en": "Test Node Affinity"},
+      "description": {"it": "Usa nodeAffinity per schedulare un pod su un nodo specifico.", "en": "Use nodeAffinity to schedule a pod on a specific node."},
+      "hint": {"it": "Aggiungi 'nodeAffinity' in spec.affinity del pod.", "en": "Add 'nodeAffinity' in the pod's spec.affinity."}
     }
   ]
 }

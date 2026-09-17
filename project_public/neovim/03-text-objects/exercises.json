@@ -1,0 +1,261 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Word objects base",
+        "en": "Basic word objects"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Pratica diw e daw su diverse parole.",
+        "en": "Practice diw and daw on different words."
+      },
+      "steps": [
+        "Crea un file con: hello world foo bar",
+        "Posizionati su 'hello'",
+        "Premi diw (cosa rimane?)",
+        "Annulla con u",
+        "Premi daw (cosa rimane?)",
+        "Prova su parole nel mezzo della riga"
+      ],
+      "expected_result": "Capire che daw cancella anche lo spazio",
+      "expected_result_en": "Understand that daw also deletes the space",
+      "hints": [
+        "diw = inner word (solo parola)",
+        "daw = a word (include spazio dopo)"
+      ]
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Parentesi tonde",
+        "en": "Parentheses"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Modifica argomenti di funzione con di( e ci(.",
+        "en": "Modify function arguments with di( and ci(."
+      },
+      "steps": [
+        "Crea: function(arg1, arg2, arg3)",
+        "Posizionati ovunque nella funzione",
+        "Premi di( (controlla risultato)",
+        "Annulla, premi ci(",
+        "Digita nuovi argomenti",
+        "Prova da( per rimuovere parentesi"
+      ],
+      "expected_result": "Modificare argomenti mantenendo parentesi",
+      "expected_result_en": "Modify arguments keeping parentheses",
+      "hints": [
+        "di( = delete inside parens",
+        "ci( = change inside parens"
+      ]
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Stringhe con virgolette",
+        "en": "Quoted strings"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Modifica stringhe con di\" e ci\".",
+        "en": "Modify strings with di\" and ci\"."
+      },
+      "steps": [
+        "Crea: const msg = \"Hello World\";",
+        "Posizionati nella stringa",
+        "Premi di\" (virgolette vuote)",
+        "Annulla, premi ci\"",
+        "Digita nuovo messaggio",
+        "Prova yiy per copiare solo il contenuto"
+      ],
+      "expected_result": "Modificare stringhe senza toccare virgolette",
+      "expected_result_en": "Modify strings without touching quotes",
+      "hints": [
+        "Funziona anche con apici singoli",
+        "E con backtick"
+      ]
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "Oggetti JavaScript",
+        "en": "JavaScript objects"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Modifica oggetti con text objects.",
+        "en": "Modify objects with text objects."
+      },
+      "steps": [
+        "Crea: const obj = { key: value, other: data };",
+        "Usa di{ per cancellare contenuto",
+        "Annulla, usa ci{ per cambiare",
+        "Usa yi{ per copiare contenuto",
+        "Usa =i{ per formattare"
+      ],
+      "expected_result": "Gestire oggetti con text objects",
+      "expected_result_en": "Handle objects with text objects",
+      "hints": [
+        "Va bene sia { che }",
+        "Annulla spesso per fare pratica"
+      ]
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Paragrafi",
+        "en": "Paragraphs"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Usa ip e ap su testo formattato.",
+        "en": "Use ip and ap on formatted text."
+      },
+      "steps": [
+        "Crea più paragrafi separati da righe vuote",
+        "Usa vip per selezionare paragrafo",
+        "Usa dip per cancellare",
+        "Usa dap per cancellare con riga vuota",
+        "Usa >ip per indentare"
+      ],
+      "expected_result": "Operare su interi paragrafi",
+      "expected_result_en": "Operate on entire paragraphs",
+      "hints": [
+        "ip = inner paragraph",
+        "ap = around paragraph (include blank line)"
+      ]
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Case transformation",
+        "en": "Case transformation"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Usa gUiw e guiw.",
+        "en": "Use gUiw and guiw."
+      },
+      "steps": [
+        "Crea: hello World FOO bar",
+        "Su 'hello': gUiw (HELLO)",
+        "Su 'World': guiw (world)",
+        "Su 'FOO': g~iw (foo)",
+        "Prova con count: gU2w"
+      ],
+      "expected_result": "Cambiare maiuscole con text objects",
+      "expected_result_en": "Change case with text objects",
+      "hints": [
+        "gU = uppercase",
+        "gu = lowercase",
+        "g~ = toggle"
+      ]
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "Treesitter functions",
+        "en": "Treesitter functions"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Usa text objects Treesitter per funzioni.",
+        "en": "Use Treesitter text objects for functions."
+      },
+      "steps": [
+        "Assicurati che treesitter-textobjects sia installato",
+        "Apri un file con funzioni",
+        "Usa if per selezionare corpo funzione",
+        "Usa af per selezionare funzione intera",
+        "Usa dif per cancellare corpo",
+        "Usa yaf per copiare funzione"
+      ],
+      "expected_result": "Operare su funzioni con Treesitter",
+      "expected_result_en": "Operate on functions with Treesitter",
+      "hints": [
+        "Richiede nvim-treesitter-textobjects",
+        "if = inner function, af = around function"
+      ]
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "Movimento tra funzioni",
+        "en": "Function navigation"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Naviga tra funzioni con Treesitter.",
+        "en": "Navigate between functions with Treesitter."
+      },
+      "steps": [
+        "Apri un file con multiple funzioni",
+        "Usa ]m per andare a prossima funzione",
+        "Usa [m per andare a funzione precedente",
+        "Usa ]M per fine funzione",
+        "Combina con comandi: d]m"
+      ],
+      "expected_result": "Navigazione rapida tra funzioni",
+      "expected_result_en": "Fast navigation between functions",
+      "hints": [
+        "]m = next method/function",
+        "[m = previous method/function"
+      ]
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "Refactoring workflow",
+        "en": "Refactoring workflow"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Workflow completo di refactoring con text objects.",
+        "en": "Complete refactoring workflow with text objects."
+      },
+      "steps": [
+        "Crea: function calculatePrice(items) { return total; }",
+        "Task: Rinomina calculatePrice in computeTotal",
+        "Usa * per cercare la funzione",
+        "Usa ciw per cambiare il nome",
+        "Task: Cambia il corpo della funzione",
+        "Usa cif per cambiare il corpo"
+      ],
+      "expected_result": "Refactoring efficiente",
+      "expected_result_en": "Efficient refactoring",
+      "hints": [
+        "* cerca la parola sotto il cursore",
+        "Combina n (next) con . (repeat)"
+      ]
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Combinazione operators",
+        "en": "Operator combinations"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Combina più operatori con text objects.",
+        "en": "Combine multiple operators with text objects."
+      },
+      "steps": [
+        "Crea un blocco di codice complesso",
+        "Usa >ip per indentare paragrafo",
+        "Usa =ip per formattare",
+        "Usa !ip e digita sort per ordinare righe",
+        "Usa gUip per maiuscolare",
+        "Usa yip e poi p per duplicare"
+      ],
+      "expected_result": "Padronanza di tutti gli operatori",
+      "expected_result_en": "Mastery of all operators",
+      "hints": [
+        "! = filter through command",
+        "L'ordine degli operatori è importante"
+      ]
+    }
+  ]
+}

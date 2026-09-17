@@ -1,0 +1,184 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Unit Test Base",
+        "en": "Basic Unit Test"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Scrivi test unitari per una classe StringUtils con metodi capitalize, reverse e isPalindrome.",
+        "en": "Write unit tests for a StringUtils class with capitalize, reverse, and isPalindrome methods."
+      },
+      "requirements": [
+        "Usa il package test",
+        "Organizza in group()",
+        "Usa setUp() per inizializzazione"
+      ],
+      "starter_code": "class StringUtils {\n  String capitalize(String input) {\n    // TODO\n  }\n  \n  String reverse(String input) {\n    // TODO\n  }\n  \n  bool isPalindrome(String input) {\n    // TODO\n  }\n}"
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Test Parametrizzati",
+        "en": "Parameterized Tests"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Implementa test parametrizzati per un validatore di email.",
+        "en": "Implement parameterized tests for an email validator."
+      },
+      "requirements": [
+        "Usa una lista di casi di test",
+        "Copia email valide e non",
+        "Messaggi di errore specifici"
+      ],
+      "starter_code": "class EmailValidator {\n  ValidationResult validate(String email);\n}"
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Widget Test Base",
+        "en": "Basic Widget Test"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Scrivi widget test per un CustomCard widget con titolo e sottotitolo.",
+        "en": "Write widget tests for a CustomCard widget with title and subtitle."
+      },
+      "requirements": [
+        "Verifica presenza del testo",
+        "Verifica stile del testo",
+        "Usa pumpWidget con MaterialApp"
+      ],
+      "starter_code": "class CustomCard extends StatelessWidget {\n  final String title;\n  final String? subtitle;\n  \n  const CustomCard({required this.title, this.subtitle});\n  \n  @override\n  Widget build(BuildContext context) {\n    // TODO\n  }\n}"
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "Form Validation Test",
+        "en": "Form Validation Test"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Testa un form di registrazione con validazione email e password.",
+        "en": "Test a registration form with email and password validation."
+      },
+      "requirements": [
+        "Verifica messaggi di errore",
+        "Testa casi limite (vuoto, formato errato)",
+        "Verifica callback on submit"
+      ],
+      "starter_code": "class RegistrationForm extends StatefulWidget {\n  final Function(String email, String password) onSubmit;\n}"
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Mock Service",
+        "en": "Mock Service"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Crea mock per un ApiService con mockito e testalo.",
+        "en": "Create mocks for an ApiService with mockito and test it."
+      },
+      "requirements": [
+        "Usa @GenerateMocks annotation",
+        "Implementa when/verify",
+        "Testa error handling"
+      ],
+      "starter_code": "class ApiService {\n  Future<User> getUser(int id);\n  Future<List<User>> getUsers();\n  Future<User> createUser(CreateUserRequest request);\n}"
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "State Management Test",
+        "en": "State Management Test"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Testa un Cubit con stati e transizioni.",
+        "en": "Test a Cubit with states and transitions."
+      },
+      "requirements": [
+        "Usa bloc_test package",
+        "Verifica emit di stati",
+        "Testa edge cases"
+      ],
+      "starter_code": "class CounterCubit extends Cubit<int> {\n  CounterCubit() : super(0);\n  \n  void increment();\n  void decrement();\n  void reset();\n}"
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "Integration Test",
+        "en": "Integration Test"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Implementa integration test per flusso di login completo.",
+        "en": "Implement integration test for complete login flow."
+      },
+      "requirements": [
+        "Usa integration_test package",
+        "Testa navigazione",
+        "Verifica stato finale"
+      ],
+      "starter_code": "// integration_test/login_test.dart\nvoid main() {\n  IntegrationTestWidgetsFlutterBinding.ensureInitialized();\n  \n  testWidgets('login flow', (tester) async {\n    // TODO\n  });\n}"
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "TDD: Calculator",
+        "en": "TDD: Calculator"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Implementa una calcolatrice seguendo il ciclo TDD.",
+        "en": "Implement a calculator following the TDD cycle."
+      },
+      "requirements": [
+        "Scrivi test prima",
+        "Implementa minimo necessario",
+        "Refactor alla fine"
+      ],
+      "starter_code": "// Prima scrivi il test, poi implementa\n// test/calculator_test.dart\nvoid main() {\n  group('Calculator', () {\n    // TODO: Scrivi i test prima\n  });\n}"
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "Golden Test",
+        "en": "Golden Test"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Crea golden test per un widget card con temi chiaro e scuro.",
+        "en": "Create golden tests for a card widget with light and dark themes."
+      },
+      "requirements": [
+        "Usa golden_toolkit",
+        "Testa entrambi i temi",
+        "Verifica stati diversi"
+      ],
+      "starter_code": "// test/widgets/card_golden_test.dart\nvoid main() {\n  testGoldens('Card golden', (tester) async {\n    // TODO\n  });\n}"
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Coverage Report",
+        "en": "Coverage Report"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Configura coverage e ottieni almeno l'80% su un modulo.",
+        "en": "Configure coverage and achieve at least 80% on a module."
+      },
+      "requirements": [
+        "Esegui flutter test --coverage",
+        "Escludi codice generato",
+        "Genera report HTML"
+      ],
+      "starter_code": "#!/bin/bash\n# scripts/test_coverage.sh\n# TODO: Implementa script coverage"
+    }
+  ]
+}

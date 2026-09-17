@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Dove sono memorizzati i plugin installati da Lazy.nvim?",
+        "en": "Where are Lazy.nvim installed plugins stored?"
+      },
+      "options": [
+        "~/.config/nvim/lazy/",
+        "~/.local/share/nvim/lazy/",
+        "~/.cache/nvim/lazy/",
+        "~/.local/state/nvim/lazy/"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "I plugin vengono memorizzati in ~/.local/share/nvim/lazy/ per convenzione XDG.",
+        "en": "Plugins are stored in ~/.local/share/nvim/lazy/ by XDG convention."
+      }
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Quale opzione forza il caricamento immediato di un plugin?",
+        "en": "Which option forces immediate loading of a plugin?"
+      },
+      "options": [
+        "lazy = true",
+        "lazy = false",
+        "event = 'VimEnter'",
+        "priority = 1000"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "lazy = false forza il caricamento all'avvio, ignorando il lazy loading.",
+        "en": "lazy = false forces loading at startup, ignoring lazy loading."
+      }
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Quale opzione carica un plugin solo per certi tipi di file?",
+        "en": "Which option loads a plugin only for certain file types?"
+      },
+      "options": [
+        "event",
+        "cmd",
+        "ft",
+        "keys"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "ft (filetype) carica il plugin solo per i file type specificati.",
+        "en": "ft (filetype) loads the plugin only for specified file types."
+      }
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Quale comando sincronizza tutti i plugin?",
+        "en": "Which command syncs all plugins?"
+      },
+      "options": [
+        ":Lazy update",
+        ":Lazy sync",
+        ":Lazy install",
+        ":Lazy check"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": ":Lazy sync installa, aggiorna e pulisce i plugin in un solo comando.",
+        "en": ":Lazy sync installs, updates, and cleans plugins in one command."
+      }
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Quale file contiene le versioni bloccate dei plugin?",
+        "en": "Which file contains locked plugin versions?"
+      },
+      "options": [
+        "init.lua",
+        "lazy.json",
+        "lazy-lock.json",
+        "plugins-lock.json"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "lazy-lock.json contiene commit e branch per ogni plugin.",
+        "en": "lazy-lock.json contains commit and branch for each plugin."
+      }
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Come si specifica un branch diverso per un plugin?",
+        "en": "How do you specify a different branch for a plugin?"
+      },
+      "options": [
+        "version = 'branch'",
+        "branch = 'nome-branch'",
+        "git = 'nome-branch'",
+        "ref = 'nome-branch'"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "L'opzione branch = 'nome' specifica il branch Git da usare.",
+        "en": "The branch = 'name' option specifies which Git branch to use."
+      }
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Quale opzione configura un plugin passando una tabella?",
+        "en": "Which option configures a plugin by passing a table?"
+      },
+      "options": [
+        "config",
+        "setup",
+        "opts",
+        "options"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "opts viene passato automaticamente a require('plugin').setup().",
+        "en": "opts is automatically passed to require('plugin').setup()."
+      }
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Quale evento si verifica dopo l'inizializzazione dell'UI?",
+        "en": "Which event occurs after UI initialization?"
+      },
+      "options": [
+        "BufReadPost",
+        "VeryLazy",
+        "InsertEnter",
+        "VimEnter"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "VeryLazy è l'evento che si verifica dopo che l'UI è completamente inizializzata.",
+        "en": "VeryLazy is the event that occurs after the UI is fully initialized."
+      }
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Come si definisce una dipendenza per un plugin?",
+        "en": "How do you define a dependency for a plugin?"
+      },
+      "options": [
+        "depends = { 'plugin' }",
+        "requires = { 'plugin' }",
+        "dependencies = { 'plugin' }",
+        "needs = { 'plugin' }"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "dependencies = { 'plugin1', 'plugin2' } definisce le dipendenze.",
+        "en": "dependencies = { 'plugin1', 'plugin2' } defines dependencies."
+      }
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Quale plugin fornisce fuzzy finding?",
+        "en": "Which plugin provides fuzzy finding?"
+      },
+      "options": [
+        "nvim-tree",
+        "telescope.nvim",
+        "lualine.nvim",
+        "gitsigns.nvim"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Telescope è il principale fuzzy finder per Neovim.",
+        "en": "Telescope is the main fuzzy finder for Neovim."
+      }
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Quale opzione serve per un colorscheme per caricarlo prima?",
+        "en": "Which option is needed for a colorscheme to load it first?"
+      },
+      "options": [
+        "lazy = false",
+        "priority = 1000",
+        "event = 'VimEnter'",
+        " Entrambe A e B"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "Per i colorscheme servono lazy = false E priority = 1000.",
+        "en": "For colorschemes you need both lazy = false AND priority = 1000."
+      }
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Come si esegue un comando all'installazione di un plugin?",
+        "en": "How do you run a command on plugin install?"
+      },
+      "options": [
+        "run = 'comando'",
+        "build = 'comando'",
+        "install = 'comando'",
+        "post = 'comando'"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "build = 'comando' o build = function()...end esegue dopo l'installazione.",
+        "en": "build = 'command' or build = function()...end runs after install."
+      }
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Quale tasto è il leader di default in Kickstart?",
+        "en": "What is the default leader key in Kickstart?"
+      },
+      "options": [
+        ",",
+        ";",
+        "Space",
+        "\\"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Kickstart.nvim usa la barra spaziatrice come leader.",
+        "en": "Kickstart.nvim uses space as the leader key."
+      }
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Come si carica un plugin quando si preme un tasto?",
+        "en": "How do you load a plugin when pressing a key?"
+      },
+      "options": [
+        "event = 'Keymap'",
+        "keys = { { '<leader>f', '<cmd>Cmd<CR>' } }",
+        "keymap = '<leader>f'",
+        "trigger = '<leader>f'"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "keys = { { 'key', 'action' } } per il key-based lazy loading.",
+        "en": "keys = { { 'key', 'action' } } for key-based lazy loading."
+      }
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Quale comando mostra il profiling dei plugin?",
+        "en": "Which command shows plugin profiling?"
+      },
+      "options": [
+        ":Lazy log",
+        ":Lazy profile",
+        ":Lazy debug",
+        ":Lazy stats"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": ":Lazy profile mostra i tempi di caricamento di ogni plugin.",
+        "en": ":Lazy profile shows loading times for each plugin."
+      }
+    }
+  ]
+}

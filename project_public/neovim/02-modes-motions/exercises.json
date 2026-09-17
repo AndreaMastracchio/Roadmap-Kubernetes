@@ -1,0 +1,262 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Navigazione h/j/k/l",
+        "en": "h/j/k/l navigation"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Pratica la navigazione base usando solo h, j, k, l. Disabilita le frecce per forzare l'apprendimento.",
+        "en": "Practice basic navigation using only h, j, k, l. Disable arrows to force learning."
+      },
+      "steps": [
+        "Apri un file lungo in Neovim",
+        "Usa solo h/j/k/l per navigare",
+        "Aggiungi: nnoremap <Up> <Nop> nel tuo config",
+        "Aggiungi: nnoremap <Down> <Nop> nel tuo config",
+        "Usa per 5 minuti senza frecce"
+      ],
+      "expected_result": "Navigazione fluente senza usare le frecce",
+      "expected_result_en": "Fluent navigation without using arrows",
+      "hints": [
+        "j = giù (down), k = sù (up)",
+        "Pratica movimenti con count: 5j, 10k"
+      ]
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Insert mode entry points",
+        "en": "Insert mode entry points"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Pratica tutti i modi per entrare in Insert mode: i, I, a, A, o, O, s, S.",
+        "en": "Practice all ways to enter Insert mode: i, I, a, A, o, O, s, S."
+      },
+      "steps": [
+        "Apri un file esistente",
+        "Usa 'i' per inserire prima del cursore",
+        "Usa 'I' per inserire a inizio riga",
+        "Usa 'a' per inserire dopo il cursore",
+        "Usa 'A' per inserire a fine riga",
+        "Usa 'o' per aprire riga sotto",
+        "Usa 'O' per aprire riga sopra"
+      ],
+      "expected_result": "Padronanza di tutti i punti di ingresso in Insert mode",
+      "expected_result_en": "Mastery of all Insert mode entry points",
+      "hints": [
+        "Ricorda: maiuscola = estremo (inizio/fine)",
+        "o = open (apre nuova riga)"
+      ]
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Visual mode types",
+        "en": "Visual mode types"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Esplora le tre visual mode e le loro differenze.",
+        "en": "Explore the three visual modes and their differences."
+      },
+      "steps": [
+        "Crea un file con più righe",
+        "Premi 'v' e seleziona caratteri",
+        "Premi 'V' e seleziona righe intere",
+        "Premi 'Ctrl-v' e seleziona un blocco",
+        "Prova ad indentare con > e <",
+        "Prova a cambiare maiuscole con ~"
+      ],
+      "expected_result": "Capire quando usare ogni tipo di visual mode",
+      "expected_result_en": "Understand when to use each visual mode type",
+      "hints": [
+        "v = character (caratteri)",
+        "V = line (righe)",
+        "Ctrl-v = block (blocco)"
+      ]
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "Word vs WORD",
+        "en": "Word vs WORD"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Osserva la differenza tra word e WORD nel codice.",
+        "en": "Observe the difference between word and WORD in code."
+      },
+      "steps": [
+        "Apri un file JavaScript/Python",
+        "Su: function calculateTotal()",
+        "Usa 'w' e conta quante tap per arrivare a 'Total'",
+        "Usa 'W' e conta quante tap",
+        "Nota: W salta tutta la 'function' come un'unità"
+      ],
+      "expected_result": "Capire quando w è più veloce di W",
+      "expected_result_en": "Understand when w is faster than W",
+      "hints": [
+        "word = solo alfanumerici + underscore",
+        "WORD = tutto ciò che non è spazio"
+      ]
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Line motions pratici",
+        "en": "Practical line motions"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Usa 0, ^, $, g_ su righe con indentazione.",
+        "en": "Use 0, ^, $, g_ on lines with indentation."
+      },
+      "steps": [
+        "Apri un file Python indentato",
+        "Usa '0' per andare a colonna 0",
+        "Usa '^' per andare al primo carattere",
+        "Usa '$' per andare a fine riga",
+        "Usa 'g_' per andare all'ultimo carattere non vuoto",
+        "Prova d$ e c^ per modificare"
+      ],
+      "expected_result": "Navigazione precisa in righe indentate",
+      "expected_result_en": "Precise navigation in indented lines",
+      "hints": [
+        "0 = colonna 0 (anche spazi)",
+        "^ = primo carattere significativo"
+      ]
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Screen motions",
+        "en": "Screen motions"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Usa H, M, L e Ctrl-d/Ctrl-u per navigare.",
+        "en": "Use H, M, L and Ctrl-d/Ctrl-u to navigate."
+      },
+      "steps": [
+        "Apri un file molto lungo (100+ righe)",
+        "Premi 'H' per andare in alto",
+        "Premi 'M' per andare a metà",
+        "Premi 'L' per andare in basso",
+        "Usa Ctrl-d e Ctrl-u per mezza pagina",
+        "Aggiungi zz per centralizzare"
+      ],
+      "expected_result": "Navigazione rapida in file lunghi",
+      "expected_result_en": "Fast navigation in long files",
+      "hints": [
+        "H = High (alto), M = Middle, L = Low",
+        "d = down, u = up"
+      ]
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "Search motions f/t",
+        "en": "Search motions f/t"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Usa f, F, t, T per navigare velocemente in una riga.",
+        "en": "Use f, F, t, T to quickly navigate a line."
+      },
+      "steps": [
+        "In una riga lunga di codice",
+        "Usa 'f,' per trovare la prima virgola",
+        "Usa ';' per trovare la prossima",
+        "Usa 't)' per andare prima della parentesi",
+        "Combina: df, (cancella fino alla virgola)",
+        "Combina: ct) (cambia fino alla parentesi)"
+      ],
+      "expected_result": "Navigazione precisa in righe lunghe",
+      "expected_result_en": "Precise navigation in long lines",
+      "hints": [
+        "f = find (trova), t = till (fino a)",
+        "; = ripeti avanti, , = ripeti indietro"
+      ]
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "Text objects base",
+        "en": "Basic text objects"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Usa text objects per modificare codice strutturato.",
+        "en": "Use text objects to modify structured code."
+      },
+      "steps": [
+        "Apri: function hello(name, age) {",
+        "Usa 'di(' per cancellare argomenti",
+        "Annulla e prova 'da(' per includere parentesi",
+        "Usa 'ci{' per cambiare contenuto graffe",
+        "Usa 'ci\"' per cambiare stringhe"
+      ],
+      "expected_result": "Modifiche chirurgiche con text objects",
+      "expected_result_en": "Surgical modifications with text objects",
+      "hints": [
+        "i = inner (interno)",
+        "a = around (attorno)"
+      ]
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "Il comando punto",
+        "en": "The dot command"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Usa . per ripetere cambiamenti multipli.",
+        "en": "Use . to repeat multiple changes."
+      },
+      "steps": [
+        "Crea una lista di variabili senza punto e virgola",
+        "Su prima riga: A;<Esc>",
+        "Usa j.j.j. per aggiungere ; a tutte",
+        "Ora cambia tipo: cwconst su prima",
+        "Usa n.n.n. per cambiare tutte le occorrenze"
+      ],
+      "expected_result": "Editing multiplo efficiente con .",
+      "expected_result_en": "Efficient multiple editing with .",
+      "hints": [
+        "Il punto ripete l'ultimo cambiamento",
+        "Combinalo con n (next) per editing multiplo"
+      ]
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Block editing avanzato",
+        "en": "Advanced block editing"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Usa Ctrl-v per editing verticale avanzato.",
+        "en": "Use Ctrl-v for advanced vertical editing."
+      },
+      "steps": [
+        "Crea 5 righe di variabili senza prefisso",
+        "Posizionati sulla prima lettera della prima riga",
+        "Premi Ctrl-v e seleziona 4 righe",
+        "Premi I e digita 'const '",
+        "Premi Esc per applicare a tutte",
+        "Ripeti per aggiungere un commento"
+      ],
+      "expected_result": "Editing di blocco su più righe contemporaneamente",
+      "expected_result_en": "Block editing across multiple lines simultaneously",
+      "hints": [
+        "I = Insert all'inizio del blocco",
+        "Esc applica a tutte le righe selezionate"
+      ]
+    }
+  ]
+}

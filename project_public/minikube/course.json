@@ -1,22 +1,130 @@
 {
   "id": "minikube",
-  "title": "Minikube",
+  "title": {
+    "it": "Minikube",
+    "en": "Minikube"
+  },
   "icon": "LayersIcon",
   "color": "#326ce5",
   "isPrivate": false,
   "comingSoon": false,
   "price": 0,
-  "description": "Un percorso completo per dominare Minikube: dall'installazione alla gestione di cluster multi-nodo e ingress controller.",
+  "description": {
+    "it": "Un percorso completo per dominare Minikube: dall'installazione alla gestione di cluster multi-nodo e ingress controller.",
+    "en": "A comprehensive path to master Minikube: from installation to multi-node cluster management and ingress controllers."
+  },
   "modules": [
-    { "id": "01-introduzione", "title": "1. Introduzione", "icon": "LayersIcon", "level": "Base", "time": "10 min" },
-    { "id": "02-installazione", "title": "2. Installazione", "icon": "DownloadIcon", "level": "Base", "time": "15 min" },
-    { "id": "03-architettura-e-driver", "title": "3. Architettura e Driver", "icon": "ArchitectureIcon", "level": "Base", "time": "20 min" },
-    { "id": "04-gestione-fondamentale", "title": "4. Gestione Cluster", "icon": "TerminalIcon", "level": "Base", "time": "15 min" },
-    { "id": "05-profili-e-risorse", "title": "5. Profili e Risorse", "icon": "SettingsIcon", "level": "Intermedio", "time": "20 min" },
-    { "id": "06-add-ons-e-dashboard", "title": "6. Add-ons e Dashboard", "icon": "ExtensionIcon", "level": "Intermedio", "time": "20 min" },
-    { "id": "07-ingress-e-tunnel", "title": "7. Ingress e Tunnel", "icon": "DnsIcon", "level": "Intermedio", "time": "25 min" },
-    { "id": "08-cluster-multi-nodo", "title": "8. Cluster Multi-Nodo", "icon": "HubIcon", "level": "Avanzato", "time": "20 min" },
-    { "id": "09-riassunto-comandi", "title": "9. Cheat Sheet", "icon": "InventoryIcon", "level": "Base", "time": "10 min" },
-    { "id": "10-esame-finale", "title": "10. Esame Finale", "icon": "ExamIcon", "level": "Esame", "time": "40 min" }
-  ]
+    {
+      "id": "01-introduzione",
+      "title": {
+        "it": "1. Introduzione",
+        "en": "1. Introduction"
+      },
+      "icon": "LayersIcon",
+      "level": "Base",
+      "time": "10 min"
+    },
+    {
+      "id": "02-installazione",
+      "title": {
+        "it": "2. Installazione",
+        "en": "2. Installation"
+      },
+      "icon": "DownloadIcon",
+      "level": "Base",
+      "time": "15 min"
+    },
+    {
+      "id": "03-architettura-e-driver",
+      "title": {
+        "it": "3. Architettura e Driver",
+        "en": "3. Architecture and Drivers"
+      },
+      "icon": "ArchitectureIcon",
+      "level": "Base",
+      "time": "20 min"
+    },
+    {
+      "id": "04-gestione-fondamentale",
+      "title": {
+        "it": "4. Gestione Cluster",
+        "en": "4. Cluster Management"
+      },
+      "icon": "TerminalIcon",
+      "level": "Base",
+      "time": "15 min"
+    },
+    {
+      "id": "05-profili-e-risorse",
+      "title": {
+        "it": "5. Profili e Risorse",
+        "en": "5. Profiles and Resources"
+      },
+      "icon": "SettingsIcon",
+      "level": "Intermedio",
+      "time": "20 min"
+    },
+    {
+      "id": "06-add-ons-e-dashboard",
+      "title": {
+        "it": "6. Add-ons e Dashboard",
+        "en": "6. Add-ons and Dashboard"
+      },
+      "icon": "ExtensionIcon",
+      "level": "Intermedio",
+      "time": "20 min"
+    },
+    {
+      "id": "07-ingress-e-tunnel",
+      "title": {
+        "it": "7. Ingress e Tunnel",
+        "en": "7. Ingress and Tunneling"
+      },
+      "icon": "DnsIcon",
+      "level": "Intermedio",
+      "time": "25 min"
+    },
+    {
+      "id": "08-cluster-multi-nodo",
+      "title": {
+        "it": "8. Cluster Multi-Nodo",
+        "en": "8. Multi-Node Clusters"
+      },
+      "icon": "HubIcon",
+      "level": "Avanzato",
+      "time": "20 min"
+    },
+    {
+      "id": "09-riassunto-comandi",
+      "title": {
+        "it": "9. Cheat Sheet",
+        "en": "9. Command Cheat Sheet"
+      },
+      "icon": "InventoryIcon",
+      "level": "Base",
+      "time": "10 min"
+    },
+    {
+      "id": "10-esame-finale",
+      "title": {
+        "it": "10. Esame Finale",
+        "en": "10. Final Exam"
+      },
+      "icon": "ExamIcon",
+      "level": "Esame",
+      "time": "40 min"
+    }
+  ],
+  "duration": {
+    "it": "4 ore",
+    "en": "4 hours"
+  },
+  "languages": [
+    "it"
+  ],
+  "name": {
+    "it": "Minikube",
+    "en": "Minikube"
+  },
+  "group": "fundamentals"
 }

@@ -1,7 +1,10 @@
 {
   "quiz": [
     {
-      "question": "Qual è l'unità atomica più piccola in Kubernetes?",
+      "question": {
+        "it": "Qual è l'unità atomica più piccola in Kubernetes?",
+        "en": "Qual è l'unità atomica più piccola in Kubernetes?"
+      },
       "options": [
         "Container",
         "Pod",
@@ -9,10 +12,16 @@
         "Node"
       ],
       "correct": 1,
-      "explanation": "Il Pod è l'oggetto più piccolo e semplice di Kubernetes. Rappresenta un'istanza di un processo in esecuzione e può contenere uno o più container."
+      "explanation": {
+        "it": "Il Pod è l'oggetto più piccolo e semplice di Kubernetes. Rappresenta un'istanza di un processo in esecuzione e può contenere uno o più container.",
+        "en": "Il Pod è l'oggetto più piccolo e semplice di Kubernetes. Rappresenta un'istanza di un processo in esecuzione e può contenere uno o più container."
+      }
     },
     {
-      "question": "Cosa succede se un Liveness Probe fallisce?",
+      "question": {
+        "it": "Cosa succede se un Liveness Probe fallisce?",
+        "en": "Cosa succede se un Liveness Probe fallisce?"
+      },
       "options": [
         "Il Pod viene rimosso dagli Endpoints del Service",
         "Kubelet riavvia il container",
@@ -20,10 +29,16 @@
         "Viene inviato un alert all'amministratore"
       ],
       "correct": 1,
-      "explanation": "Se il Liveness Probe fallisce, kubelet interpreta il container come non funzionante e lo riavvia automaticamente."
+      "explanation": {
+        "it": "Se il Liveness Probe fallisce, kubelet interpreta il container come non funzionante e lo riavvia automaticamente.",
+        "en": "Se il Liveness Probe fallisce, kubelet interpreta il container come non funzionante e lo riavvia automaticamente."
+      }
     },
     {
-      "question": "Qual è la differenza tra Readiness Probe e Liveness Probe?",
+      "question": {
+        "it": "Qual è la differenza tra Readiness Probe e Liveness Probe?",
+        "en": "Qual è la differenza tra Readiness Probe e Liveness Probe?"
+      },
       "options": [
         "Non c'è differenza, sono sinonimi",
         "Readiness controlla se il container è pronto per traffico, Liveness se è vivo",
@@ -31,10 +46,16 @@
         "Readiness è opzionale, Liveness è obbligatorio"
       ],
       "correct": 1,
-      "explanation": "Readiness Probe determina se il container può ricevere traffico (viene aggiunto/rimosso dagli Endpoints). Liveness Probe determina se il container deve essere riavviato."
+      "explanation": {
+        "it": "Readiness Probe determina se il container può ricevere traffico (viene aggiunto/rimosso dagli Endpoints). Liveness Probe determina se il container deve essere riavviato.",
+        "en": "Readiness Probe determina se il container può ricevere traffico (viene aggiunto/rimosso dagli Endpoints). Liveness Probe determina se il container deve essere riavviato."
+      }
     },
     {
-      "question": "Quale strategia di aggiornamento del Deployment causa downtime?",
+      "question": {
+        "it": "Quale strategia di aggiornamento del Deployment causa downtime?",
+        "en": "Quale strategia di aggiornamento del Deployment causa downtime?"
+      },
       "options": [
         "RollingUpdate",
         "Recreate",
@@ -42,10 +63,16 @@
         "Canary"
       ],
       "correct": 1,
-      "explanation": "La strategia Recreate elimina tutti i vecchi Pod prima di creare i nuovi, causando downtime. RollingUpdate invece sostituisce i Pod gradualmente senza downtime."
+      "explanation": {
+        "it": "La strategia Recreate elimina tutti i vecchi Pod prima di creare i nuovi, causando downtime. RollingUpdate invece sostituisce i Pod gradualmente senza downtime.",
+        "en": "La strategia Recreate elimina tutti i vecchi Pod prima di creare i nuovi, causando downtime. RollingUpdate invece sostituisce i Pod gradualmente senza downtime."
+      }
     },
     {
-      "question": "Cosa gestisce un StatefulSet che un Deployment non gestisce?",
+      "question": {
+        "it": "Cosa gestisce un StatefulSet che un Deployment non gestisce?",
+        "en": "Cosa gestisce un StatefulSet che un Deployment non gestisce?"
+      },
       "options": [
         "Scaling automatico",
         "Identità stabile e storage persistente per ogni Pod",
@@ -53,10 +80,16 @@
         "Health checks"
       ],
       "correct": 1,
-      "explanation": "StatefulSet fornisce identità stabile (nomi predicibili come mysql-0, mysql-1), storage persistente dedicato per ogni Pod e ordine di avvio/terminazione."
+      "explanation": {
+        "it": "StatefulSet fornisce identità stabile (nomi predicibili come mysql-0, mysql-1), storage persistente dedicato per ogni Pod e ordine di avvio/terminazione.",
+        "en": "StatefulSet fornisce identità stabile (nomi predicibili come mysql-0, mysql-1), storage persistente dedicato per ogni Pod e ordine di avvio/terminazione."
+      }
     },
     {
-      "question": "Quando useresti un DaemonSet?",
+      "question": {
+        "it": "Quando useresti un DaemonSet?",
+        "en": "Quando useresti un DaemonSet?"
+      },
       "options": [
         "Per applicazioni web stateless",
         "Per database distribuiti",
@@ -64,10 +97,16 @@
         "Per job batch schedulati"
       ],
       "correct": 2,
-      "explanation": "DaemonSet assicura che una copia di un Pod giri su ogni nodo del cluster. Ideale per agenti di monitoring, log collectors, network plugins."
+      "explanation": {
+        "it": "DaemonSet assicura che una copia di un Pod giri su ogni nodo del cluster. Ideale per agenti di monitoring, log collectors, network plugins.",
+        "en": "DaemonSet assicura che una copia di un Pod giri su ogni nodo del cluster. Ideale per agenti di monitoring, log collectors, network plugins."
+      }
     },
     {
-      "question": "Qual è il tipo di Service di default?",
+      "question": {
+        "it": "Qual è il tipo di Service di default?",
+        "en": "Qual è il tipo di Service di default?"
+      },
       "options": [
         "NodePort",
         "LoadBalancer",
@@ -75,10 +114,16 @@
         "ExternalName"
       ],
       "correct": 2,
-      "explanation": "ClusterIP è il tipo di Service di default. Fornisce un IP interno al cluster per la comunicazione tra servizi."
+      "explanation": {
+        "it": "ClusterIP è il tipo di Service di default. Fornisce un IP interno al cluster per la comunicazione tra servizi.",
+        "en": "ClusterIP è il tipo di Service di default. Fornisce un IP interno al cluster per la comunicazione tra servizi."
+      }
     },
     {
-      "question": "Quando useresti un Headless Service (ClusterIP: None)?",
+      "question": {
+        "it": "Quando useresti un Headless Service (ClusterIP: None)?",
+        "en": "Quando useresti un Headless Service (ClusterIP: None)?"
+      },
       "options": [
         "Per esporre un servizio all'esterno",
         "Per service discovery diretta dei Pod IP (es. con StatefulSet)",
@@ -86,10 +131,16 @@
         "Per servizi che non hanno Pod"
       ],
       "correct": 1,
-      "explanation": "Un Headless Service non ha un IP virtuale. Restituisce direttamente gli IP dei Pod, utile per StatefulSet dove serve comunicazione diretta con Pod specifici."
+      "explanation": {
+        "it": "Un Headless Service non ha un IP virtuale. Restituisce direttamente gli IP dei Pod, utile per StatefulSet dove serve comunicazione diretta con Pod specifici.",
+        "en": "Un Headless Service non ha un IP virtuale. Restituisce direttamente gli IP dei Pod, utile per StatefulSet dove serve comunicazione diretta con Pod specifici."
+      }
     },
     {
-      "question": "Cosa fa un CronJob in Kubernetes?",
+      "question": {
+        "it": "Cosa fa un CronJob in Kubernetes?",
+        "en": "Cosa fa un CronJob in Kubernetes?"
+      },
       "options": [
         "Monitora i Pod e li riavvia se falliscono",
         "Esegue Job su schedule (sintassi cron)",
@@ -97,10 +148,16 @@
         "Pulisce risorse inutilizzate"
       ],
       "correct": 1,
-      "explanation": "CronJob esegue Job su schedule usando la sintassi cron Unix (es. '0 2 * * *' per ogni giorno alle 2 AM). Utile per backup, cleanup, report."
+      "explanation": {
+        "it": "CronJob esegue Job su schedule usando la sintassi cron Unix (es. '0 2 * * *' per ogni giorno alle 2 AM). Utile per backup, cleanup, report.",
+        "en": "CronJob esegue Job su schedule usando la sintassi cron Unix (es. '0 2 * * *' per ogni giorno alle 2 AM). Utile per backup, cleanup, report."
+      }
     },
     {
-      "question": "Qual è la differenza tra ConfigMap e Secret?",
+      "question": {
+        "it": "Qual è la differenza tra ConfigMap e Secret?",
+        "en": "Qual è la differenza tra ConfigMap e Secret?"
+      },
       "options": [
         "ConfigMap è per dati sensibili, Secret per dati pubblici",
         "ConfigMap è per dati non sensibili, Secret per dati sensibili (base64)",
@@ -108,10 +165,16 @@
         "ConfigMap è deprecato, usa solo Secret"
       ],
       "correct": 1,
-      "explanation": "ConfigMap memorizza dati non sensibili (config, variabili). Secret memorizza dati sensibili (password, token) codificati in base64 (non criptati!)."
+      "explanation": {
+        "it": "ConfigMap memorizza dati non sensibili (config, variabili). Secret memorizza dati sensibili (password, token) codificati in base64 (non criptati!).",
+        "en": "ConfigMap memorizza dati non sensibili (config, variabili). Secret memorizza dati sensibili (password, token) codificati in base64 (non criptati!)."
+      }
     },
     {
-      "question": "Come si chiamano le risorse garantite per un container?",
+      "question": {
+        "it": "Come si chiamano le risorse garantite per un container?",
+        "en": "Come si chiamano le risorse garantite per un container?"
+      },
       "options": [
         "limits",
         "requests",
@@ -119,10 +182,16 @@
         "reservations"
       ],
       "correct": 1,
-      "explanation": "Le 'requests' sono le risorse garantite che il container riceverà. Le 'limits' sono il massimo che può usare. Lo scheduler usa le requests per decidere su quale nodo mettere il Pod."
+      "explanation": {
+        "it": "Le 'requests' sono le risorse garantite che il container riceverà. Le 'limits' sono il massimo che può usare. Lo scheduler usa le requests per decidere su quale nodo mettere il Pod.",
+        "en": "Le 'requests' sono le risorse garantite che il container riceverà. Le 'limits' sono il massimo che può usare. Lo scheduler usa le requests per decidere su quale nodo mettere il Pod."
+      }
     },
     {
-      "question": "Cosa succede se un container supera il suo memory limit?",
+      "question": {
+        "it": "Cosa succede se un container supera il suo memory limit?",
+        "en": "Cosa succede se un container supera il suo memory limit?"
+      },
       "options": [
         "Viene rallentato (throttled)",
         "Viene terminato (OOMKilled)",
@@ -130,10 +199,16 @@
         "Niente, il limit è solo un suggerimento"
       ],
       "correct": 1,
-      "explanation": "Se un container supera il memory limit, viene terminato dal kernel (OOMKilled - Out Of Memory Killed). Per la CPU invece viene solo throttled."
+      "explanation": {
+        "it": "Se un container supera il memory limit, viene terminato dal kernel (OOMKilled - Out Of Memory Killed). Per la CPU invece viene solo throttled.",
+        "en": "Se un container supera il memory limit, viene terminato dal kernel (OOMKilled - Out Of Memory Killed). Per la CPU invece viene solo throttled."
+      }
     },
     {
-      "question": "Quale comando permette di fare rollback di un Deployment?",
+      "question": {
+        "it": "Quale comando permette di fare rollback di un Deployment?",
+        "en": "Quale comando permette di fare rollback di un Deployment?"
+      },
       "options": [
         "kubectl revert deployment",
         "kubectl rollout undo deployment/<name>",
@@ -141,10 +216,16 @@
         "kubectl deployment rollback"
       ],
       "correct": 1,
-      "explanation": "Il comando 'kubectl rollout undo deployment/<name>' permette di tornare alla revisione precedente del Deployment."
+      "explanation": {
+        "it": "Il comando 'kubectl rollout undo deployment/<name>' permette di tornare alla revisione precedente del Deployment.",
+        "en": "Il comando 'kubectl rollout undo deployment/<name>' permette di tornare alla revisione precedente del Deployment."
+      }
     },
     {
-      "question": "Cosa definisce maxSurge in una strategia RollingUpdate?",
+      "question": {
+        "it": "Cosa definisce maxSurge in una strategia RollingUpdate?",
+        "en": "Cosa definisce maxSurge in una strategia RollingUpdate?"
+      },
       "options": [
         "Il numero massimo di Pod che possono essere non disponibili",
         "Il numero massimo di Pod extra durante l'update",
@@ -152,10 +233,16 @@
         "Il numero di tentativi prima di fallire"
       ],
       "correct": 1,
-      "explanation": "maxSurge definisce quanti Pod extra possono essere creati durante il rolling update (default 25%). maxUnavailable definisce quanti possono essere non disponibili."
+      "explanation": {
+        "it": "maxSurge definisce quanti Pod extra possono essere creati durante il rolling update (default 25%). maxUnavailable definisce quanti possono essere non disponibili.",
+        "en": "maxSurge definisce quanti Pod extra possono essere creati durante il rolling update (default 25%). maxUnavailable definisce quanti possono essere non disponibili."
+      }
     },
     {
-      "question": "Quale tipo di Secret useresti per certificati TLS?",
+      "question": {
+        "it": "Quale tipo di Secret useresti per certificati TLS?",
+        "en": "Quale tipo di Secret useresti per certificati TLS?"
+      },
       "options": [
         "Opaque",
         "kubernetes.io/tls",
@@ -163,13 +250,22 @@
         "kubernetes.io/basic-auth"
       ],
       "correct": 1,
-      "explanation": "Il tipo 'kubernetes.io/tls' è specifico per certificati TLS e richiede i campi 'tls.crt' e 'tls.key'."
+      "explanation": {
+        "it": "Il tipo 'kubernetes.io/tls' è specifico per certificati TLS e richiede i campi 'tls.crt' e 'tls.key'.",
+        "en": "Il tipo 'kubernetes.io/tls' è specifico per certificati TLS e richiede i campi 'tls.crt' e 'tls.key'."
+      }
     }
   ],
   "exercises": [
     {
-      "title": "Creazione Pod con Resource Requests",
-      "hint": "Usa 'resources' con 'requests' per CPU e memoria. CPU in millicores (m), memoria in Mi/Gi.",
+      "title": {
+        "it": "Creazione Pod con Resource Requests",
+        "en": "Creazione Pod con Resource Requests"
+      },
+      "hint": {
+        "it": "Usa 'resources' con 'requests' per CPU e memoria. CPU in millicores (m), memoria in Mi/Gi.",
+        "en": "Usa 'resources' con 'requests' per CPU e memoria. CPU in millicores (m), memoria in Mi/Gi."
+      },
       "template": [
         "apiVersion: v1",
         "kind: Pod",
@@ -185,13 +281,31 @@
         "        cpu: \"250m\""
       ],
       "answers": [
-        { "id": "resources_key", "accepted": ["resources"], "width": "100px" },
-        { "id": "requests_key", "accepted": ["requests"], "width": "100px" }
+        {
+          "id": "resources_key",
+          "accepted": [
+            "resources"
+          ],
+          "width": "100px"
+        },
+        {
+          "id": "requests_key",
+          "accepted": [
+            "requests"
+          ],
+          "width": "100px"
+        }
       ]
     },
     {
-      "title": "Liveness Probe HTTP",
-      "hint": "Usa livenessProbe con httpGet, specificando path e port.",
+      "title": {
+        "it": "Liveness Probe HTTP",
+        "en": "Liveness Probe HTTP"
+      },
+      "hint": {
+        "it": "Usa livenessProbe con httpGet, specificando path e port.",
+        "en": "Usa livenessProbe con httpGet, specificando path e port."
+      },
       "template": [
         "{{probe_type}}:",
         "  {{probe_method}}:",
@@ -200,13 +314,31 @@
         "  initialDelaySeconds: 30"
       ],
       "answers": [
-        { "id": "probe_type", "accepted": ["livenessProbe"], "width": "140px" },
-        { "id": "probe_method", "accepted": ["httpGet"], "width": "100px" }
+        {
+          "id": "probe_type",
+          "accepted": [
+            "livenessProbe"
+          ],
+          "width": "140px"
+        },
+        {
+          "id": "probe_method",
+          "accepted": [
+            "httpGet"
+          ],
+          "width": "100px"
+        }
       ]
     },
     {
-      "title": "Deployment con Replicas",
-      "hint": "Usa 'replicas' nella spec del Deployment.",
+      "title": {
+        "it": "Deployment con Replicas",
+        "en": "Deployment con Replicas"
+      },
+      "hint": {
+        "it": "Usa 'replicas' nella spec del Deployment.",
+        "en": "Usa 'replicas' nella spec del Deployment."
+      },
       "template": [
         "apiVersion: apps/v1",
         "kind: {{kind}}",
@@ -219,13 +351,31 @@
         "      app: nginx"
       ],
       "answers": [
-        { "id": "kind", "accepted": ["Deployment"], "width": "120px" },
-        { "id": "replicas_key", "accepted": ["replicas"], "width": "100px" }
+        {
+          "id": "kind",
+          "accepted": [
+            "Deployment"
+          ],
+          "width": "120px"
+        },
+        {
+          "id": "replicas_key",
+          "accepted": [
+            "replicas"
+          ],
+          "width": "100px"
+        }
       ]
     },
     {
-      "title": "Service ClusterIP",
-      "hint": "Il tipo di default è ClusterIP. Usa 'selector' per collegare ai Pod.",
+      "title": {
+        "it": "Service ClusterIP",
+        "en": "Service ClusterIP"
+      },
+      "hint": {
+        "it": "Il tipo di default è ClusterIP. Usa 'selector' per collegare ai Pod.",
+        "en": "Il tipo di default è ClusterIP. Usa 'selector' per collegare ai Pod."
+      },
       "template": [
         "apiVersion: v1",
         "kind: {{kind}}",
@@ -239,13 +389,31 @@
         "    targetPort: 8080"
       ],
       "answers": [
-        { "id": "kind", "accepted": ["Service"], "width": "100px" },
-        { "id": "selector_key", "accepted": ["selector"], "width": "100px" }
+        {
+          "id": "kind",
+          "accepted": [
+            "Service"
+          ],
+          "width": "100px"
+        },
+        {
+          "id": "selector_key",
+          "accepted": [
+            "selector"
+          ],
+          "width": "100px"
+        }
       ]
     },
     {
-      "title": "ConfigMap come Variabile d'Ambiente",
-      "hint": "Usa 'env' con 'valueFrom' e 'configMapKeyRef'.",
+      "title": {
+        "it": "ConfigMap come Variabile d'Ambiente",
+        "en": "ConfigMap come Variabile d'Ambiente"
+      },
+      "hint": {
+        "it": "Usa 'env' con 'valueFrom' e 'configMapKeyRef'.",
+        "en": "Usa 'env' con 'valueFrom' e 'configMapKeyRef'."
+      },
       "template": [
         "env:",
         "- name: DB_HOST",
@@ -255,62 +423,159 @@
         "      key: database_host"
       ],
       "answers": [
-        { "id": "value_from", "accepted": ["valueFrom"], "width": "120px" },
-        { "id": "config_ref", "accepted": ["configMapKeyRef"], "width": "160px" }
+        {
+          "id": "value_from",
+          "accepted": [
+            "valueFrom"
+          ],
+          "width": "120px"
+        },
+        {
+          "id": "config_ref",
+          "accepted": [
+            "configMapKeyRef"
+          ],
+          "width": "160px"
+        }
       ]
     },
     {
-      "title": "Rollback Deployment",
-      "hint": "Usa 'kubectl rollout undo' per fare rollback.",
+      "title": {
+        "it": "Rollback Deployment",
+        "en": "Rollback Deployment"
+      },
+      "hint": {
+        "it": "Usa 'kubectl rollout undo' per fare rollback.",
+        "en": "Usa 'kubectl rollout undo' per fare rollback."
+      },
       "template": [
         "kubectl {{rollout_cmd}} {{undo_cmd}} deployment/nginx-deploy"
       ],
       "answers": [
-        { "id": "rollout_cmd", "accepted": ["rollout"], "width": "100px" },
-        { "id": "undo_cmd", "accepted": ["undo"], "width": "80px" }
+        {
+          "id": "rollout_cmd",
+          "accepted": [
+            "rollout"
+          ],
+          "width": "100px"
+        },
+        {
+          "id": "undo_cmd",
+          "accepted": [
+            "undo"
+          ],
+          "width": "80px"
+        }
       ]
     },
     {
-      "title": "Visualizza Storia Rollout",
-      "hint": "Usa 'kubectl rollout history' per vedere le revisioni.",
+      "title": {
+        "it": "Visualizza Storia Rollout",
+        "en": "Visualizza Storia Rollout"
+      },
+      "hint": {
+        "it": "Usa 'kubectl rollout history' per vedere le revisioni.",
+        "en": "Usa 'kubectl rollout history' per vedere le revisioni."
+      },
       "template": [
         "kubectl rollout {{history_cmd}} deployment/nginx-deploy"
       ],
       "answers": [
-        { "id": "history_cmd", "accepted": ["history"], "width": "100px" }
+        {
+          "id": "history_cmd",
+          "accepted": [
+            "history"
+          ],
+          "width": "100px"
+        }
       ]
     },
     {
-      "title": "Scala Deployment",
-      "hint": "Usa 'kubectl scale' con --replicas.",
+      "title": {
+        "it": "Scala Deployment",
+        "en": "Scala Deployment"
+      },
+      "hint": {
+        "it": "Usa 'kubectl scale' con --replicas.",
+        "en": "Usa 'kubectl scale' con --replicas."
+      },
       "template": [
         "kubectl {{scale_cmd}} deployment/nginx-deploy {{replicas_flag}}=5"
       ],
       "answers": [
-        { "id": "scale_cmd", "accepted": ["scale"], "width": "80px" },
-        { "id": "replicas_flag", "accepted": ["--replicas"], "width": "120px" }
+        {
+          "id": "scale_cmd",
+          "accepted": [
+            "scale"
+          ],
+          "width": "80px"
+        },
+        {
+          "id": "replicas_flag",
+          "accepted": [
+            "--replicas"
+          ],
+          "width": "120px"
+        }
       ]
     },
     {
-      "title": "Crea ConfigMap da File",
-      "hint": "Usa 'kubectl create configmap' con --from-file.",
+      "title": {
+        "it": "Crea ConfigMap da File",
+        "en": "Crea ConfigMap da File"
+      },
+      "hint": {
+        "it": "Usa 'kubectl create configmap' con --from-file.",
+        "en": "Usa 'kubectl create configmap' con --from-file."
+      },
       "template": [
         "kubectl create {{resource}} app-config {{from_file}}=config.properties"
       ],
       "answers": [
-        { "id": "resource", "accepted": ["configmap", "cm"], "width": "120px" },
-        { "id": "from_file", "accepted": ["--from-file"], "width": "140px" }
+        {
+          "id": "resource",
+          "accepted": [
+            "configmap",
+            "cm"
+          ],
+          "width": "120px"
+        },
+        {
+          "id": "from_file",
+          "accepted": [
+            "--from-file"
+          ],
+          "width": "140px"
+        }
       ]
     },
     {
-      "title": "Crea Secret Generico",
-      "hint": "Usa 'kubectl create secret generic' con --from-literal.",
+      "title": {
+        "it": "Crea Secret Generico",
+        "en": "Crea Secret Generico"
+      },
+      "hint": {
+        "it": "Usa 'kubectl create secret generic' con --from-literal.",
+        "en": "Usa 'kubectl create secret generic' con --from-literal."
+      },
       "template": [
         "kubectl create secret {{secret_type}} db-secret {{from_literal}}=password=mypass123"
       ],
       "answers": [
-        { "id": "secret_type", "accepted": ["generic"], "width": "100px" },
-        { "id": "from_literal", "accepted": ["--from-literal"], "width": "140px" }
+        {
+          "id": "secret_type",
+          "accepted": [
+            "generic"
+          ],
+          "width": "100px"
+        },
+        {
+          "id": "from_literal",
+          "accepted": [
+            "--from-literal"
+          ],
+          "width": "140px"
+        }
       ]
     }
   ]

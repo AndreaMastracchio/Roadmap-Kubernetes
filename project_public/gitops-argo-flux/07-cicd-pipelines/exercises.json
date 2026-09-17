@@ -1,0 +1,204 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Creare un workflow GitHub Actions",
+        "en": "Create a GitHub Actions workflow"
+      },
+      "description": {
+        "it": "Creare un workflow CI che builda e testa un'applicazione",
+        "en": "Create a CI workflow that builds and tests an application"
+      },
+      "task": "1. Crea un file .github/workflows/ci.yml\n2. Definisci trigger push e pull_request\n3. Aggiungi job per build e test\n4. Pusha e verifica l'esecuzione",
+      "hints": [
+        "Usa on: push, pull_request come trigger",
+        "Usa actions/checkout e actions/setup-node",
+        "docker/build-push-action per buildare"
+      ],
+      "solution": "name: CI\non: [push, pull_request]\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n    - uses: actions/checkout@v4\n    - run: docker build -t myapp .\n    - run: docker run myapp npm test",
+      "validation": "GitHub Actions mostra il workflow completato con successo",
+      "difficulty": "easy",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Aggiungere image scan con Trivy",
+        "en": "Add image scan with Trivy"
+      },
+      "description": {
+        "it": "Aggiungere uno scan di sicurezza al pipeline CI",
+        "en": "Add a security scan to the CI pipeline"
+      },
+      "task": "1. Aggiungi un step per buildare l'immagine\n2. Aggiungi Trivy per scansionare l'immagine\n3. Configura il fail su vulnerabilità critiche\n4. Verifica lo scan nei log",
+      "hints": [
+        "aquasecurity/trivy-action è l'action ufficiale",
+        "severity: CRITICAL,HIGH per filtrare",
+        "exit-code: '1' fallisce su vulnerabilità"
+      ],
+      "solution": "- uses: aquasecurity/trivy-action@master\n  with:\n    image-ref: myapp:latest\n    severity: CRITICAL,HIGH\n    exit-code: '1'",
+      "validation": "Lo scan completa e mostra le vulnerabilità trovate",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare un pipeline GitLab CI",
+        "en": "Configure a GitLab CI pipeline"
+      },
+      "description": {
+        "it": "Creare un pipeline CI/CD in GitLab",
+        "en": "Create a CI/CD pipeline in GitLab"
+      },
+      "task": "1. Crea un file .gitlab-ci.yml\n2. Definisci stage: build, test, deploy\n3. Aggiungi job per ogni stage\n4. Pusha e verifica l'esecuzione",
+      "hints": [
+        "Il file .gitlab-ci.yml definisce la pipeline",
+        "Ogni job può avere un stage specifico",
+        "Cache è importante per velocizzare"
+      ],
+      "solution": "stages:\n  - build\n  - test\n  - deploy\nbuild:\n  stage: build\n  script:\n    - docker build -t myapp .\ntest:\n  stage: test\n  script:\n    - docker run myapp npm test",
+      "validation": "GitLab CI mostra la pipeline completata",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Integrare Flux con un pipeline CI",
+        "en": "Integrate Flux with a CI pipeline"
+      },
+      "description": {
+        "it": "Configurare un pipeline CI che aggiorna il Git per Flux",
+        "en": "Configure a CI pipeline that updates Git for Flux"
+      },
+      "task": "1. Crea un workflow che builda l'immagine\n2. Aggiungi un step per aggiornare il tag nel Git\n3. Configura i permessi per pushare nel Git\n4. Verifica che Flux riconcili dopo il push",
+      "hints": [
+        "git push richiede un token con permessi write",
+        "sed può aggiornare il tag nel file YAML",
+        "Flux riconcilia automaticamente dopo il push"
+      ],
+      "solution": "- run: |\n    sed -i 's|image:.*|image: myapp:${{ github.sha }}|' k8s/deployment.yaml\n    git config user.name 'CI Bot'\n    git commit -am 'Update image to ${{ github.sha }}'\n    git push",
+      "validation": "Flux mostra la riconciliazione con la nuova versione",
+      "difficulty": "hard",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare ApplicationSet ArgoCD per multi-cluster",
+        "en": "Create ArgoCD ApplicationSet for multi-cluster"
+      },
+      "description": {
+        "it": "Usare ApplicationSet per deployare su più cluster",
+        "en": "Use ApplicationSet to deploy across multiple clusters"
+      },
+      "task": "1. Definisci un ApplicationSet con generator cluster\n2. Configura il template Application\n3. Imposta destinazioni multiple\n4. Verifica la sincronizzazione su tutti i cluster",
+      "hints": [
+        "Generators: list, cluster, git, matrix",
+        "template: spec segue Application CRD",
+        "ArgoCD deve avere accesso ai cluster remoti"
+      ],
+      "solution": "apiVersion: argoproj.io/v1alpha1\nkind: ApplicationSet\nmetadata:\n  name: multi-cluster-app\nspec:\n  generators:\n  - list:\n      elements:\n      - cluster: cluster1\n        url: https://cluster1.example.com\n      - cluster: cluster2\n        url: https://cluster2.example.com\n  template:\n    spec:\n      source:\n        repoURL: https://github.com/user/repo\n        path: apps\n      destination:\n        server: '{{url}}'",
+      "validation": "argocd app list mostra le Application generate",
+      "difficulty": "hard",
+      "timeEstimate": "25 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare rollback automatico con Flagger",
+        "en": "Implement automatic rollback with Flagger"
+      },
+      "description": {
+        "it": "Configurare Flagger per rollback automatico su metriche negative",
+        "en": "Configure Flagger for automatic rollback on negative metrics"
+      },
+      "task": "1. Installa Flagger con Prometheus\n2. Crea un Canary CR\n3. Configura analysis con metriche\n4. Testa un deployment con errori e verifica il rollback",
+      "hints": [
+        "analysis.templates referenzia le metriche Prometheus",
+        "failedIterationsThreshold definisce quando rollback",
+        "webhooks può estendere i controlli"
+      ],
+      "solution": "apiVersion: flagger.app/v1beta1\nkind: Canary\nspec:\n  analysis:\n    interval: 1m\n    threshold: 5\n    metrics:\n    - name: request-success-rate\n      threshold: 99\n      interval: 1m",
+      "validation": "kubectl get canary mostra Phase: Failed e rollback automatico",
+      "difficulty": "hard",
+      "timeEstimate": "25 minuti"
+    },
+    {
+      "title": {
+        "it": "Gestire secrets in CI con Vault",
+        "en": "Manage secrets in CI with Vault"
+      },
+      "description": {
+        "it": "Integrare HashiCorp Vault per gestire secrets nel pipeline",
+        "en": "Integrate HashiCorp Vault to manage secrets in the pipeline"
+      },
+      "task": "1. Configura Vault con approle per CI\n2. Crea policy di sola lettura per le chiavi\n3. Integra con GitHub Actions o GitLab CI\n4. Verifica che i secrets non siano nei log",
+      "hints": [
+        "Usa approle per autenticazione machine-to-machine",
+        "Mask secrets nelle variabili CI",
+        "Vault Agent sidecar può iniettare secrets"
+      ],
+      "solution": "# GitHub Actions\n- uses: hashicorp/vault-action@v2\n  with:\n    url: https://vault.example.com\n    role: my-app\n    secrets: |\n      secret/data/myapp DB_PASSWORD | DB_PASSWORD",
+      "validation": "I secrets vengono iniettati come env var e non appaiono nei log",
+      "difficulty": "hard",
+      "timeEstimate": "30 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare gate di approvazione manuale",
+        "en": "Implement manual approval gates"
+      },
+      "description": {
+        "it": "Aggiungere un gate di approvazione prima del deploy in produzione",
+        "en": "Add an approval gate before production deployment"
+      },
+      "task": "1. Dividi il workflow in stage dev, staging, prod\n2. Aggiungi environment protection per prod\n3. Configura reviewers obbligatori\n4. Testa il flusso completo con approvazione",
+      "hints": [
+        "GitHub: environment con required reviewers",
+        "GitLab: when: manual per job di deploy",
+        "ArgoCD: SyncPolicy con manual sync"
+      ],
+      "solution": "# GitHub Actions\njobs:\n  deploy-prod:\n    environment: production\n    steps:\n    - run: kubectl apply -f k8s/\n\n# GitLab\ndeploy-prod:\n  stage: deploy\n  when: manual\n  only: main",
+      "validation": "Il workflow attende approvazione prima del deploy prod",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare test automatizzati pre-deploy",
+        "en": "Configure automated pre-deploy tests"
+      },
+      "description": {
+        "it": "Implementare test di integrazione che girano prima del deploy",
+        "en": "Implement integration tests that run before deployment"
+      },
+      "task": "1. Aggiungi un job di test nel workflow\n2. Configura service containers per testare\n3. Usa un ambiente di test temporaneo\n4. Assicurati che il deploy avvenga solo se i test passano",
+      "hints": [
+        "GitHub: services per DB, Redis, etc.",
+        "needs: test per dipendenze tra job",
+        "Cypress per E2E, pytest per backend"
+      ],
+      "solution": "jobs:\n  test:\n    runs-on: ubuntu-latest\n    services:\n      postgres:\n        image: postgres:14\n    steps:\n    - run: pytest tests/\n  deploy:\n    needs: test\n    steps:\n    - run: kubectl apply -f k8s/",
+      "validation": "Il deploy non avviene se i test falliscono",
+      "difficulty": "medium",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Monitorare la pipeline CI/CD con notifiche",
+        "en": "Monitor CI/CD pipeline with notifications"
+      },
+      "description": {
+        "it": "Configurare notifiche Slack/Teams per stati della pipeline",
+        "en": "Configure Slack/Teams notifications for pipeline status"
+      },
+      "task": "1. Crea un webhook in ingress per Slack\n2. Aggiungi step di notifica nel workflow\n3. Configura notifiche per successo e fallimento\n4. Testa le notifiche",
+      "hints": [
+        "Slack: Incoming Webhook app",
+        "GitHub: slack-send action",
+        "GitLab: slack_notifications integration"
+      ],
+      "solution": "- uses: slackapi/slack-github-action@v1\n  with:\n    payload: |\n      {\n        \"text\": \"Pipeline ${{ job.status }}: ${{ github.sha }}\"\n      }\n  env:\n    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}",
+      "validation": "Notifica Slack arriva al completamento della pipeline",
+      "difficulty": "easy",
+      "timeEstimate": "10 minuti"
+    }
+  ]
+}

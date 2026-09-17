@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Quale strumento si usa per generare il keystore Android?",
+        "en": "Which tool is used to generate Android keystore?"
+      },
+      "options": [
+        "android studio",
+        "keytool",
+        "gradle",
+        "jarsigner"
+      ],
+      "explanation": {
+        "it": "keytool è lo strumento Java per generare keystores per il signing delle app Android.",
+        "en": "keytool is the Java tool for generating keystores for Android app signing."
+      },
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Quale formato di build è richiesto per il Play Store?",
+        "en": "Which build format is required for Play Store?"
+      },
+      "options": [
+        "APK",
+        "AAB",
+        "JAR",
+        "ZIP"
+      ],
+      "explanation": {
+        "it": "Android App Bundle (AAB) è il formato richiesto dal Play Store dal 2021.",
+        "en": "Android App Bundle (AAB) is the format required by Play Store since 2021."
+      },
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Quale file contiene la configurazione del signing Android?",
+        "en": "Which file contains Android signing configuration?"
+      },
+      "options": [
+        "gradle.properties",
+        "key.properties",
+        "signing.properties",
+        "android.properties"
+      ],
+      "explanation": {
+        "it": "key.properties contiene le credenziali del keystore (password, alias, percorso).",
+        "en": "key.properties contains keystore credentials (password, alias, path)."
+      },
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Dove si configurano i build flavors Android?",
+        "en": "Where are Android build flavors configured?"
+      },
+      "options": [
+        "AndroidManifest.xml",
+        "build.gradle",
+        "settings.gradle",
+        "pubspec.yaml"
+      ],
+      "explanation": {
+        "it": "productFlavors si configura nel file build.gradle del modulo app.",
+        "en": "productFlavors is configured in the app module's build.gradle file."
+      },
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Quale package genera automaticamente le icone app?",
+        "en": "Which package automatically generates app icons?"
+      },
+      "options": [
+        "flutter_icons",
+        "flutter_launcher_icons",
+        "app_icon_generator",
+        "flutter_app_icons"
+      ],
+      "explanation": {
+        "it": "flutter_launcher_icons genera le icone per tutte le piattaforme da un'immagine.",
+        "en": "flutter_launcher_icons generates icons for all platforms from one image."
+      },
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Quale strumento Apple si usa per caricare su App Store?",
+        "en": "Which Apple tool is used to upload to App Store?"
+      },
+      "options": [
+        "iTunes Connect",
+        "Transporter",
+        "App Loader",
+        "Xcode Upload"
+      ],
+      "explanation": {
+        "it": "Transporter è l'app ufficiale Apple per caricare IPA su App Store Connect.",
+        "en": "Transporter is Apple's official app for uploading IPAs to App Store Connect."
+      },
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Quale sezione di pubspec.yaml definisce la versione app?",
+        "en": "Which pubspec.yaml section defines app version?"
+      },
+      "options": [
+        "app_version",
+        "version",
+        "release",
+        "metadata"
+      ],
+      "explanation": {
+        "it": "Il campo 'version' nel pubspec.yaml definisce versione e build number.",
+        "en": "The 'version' field in pubspec.yaml defines version and build number."
+      },
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Quale servizio CI/CD è specifico per Flutter?",
+        "en": "Which CI/CD service is specific to Flutter?"
+      },
+      "options": [
+        "CircleCI",
+        "Travis CI",
+        "Codemagic",
+        "Jenkins"
+      ],
+      "explanation": {
+        "it": "Codemagic è un servizio CI/CD dedicato a Flutter con supporto nativo.",
+        "en": "Codemagic is a CI/CD service dedicated to Flutter with native support."
+      },
+      "correct": 2
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Quale strumento automatizza il code signing iOS?",
+        "en": "Which tool automates iOS code signing?"
+      },
+      "options": [
+        "CocoaPods",
+        "Carthage",
+        "Fastlane Match",
+        "Xcode"
+      ],
+      "explanation": {
+        "it": "Fastlane Match sincronizza certificati e provisioning profiles nel team.",
+        "en": "Fastlane Match synchronizes certificates and provisioning profiles in teams."
+      },
+      "correct": 2
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Quanto dura tipicamente la prima review su Play Store?",
+        "en": "How long does the first Play Store review typically take?"
+      },
+      "options": [
+        "1 giorno",
+        "3-7 giorni",
+        "2 settimane",
+        "1 mese"
+      ],
+      "explanation": {
+        "it": "La prima sottomissione richiede 3-7 giorni. Aggiornamenti: 1-3 giorni.",
+        "en": "First submission takes 3-7 days. Updates: 1-3 days."
+      },
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Quale è la dimensione minima per gli screenshot iPhone?",
+        "en": "What is the minimum size for iPhone screenshots?"
+      },
+      "options": [
+        "1080p",
+        "1242 x 2208 pixel",
+        "750 x 1334 pixel",
+        "Qualsiasi dimensione"
+      ],
+      "explanation": {
+        "it": "Apple richiede screenshot a risoluzione specifica per ogni dispositivo supportato.",
+        "en": "Apple requires screenshots at specific resolution for each supported device."
+      },
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Quale file Android abilita ProGuard?",
+        "en": "Which Android file enables ProGuard?"
+      },
+      "options": [
+        "AndroidManifest.xml",
+        "proguard-rules.pro",
+        "gradle.properties",
+        "build.gradle (buildTypes)"
+      ],
+      "explanation": {
+        "it": "minifyEnabled true in build.gradle attiva ProGuard/R8.",
+        "en": "minifyEnabled true in build.gradle enables ProGuard/R8."
+      },
+      "correct": 3
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Come si incrementa il build number automaticamente?",
+        "en": "How do you increment the build number automatically?"
+      },
+      "options": [
+        "Manualmente nel pubspec",
+        "flutter build --auto-version",
+        "Usando git commit count",
+        "Non è possibile"
+      ],
+      "explanation": {
+        "it": "Si può usare git rev-list HEAD --count come build number automatico.",
+        "en": "You can use git rev-list HEAD --count as automatic build number."
+      },
+      "correct": 2
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Quale dimensione deve avere l'icona app per Play Store?",
+        "en": "What size must the app icon have for Play Store?"
+      },
+      "options": [
+        "256x256",
+        "512x512",
+        "1024x1024",
+        "192x192"
+      ],
+      "explanation": {
+        "it": "Play Store richiede icona PNG 512x512 pixel.",
+        "en": "Play Store requires a 512x512 pixel PNG icon."
+      },
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Quale tool genera splash screen nativi?",
+        "en": "Which tool generates native splash screens?"
+      },
+      "options": [
+        "flutter_splash",
+        "flutter_native_splash",
+        "splash_generator",
+        "launch_screen"
+      ],
+      "explanation": {
+        "it": "flutter_native_splash genera splash screen per Android, iOS e Web.",
+        "en": "flutter_native_splash generates splash screens for Android, iOS, and Web."
+      },
+      "correct": 1
+    }
+  ]
+}

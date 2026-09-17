@@ -1,0 +1,244 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Impostare la Leader Key",
+        "en": "Set the Leader Key"
+      },
+      "description": {
+        "it": "Configura Space come leader key globale.",
+        "en": "Configure Space as global leader key."
+      },
+      "difficulty": "beginner",
+      "steps": [
+        "Crea o modifica lua/config/options.lua",
+        "Imposta vim.g.mapleader = ' '",
+        "Imposta anche vim.g.maplocalleader",
+        "Verifica con :echo mapleader",
+        "Testa una keymap con <leader>"
+      ],
+      "hints": [
+        "Deve essere impostato prima di caricare i plugin",
+        "Il localleader è per override specifici"
+      ],
+      "solution": "vim.g.mapleader = ' '\nvim.g.maplocalleader = '\\\\'"
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Keymap Base di Navigazione",
+        "en": "Basic Navigation Keymaps"
+      },
+      "description": {
+        "it": "Crea keymap per navigare tra finestre e buffer.",
+        "en": "Create keymaps to navigate between windows and buffers."
+      },
+      "difficulty": "beginner",
+      "steps": [
+        "Mappa Ctrl+h/j/k/l per navigare finestre",
+        "Mappa Shift+h/l per buffer prev/next",
+        "Mappa <leader>bd per chiudere buffer",
+        "Testa ogni navigazione",
+        "Aggiungi desc descrittivi"
+      ],
+      "hints": [
+        "Usa vim.keymap.set('n', ...)",
+        "Ctrl-w è il prefisso per finestre"
+      ],
+      "solution": "vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Go left' })\nvim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Go down' })\nvim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Go up' })\nvim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Go right' })"
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Keymap per Finestre",
+        "en": "Window Keymaps"
+      },
+      "description": {
+        "it": "Aggiungi keymap per creare e gestire split.",
+        "en": "Add keymaps to create and manage splits."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Mappa <leader>sv per vertical split",
+        "Mappa <leader>sh per horizontal split",
+        "Mappa <leader>sc per close",
+        "Mappa Ctrl-arrow per resize",
+        "Testa in diverse configurazioni"
+      ],
+      "hints": [
+        "Usa <cmd> per comandi",
+        "resize cambia altezza, vertical resize cambia larghezza"
+      ],
+      "solution": "vim.keymap.set('n', '<leader>sv', '<cmd>vsplit<cr>', { desc = 'Vertical split' })\nvim.keymap.set('n', '<leader>sh', '<cmd>split<cr>', { desc = 'Horizontal split' })\nvim.keymap.set('n', '<leader>sc', '<cmd>close<cr>', { desc = 'Close window' })"
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "Which-key Setup",
+        "en": "Which-key Setup"
+      },
+      "description": {
+        "it": "Installa e configura which-key con i gruppi base.",
+        "en": "Install and configure which-key with base groups."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Aggiungi folke/which-key.nvim",
+        "Configura nel plugin spec",
+        "Aggiungi gruppi per f, g, b, w",
+        "Imposta delay a 300ms",
+        "Testa premendo <leader> e aspettando"
+      ],
+      "hints": [
+        "wk.add() per documentare gruppi",
+        "group = '[X]' per il titolo"
+      ],
+      "solution": "require('which-key').setup({\n  delay = 300,\n})\n\nwk.add({\n  { '<leader>f', group = '[F]ind' },\n  { '<leader>g', group = '[G]it' },\n})"
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Visual Mode Keymaps",
+        "en": "Visual Mode Keymaps"
+      },
+      "description": {
+        "it": "Crea keymap per editing in visual mode.",
+        "en": "Create keymaps for editing in visual mode."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Mappa < e > per indent mantenedo selezione",
+        "Mappa J/K per muovere righe",
+        "Mappa p per paste senza perdere registro",
+        "Mappa <leader>y per yank in clipboard",
+        "Testa ogni keymap"
+      ],
+      "hints": [
+        "<gv e >gv mantengono la selezione",
+        "\"_d è il registro black hole"
+      ],
+      "solution": "vim.keymap.set('v', '<', '<gv')\nvim.keymap.set('v', '>', '>gv')\nvim.keymap.set('v', 'J', \":m '>+1<cr>gv=gv\")\nvim.keymap.set('v', 'K', \":m '<-2<cr>gv=gv\")\nvim.keymap.set('v', 'p', '\"_dP')"
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Terminal Keymaps",
+        "en": "Terminal Keymaps"
+      },
+      "description": {
+        "it": "Configura keymap per la terminal mode.",
+        "en": "Configure keymaps for terminal mode."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Mappa EscEsc per uscire",
+        "Mappa jk come alternativa",
+        "Mappa Ctrl-hjkl per navigare finestre",
+        "Testa in un terminale Neovim",
+        "Verifica che torni in normal mode"
+      ],
+      "hints": [
+        "Serve <C-\\><C-n> per uscire",
+        "Puoi concatenare comandi per navigare"
+      ],
+      "solution": "vim.keymap.set('t', '<Esc><Esc>', '<C-\\\\><C-n>')\nvim.keymap.set('t', 'jk', '<C-\\\\><C-n>')\nvim.keymap.set('t', '<C-h>', '<C-\\\\><C-n><C-w>h')"
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "LSP Buffer-Local Keymaps",
+        "en": "LSP Buffer-Local Keymaps"
+      },
+      "description": {
+        "it": "Configura keymap LSP solo quando un server si attacca.",
+        "en": "Configure LSP keymaps only when a server attaches."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Crea autocommand LspAttach",
+        "Definisci funzione helper map()",
+        "Mappa gd, gr, K, <leader>rn",
+        "Usa buffer = event.buf",
+        "Testa aprendo un file con LSP"
+      ],
+      "hints": [
+        "event.buf è il buffer dove LSP è attivo",
+        "require('telescope.builtin').lsp_* per Telescope"
+      ],
+      "solution": "vim.api.nvim_create_autocmd('LspAttach', {\n  callback = function(event)\n    local map = function(keys, func, desc)\n      vim.keymap.set('n', keys, func, { buffer = event.buf, desc = desc })\n    end\n    map('gd', vim.lsp.buf.definition, 'Go to definition')\n  end,\n})"
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "Insert Mode Quality of Life",
+        "en": "Insert Mode Quality of Life"
+      },
+      "description": {
+        "it": "Aggiungi keymap per migliorare l'esperienza in insert mode.",
+        "en": "Add keymaps to improve the insert mode experience."
+      },
+      "difficulty": "intermediate",
+      "steps": [
+        "Mappa jj o jk come escape",
+        "Mappa Ctrl-hjkl per movimento",
+        "Aggiungi undo breakpoints per . e ,",
+        "Mappa Ctrl-u/d per scroll",
+        "Testa in un file in editing"
+      ],
+      "hints": [
+        "I undo breakpoints si aggiungono con <c-g>u",
+        "Il cursore resta in posto con <c-o>"
+      ],
+      "solution": "vim.keymap.set('i', 'jj', '<Esc>')\nvim.keymap.set('i', '<C-h>', '<Left>')\nvim.keymap.set('i', '.', '.<c-g>u')"
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "Quickfix Navigation",
+        "en": "Quickfix Navigation"
+      },
+      "description": {
+        "it": "Crea keymap per navigare la quickfix e location list.",
+        "en": "Create keymaps to navigate quickfix and location list."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Mappa Ctrl-j/k per quickfix next/prev",
+        "Mappa <leader>j/k per location list",
+        "Centra schermo dopo ogni movimento",
+        "Aggiungi zz ai comandi",
+        "Testa con :copen e lista di errori"
+      ],
+      "hints": [
+        "cnext/cprev per quickfix",
+        "lnext/lprev per location list"
+      ],
+      "solution": "vim.keymap.set('n', '<C-j>', '<cmd>cnext<cr>zz')\nvim.keymap.set('n', '<C-k>', '<cmd>cprev<cr>zz')\nvim.keymap.set('n', '<leader>j', '<cmd>lnext<cr>zz')\nvim.keymap.set('n', '<leader>k', '<cmd>lprev<cr>zz')"
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Modular Keymap Organization",
+        "en": "Modular Keymap Organization"
+      },
+      "description": {
+        "it": "Organizza le keymap in file separati per dominio.",
+        "en": "Organize keymaps in separate files per domain."
+      },
+      "difficulty": "advanced",
+      "steps": [
+        "Crea lua/config/keymaps/ directory",
+        "Crea init.lua che importa tutti",
+        "Crea navigation.lua per window/buffer",
+        "Crea editing.lua per operazioni testo",
+        "Testa che tutto sia caricato correttamente"
+      ],
+      "hints": [
+        "Usa require() per importare",
+        "return {} per compatibilità lazy"
+      ],
+      "solution": "-- lua/config/keymaps/init.lua\nreturn {\n  require('config.keymaps.navigation'),\n  require('config.keymaps.editing'),\n}"
+    }
+  ]
+}

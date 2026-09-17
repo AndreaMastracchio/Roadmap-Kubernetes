@@ -1,0 +1,37 @@
+{
+  "id": "neovim",
+  "title": {
+    "it": "Neovim",
+    "en": "Neovim"
+  },
+  "description": {
+    "it": "Padroneggia Neovim: dall'installazione alla configurazione avanzata, plugin, LSP, debugging e produttività con il miglior editor modale.",
+    "en": "Master Neovim: from installation to advanced configuration, plugins, LSP, debugging and productivity with the best modal editor."
+  },
+  "icon": "CodeIcon",
+  "isPrivate": false,
+  "comingSoon": false,
+  "duration": {
+    "it": "25 ore",
+    "en": "25 hours"
+  },
+  "color": "#57A143",
+  "languages": ["it", "en"],
+  "name": {
+    "it": "Neovim",
+    "en": "Neovim"
+  },
+  "group": "backend",
+  "modules": [
+    { "id": "01", "title": { "it": "Modulo 01: Installazione & Setup", "en": "Module 01: Installation & Setup" } },
+    { "id": "02", "title": { "it": "Modulo 02: Modalità & Motions", "en": "Module 02: Modes & Motions" } },
+    { "id": "03", "title": { "it": "Modulo 03: Text Objects", "en": "Module 03: Text Objects" } },
+    { "id": "04", "title": { "it": "Modulo 04: Plugin con Lazy.nvim", "en": "Module 04: Plugins with Lazy.nvim" } },
+    { "id": "05", "title": { "it": "Modulo 05: LSP & Completion", "en": "Module 05: LSP & Completion" } },
+    { "id": "06", "title": { "it": "Modulo 06: Telescope & File Finder", "en": "Module 06: Telescope & File Finder" } },
+    { "id": "07", "title": { "it": "Modulo 07: Debugging", "en": "Module 07: Debugging" } },
+    { "id": "08", "title": { "it": "Modulo 08: Git Integration", "en": "Module 08: Git Integration" } },
+    { "id": "09", "title": { "it": "Modulo 09: Custom Keymaps", "en": "Module 09: Custom Keymaps" } },
+    { "id": "10", "title": { "it": "Modulo 10: Advanced Config", "en": "Module 10: Advanced Config" } }
+  ]
+}

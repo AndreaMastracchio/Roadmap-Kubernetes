@@ -1,0 +1,247 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Installare Mason",
+        "en": "Installing Mason"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Aggiungi Mason.nvim al tuo setup e installalo.",
+        "en": "Add Mason.nvim to your setup and install it."
+      },
+      "steps": [
+        "Aggiungi 'williamboman/mason.nvim' ai plugin",
+        "Salva e riavvia Neovim",
+        "Esegui :Mason",
+        "Verifica che l'interfaccia sia visibile"
+      ],
+      "expected_result": "Interfaccia Mason funzionante",
+      "expected_result_en": "Mason interface working",
+      "hints": [
+        "Mason richiede una build: :MasonUpdate",
+        "Usa l'opzione build = ':MasonUpdate'"
+      ]
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Installare un language server",
+        "en": "Installing a language server"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Installa lua_ls tramite Mason.",
+        "en": "Install lua_ls via Mason."
+      },
+      "steps": [
+        "Apri :Mason",
+        "Cerca 'lua'",
+        "Seleziona lua-language-server",
+        "Premi 'i' per installare",
+        "Verifica con :LspInfo"
+      ],
+      "expected_result": "lua_ls installato e attivo",
+      "expected_result_en": "lua_ls installed and active",
+      "hints": [
+        "Mason installa in ~/.local/share/nvim/mason",
+        "Il server è chiamato 'lua_ls' non 'lua-language-server'"
+      ]
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Configurare nvim-lspconfig",
+        "en": "Configure nvim-lspconfig"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Configura nvim-lspconfig per lua_ls.",
+        "en": "Configure nvim-lspconfig for lua_ls."
+      },
+      "steps": [
+        "Aggiungi nvim-lspconfig ai plugin",
+        "Aggiungi require('lspconfig').lua_ls.setup({})",
+        "Configura i keymap LSP",
+        "Testa gd su una funzione vim"
+      ],
+      "expected_result": "LSP funzionante con keymap",
+      "expected_result_en": "LSP working with keymaps",
+      "hints": [
+        "Usa LspAttach autocommand per keymap",
+        "gd va alla definizione"
+      ]
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "Setup nvim-cmp",
+        "en": "Setup nvim-cmp"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Configura nvim-cmp con le source base.",
+        "en": "Configure nvim-cmp with basic sources."
+      },
+      "steps": [
+        "Aggiungi nvim-cmp e le source",
+        "Configura snippet expand con LuaSnip",
+        "Aggiungi mapping per Tab/S-Tab",
+        "Testa completamento in un file Lua"
+      ],
+      "expected_result": "Completamento visibile mentre digiti",
+      "expected_result_en": "Completion visible while typing",
+      "hints": [
+        "Aggiungi cmp-nvim-lsp come dependency",
+        "Source: nvim_lsp, luasnip, buffer"
+      ]
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Testare Go to Definition",
+        "en": "Test Go to Definition"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Usa gd per navigare al codice.",
+        "en": "Use gd to navigate to code."
+      },
+      "steps": [
+        "Apri un file Lua con import",
+        "Posizionati su require('plugin')",
+        "Premi gd",
+        "Verifica che salta al file"
+      ],
+      "expected_result": "Navigazione alla definizione",
+      "expected_result_en": "Navigation to definition",
+      "hints": [
+        "gd = go to definition",
+        "Usa Ctrl-o per tornare indietro"
+      ]
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Usare Hover Documentation",
+        "en": "Using Hover Documentation"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Usa K per vedere documentazione.",
+        "en": "Use K to see documentation."
+      },
+      "steps": [
+        "Posizionati su una funzione vim",
+        "Premi K",
+        "Leggi la documentazione",
+        "Chiudi con q o Esc"
+      ],
+      "expected_result": "Popup documentazione visibile",
+      "expected_result_en": "Documentation popup visible",
+      "hints": [
+        "K mostra hover documentation",
+        "Scrolla con j/k o Ctrl-f/b"
+      ]
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "Code Actions",
+        "en": "Code Actions"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Usa le code actions per fix automatici.",
+        "en": "Use code actions for automatic fixes."
+      },
+      "steps": [
+        "Crea un file con un warning",
+        "Posizionati sulla riga con il warning",
+        "Premi <leader>ca",
+        "Seleziona un fix"
+      ],
+      "expected_result": "Fix automatico applicato",
+      "expected_result_en": "Automatic fix applied",
+      "hints": [
+        "<leader>ca = code action",
+        "I warning appaiono come ▲"
+      ]
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "Rename Symbol",
+        "en": "Rename Symbol"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Rinomina una variabile ovunque.",
+        "en": "Rename a variable everywhere."
+      },
+      "steps": [
+        "Crea un file con una variabile usata più volte",
+        "Posizionati sul nome della variabile",
+        "Premi <leader>rn",
+        "Digita il nuovo nome"
+      ],
+      "expected_result": "Variabile rinominata ovunque",
+      "expected_result_en": "Variable renamed everywhere",
+      "hints": [
+        "<leader>rn = rename",
+        "LSP aggiorna tutti i riferimenti"
+      ]
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "Configurare conform.nvim",
+        "en": "Configure conform.nvim"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Setup formattazione automatica.",
+        "en": "Setup automatic formatting."
+      },
+      "steps": [
+        "Aggiungi conform.nvim",
+        "Configura stylua per Lua",
+        "Testa con <leader>f",
+        "Abilita format_on_save"
+      ],
+      "expected_result": "Codice formattato automaticamente",
+      "expected_result_en": "Code formatted automatically",
+      "hints": [
+        "Installa stylua con Mason",
+        "format_on_save = { lsp_fallback = true }"
+      ]
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Setup completo LSP",
+        "en": "Complete LSP setup"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Completa setup LSP per il tuo linguaggio preferito.",
+        "en": "Complete LSP setup for your preferred language."
+      },
+      "steps": [
+        "Installa language server via Mason",
+        "Configura in nvim-lspconfig",
+        "Setup keymap LSP",
+        "Setup completamento",
+        "Setup formattazione",
+        "Testa workflow completo"
+      ],
+      "expected_result": "IDE completo per il linguaggio",
+      "expected_result_en": "Complete IDE for the language",
+      "hints": [
+        "Segui la documentazione di nvim-lspconfig",
+        "Usa mason-lspconfig per auto-setup"
+      ]
+    }
+  ]
+}

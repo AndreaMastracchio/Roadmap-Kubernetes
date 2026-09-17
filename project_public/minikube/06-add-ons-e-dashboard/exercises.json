@@ -1,49 +1,54 @@
 {
-  "quiz": [
-    {
-      "id": "q1",
-      "question": "Quale comando apre l'interfaccia grafica ufficiale del cluster?",
-      "options": [
-        "minikube gui",
-        "minikube ui",
-        "minikube dashboard",
-        "minikube console"
-      ],
-      "correct": 2,
-      "explanation": "minikube dashboard avvia il server proxy e apre il browser."
-    },
-    {
-      "id": "q2",
-      "question": "Qual è il comando per abilitare un add-on specifico?",
-      "options": [
-        "minikube add enable <name>",
-        "minikube addons enable <name>",
-        "minikube install <name>",
-        "kubectl enable addon <name>"
-      ],
-      "correct": 1,
-      "explanation": "minikube addons enable <nome> attiva l'estensione scelta."
-    }
-  ],
   "exercises": [
     {
-      "id": "e1",
-      "title": "Abilita Ingress",
-      "hint": "Attiva l'addon per l'ingress controller",
-      "template": ["minikube addons {{action}} {{name}}"],
-      "answers": [
-        { "id": "action", "accepted": ["enable"], "placeholder": "azione" },
-        { "id": "name", "accepted": ["ingress"], "placeholder": "nome" }
-      ]
+      "title": {"it": "Abilita Dashboard", "en": "Enable Dashboard"},
+      "description": {"it": "Attiva l'add-on dashboard e aprilo nel browser.", "en": "Enable the dashboard add-on and open it in the browser."},
+      "hint": {"it": "'minikube addons enable dashboard' poi 'minikube dashboard'.", "en": "'minikube addons enable dashboard' then 'minikube dashboard'."}
     },
     {
-      "id": "e2",
-      "title": "Lista Addons",
-      "hint": "Mostra tutti gli addons disponibili",
-      "template": ["minikube addons {{command}}"],
-      "answers": [
-        { "id": "command", "accepted": ["list"], "placeholder": "..." }
-      ]
+      "title": {"it": "Lista Add-Ons", "en": "List Add-Ons"},
+      "description": {"it": "Elenca tutti gli add-on e identifica quali sono attivi.", "en": "List all add-ons and identify which ones are active."},
+      "hint": {"it": "'minikube addons list' mostra stato enabled/disabled.", "en": "'minikube addons list' shows enabled/disabled status."}
+    },
+    {
+      "title": {"it": "Abilita Ingress", "en": "Enable Ingress"},
+      "description": {"it": "Attiva l'add-on ingress per esporre servizi.", "en": "Enable the ingress add-on to expose services."},
+      "hint": {"it": "'minikube addons enable ingress' e verifica con kubectl.", "en": "'minikube addons enable ingress' and verify with kubectl."}
+    },
+    {
+      "title": {"it": "Abilita Metrics-Server", "en": "Enable Metrics-Server"},
+      "description": {"it": "Attiva metrics-server e verifica con 'kubectl top'.", "en": "Enable metrics-server and verify with 'kubectl top'."},
+      "hint": {"it": "'minikube addons enable metrics-server' poi 'kubectl top nodes'.", "en": "'minikube addons enable metrics-server' then 'kubectl top nodes'."}
+    },
+    {
+      "title": {"it": "Verifica Pod Add-Ons", "en": "Verify Add-On Pods"},
+      "description": {"it": "Controlla i pod degli add-on nel namespace corretto.", "en": "Check the add-on pods in the correct namespace."},
+      "hint": {"it": "'kubectl get pods -n kube-system' mostra i pod di sistema.", "en": "'kubectl get pods -n kube-system' shows system pods."}
+    },
+    {
+      "title": {"it": "Abilita Registry", "en": "Enable Registry"},
+      "description": {"it": "Attiva il registry locale e trova l'URL di accesso.", "en": "Enable the local registry and find the access URL."},
+      "hint": {"it": "'minikube addons enable registry' poi 'minikube service registry'.", "en": "'minikube addons enable registry' then 'minikube service registry'."}
+    },
+    {
+      "title": {"it": "Disabilita Add-On", "en": "Disable Add-On"},
+      "description": {"it": "Disabilita un add-on che non serve più.", "en": "Disable an add-on that is no longer needed."},
+      "hint": {"it": "'minikube addons disable <nome>' rimuove l'add-on.", "en": "'minikube addons disable <name>' removes the add-on."}
+    },
+    {
+      "title": {"it": "Esplora Dashboard", "en": "Explore Dashboard"},
+      "description": {"it": "Naviga nella dashboard e trova info sui nodi e pod.", "en": "Navigate the dashboard and find info about nodes and pods."},
+      "hint": {"it": "Clicca su Nodes e Pods nella sidebar sinistra.", "en": "Click on Nodes and Pods in the left sidebar."}
+    },
+    {
+      "title": {"it": "Storage Default", "en": "Default Storage"},
+      "description": {"it": "Verifica che default-storageclass sia attivo.", "en": "Verify that default-storageclass is active."},
+      "hint": {"it": "'kubectl get storageclass' mostra la classe predefinita.", "en": "'kubectl get storageclass' shows the default class."}
+    },
+    {
+      "title": {"it": "Dashboard Senza Browser", "en": "Dashboard Without Browser"},
+      "description": {"it": "Ottieni l'URL della dashboard senza aprirla automaticamente.", "en": "Get the dashboard URL without opening it automatically."},
+      "hint": {"it": "'minikube dashboard --url' stampa solo l'URL.", "en": "'minikube dashboard --url' prints only the URL."}
     }
   ]
 }

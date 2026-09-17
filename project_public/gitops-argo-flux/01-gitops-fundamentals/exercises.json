@@ -1,0 +1,204 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Analizzare la struttura di un repository GitOps",
+        "en": "Analyze a GitOps repository structure"
+      },
+      "description": {
+        "it": "Esplora un repository GitOps esempio e identifica i componenti chiave.",
+        "en": "Explore a sample GitOps repository and identify key components."
+      },
+      "task": "1. Clona il repository esempio: git clone https://github.com/argoproj/argocd-example-apps.git\n2. Naviga nella directory e lista le sottodirectory\n3. Identifica le directory 'apps' e 'guestbook'\n4. Esamina il file kustomization.yaml in guestbook\n5. Documenta la struttura trovata",
+      "hints": [
+        "Usa 'tree -L 2' per vedere la struttura",
+        "I file kustomization.yaml definiscono le risorse",
+        "Nota come le applicazioni sono organizzate per ambiente"
+      ],
+      "solution": "cd argocd-example-apps && tree -L 2 && cat guestbook/kustomization.yaml",
+      "validation": "Verifica di aver identificato almeno 3 applicazioni diverse nella struttura",
+      "difficulty": "easy",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare un repository GitOps personale",
+        "en": "Create a personal GitOps repository"
+      },
+      "description": {
+        "it": "Imposta un repository Git con la struttura base per GitOps.",
+        "en": "Set up a Git repository with the basic structure for GitOps."
+      },
+      "task": "1. Crea un nuovo repository Git locale\n2. Crea la struttura di directory: apps/, infrastructure/, clusters/\n3. Aggiungi un README.md con la descrizione del repo\n4. Crea un file .gitignore appropriato\n5. Commit iniziale",
+      "hints": [
+        "La struttura apps/ contiene le definizioni delle applicazioni",
+        "clusters/ contiene la configurazione specifica per cluster",
+        "Non dimenticare .gitignore per escludere file sensibili"
+      ],
+      "solution": "mkdir -p my-gitops-repo/{apps,infrastructure,clusters} && cd my-gitops-repo && git init && echo '# GitOps Repository' > README.md && echo '*.env\\n*.key\\n*.pem' > .gitignore && git add . && git commit -m 'Initial commit'",
+      "validation": "Verifica che la struttura delle directory sia corretta con 'tree'",
+      "difficulty": "easy",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Convertire manifest imperativi in dichiarativi",
+        "en": "Convert imperative manifests to declarative"
+      },
+      "description": {
+        "it": "Trasforma comandi kubectl imperativi in manifest YAML dichiarativi.",
+        "en": "Transform imperative kubectl commands into declarative YAML manifests."
+      },
+      "task": "1. Considera il comando: kubectl create deployment nginx --image=nginx:1.21\n2. Genera il manifest YAML equivalente usando --dry-run=client -o yaml\n3. Salva il file come deployment.yaml\n4. Aggiungi labels appropriati\n5. Versiona il file",
+      "hints": [
+        "Usa --dry-run=client per simulare senza creare",
+        "-o yaml produce l'output in formato YAML",
+        "Aggiungi label per identificare la risorsa"
+      ],
+      "solution": "kubectl create deployment nginx --image=nginx:1.21 --dry-run=client -o yaml > deployment.yaml",
+      "validation": "kubectl apply -f deployment.yaml --dry-run=client deve avere successo",
+      "difficulty": "easy",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare una struttura multi-ambiente",
+        "en": "Implement a multi-environment structure"
+      },
+      "description": {
+        "it": "Crea una struttura per gestire dev, staging e production.",
+        "en": "Create a structure to manage dev, staging, and production environments."
+      },
+      "task": "1. Crea la struttura: apps/myapp/overlays/{dev,staging,prod}\n2. Crea la base in apps/myapp/base/\n3. Crea un kustomization.yaml per ogni ambiente\n4. Definisci differenze tra ambienti (repliche, risorse)\n5. Verifica la build per ogni ambiente",
+      "hints": [
+        "Kustomize usa overlays per personalizzare la base",
+        "Le differenze sono patch applicate alla base",
+        "Usa 'kustomize build' per verificare"
+      ],
+      "solution": "mkdir -p apps/myapp/{base,overlays/{dev,staging,prod}} && cat > apps/myapp/base/kustomization.yaml << 'EOF'\nresources:\n  - deployment.yaml\nEOF\nkustomize build apps/myapp/overlays/dev",
+      "validation": "kustomize build apps/myapp/overlays/prod deve mostrare piu repliche di dev",
+      "difficulty": "medium",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Analizzare differenze tra pull e push model",
+        "en": "Analyze differences between pull and push models"
+      },
+      "description": {
+        "it": "Simula e confronta i due modelli di deployment.",
+        "en": "Simulate and compare the two deployment models."
+      },
+      "task": "1. Documenta il flusso del modello push (CI pipeline -> kubectl apply)\n2. Documenta il flusso del modello pull (Git -> in-cluster controller)\n3. Crea un diagramma di entrambi i flussi\n4. Identifica i punti di accesso/autenticazione richiesti\n5. Elenca vantaggi e svantaggi di ogni modello",
+      "hints": [
+        "Il modello push richiede segreti nel sistema CI",
+        "Il modello pull richiede solo accesso in uscita dal cluster",
+        "Considera scenari di disaster recovery"
+      ],
+      "solution": "Creare documentazione markdown comparando:\n## Push Model\n- CI server ha kubeconfig\n- Pipeline applica modifiche\n\n## Pull Model\n- Controller nel cluster\n- Pulla da Git periodicamente",
+      "validation": "La documentazione deve elencare almeno 3 differenze significative",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare policy di branch protection per GitOps",
+        "en": "Create branch protection policies for GitOps"
+      },
+      "description": {
+        "it": "Configura protezioni sui branch per un repository GitOps.",
+        "en": "Configure branch protections for a GitOps repository."
+      },
+      "task": "1. Crea un branch 'main' protetto\n2. Configura regole: richiede PR per modifiche\n3. Richiedi almeno 1 review\n4. Richiedi status check passing\n5. Documenta il workflow di modifica",
+      "hints": [
+        "GitHub: Settings -> Branches -> Branch protection rules",
+        "GitLab: Settings -> Repository -> Protected branches",
+        "Le protezioni prevengono modifiche dirette"
+      ],
+      "solution": "Tramite UI GitHub/GitLab o API:\n- main: protected\n- Require pull request\n- Require 1 approval\n- Require status checks",
+      "validation": "Tentare un push diretto su main deve essere bloccato",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare webhook per notifiche GitOps",
+        "en": "Configure webhooks for GitOps notifications"
+      },
+      "description": {
+        "it": "Imposta webhook per notificare cambiamenti nel repository.",
+        "en": "Set up webhooks to notify about repository changes."
+      },
+      "task": "1. Identifica l'endpoint webhook del tuo sistema GitOps\n2. Configura il webhook nel repository Git\n3. Testa il webhook con un commit\n4. Verifica la ricezione della notifica\n5. Documenta il payload ricevuto",
+      "hints": [
+        "ArgoCD usa /api/webhook per ricevere notifiche",
+        "Il segreto webhook autentica le richieste",
+        "Usa ngrok per test locali"
+      ],
+      "solution": "In GitHub: Settings -> Webhooks -> Add webhook\nPayload URL: https://argocd-server/api/webhook\nContent type: application/json",
+      "validation": "Un push deve generare una notifica ricevuta",
+      "difficulty": "hard",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare secret management per GitOps",
+        "en": "Implement secret management for GitOps"
+      },
+      "description": {
+        "it": "Configura un approccio sicuro per gestire i segreti in GitOps.",
+        "en": "Configure a secure approach to manage secrets in GitOps."
+      },
+      "task": "1. Installa Sealed Secrets o SOPS\n2. Crea un secret Kubernetes di esempio\n3. Cripta il secret per il repository\n4. Aggiungi il file criptato al repository\n5. Verifica che il controller possa decriptarlo",
+      "hints": [
+        "Sealed Secrets usa una chiave asimmetrica",
+        "Il controller deve essere installato nel cluster",
+        "Mai committare secret in chiaro"
+      ],
+      "solution": "kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.18.0/controller.yaml\nkubectl create secret generic my-secret --from-literal=password=secret123 --dry-run=client -o yaml | kubeseal -o yaml > sealed-secret.yaml",
+      "validation": "kubectl get secret my-secret -n default deve esistere dopo l'applicazione",
+      "difficulty": "hard",
+      "timeEstimate": "25 minuti"
+    },
+    {
+      "title": {
+        "it": "Creare documentazione GitOps per il team",
+        "en": "Create GitOps documentation for the team"
+      },
+      "description": {
+        "it": "Documenta le convenzioni e i processi GitOps per il tuo team.",
+        "en": "Document GitOps conventions and processes for your team."
+      },
+      "task": "1. Crea un file GITOPS.md nella root del repository\n2. Documenta la struttura delle directory\n3. Documenta il workflow di deploy (branch -> PR -> merge)\n4. Elenca i tool utilizzati e la loro configurazione\n5. Aggiungi esempi di PR comuni",
+      "hints": [
+        "Usa diagrammi Mermaid per visualizzare i flussi",
+        "Includi snippet di codice per esempi",
+        "Mantieni la documentazione aggiornata"
+      ],
+      "solution": "cat > GITOPS.md << 'EOF'\n# GitOps Workflow\n\n## Structure\n- apps/ - Application manifests\n- infrastructure/ - Cluster configs\n- clusters/ - Environment-specific\n\n## Workflow\n1. Create feature branch\n2. Make changes\n3. Open PR\n4. Get approval\n5. Merge triggers sync\nEOF",
+      "validation": "La documentazione deve essere chiara per un nuovo membro del team",
+      "difficulty": "easy",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Simulare conflitto Git e risoluzione",
+        "en": "Simulate Git conflict and resolution"
+      },
+      "description": {
+        "it": "Pratica la risoluzione di conflitti in un contesto GitOps.",
+        "en": "Practice conflict resolution in a GitOps context."
+      },
+      "task": "1. Crea due branch feature dal main\n2. Modifica lo stesso file in entrambi i branch\n3. Fai merge del primo branch\n4. Tenta merge del secondo (genererà conflitto)\n5. Risolvi il conflitto manualmente",
+      "hints": [
+        "I conflitti vengono marcati con <<<<<<< e >>>>>>>",
+        "Usa 'git status' per vedere i file in conflitto",
+        "Documenta la risoluzione nel commit"
+      ],
+      "solution": "git checkout -b feature1 && echo 'change1' > config.yaml && git add . && git commit -m 'feature1'\ngit checkout main && git checkout -b feature2 && echo 'change2' > config.yaml && git add . && git commit -m 'feature2'\ngit checkout main && git merge feature1\ngit merge feature2  # Conflitto\n# Risolvi manualmente e commit",
+      "validation": "Il merge finale non deve avere marcatori di conflitto",
+      "difficulty": "medium",
+      "timeEstimate": "20 minuti"
+    }
+  ]
+}

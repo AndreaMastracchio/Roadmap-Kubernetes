@@ -1,0 +1,250 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Installazione Lazy.nvim",
+        "en": "Installing Lazy.nvim"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Aggiungi il bootstrap di Lazy.nvim al tuo init.lua se non c'è già.",
+        "en": "Add the Lazy.nvim bootstrap to your init.lua if not present."
+      },
+      "steps": [
+        "Apri ~/.config/nvim/init.lua",
+        "Verifica se c'è il bootstrap di Lazy",
+        "Se no, aggiungi il codice di bootstrap",
+        "Salva e riavvia Neovim",
+        "Verifica che Lazy sia installato con :Lazy"
+      ],
+      "expected_result": "Dashboard Lazy visibile",
+      "expected_result_en": "Lazy dashboard visible",
+      "hints": [
+        "Il bootstrap controlla se lazy.nvim esiste",
+        "Usa vim.fn.stdpath('data') per il path"
+      ]
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Installare un plugin semplice",
+        "en": "Install a simple plugin"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Installa un plugin semplice senza configurazione.",
+        "en": "Install a simple plugin without configuration."
+      },
+      "steps": [
+        "Aggiungi 'tpope/vim-sleuth' alla lista plugin",
+        "Salva init.lua",
+        "Esegui :Lazy",
+        "Premi 'I' per installare",
+        "Verifica che funzioni aprendo un file"
+      ],
+      "expected_result": "Plugin installato e funzionante",
+      "expected_result_en": "Plugin installed and working",
+      "hints": [
+        "vim-sleuth rileva l'indentazione automaticamente",
+        "Basta aggiungere la stringa del repo"
+      ]
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Configurare con opts",
+        "en": "Configure with opts"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Configura un plugin usando opts.",
+        "en": "Configure a plugin using opts."
+      },
+      "steps": [
+        "Aggiungi 'numToStr/Comment.nvim'",
+        "Aggiungi opts = { padding = true }",
+        "Salva e installa",
+        "Testa con gcc su una riga"
+      ],
+      "expected_result": "Commento funzionante",
+      "expected_result_en": "Commenting working",
+      "hints": [
+        "opts viene passato a setup()",
+        "gcc commenta la riga corrente"
+      ]
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "Lazy loading con event",
+        "en": "Lazy loading with event"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Configura un plugin con lazy loading event-based.",
+        "en": "Configure a plugin with event-based lazy loading."
+      },
+      "steps": [
+        "Aggiungi un plugin con event = 'VeryLazy'",
+        "Salva e riavvia",
+        "Apri :Lazy profile",
+        "Verifica che il plugin non sia caricato all'avvio",
+        "Attiva l'evento e verifica il caricamento"
+      ],
+      "expected_result": "Plugin caricato solo dopo l'evento",
+      "expected_result_en": "Plugin loaded only after event",
+      "hints": [
+        "VeryLazy = dopo UI inizializzata",
+        ":Lazy profile mostra i tempi"
+      ]
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Lazy loading con keys",
+        "en": "Lazy loading with keys"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Configura Telescope con key-based lazy loading.",
+        "en": "Configure Telescope with key-based lazy loading."
+      },
+      "steps": [
+        "Aggiungi telescope.nvim con dependencies",
+        "Aggiungi keys = { { '<leader>ff', '<cmd>Telescope find_files<CR>' } }",
+        "Salva e riavvia",
+        "Verifica che Telescope non sia caricato all'avvio",
+        "Premi <leader>ff per caricarlo"
+      ],
+      "expected_result": "Telescope caricato solo al primo uso",
+      "expected_result_en": "Telescope loaded only on first use",
+      "hints": [
+        "keys accetta una lista di tabelle",
+        "Ogni tasto ha: key, action, desc"
+      ]
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Lazy loading con filetype",
+        "en": "Lazy loading with filetype"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Configura un plugin solo per certi file type.",
+        "en": "Configure a plugin only for certain file types."
+      },
+      "steps": [
+        "Aggiungi nvim-treesitter con ft = { 'lua', 'python' }",
+        "Salva e riavvia",
+        "Apri un file .txt - plugin non caricato",
+        "Apri un file .lua - plugin caricato"
+      ],
+      "expected_result": "Plugin caricato solo per i filetype specificati",
+      "expected_result_en": "Plugin loaded only for specified filetypes",
+      "hints": [
+        "ft accetta stringa singola o lista",
+        "Verifica con :Lazy log"
+      ]
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "Dipendenze",
+        "en": "Dependencies"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Configura un plugin con dipendenze.",
+        "en": "Configure a plugin with dependencies."
+      },
+      "steps": [
+        "Aggiungi un plugin che richiede plenary.nvim",
+        "Specifica dependencies = { 'nvim-lua/plenary.nvim' }",
+        "Salva e installa",
+        "Verifica che entrambi siano installati"
+      ],
+      "expected_result": "Dipendenze installate automaticamente",
+      "expected_result_en": "Dependencies installed automatically",
+      "hints": [
+        "Lazy risolve le dipendenze automaticamente",
+        "L'ordine nel config non importa"
+      ]
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "Build commands",
+        "en": "Build commands"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Configura un plugin con build command.",
+        "en": "Configure a plugin with build command."
+      },
+      "steps": [
+        "Aggiungi telescope-fzf-native.nvim",
+        "Aggiungi build = 'make'",
+        "Salva e installa",
+        "Verifica che make sia stato eseguito"
+      ],
+      "expected_result": "Plugin compilato automaticamente",
+      "expected_result_en": "Plugin compiled automatically",
+      "hints": [
+        "build può essere stringa o funzione",
+        "Usa :Lazy log per vedere output"
+      ]
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "Profiling e ottimizzazione",
+        "en": "Profiling and optimization"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Analizza i tempi di caricamento e ottimizza.",
+        "en": "Analyze loading times and optimize."
+      },
+      "steps": [
+        "Apri :Lazy profile",
+        "Identifica i plugin più lenti",
+        "Aggiungi lazy loading dove appropriato",
+        "Riavvia e confronta i tempi",
+        "Obiettivo: avvio < 100ms"
+      ],
+      "expected_result": "Avvio Neovim ottimizzato",
+      "expected_result_en": "Optimized Neovim startup",
+      "hints": [
+        "lazy = true per tutti i plugin non essenziali",
+        "event = 'VeryLazy' per plugin UI"
+      ]
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Gestione lockfile",
+        "en": "Managing lockfile"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Usa il lockfile per versioning consistente.",
+        "en": "Use lockfile for consistent versioning."
+      },
+      "steps": [
+        "Apri lazy-lock.json",
+        "Controlla le versioni attuali",
+        "Esegui :Lazy update",
+        "Controlla le differenze nel lockfile",
+        "Esegui :Lazy restore per tornare indietro"
+      ],
+      "expected_result": "Capire come funziona il versioning",
+      "expected_result_en": "Understand how versioning works",
+      "hints": [
+        "Il lockfile va committato nel repo",
+        ":Lazy restore usa il lockfile"
+      ]
+    }
+  ]
+}

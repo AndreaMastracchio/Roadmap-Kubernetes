@@ -1,0 +1,304 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Configurare un livenessProbe HTTP di base",
+        "en": "Configure a basic HTTP livenessProbe"
+      },
+      "description": {
+        "it": "Aggiungi un livenessProbe HTTP a un deployment esistente",
+        "en": "Add an HTTP livenessProbe to an existing deployment"
+      },
+      "task": "1. Crea un deployment nginx con 2 repliche\n2. Aggiungi un livenessProbe che verifica / su porta 80\n3. Imposta initialDelaySeconds a 10 e periodSeconds a 5",
+      "hints": [
+        "Usa kubectl create deployment --image=nginx",
+        "Modifica con kubectl edit deployment o applica un manifest",
+        "Il path httpGet si configura sotto livenessProbe"
+      ],
+      "solution": "kubectl create deployment nginx --image=nginx --replicas=2\nkubectl patch deployment nginx --type='json' -p='[{\"op\": \"add\", \"path\": \"/spec/template/spec/containers/0/livenessProbe\", \"value\": {\"httpGet\": {\"path\": \"/\", \"port\": 80}, \"initialDelaySeconds\": 10, \"periodSeconds\": 5}}]'",
+      "validation": "kubectl describe deployment nginx | grep -A5 livenessProbe",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Aggiungere un readinessProbe TCP",
+        "en": "Add a TCP readinessProbe"
+      },
+      "description": {
+        "it": "Configura un readinessProbe che verifica una porta TCP",
+        "en": "Configure a readinessProbe that checks a TCP port"
+      },
+      "task": "1. Crea un pod redis con readinessProbe tcpSocket\n2. Verifica la porta 6379\n3. Imposta failureThreshold a 3 e successThreshold a 1",
+      "hints": [
+        "Crea un manifest YAML per il pod",
+        "tcpSocket richiede solo il numero di porta",
+        "successThreshold per readinessProbe può essere > 1"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: redis\nspec:\n  containers:\n  - name: redis\n    image: redis\n    readinessProbe:\n      tcpSocket:\n        port: 6379\n      failureThreshold: 3\n      successThreshold: 1\nEOF",
+      "validation": "kubectl get pod redis -o jsonpath='{.spec.containers[0].readinessProbe}'",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Probe exec con comando personalizzato",
+        "en": "Exec probe with custom command"
+      },
+      "description": {
+        "it": "Configura un livenessProbe che esegue un comando",
+        "en": "Configure a livenessProbe that runs a command"
+      },
+      "task": "1. Crea un pod busybox con livenessProbe exec\n2. Il comando deve verificare se il file /tmp/healthy esiste\n3. Imposta initialDelaySeconds a 5 e periodSeconds a 10",
+      "hints": [
+        "Il probe exec esegue comandi nel container",
+        "Un comando che ritorna 0 è considerato successo",
+        "Usa 'cat /tmp/healthy' o 'test -f /tmp/healthy'"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: busybox\nspec:\n  containers:\n  - name: busybox\n    image: busybox\n    command: ['sh', '-c', 'touch /tmp/healthy && sleep 3600']\n    livenessProbe:\n      exec:\n        command:\n        - cat\n        - /tmp/healthy\n      initialDelaySeconds: 5\n      periodSeconds: 10\nEOF",
+      "validation": "kubectl describe pod busybox | grep -A5 Liveness",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare timeout e threshold",
+        "en": "Configure timeout and threshold"
+      },
+      "description": {
+        "it": "Imposta parametri avanzati per i probe",
+        "en": "Set advanced probe parameters"
+      },
+      "task": "1. Crea un deployment con timeoutSeconds a 2\n2. Imposta failureThreshold a 5 per livenessProbe\n3. Imposta successThreshold a 2 per readinessProbe",
+      "hints": [
+        "failureThreshold indica quanti fallimenti prima dell'azione",
+        "successThreshold per readiness può essere > 1",
+        "timeoutSeconds è il tempo massimo di attesa per ogni probe"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: webapp\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: webapp\n  template:\n    metadata:\n      labels:\n        app: webapp\n    spec:\n      containers:\n      - name: webapp\n        image: nginx\n        livenessProbe:\n          httpGet:\n            path: /\n            port: 80\n          timeoutSeconds: 2\n          failureThreshold: 5\n        readinessProbe:\n          httpGet:\n            path: /\n            port: 80\n          successThreshold: 2\nEOF",
+      "validation": "kubectl describe deployment webapp | grep -A10 liveness",
+      "difficulty": "easy",
+      "timeEstimate": "7 minuti"
+    },
+    {
+      "title": {
+        "it": "StartupProbe per avvio lento",
+        "en": "StartupProbe for slow startup"
+      },
+      "description": {
+        "it": "Configura uno startupProbe per un'app lenta",
+        "en": "Configure a startupProbe for a slow app"
+      },
+      "task": "1. Crea un pod con startupProbe\n2. Il probe deve fallire per i primi 60 secondi\n3. Usa periodSeconds: 10 con failureThreshold: 6",
+      "hints": [
+        "startupProbe disabilita gli altri probe fino al successo",
+        "failureThreshold * periodSeconds = tempo massimo di avvio",
+        "Puoi combinare startupProbe con liveness e readiness"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: slow-start\nspec:\n  containers:\n  - name: app\n    image: nginx\n    startupProbe:\n      httpGet:\n        path: /\n        port: 80\n      failureThreshold: 6\n      periodSeconds: 10\n    livenessProbe:\n      httpGet:\n        path: /\n        port: 80\n      initialDelaySeconds: 0\n    readinessProbe:\n      httpGet:\n        path: /\n        port: 80\nEOF",
+      "validation": "kubectl describe pod slow-start | grep -A5 Startup",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Diagnosticare probe falliti",
+        "en": "Diagnose failed probes"
+      },
+      "description": {
+        "it": "Analizza un pod con probe che falliscono",
+        "en": "Analyze a pod with failing probes"
+      },
+      "task": "1. Crea un pod con livenessProbe che fallisce (porta errata)\n2. Osserva il pod con kubectl get pods -w\n3. Controlla gli eventi con kubectl describe\n4. Identifica il motivo del restart",
+      "hints": [
+        "Crea un probe su una porta inesistente (es. 9999)",
+        "Il pod entrerà in CrashLoopBackOff",
+        "kubectl events o kubectl describe mostrano i fallimenti"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: failing-probe\nspec:\n  containers:\n  - name: nginx\n    image: nginx\n    livenessProbe:\n      httpGet:\n        path: /\n        port: 9999\n      initialDelaySeconds: 5\n      periodSeconds: 5\nEOF\n\nkubectl get pods -w &\nkubectl describe pod failing-probe\nkubectl get pod failing-probe -o jsonpath='{.status.containerStatuses[0].lastState}'",
+      "validation": "kubectl get pod failing-probe -o jsonpath='{.status.containerStatuses[0].restartCount}'",
+      "difficulty": "medium",
+      "timeEstimate": "8 minuti"
+    },
+    {
+      "title": {
+        "it": "Probe con header HTTP personalizzati",
+        "en": "Probe with custom HTTP headers"
+      },
+      "description": {
+        "it": "Configura un probe con header di autenticazione",
+        "en": "Configure a probe with authentication headers"
+      },
+      "task": "1. Crea un deployment con readinessProbe\n2. Aggiungi header 'X-Custom-Header: test-value'\n3. Aggiungi header 'Authorization: Bearer token123'\n4. Verifica la configurazione",
+      "hints": [
+        "httpHeaders è una lista di oggetti",
+        "Ogni header ha name e value",
+        "Gli header sono utili per endpoint protetti"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: api-server\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: api\n  template:\n    metadata:\n      labels:\n        app: api\n    spec:\n      containers:\n      - name: api\n        image: nginx\n        readinessProbe:\n          httpGet:\n            path: /health\n            port: 80\n            httpHeaders:\n            - name: X-Custom-Header\n              value: test-value\n            - name: Authorization\n              value: Bearer token123\nEOF",
+      "validation": "kubectl get deployment api-server -o yaml | grep -A10 httpHeaders",
+      "difficulty": "medium",
+      "timeEstimate": "7 minuti"
+    },
+    {
+      "title": {
+        "it": "Probe HTTPS con scheme",
+        "en": "HTTPS probe with scheme"
+      },
+      "description": {
+        "it": "Configura un probe su endpoint HTTPS",
+        "en": "Configure a probe on HTTPS endpoint"
+      },
+      "task": "1. Crea un pod che simula HTTPS\n2. Configura readinessProbe con scheme: HTTPS\n3. Imposta la porta 443\n4. Verifica il campo scheme nel manifest",
+      "hints": [
+        "Il campo scheme accetta HTTP o HTTPS",
+        "Di default è HTTP",
+        "HTTPS è utile per API protette"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: https-app\nspec:\n  containers:\n  - name: nginx\n    image: nginx\n    readinessProbe:\n      httpGet:\n        path: /\n        port: 443\n        scheme: HTTPS\nEOF",
+      "validation": "kubectl get pod https-app -o jsonpath='{.spec.containers[0].readinessProbe.httpGet.scheme}'",
+      "difficulty": "medium",
+      "timeEstimate": "6 minuti"
+    },
+    {
+      "title": {
+        "it": "Combinare liveness e readiness",
+        "en": "Combine liveness and readiness"
+      },
+      "description": {
+        "it": "Configura entrambi i probe nello stesso container",
+        "en": "Configure both probes in the same container"
+      },
+      "task": "1. Crea un deployment con livenessProbe e readinessProbe\n2. livenessProbe: /healthz su porta 8080\n3. readinessProbe: /ready su porta 8080\n4. Imposta parametri diversi per ogni probe",
+      "hints": [
+        "I probe possono avere path diversi",
+        "initialDelaySeconds può essere diverso",
+        " readinessProbe può avere initialDelay più alto"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: full-probe\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: full-probe\n  template:\n    metadata:\n      labels:\n        app: full-probe\n    spec:\n      containers:\n      - name: app\n        image: nginx\n        ports:\n        - containerPort: 80\n        livenessProbe:\n          httpGet:\n            path: /\n            port: 80\n          initialDelaySeconds: 10\n          periodSeconds: 10\n        readinessProbe:\n          httpGet:\n            path: /\n            port: 80\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          failureThreshold: 3\nEOF",
+      "validation": "kubectl describe deployment full-probe | grep -A10 'Liveness\\|Readiness'",
+      "difficulty": "medium",
+      "timeEstimate": "8 minuti"
+    },
+    {
+      "title": {
+        "it": "RestartPolicy Always vs OnFailure",
+        "en": "RestartPolicy Always vs OnFailure"
+      },
+      "description": {
+        "it": "Testa diverse restartPolicy con probe",
+        "en": "Test different restartPolicy with probes"
+      },
+      "task": "1. Crea due pod identici con restartPolicy diversa\n2. Pod A: restartPolicy: Always\n3. Pod B: restartPolicy: OnFailure\n4. Simula un crash e osserva il comportamento",
+      "hints": [
+        "Always riavvia anche per exit code 0",
+        "OnFailure riavvia solo per exit code != 0",
+        "Never non riavvia mai"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: pod-always\nspec:\n  restartPolicy: Always\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'sleep 10 && exit 0']\n---\napiVersion: v1\nkind: Pod\nmetadata:\n  name: pod-onfailure\nspec:\n  restartPolicy: OnFailure\n  containers:\n  - name: app\n    image: busybox\n    command: ['sh', '-c', 'sleep 10 && exit 0']\nEOF",
+      "validation": "kubectl get pods -w | grep 'pod-'",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Probe con named port",
+        "en": "Probe with named port"
+      },
+      "description": {
+        "it": "Usa il nome della porta invece del numero",
+        "en": "Use port name instead of number"
+      },
+      "task": "1. Crea un pod con porta nominata 'http'\n2. Configura il probe usando il nome della porta\n3. Verifica che funzioni correttamente",
+      "hints": [
+        "Definisci ports con name: http",
+        "Nei probe puoi usare porta numerica o nome",
+        "Il nome porta è più manutenibile"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: named-port\nspec:\n  containers:\n  - name: nginx\n    image: nginx\n    ports:\n    - name: http\n      containerPort: 80\n    livenessProbe:\n      httpGet:\n        path: /\n        port: http\nEOF",
+      "validation": "kubectl get pod named-port -o jsonpath='{.spec.containers[0].livenessProbe.httpGet.port}'",
+      "difficulty": "medium",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {
+        "it": "Debug probe fallito con eventi",
+        "en": "Debug failed probe with events"
+      },
+      "description": {
+        "it": "Analizza gli eventi Kubernetes per diagnosticare probe",
+        "en": "Analyze Kubernetes events to diagnose probes"
+      },
+      "task": "1. Crea un pod con probe che fallisce\n2. Usa kubectl events per vedere cosa succede\n3. Filtra gli eventi per tipo di probe\n4. Identifica il timestamp del fallimento",
+      "hints": [
+        "kubectl events --sort='.lastTimestamp'",
+        "Gli eventi hanno reason: LivenessProbeFailed",
+        "kubectl get events --field-selector reason=LivenessProbeFailed"
+      ],
+      "solution": "# Crea pod con probe che fallisce\ncat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: debug-probe\nspec:\n  containers:\n  - name: nginx\n    image: nginx\n    livenessProbe:\n      httpGet:\n        path: /nonexistent\n        port: 80\n      initialDelaySeconds: 5\n      periodSeconds: 5\nEOF\n\n# Analizza eventi\nkubectl events --for pod/debug-probe\nkubectl get events --field-selector involvedObject.name=debug-probe\nkubectl describe pod debug-probe | grep -A10 Events",
+      "validation": "kubectl get events --field-selector reason=LivenessProbeFailed -o name | wc -l",
+      "difficulty": "hard",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {
+        "it": "Probe gRPC per servizio health",
+        "en": "gRPC probe for health service"
+      },
+      "description": {
+        "it": "Configura un probe gRPC per verificare salute",
+        "en": "Configure a gRPC probe to check health"
+      },
+      "task": "1. Crea un pod con probe gRPC\n2. Configura porta 50051\n3. Specifica il servizio di health opzionale\n4. Imposta i parametri di timeout",
+      "hints": [
+        "gRPC probe richiede Kubernetes >= 1.24",
+        "Il campo service è opzionale per health standard",
+        "Usa grpc con port e service"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: v1\nkind: Pod\nmetadata:\n  name: grpc-app\nspec:\n  containers:\n  - name: grpc-server\n    image: node:18\n    command: ['node', '-e', 'const grpc = require(\"@grpc/grpc-js\"); // simulate grpc server']\n    ports:\n    - containerPort: 50051\n    livenessProbe:\n      grpc:\n        port: 50051\n      initialDelaySeconds: 10\n      periodSeconds: 5\n    readinessProbe:\n      grpc:\n        port: 50051\n        service: myapp.Health\nEOF",
+      "validation": "kubectl get pod grpc-app -o jsonpath='{.spec.containers[0].livenessProbe.grpc}'",
+      "difficulty": "hard",
+      "timeEstimate": "8 minuti"
+    },
+    {
+      "title": {
+        "it": "Probe con variabili d'ambiente",
+        "en": "Probe with environment variables"
+      },
+      "description": {
+        "it": "Usa env vars per configurare dinamicamente i probe",
+        "en": "Use env vars to dynamically configure probes"
+      },
+      "task": "1. Crea un deployment con variabile HEALTH_PORT\n2. Configura il probe usando $(HEALTH_PORT)\n3. Verifica l'espansione della variabile",
+      "hints": [
+        "Puoi usare variabili nel path del probe",
+        "La sintassi è $(VAR_NAME)",
+        "Le variabili devono essere definite nello stesso container"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: env-probe\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: env-probe\n  template:\n    metadata:\n      labels:\n        app: env-probe\n    spec:\n      containers:\n      - name: app\n        image: nginx\n        env:\n        - name: HEALTH_PATH\n          value: /\n        - name: HEALTH_PORT\n          value: \"80\"\n        livenessProbe:\n          httpGet:\n            path: $(HEALTH_PATH)\n            port: $(HEALTH_PORT)\nEOF",
+      "validation": "kubectl exec deployment/env-probe -- env | grep HEALTH",
+      "difficulty": "hard",
+      "timeEstimate": "8 minuti"
+    },
+    {
+      "title": {
+        "it": "Scenario completo: deployment resiliente",
+        "en": "Complete scenario: resilient deployment"
+      },
+      "description": {
+        "it": "Crea un deployment completamente configurato con tutti i probe",
+        "en": "Create a fully configured deployment with all probes"
+      },
+      "task": "1. Crea un deployment con startupProbe, livenessProbe, readinessProbe\n2. startupProbe: 30 tentativi ogni 10s\n3. livenessProbe: /healthz ogni 15s\n4. readinessProbe: /ready ogni 5s\n5. Imposta resources requests e limits appropriati",
+      "hints": [
+        "startupProbe = failureThreshold * periodSeconds = max startup time",
+        "Usa resources per evitare OOMKilled",
+        "Ordine: startup -> liveness/readiness abilitati"
+      ],
+      "solution": "cat <<EOF | kubectl apply -f -\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: resilient-app\nspec:\n  replicas: 3\n  selector:\n    matchLabels:\n      app: resilient\n  template:\n    metadata:\n      labels:\n        app: resilient\n    spec:\n      containers:\n      - name: app\n        image: nginx\n        resources:\n          requests:\n            cpu: 100m\n            memory: 128Mi\n          limits:\n            cpu: 500m\n            memory: 256Mi\n        ports:\n        - containerPort: 80\n        startupProbe:\n          httpGet:\n            path: /\n            port: 80\n          failureThreshold: 30\n          periodSeconds: 10\n        livenessProbe:\n          httpGet:\n            path: /\n            port: 80\n          initialDelaySeconds: 0\n          periodSeconds: 15\n          timeoutSeconds: 5\n          failureThreshold: 3\n        readinessProbe:\n          httpGet:\n            path: /\n            port: 80\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          failureThreshold: 3\n          successThreshold: 1\nEOF",
+      "validation": "kubectl rollout status deployment/resilient-app && kubectl get pods -l app=resilient -o wide",
+      "difficulty": "hard",
+      "timeEstimate": "12 minuti"
+    }
+  ]
+}

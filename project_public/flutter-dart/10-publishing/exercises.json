@@ -1,0 +1,184 @@
+{
+  "exercises": [
+    {
+      "id": 1,
+      "title": {
+        "it": "Keystore Generation",
+        "en": "Keystore Generation"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Genera un keystore di test per il signing Android.",
+        "en": "Generate a test keystore for Android signing."
+      },
+      "requirements": [
+        "Usa keytool",
+        "RSA 2048 bit",
+        "Validità 10000 giorni"
+      ],
+      "starter_code": "# Esegui il comando keytool"
+    },
+    {
+      "id": 2,
+      "title": {
+        "it": "Signing Configuration",
+        "en": "Signing Configuration"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Configura il signing nel build.gradle usando key.properties.",
+        "en": "Configure signing in build.gradle using key.properties."
+      },
+      "requirements": [
+        "Leggi key.properties",
+        "Configura signingConfigs",
+        "Collega a buildTypes.release"
+      ],
+      "starter_code": "// android/app/build.gradle\nandroid {\n  // TODO: Aggiungi signingConfigs\n}"
+    },
+    {
+      "id": 3,
+      "title": {
+        "it": "Build Flavors Setup",
+        "en": "Build Flavors Setup"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Configura flavor dev, staging e prod per Android.",
+        "en": "Configure dev, staging, and prod flavors for Android."
+      },
+      "requirements": [
+        "productFlavors in build.gradle",
+        "applicationIdSuffix per dev/staging",
+        "Nomi app diversi per flavor"
+      ],
+      "starter_code": "// android/app/build.gradle\nandroid {\n  flavorDimensions \"environment\"\n  // TODO: productFlavors\n}"
+    },
+    {
+      "id": 4,
+      "title": {
+        "it": "Icon Generation",
+        "en": "Icon Generation"
+      },
+      "difficulty": "beginner",
+      "description": {
+        "it": "Usa flutter_launcher_icons per generare icone app.",
+        "en": "Use flutter_launcher_icons to generate app icons."
+      },
+      "requirements": [
+        "Configura pubspec.yaml",
+        "Fornisci immagine PNG",
+        "Esegui il comando"
+      ],
+      "starter_code": "# pubspec.yaml\n# TODO: Aggiungi configurazione flutter_launcher_icons"
+    },
+    {
+      "id": 5,
+      "title": {
+        "it": "Splash Screen Setup",
+        "en": "Splash Screen Setup"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Configura splash screen nativo con flutter_native_splash.",
+        "en": "Configure native splash screen with flutter_native_splash."
+      },
+      "requirements": [
+        "Colore di sfondo",
+        "Logo centrato",
+        "Configurazione Android 12"
+      ],
+      "starter_code": "# pubspec.yaml\nflutter_native_splash:\n  # TODO: Configura"
+    },
+    {
+      "id": 6,
+      "title": {
+        "it": "Version Automation",
+        "en": "Version Automation"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Crea uno script che incrementa automaticamente versione e build number.",
+        "en": "Create a script that automatically increments version and build number."
+      },
+      "requirements": [
+        "Leggi versione da pubspec.yaml",
+        "Incrementa build number",
+        "Git commit automatico"
+      ],
+      "starter_code": "#!/bin/bash\n# scripts/bump_version.sh\n# TODO: Implementa"
+    },
+    {
+      "id": 7,
+      "title": {
+        "it": "AAB Build",
+        "en": "AAB Build"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Genera Android App Bundle per il Play Store.",
+        "en": "Generate Android App Bundle for Play Store."
+      },
+      "requirements": [
+        "Build in release mode",
+        "Firma con keystore",
+        "Output in directory corretta"
+      ],
+      "starter_code": "# Comando per generare AAB"
+    },
+    {
+      "id": 8,
+      "title": {
+        "it": "IPA Build",
+        "en": "IPA Build"
+      },
+      "difficulty": "intermediate",
+      "description": {
+        "it": "Genera IPA per App Store.",
+        "en": "Generate IPA for App Store."
+      },
+      "requirements": [
+        "Configura signing iOS",
+        "Build in release mode",
+        "Export per App Store"
+      ],
+      "starter_code": "# Comando per generare IPA"
+    },
+    {
+      "id": 9,
+      "title": {
+        "it": "GitHub Actions CI/CD",
+        "en": "GitHub Actions CI/CD"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Configura workflow GitHub Actions per build automatica.",
+        "en": "Configure GitHub Actions workflow for automatic build."
+      },
+      "requirements": [
+        "Build su push main",
+        "Test automatici",
+        "Upload artifacts"
+      ],
+      "starter_code": "# .github/workflows/flutter.yml\nname: Flutter CI\non: [push]\njobs:\n  build:\n    # TODO: Implementa"
+    },
+    {
+      "id": 10,
+      "title": {
+        "it": "Fastlane Match Setup",
+        "en": "Fastlane Match Setup"
+      },
+      "difficulty": "advanced",
+      "description": {
+        "it": "Configura Fastlane Match per gestione certificati iOS.",
+        "en": "Configure Fastlane Match for iOS certificate management."
+      },
+      "requirements": [
+        "Init fastlane",
+        "Configura Match",
+        "Sincronizza certificati"
+      ],
+      "starter_code": "# ios/fastlane/Fastfile\n# TODO: Configura Match"
+    }
+  ]
+}

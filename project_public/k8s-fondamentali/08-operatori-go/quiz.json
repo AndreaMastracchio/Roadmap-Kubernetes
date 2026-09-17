@@ -1,0 +1,249 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Cos'è una Custom Resource Definition (CRD)?",
+        "en": "What is a Custom Resource Definition (CRD)?"
+      },
+      "options": [
+        "Un tipo di Pod speciale",
+        "Una definizione che permette di creare nuovi tipi di risorse",
+        "Un tipo di Service",
+        "Una configurazione del cluster"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Una CRD estende Kubernetes definendo nuovi tipi di risorse personalizzate.",
+        "en": "A CRD extends Kubernetes by defining new custom resource types."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-operators"
+    },
+    {
+      "question": {
+        "it": "Cos'è un Operator in Kubernetes?",
+        "en": "What is an Operator in Kubernetes?"
+      },
+      "options": [
+        "Un utente amministratore",
+        "Un controller che incorpora conoscenza operativa di un software",
+        "Un tipo di Pod",
+        "Un tool di monitoring"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un Operator automatizza la gestione di applicazioni complesse con knowledge operativa.",
+        "en": "An Operator automates management of complex applications with operational knowledge."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-operators"
+    },
+    {
+      "question": {
+        "it": "Qual è il cuore di ogni controller?",
+        "en": "What is the heart of every controller?"
+      },
+      "options": [
+        "Il database etcd",
+        "Il Reconciliation Loop",
+        "L'API Server",
+        "Il Scheduler"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il Reconciliation Loop osserva lo stato e agisce per convergere allo stato desiderato.",
+        "en": "The Reconciliation Loop observes state and acts to converge to desired state."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-operators"
+    },
+    {
+      "question": {
+        "it": "Quale libreria Go è ufficiale per interagire con l'API Server?",
+        "en": "Which Go library is official for interacting with the API Server?"
+      },
+      "options": ["kube-go", "client-go", "k8s-client", "api-client"],
+      "correct": 1,
+      "explanation": {
+        "it": "client-go è la libreria ufficiale Go per l'API Kubernetes.",
+        "en": "client-go is the official Go library for the Kubernetes API."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-operators"
+    },
+    {
+      "question": {
+        "it": "Cosa fanno gli Informers in client-go?",
+        "en": "What do Informers do in client-go?"
+      },
+      "options": [
+        "Inviano notifiche email",
+        "Monitorano i cambiamenti con caching locale",
+        "Creano nuove risorse",
+        "Eliminano risorse"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Gli Informers monitorano le risorse con watch e mantengono una cache locale.",
+        "en": "Informers monitor resources with watch and maintain a local cache."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-operators"
+    },
+    {
+      "question": {
+        "it": "Quale framework è lo standard per creare Operator?",
+        "en": "Which framework is the standard for creating Operators?"
+      },
+      "options": ["Operator Framework", "Kubebuilder", "Controller SDK", "K8s Builder"],
+      "correct": 1,
+      "explanation": {
+        "it": "Kubebuilder è il framework standard per creare CRD e controller.",
+        "en": "Kubebuilder is the standard framework for creating CRDs and controllers."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-operators"
+    },
+    {
+      "question": {
+        "it": "Quale sezione di una Custom Resource definisce lo stato desiderato?",
+        "en": "Which section of a Custom Resource defines the desired state?"
+      },
+      "options": ["metadata", "spec", "status", "config"],
+      "correct": 1,
+      "explanation": {
+        "it": "La sezione spec definisce lo stato desiderato della risorsa.",
+        "en": "The spec section defines the desired state of the resource."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-operators"
+    },
+    {
+      "question": {
+        "it": "Quale sezione di una Custom Resource è gestita dal controller?",
+        "en": "Which section of a Custom Resource is managed by the controller?"
+      },
+      "options": ["spec", "status", "metadata", "config"],
+      "correct": 1,
+      "explanation": {
+        "it": "La sezione status è gestita dal controller e riflette lo stato attuale.",
+        "en": "The status section is managed by the controller and reflects actual state."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-operators"
+    },
+    {
+      "question": {
+        "it": "Cosa fa un Lister in client-go?",
+        "en": "What does a Lister do in client-go?"
+      },
+      "options": [
+        "Crea liste di risorse",
+        "Legge dalla cache locale senza chiamare l'API",
+        "Elimina risorse",
+        "Aggiorna risorse"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un Lister legge dalla cache locale dell'Informer senza chiamare l'API.",
+        "en": "A Lister reads from the Informer's local cache without calling the API."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-operators"
+    },
+    {
+      "question": {
+        "it": "Quale tool è utile per testare operator localmente?",
+        "en": "Which tool is useful for testing operators locally?"
+      },
+      "options": ["Minikube", "Kind (Kubernetes in Docker)", "Docker Compose", "Vagrant"],
+      "correct": 1,
+      "explanation": {
+        "it": "Kind permette di creare cluster multi-nodo velocemente per test.",
+        "en": "Kind allows creating multi-node clusters quickly for testing."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-operators"
+    },
+    {
+      "question": {
+        "it": "Quale comando visualizza le CRD installate?",
+        "en": "Which command displays installed CRDs?"
+      },
+      "options": ["kubectl get customresources", "kubectl get crd", "kubectl get operators", "kubectl get extensions"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl get crd mostra tutte le Custom Resource Definitions.",
+        "en": "kubectl get crd shows all Custom Resource Definitions."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Cosa automatizza un Operator per un database?",
+        "en": "What does an Operator automate for a database?"
+      },
+      "options": [
+        "Solo l'installazione",
+        "Backup, ripristini, aggiornamenti, scaling e monitoraggio",
+        "Solo il monitoring",
+        "Solo il backup"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un Operator automatizza l'intero ciclo di vita del database.",
+        "en": "An Operator automates the entire database lifecycle."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-operators"
+    },
+    {
+      "question": {
+        "it": "Cosa significa che Kubernetes è 'estendibile'?",
+        "en": "What does it mean that Kubernetes is 'extensible'?"
+      },
+      "options": [
+        "Può scalare a molti nodi",
+        "Puoi aggiungere nuovi tipi di risorse (CRD) e controller",
+        "Può gestire molti Pod",
+        "Supporta molti cloud provider"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Kubernetes permette di aggiungere CRD e controller custom.",
+        "en": "Kubernetes allows adding CRDs and custom controllers."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-operators"
+    },
+    {
+      "question": {
+        "it": "Quale pattern segue un controller Kubernetes?",
+        "en": "Which pattern does a Kubernetes controller follow?"
+      },
+      "options": ["Event-driven", "Level-triggered", "Polling continuo", "Push-based"],
+      "correct": 1,
+      "explanation": {
+        "it": "I controller seguono il pattern level-triggered: osservano e agiscono per convergere.",
+        "en": "Controllers follow the level-triggered pattern: observe and act to converge."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-operators"
+    },
+    {
+      "question": {
+        "it": "Quale comando inizializza un progetto Kubebuilder?",
+        "en": "Which command initializes a Kubebuilder project?"
+      },
+      "options": ["kubebuilder start", "kubebuilder init", "kubebuilder create", "kubebuilder new"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubebuilder init inizializza un nuovo progetto operator.",
+        "en": "kubebuilder init initializes a new operator project."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-operators"
+    }
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Quale modalità è attiva quando avvii Neovim?",
+        "en": "Which mode is active when you start Neovim?"
+      },
+      "options": [
+        "Insert mode",
+        "Normal mode",
+        "Visual mode",
+        "Command mode"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Neovim si avvia sempre in Normal mode, la modalità per navigazione e comandi.",
+        "en": "Neovim always starts in Normal mode, the mode for navigation and commands."
+      }
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Quale tasto entra in Insert mode alla fine della riga?",
+        "en": "Which key enters Insert mode at the end of the line?"
+      },
+      "options": [
+        "i",
+        "a",
+        "A",
+        "o"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "A (Append) posiziona il cursore alla fine della riga e entra in Insert mode.",
+        "en": "A (Append) positions the cursor at end of line and enters Insert mode."
+      }
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Qual è la differenza tra w e W?",
+        "en": "What's the difference between w and W?"
+      },
+      "options": [
+        "w è più veloce",
+        "w salta solo parole, W salta WORD (delimitate da spazi)",
+        "w va avanti, W va indietro",
+        "Nessuna differenza"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "w considera solo parole alfanumeriche, W considera qualsiasi sequenza di caratteri non vuoti.",
+        "en": "w considers only alphanumeric words, W considers any sequence of non-blank characters."
+      }
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Come si seleziona un blocco verticale di testo?",
+        "en": "How do you select a vertical block of text?"
+      },
+      "options": [
+        "v",
+        "V",
+        "Ctrl-v",
+        "Ctrl-b"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Ctrl-v attiva la Visual mode block-wise, permettendo selezioni rettangolari.",
+        "en": "Ctrl-v activates block-wise Visual mode, allowing rectangular selections."
+      }
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Quale comando va al primo carattere non vuoto della riga?",
+        "en": "Which command goes to the first non-blank character of the line?"
+      },
+      "options": [
+        "0",
+        "^",
+        "$",
+        "g_"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "^ salta gli spazi iniziali e va al primo carattere significativo.",
+        "en": "^ skips leading spaces and goes to the first significant character."
+      }
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Cosa fa il comando H?",
+        "en": "What does the H command do?"
+      },
+      "options": [
+        "Va a metà schermo",
+        "Va alla prima riga visibile (High)",
+        "Va all'ultima riga visibile",
+        "Va a inizio file"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "H (High) posiziona il cursore sulla prima riga visibile dello schermo.",
+        "en": "H (High) positions the cursor on the first visible line of the screen."
+      }
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Quale comando ripete l'ultimo cambiamento?",
+        "en": "Which command repeats the last change?"
+      },
+      "options": [
+        ";",
+        ",",
+        ".",
+        "u"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Il punto . è il comando di ripetizione più potente di Vim.",
+        "en": "The dot . is Vim's most powerful repetition command."
+      }
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Quale comando cerca un carattere in avanti e posiziona il cursore prima di esso?",
+        "en": "Which command searches for a character forward and positions the cursor before it?"
+      },
+      "options": [
+        "f",
+        "F",
+        "t",
+        "T"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "t (till) trova il carattere ma posiziona il cursore prima, f lo posiziona sopra.",
+        "en": "t (till) finds the character but positions the cursor before, f positions on it."
+      }
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Cosa significa 'i' in diw?",
+        "en": "What does 'i' mean in diw?"
+      },
+      "options": [
+        "Insert",
+        "Inner",
+        "Inside",
+        "Interactive"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "i significa inner/inside, indica il contenuto interno dell'oggetto.",
+        "en": "i means inner/inside, indicating the internal content of the object."
+      }
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Quale comando cancella il contenuto dentro le parentesi tonde?",
+        "en": "Which command deletes content inside parentheses?"
+      },
+      "options": [
+        "d)",
+        "di(",
+        "da(",
+        "d("
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "di( = delete inner (parentesi). Cancella solo il contenuto, non le parentesi.",
+        "en": "di( = delete inner (parentheses). Deletes only content, not the parentheses."
+      }
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Cosa fa ; dopo una ricerca con f?",
+        "en": "What does ; do after an f search?"
+      },
+      "options": [
+        "Cancella il carattere",
+        "Ripete la ricerca nella stessa direzione",
+        "Ripete la ricerca nella direzione opposta",
+        "Niente"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "; ripete l'ultima ricerca f/F/t/T nella stessa direzione.",
+        "en": "; repeats the last f/F/t/T search in the same direction."
+      }
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Come si apre una nuova riga sopra quella corrente?",
+        "en": "How do you open a new line above the current one?"
+      },
+      "options": [
+        "o",
+        "O",
+        "A",
+        "I"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "O (Open) crea una nuova riga sopra ed entra in Insert mode.",
+        "en": "O (Open) creates a new line above and enters Insert mode."
+      }
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Quale comando centralizza la riga corrente?",
+        "en": "Which command centers the current line?"
+      },
+      "options": [
+        "zt",
+        "zb",
+        "zz",
+        "H"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "zz (o z.) scrolla lo schermo per centralizzare la riga corrente.",
+        "en": "zz (or z.) scrolls the screen to center the current line."
+      }
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Qual è la differenza tra diw e daw?",
+        "en": "What's the difference between diw and daw?"
+      },
+      "options": [
+        "diw cancella la parola, daw la copia",
+        "diw cancella inner word, daw cancella a word (include spazio)",
+        "Nessuna differenza",
+        "daw è più veloce"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "diw = delete inner word (solo la parola), daw = delete a word (include lo spazio dopo).",
+        "en": "diw = delete inner word (only the word), daw = delete a word (includes trailing space)."
+      }
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Quale comando va a fine file?",
+        "en": "Which command goes to end of file?"
+      },
+      "options": [
+        "gg",
+        "G",
+        "G$",
+        "$G"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "G singolo va all'ultima riga del file. gg va alla prima.",
+        "en": "G alone goes to the last line of the file. gg goes to the first."
+      }
+    }
+  ]
+}

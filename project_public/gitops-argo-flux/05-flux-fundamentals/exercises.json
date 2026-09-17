@@ -1,0 +1,84 @@
+{
+  "exercises": [
+    {
+      "title": {"it": "Installare Flux CD", "en": "Install Flux CD"},
+      "description": {"it": "Installare Flux CD su un cluster Kubernetes Minikube", "en": "Install Flux CD on a Minikube Kubernetes cluster"},
+      "task": "1. Verifica che il cluster sia raggiungibile\n2. Installa Flux CLI\n3. Esegui flux bootstrap per installare Flux\n4. Verifica che tutti i controller siano running",
+      "hints": ["flux --version per verificare l'installazione", "flux bootstrap github.com richiede un token GitHub", "kubectl get pods -n flux-system per verificare"],
+      "solution": "flux install\nkubectl get pods -n flux-system",
+      "validation": "kubectl get pods -n flux-system mostra tutti i controller come Running",
+      "difficulty": "easy",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {"it": "Creare un GitRepository", "en": "Create a GitRepository"},
+      "description": {"it": "Configurare Flux per monitorare un repository Git", "en": "Configure Flux to monitor a Git repository"},
+      "task": "1. Crea un GitRepository che punta al tuo repo\n2. Configura l'intervallo di riconciliazione a 1 minuto\n3. Verifica lo stato del GitRepository",
+      "hints": ["flux create source git è il comando base", "Il campo --branch specifica il branch", "flux get sources git mostra lo stato"],
+      "solution": "flux create source git my-repo \\\n  --url=https://github.com/user/repo \\\n  --branch=main \\\n  --interval=1m\nflux get sources git",
+      "validation": "flux get sources git my-repo mostra READY=True",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {"it": "Creare un Kustomization", "en": "Create a Kustomization"},
+      "description": {"it": "Configurare Flux per applicare le risorse da una fonte Git", "en": "Configure Flux to apply resources from a Git source"},
+      "task": "1. Crea un Kustomization collegato al GitRepository\n2. Configura il path delle risorse\n3. Imposta interval di riconciliazione a 5 minuti\n4. Verifica che le risorse siano applicate",
+      "hints": ["flux create kustomization richiede --source", "Il path deve contenere kustomization.yaml o resource YAML", "flux get kustomizations mostra lo stato"],
+      "solution": "flux create kustomization my-app \\\n  --source=GitRepository/my-repo \\\n  --path=./k8s \\\n  --interval=5m\nflux get kustomizations",
+      "validation": "flux get kustomizations my-app mostra READY=True",
+      "difficulty": "medium",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {"it": "Riconciliare manualmente un Kustomization", "en": "Manually reconcile a Kustomization"},
+      "description": {"it": "Forzare la riconciliazione di un Kustomization", "en": "Force reconciliation of a Kustomization"},
+      "task": "1. Identifica il Kustomization da riconciliare\n2. Esegui la riconciliazione manuale\n3. Verifica il risultato",
+      "hints": ["flux reconcile è il comando per forzare la riconciliazione", "Aggiungi --recursive per riconciliare ricorsivamente", "flux logs mostra i log del reconciliation"],
+      "solution": "flux reconcile kustomization my-app\nflux logs --follow",
+      "validation": "L'output mostra Reconciliation finished",
+      "difficulty": "easy",
+      "timeEstimate": "5 minuti"
+    },
+    {
+      "title": {"it": "Configurare un HelmRelease", "en": "Configure a HelmRelease"},
+      "description": {"it": "Creare una HelmRelease per installare un chart Helm con Flux", "en": "Create a HelmRelease to install a Helm chart with Flux"},
+      "task": "1. Crea una HelmRepository per il chart\n2. Crea una HelmRelease che usa il chart\n3. Configura valori custom\n4. Verifica l'installazione",
+      "hints": ["flux create source helm è per le HelmRepository", "flux create helmrelease è per le release", "helm list nel namespace mostra la release"],
+      "solution": "flux create source helm bitnami \\\n  --url=https://charts.bitnami.com/bitnami \\\n  --interval=10m\nflux create helmrelease nginx \\\n  --source=HelmRepository/bitnami \\\n  --chart=nginx \\\n  --namespace=default",
+      "validation": "kubectl get helmreleases e flux get helmreleases mostrano READY=True",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {"it": "Monitoring con Flux Notification", "en": "Monitoring with Flux Notification"},
+      "description": {"it": "Configurare notifiche per gli eventi di Flux", "en": "Configure notifications for Flux events"},
+      "task": "1. Crea un Provider per Slack o webhook\n2. Crea un Alert per gli eventi di reconciliazione\n3. Testa la notifica con un evento",
+      "hints": ["flux create alert-provider definisce il provider", "flux create alert definisce quali eventi notificare", "Le severity possono essere info, error, warning"],
+      "solution": "flux create alert-provider slack \\\n  --type=slack \\\n  --channel=flux-alerts \\\n  --secret-ref=slack-url\nflux create alert flux-alerts \\\n  --provider=slack \\\n  --event-severity=info",
+      "validation": "flux get alert-providers e flux get alerts mostrano lo stato",
+      "difficulty": "hard",
+      "timeEstimate": "10 minuti"
+    },
+    {
+      "title": {"it": "Image Automation con Flux", "en": "Image Automation with Flux"},
+      "description": {"it": "Configurare Flux per aggiornare automaticamente le immagini", "en": "Configure Flux to automatically update images"},
+      "task": "1. Crea un ImageRepository per il tuo registry\n2. Crea un ImagePolicy per definire la strategia di update\n3. Crea un ImageUpdateAutomation per applicare gli aggiornamenti\n4. Verifica che i file YAML nel Git vengano aggiornati",
+      "hints": ["flux create image repository è il primo passo", "ImagePolicy definisce quale versione usare (semver, alphabetic)", "ImageUpdateAutomation aggiorna i file nel Git"],
+      "solution": "flux create image repository my-app \\\n  --image=registry/my-app \\\n  --interval=1m\nflux create image policy my-app-policy \\\n  --image-ref=my-app \\\n  --select-semver=\">=1.0.0\"\nflux create image update my-app-update \\\n  --image-policy=my-app-policy \\\n  --git-repo-ref=my-repo",
+      "validation": "flux get image repositories mostra lo stato e flux get image policies mostra la policy",
+      "difficulty": "hard",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {"it": "Gestire segreti con SOPS in Flux", "en": "Manage secrets with SOPS in Flux"},
+      "description": {"it": "Configurare Flux per decriptare segreti gestiti con SOPS", "en": "Configure Flux to decrypt secrets managed with SOPS"},
+      "task": "1. Installa SOPS e genera una chiave GPG\n2. Crea un file secrets.yaml criptato\n3. Configura Flux per usare SOPS con decryptionRef\n4. Verifica che i secrets siano decriptati nel cluster",
+      "hints": ["sops --encrypt e --decrypt per criptare/decriptare", "Il decryptionRef nel Kustomization punta al secret con la chiave", "GPG key ID deve corrispondere"],
+      "solution": "sops --encrypt --gpgheme <key-id> secrets.yaml > secrets.enc.yaml\nNel Kustomization:\nspec:\n  decryption:\n    provider: sops\n    secretRef:\n      name: sops-gpg",
+      "validation": "kubectl get secret my-secret mostra i dati decriptati",
+      "difficulty": "hard",
+      "timeEstimate": "20 minuti"
+    }
+  ]
+}

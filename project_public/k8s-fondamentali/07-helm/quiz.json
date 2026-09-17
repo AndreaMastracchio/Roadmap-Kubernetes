@@ -1,0 +1,224 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale file contiene i valori di default di una Helm Chart?",
+        "en": "Which file contains the default values of a Helm Chart?"
+      },
+      "options": ["config.yaml", "values.yaml", "defaults.yaml", "settings.yaml"],
+      "correct": 1,
+      "explanation": {
+        "it": "values.yaml contiene i valori di default che possono essere sovrascritti con --set o --values.",
+        "en": "values.yaml contains default values that can be overridden with --set or --values."
+      },
+      "difficulty": "easy",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Come accedi ai valori nel template?",
+        "en": "How do you access values in a template?"
+      },
+      "options": ["{{ $Values.key }}", "{{ .Values.key }}", "{{ Values.key }}", "{{ values.key }}"],
+      "correct": 1,
+      "explanation": {
+        "it": "Nei template Helm usi {{ .Values.key }} con il punto iniziale.",
+        "en": "In Helm templates you use {{ .Values.key }} with the leading dot."
+      },
+      "difficulty": "easy",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Quale oggetto contiene informazioni sulla release corrente?",
+        "en": "Which object contains information about the current release?"
+      },
+      "options": [".Chart", ".Release", ".Files", ".Capabilities"],
+      "correct": 1,
+      "explanation": {
+        "it": ".Release contiene nome, namespace e revisione della release corrente.",
+        "en": ".Release contains name, namespace and revision of the current release."
+      },
+      "difficulty": "medium",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Quale comando simula l'installazione senza applicarla?",
+        "en": "Which command simulates installation without applying it?"
+      },
+      "options": ["helm install --test", "helm install --dry-run --debug", "helm install --simulate", "helm install --preview"],
+      "correct": 1,
+      "explanation": {
+        "it": "--dry-run --debug simula l'installazione e stampa lo YAML generato.",
+        "en": "--dry-run --debug simulates installation and prints the generated YAML."
+      },
+      "difficulty": "easy",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Quale comando verifica se una Chart ha errori?",
+        "en": "Which command checks if a Chart has errors?"
+      },
+      "options": ["helm check", "helm lint", "helm validate", "helm test"],
+      "correct": 1,
+      "explanation": {
+        "it": "helm lint controlla errori di sintassi e struttura della chart.",
+        "en": "helm lint checks for syntax and structural errors in the chart."
+      },
+      "difficulty": "easy",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Dove vengono salvate le informazioni delle release?",
+        "en": "Where is release information stored?"
+      },
+      "options": [
+        "In etcd direttamente",
+        "Come Secret nel namespace della release",
+        "In un database esterno",
+        "In file locali"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Helm 3 salva le release come Secret nel namespace della release.",
+        "en": "Helm 3 stores releases as Secrets in the release namespace."
+      },
+      "difficulty": "medium",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Come aggiungi un repository Helm?",
+        "en": "How do you add a Helm repository?"
+      },
+      "options": ["helm add repo", "helm repo add <name> <url>", "helm repository add", "helm install repo"],
+      "correct": 1,
+      "explanation": {
+        "it": "helm repo add <name> <url> aggiunge un repository remoto.",
+        "en": "helm repo add <name> <url> adds a remote repository."
+      },
+      "difficulty": "easy",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Quale comando aggiorna una release esistente?",
+        "en": "Which command updates an existing release?"
+      },
+      "options": ["helm update", "helm upgrade", "helm modify", "helm change"],
+      "correct": 1,
+      "explanation": {
+        "it": "helm upgrade <release> <chart> aggiorna una release con nuovi valori.",
+        "en": "helm upgrade <release> <chart> updates a release with new values."
+      },
+      "difficulty": "easy",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Come fai rollback di una release?",
+        "en": "How do you rollback a release?"
+      },
+      "options": ["helm undo", "helm rollback <release> <revision>", "helm revert", "helm restore"],
+      "correct": 1,
+      "explanation": {
+        "it": "helm rollback torna a una revisione precedente.",
+        "en": "helm rollback returns to a previous revision."
+      },
+      "difficulty": "medium",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Come visualizzi tutte le release installate?",
+        "en": "How do you list all installed releases?"
+      },
+      "options": ["helm get", "helm list", "helm show", "helm releases"],
+      "correct": 1,
+      "explanation": {
+        "it": "helm list (o helm ls) mostra le release nel namespace corrente.",
+        "en": "helm list (or helm ls) shows releases in the current namespace."
+      },
+      "difficulty": "easy",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Come disinstalli una release?",
+        "en": "How do you uninstall a release?"
+      },
+      "options": ["helm delete", "helm uninstall", "helm remove", "helm destroy"],
+      "correct": 1,
+      "explanation": {
+        "it": "helm uninstall <release> rimuove la release e le sue risorse.",
+        "en": "helm uninstall <release> removes the release and its resources."
+      },
+      "difficulty": "easy",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra lo YAML generato da una release?",
+        "en": "Which command shows the YAML generated by a release?"
+      },
+      "options": ["helm show", "helm get manifest", "helm view", "helm display"],
+      "correct": 1,
+      "explanation": {
+        "it": "helm get manifest <release> mostra lo YAML installato nel cluster.",
+        "en": "helm get manifest <release> shows the YAML installed in the cluster."
+      },
+      "difficulty": "medium",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Quale flag sovrascrive un singolo valore?",
+        "en": "Which flag overrides a single value?"
+      },
+      "options": ["--values", "--set", "--config", "--override"],
+      "correct": 1,
+      "explanation": {
+        "it": "--set key=value sovrascrive singoli valori, --values file.yaml file interi.",
+        "en": "--set key=value overrides single values, --values file.yaml entire files."
+      },
+      "difficulty": "easy",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Cos'è una Release in Helm?",
+        "en": "What is a Release in Helm?"
+      },
+      "options": [
+        "Una versione di Kubernetes",
+        "Un'istanza di una Chart installata nel cluster",
+        "Un tipo di Deployment",
+        "Una versione di Helm"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Una Release è un'istanza di una Chart installata nel cluster.",
+        "en": "A Release is an instance of a Chart installed in the cluster."
+      },
+      "difficulty": "easy",
+      "domain": "helm"
+    },
+    {
+      "question": {
+        "it": "Quale comando aggiorna i repository locali?",
+        "en": "Which command updates local repositories?"
+      },
+      "options": ["helm repo refresh", "helm repo update", "helm update repos", "helm sync repos"],
+      "correct": 1,
+      "explanation": {
+        "it": "helm repo update scarica le ultime versioni dei repository configurati.",
+        "en": "helm repo update downloads the latest versions of configured repositories."
+      },
+      "difficulty": "medium",
+      "domain": "helm"
+    }
+  ]
+}

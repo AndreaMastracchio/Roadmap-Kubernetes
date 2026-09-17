@@ -1,39 +1,54 @@
 {
-  "quiz": [
-    {
-      "id": "q1",
-      "question": "Qual è il comando per verificare la versione installata di Minikube?",
-      "options": [
-        "minikube check",
-        "minikube version",
-        "minikube status",
-        "minikube info"
-      ],
-      "correct": 1,
-      "explanation": "Il comando 'minikube version' stampa la versione del binario installato."
-    },
-    {
-      "id": "q2",
-      "question": "Qual è il gestore pacchetti consigliato per macOS per installare Minikube?",
-      "options": [
-        "Apt",
-        "Homebrew",
-        "Chocolatey",
-        "Snap"
-      ],
-      "correct": 1,
-      "explanation": "Homebrew è lo standard de-facto per la gestione pacchetti su macOS."
-    }
-  ],
   "exercises": [
     {
-      "id": "e1",
-      "title": "Verifica installazione",
-      "hint": "Controlla la versione di minikube",
-      "template": ["minikube {{command}}"],
-      "answers": [
-        { "id": "command", "accepted": ["version"], "placeholder": "..." }
-      ]
+      "title": {"it": "Verifica Prerequisiti", "en": "Verify Prerequisites"},
+      "description": {"it": "Controlla se kubectl è installato e la sua versione.", "en": "Check if kubectl is installed and its version."},
+      "hint": {"it": "Usa 'kubectl version --client' per verificare senza connessione al cluster.", "en": "Use 'kubectl version --client' to verify without cluster connection."}
+    },
+    {
+      "title": {"it": "Installazione su macOS", "en": "Installation on macOS"},
+      "description": {"it": "Installa Minikube usando Homebrew se sei su macOS.", "en": "Install Minikube using Homebrew if you're on macOS."},
+      "hint": {"it": "Il comando è 'brew install minikube'. Verifica poi con 'minikube version'.", "en": "The command is 'brew install minikube'. Then verify with 'minikube version'."}
+    },
+    {
+      "title": {"it": "Installazione su Linux", "en": "Installation on Linux"},
+      "description": {"it": "Scarica e installa il binario Minikube su Linux.", "en": "Download and install the Minikube binary on Linux."},
+      "hint": {"it": "Usa curl per scaricare, poi 'sudo install minikube-linux-amd64 /usr/local/bin/minikube'.", "en": "Use curl to download, then 'sudo install minikube-linux-amd64 /usr/local/bin/minikube'."}
+    },
+    {
+      "title": {"it": "Installazione su Windows", "en": "Installation on Windows"},
+      "description": {"it": "Installa Minikube usando Chocolatey o Winget.", "en": "Install Minikube using Chocolatey or Winget."},
+      "hint": {"it": "'choco install minikube' oppure 'winget install Kubernetes.Minikube'.", "en": "'choco install minikube' or 'winget install Kubernetes.Minikube'."}
+    },
+    {
+      "title": {"it": "Configura Driver Predefinito", "en": "Configure Default Driver"},
+      "description": {"it": "Imposta Docker come driver predefinito per Minikube.", "en": "Set Docker as the default driver for Minikube."},
+      "hint": {"it": "Usa 'minikube config set driver docker' per renderlo persistente.", "en": "Use 'minikube config set driver docker' to make it persistent."}
+    },
+    {
+      "title": {"it": "Verifica Driver Disponibili", "en": "Check Available Drivers"},
+      "description": {"it": "Elenca tutti i driver supportati dal tuo sistema.", "en": "List all drivers supported by your system."},
+      "hint": {"it": "Usa 'minikube start --help' e cerca '--driver' per vedere le opzioni.", "en": "Use 'minikube start --help' and look for '--driver' to see options."}
+    },
+    {
+      "title": {"it": "Avvio con Driver Specifico", "en": "Start with Specific Driver"},
+      "description": {"it": "Avvia Minikube forzando l'uso del driver virtualbox.", "en": "Start Minikube forcing the use of the virtualbox driver."},
+      "hint": {"it": "Il flag è '--driver=virtualbox' (se VirtualBox è installato).", "en": "The flag is '--driver=virtualbox' (if VirtualBox is installed)."}
+    },
+    {
+      "title": {"it": "Verifica Installazione Completa", "en": "Verify Complete Installation"},
+      "description": {"it": "Conferma che Minikube e kubectl sono entrambi installati.", "en": "Confirm that both Minikube and kubectl are installed."},
+      "hint": {"it": "Esegui 'minikube version' e 'kubectl version --client'.", "en": "Run 'minikube version' and 'kubectl version --client'."}
+    },
+    {
+      "title": {"it": "Abilita Autocompletamento", "en": "Enable Autocompletion"},
+      "description": {"it": "Configura l'autocompletamento bash/zsh per Minikube.", "en": "Configure bash/zsh autocompletion for Minikube."},
+      "hint": {"it": "Aggiungi 'source <(minikube completion bash)' al tuo .bashrc.", "en": "Add 'source <(minikube completion bash)' to your .bashrc."}
+    },
+    {
+      "title": {"it": "Test Rapido", "en": "Quick Test"},
+      "description": {"it": "Avvia un cluster, verifica lo stato, poi fermalo.", "en": "Start a cluster, verify status, then stop it."},
+      "hint": {"it": "Sequenza: minikube start -> minikube status -> minikube stop.", "en": "Sequence: minikube start -> minikube status -> minikube stop."}
     }
   ]
 }

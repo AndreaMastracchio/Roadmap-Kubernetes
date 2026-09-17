@@ -1,0 +1,204 @@
+{
+  "exercises": [
+    {
+      "title": {
+        "it": "Installare Flagger per progressive delivery",
+        "en": "Install Flagger for progressive delivery"
+      },
+      "description": {
+        "it": "Configurare Flagger per canary deployment con Istio",
+        "en": "Configure Flagger for canary deployment with Istio"
+      },
+      "task": "1. Installa Flagger nel cluster\n2. Crea un Flagger CR per il tuo deployment\n3. Configura le metriche di promozione\n4. Testa un aggiornamento graduale",
+      "hints": [
+        "Helm install è il metodo più semplice per Flagger",
+        "Il CR Flagger referenzia il deployment target",
+        "Le metriche possono essere Prometheus o Datadog"
+      ],
+      "solution": "helm upgrade -i flagger flagger/flagger \\\n  --namespace=istio-system \\\n  --set meshProvider=istio\nkubectl apply -f - <<EOF\napiVersion: flagger.app/v1beta1\nkind: Canary\nspec:\n  targetRef:\n    apiVersion: apps/v1\n    kind: Deployment\n    name: myapp\n  service:\n    port: 80\nEOF",
+      "validation": "kubectl get canary mostra lo stato del canary",
+      "difficulty": "hard",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare Sealed Secrets",
+        "en": "Configure Sealed Secrets"
+      },
+      "description": {
+        "it": "Criptare un secret Kubernetes con Sealed Secrets per salvarlo nel Git",
+        "en": "Encrypt a Kubernetes Secret with Sealed Secrets to store in Git"
+      },
+      "task": "1. Installa Sealed Secrets controller\n2. Crea un secret YAML\n3. Cripta con kubeseal\n4. Salva il SealedSecret nel Git\n5. Verifica che il controller lo decripta",
+      "hints": [
+        "Helm install per il controller sealed-secrets",
+        "kubeseal cripta il secret con la chiave pubblica del controller",
+        "Il SealedSecret è sicuro da salvare nel Git"
+      ],
+      "solution": "kubectl create secret generic db-password \\\n  --from-literal=password=mysecret\nkubeseal -o yaml < db-secret.yaml > sealed-db-secret.yaml",
+      "validation": "kubectl get secret db-password mostra il secret decriptato",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare multi-tenancy con Flux",
+        "en": "Configure multi-tenancy with Flux"
+      },
+      "description": {
+        "it": "Impostare Flux per gestire namespace separati per team",
+        "en": "Set up Flux to manage separate namespaces for teams"
+      },
+      "task": "1. Crea un Kustomization per il namespace team-a\n2. Crea un Kustomization per il namespace team-b\n3. Configura RBAC per isolamento\n4. Verifica che ogni team veda solo le proprie risorse",
+      "hints": [
+        "Ogni team ha un proprio path nel Git",
+        "RBAC con RoleBinding limita l'accesso",
+        "NetworkPolicy isola il traffico"
+      ],
+      "solution": "flux create kustomization team-a \\\n  --source=GitRepository/my-repo \\\n  --path=./teams/team-a \\\n  --prune=true\nflux create kustomization team-b \\\n  --source=GitRepository/my-repo \\\n  --path=./teams/team-b \\\n  --prune=true",
+      "validation": "kubectl get namespaces e kubectl auth can-i listing pods -n team-a",
+      "difficulty": "hard",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Implementare blue-green con Argo Rollouts",
+        "en": "Implement blue-green with Argo Rollouts"
+      },
+      "description": {
+        "it": "Configurare Argo Rollouts per blue-green deployment",
+        "en": "Configure Argo Rollouts for blue-green deployment"
+      },
+      "task": "1. Installa Argo Rollouts\n2. Crea un Rollout CR con strategia blue-green\n3. Configura il traffic switching\n4. Testa un aggiornamento",
+      "hints": [
+        "Helm install per Argo Rollouts",
+        "Il Rollout CR sostituisce il Deployment",
+        "prePromotionAnalysis e postPromotionAnalysis validano"
+      ],
+      "solution": "apiVersion: argoproj.io/v1alpha1\nkind: Rollout\nspec:\n  strategy:\n    blueGreen:\n      activeService: myapp-active\n      previewService: myapp-preview\n      autoPromotionEnabled: false",
+      "validation": "kubectl get rollout mostra lo stato del blue-green",
+      "difficulty": "hard",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Disaster Recovery con GitOps",
+        "en": "Disaster Recovery with GitOps"
+      },
+      "description": {
+        "it": "Testare il ripristino di un cluster da zero usando GitOps",
+        "en": "Test restoring a cluster from scratch using GitOps"
+      },
+      "task": "1. Documenta le dipendenze delle applicazioni\n2. Configura un nuovo cluster\n3. Installa ArgoCD/Flux\n4. Aggiungi i repository Git\n5. Verifica che le applicazioni vengano riconciliate",
+      "hints": [
+        "Inizia con le CRD di base del controller GitOps",
+        "I repository Git sono la fonte di verità",
+        "L'ordine di restore segue le dipendenze"
+      ],
+      "solution": "kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml\nargocd repo add git@github.com:user/infra.git\nargocd app sync --all",
+      "validation": "kubectl get pods mostra tutte le applicazioni running",
+      "difficulty": "hard",
+      "timeEstimate": "30 minuti"
+    },
+    {
+      "title": {
+        "it": "Installare Kyverno per policy enforcement",
+        "en": "Install Kyverno for policy enforcement"
+      },
+      "description": {
+        "it": "Configurare Kyverno per validare le risorse in ingresso",
+        "en": "Configure Kyverno to validate incoming resources"
+      },
+      "task": "1. Installa Kyverno con Helm\n2. Crea una ClusterPolicy per richiedere limits\n3. Testa che i pod senza limits vengano rifiutati\n4. Verifica nei log del controller",
+      "hints": [
+        "kyverno namespace per installazione",
+        "spec.validationFailureAction: enforce blocca",
+        "kubectl get clusterpolicy mostra le policy"
+      ],
+      "solution": "helm install kyverno kyverno/kyverno -n kyverno --create-namespace\nkubectl apply -f - <<EOF\napiVersion: kyverno.io/v1\nkind: ClusterPolicy\nmetadata:\n  name: require-limits\nspec:\n  validationFailureAction: enforce\n  rules:\n  - name: limits-required\n    match:\n      resources:\n        kinds: Pod\n    validate:\n      pattern:\n        spec:\n          containers:\n          - resources:\n              limits:\n                memory: \"?*\"\nEOF",
+      "validation": "Pod senza limits vengono rifiutati con messaggio di policy",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare notifiche Flux con Slack",
+        "en": "Configure Flux notifications with Slack"
+      },
+      "description": {
+        "it": "Impostare notifiche Slack per eventi Flux",
+        "en": "Set up Slack notifications for Flux events"
+      },
+      "task": "1. Crea un Incoming Webhook Slack\n2. Crea un Secret con l'URL del webhook\n3. Configura un Provider per Slack\n4. Crea un Alert per errori di riconciliazione\n5. Verifica le notifiche",
+      "hints": [
+        "Il Secret deve contenere address con URL webhook",
+        "Provider: spec.type: slack",
+        "Alert può filtrare per severity e source"
+      ],
+      "solution": "kubectl create secret generic slack-url \\\n  --from-literal=address=https://hooks.slack.com/services/xxx\nkubectl apply -f - <<EOF\napiVersion: notification.toolkit.fluxcd.io/v1beta1\nkind: Provider\nmetadata:\n  name: slack\nspec:\n  type: slack\n  secretRef:\n    name: slack-url\n---\napiVersion: notification.toolkit.fluxcd.io/v1beta1\nkind: Alert\nmetadata:\n  name: error-alert\nspec:\n  providerRef:\n    name: slack\n  eventSeverity: error\n  eventSources:\n  - kind: Kustomization\n    name: '*'\nEOF",
+      "validation": "Notifica Slack arriva quando una riconciliazione fallisce",
+      "difficulty": "medium",
+      "timeEstimate": "15 minuti"
+    },
+    {
+      "title": {
+        "it": "Configurare receiver Flux per webhook esterni",
+        "en": "Configure Flux receiver for external webhooks"
+      },
+      "description": {
+        "it": "Abilitare trigger di sincronizzazione via webhook",
+        "en": "Enable sync triggers via webhook"
+      },
+      "task": "1. Crea un Receiver CR con token segreto\n2. Esponi il receiver via Service/Ingress\n3. Configura l'header di autorizzazione\n4. Testa chiamando il webhook da CI",
+      "hints": [
+        "Receiver genera un URL: /hook/sha256(token)\n",
+        "spec.type: generic per webhook personalizzato",
+        "Header: X-Flux-Token contiene il token"
+      ],
+      "solution": "kubectl apply -f - <<EOF\napiVersion: notification.toolkit.fluxcd.io/v1beta1\nkind: Receiver\nmetadata:\n  name: ci-trigger\nspec:\n  type: generic\n  secretRef:\n    name: receiver-token\n  resources:\n  - kind: GitRepository\n    name: my-repo\nEOF\n\n# Test\ncurl -H 'X-Flux-Token: my-token' https://flux.example.com/hook/xxx",
+      "validation": "La chiamata webhook triggera la riconciliazione",
+      "difficulty": "hard",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Bootstrappare cluster con Flux",
+        "en": "Bootstrap cluster with Flux"
+      },
+      "description": {
+        "it": "Inizializzare un nuovo cluster con Flux da Git",
+        "en": "Initialize a new cluster with Flux from Git"
+      },
+      "task": "1. Installa Flux CLI localmente\n2. Prepara il repository Git con struttura corretta\n3. Esegui flux bootstrap\n4. Verifica che i componenti siano running\n5. Controlla che le app vengano sincronizzate",
+      "hints": [
+        "flux bootstrap github/gitlab gestisce deploy key",
+        "Struttura: clusters/, apps/, infrastructure/",
+        "flux check verifica installazione"
+      ],
+      "solution": "flux bootstrap github \\\n  --owner=myorg \\\n  --repository=fleet-infra \\\n  --path=clusters/my-cluster \\\n  --personal\n\nflux get kustomizations",
+      "validation": "flux check passa e tutte le kustomizations sono READY=True",
+      "difficulty": "medium",
+      "timeEstimate": "20 minuti"
+    },
+    {
+      "title": {
+        "it": "Automazione immagine con Flux ImageUpdateAutomation",
+        "en": "Image automation with Flux ImageUpdateAutomation"
+      },
+      "description": {
+        "it": "Configurare Flux per aggiornare automaticamente i tag immagine",
+        "en": "Configure Flux to automatically update image tags"
+      },
+      "task": "1. Crea un ImageRepository per il tuo registry\n2. Crea un ImagePolicy per filtrare i tag\n3. Crea un ImageUpdateAutomation per aggiornare Git\n4. Pusha una nuova immagine e verifica l'aggiornamento",
+      "hints": [
+        "ImageRepository: scansione registry",
+        "ImagePolicy: semver, alphabetical, o regex",
+        "ImageUpdateAutomation: commit push in Git"
+      ],
+      "solution": "flux create source image my-registry \\\n  --image=ghcr.io/user/myapp \\\n  --interval=5m\n\nflux create image policy myapp-policy \\\n  --source=ImageRepository/my-registry \\\n  --image-ref-pattern='semver:>=1.0.0' \\\n  --image-ref-select='latest'\n\nflux create image update myapp-update \\\n  --git-repo-ref=my-repo \\\n  --git-repo-path='./apps/myapp' \\\n  --checkout-branch=main \\\n  --push-branch=main",
+      "validation": "Nuova immagine pushata appare nel Git come tag aggiornato",
+      "difficulty": "hard",
+      "timeEstimate": "25 minuti"
+    }
+  ]
+}

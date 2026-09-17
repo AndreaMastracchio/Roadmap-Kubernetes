@@ -1,0 +1,439 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Qual è il problema principale del prop drilling?",
+        "en": "What is the main problem with prop drilling?"
+      },
+      "options": [
+        {
+          "it": "Rende il codice più veloce",
+          "en": "Makes code faster"
+        },
+        {
+          "it": "Richiede di passare dati attraverso widget intermedi inutilmente",
+          "en": "Requires passing data through intermediate widgets unnecessarily"
+        },
+        {
+          "it": "Migliora la tipizzazione",
+          "en": "Improves typing"
+        },
+        {
+          "it": "Non è un problema reale",
+          "en": "It's not a real problem"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il prop drilling costringe a passare dati attraverso widget che non li usano, rendendo il codice difficile da mantenere.",
+        "en": "Prop drilling forces passing data through widgets that don't use it, making code hard to maintain."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa fa InheritedWidget?",
+        "en": "What does InheritedWidget do?"
+      },
+      "options": [
+        {
+          "it": "Crea animazioni",
+          "en": "Creates animations"
+        },
+        {
+          "it": "Propaga dati ai widget discendenti in modo efficiente",
+          "en": "Propagates data to descendant widgets efficiently"
+        },
+        {
+          "it": "Gestisce la navigazione",
+          "en": "Handles navigation"
+        },
+        {
+          "it": "Crea gradienti",
+          "en": "Creates gradients"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "InheritedWidget permette di propagare dati lungo l'albero dei widget senza prop drilling, con rebuild efficienti.",
+        "en": "InheritedWidget allows propagating data down the widget tree without prop drilling, with efficient rebuilds."
+      }
+    },
+    {
+      "question": {
+        "it": "Quando si usa notifyListeners()?",
+        "en": "When is notifyListeners() used?"
+      },
+      "options": [
+        {
+          "it": "All'avvio dell'app",
+          "en": "At app startup"
+        },
+        {
+          "it": "Quando lo stato cambia e bisogna notificare gli ascoltatori",
+          "en": "When state changes and listeners need to be notified"
+        },
+        {
+          "it": "Solo in produzione",
+          "en": "Only in production"
+        },
+        {
+          "it": "Mai, è deprecato",
+          "en": "Never, it's deprecated"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "notifyListeners() viene chiamato dopo aver modificato lo stato per segnalare ai Consumer di fare rebuild.",
+        "en": "notifyListeners() is called after modifying state to signal Consumers to rebuild."
+      }
+    },
+    {
+      "question": {
+        "it": "Qual è la differenza tra Consumer e Provider.of?",
+        "en": "What's the difference between Consumer and Provider.of?"
+      },
+      "options": [
+        {
+          "it": "Nessuna differenza",
+          "en": "No difference"
+        },
+        {
+          "it": "Consumer permette rebuild granulari, Provider.of rebuilda tutto il widget",
+          "en": "Consumer allows granular rebuilds, Provider.of rebuilds the whole widget"
+        },
+        {
+          "it": "Provider.of è deprecato",
+          "en": "Provider.of is deprecated"
+        },
+        {
+          "it": "Consumer è più lento",
+          "en": "Consumer is slower"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Consumer limita il rebuild solo al suo builder, mentre Provider.of rebuilda tutto il widget che lo contiene.",
+        "en": "Consumer limits rebuild to its builder, while Provider.of rebuilds the entire containing widget."
+      }
+    },
+    {
+      "question": {
+        "it": "A cosa serve Selector in Provider?",
+        "en": "What is Selector used for in Provider?"
+      },
+      "options": [
+        {
+          "it": "Selezionare il tema",
+          "en": "Select the theme"
+        },
+        {
+          "it": "Ricostruire solo quando una specifica proprietà cambia",
+          "en": "Rebuild only when a specific property changes"
+        },
+        {
+          "it": "Creare liste",
+          "en": "Create lists"
+        },
+        {
+          "it": "Navigare tra pagine",
+          "en": "Navigate between pages"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Selector permette di selezionare una proprietà specifica del modello e rebuildare solo quando quella cambia.",
+        "en": "Selector allows selecting a specific property of the model and rebuilding only when that changes."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa significa listen: false in Provider.of?",
+        "en": "What does listen: false mean in Provider.of?"
+      },
+      "options": [
+        {
+          "it": "Disabilita il provider",
+          "en": "Disables the provider"
+        },
+        {
+          "it": "Legge il valore senza registrare un listener (no rebuild automatico)",
+          "en": "Reads value without registering a listener (no automatic rebuild)"
+        },
+        {
+          "it": "Cancella il provider",
+          "en": "Deletes the provider"
+        },
+        {
+          "it": "È un valore di default",
+          "en": "It's the default value"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Con listen: false si accede al provider senza ascoltare i cambiamenti, utile per azioni una-tantum.",
+        "en": "With listen: false you access the provider without listening to changes, useful for one-time actions."
+      }
+    },
+    {
+      "question": {
+        "it": "In Riverpod, qual è la differenza tra ref.watch e ref.read?",
+        "en": "In Riverpod, what's the difference between ref.watch and ref.read?"
+      },
+      "options": [
+        {
+          "it": "ref.watch è deprecato",
+          "en": "ref.watch is deprecated"
+        },
+        {
+          "it": "ref.watch ascolta cambiamenti, ref.read accede una volta sola",
+          "en": "ref.watch listens to changes, ref.read accesses once"
+        },
+        {
+          "it": "Sono identici",
+          "en": "They are identical"
+        },
+        {
+          "it": "ref.read è più veloce",
+          "en": "ref.read is faster"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ref.watch registra un listener e causa rebuild, ref.read accede senza ascoltare.",
+        "en": "ref.watch registers a listener and causes rebuild, ref.read accesses without listening."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa sono gli Event in BLoC?",
+        "en": "What are Events in BLoC?"
+      },
+      "options": [
+        {
+          "it": "Lo stato dell'applicazione",
+          "en": "Application state"
+        },
+        {
+          "it": "Azioni o input che il BLoC riceve e processa",
+          "en": "Actions or inputs that BLoC receives and processes"
+        },
+        {
+          "it": "Widget grafici",
+          "en": "Graphical widgets"
+        },
+        {
+          "it": "Errori del sistema",
+          "en": "System errors"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Gli Event rappresentano input o azioni che vengono trasformati dal BLoC in nuovi stati.",
+        "en": "Events represent inputs or actions that are transformed by BLoC into new states."
+      }
+    },
+    {
+      "question": {
+        "it": "Quando è appropriato usare setState?",
+        "en": "When is it appropriate to use setState?"
+      },
+      "options": [
+        {
+          "it": "Mai, è deprecato",
+          "en": "Never, it's deprecated"
+        },
+        {
+          "it": "Per stato locale semplice contenuto in un singolo widget",
+          "en": "For simple local state contained in a single widget"
+        },
+        {
+          "it": "Solo con database",
+          "en": "Only with database"
+        },
+        {
+          "it": "Per ogni tipo di stato",
+          "en": "For every type of state"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "setState è perfetto per stato locale semplice. Diventa problematico solo con stato condiviso o complesso.",
+        "en": "setState is perfect for simple local state. It becomes problematic only with shared or complex state."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa fa ChangeNotifierProxyProvider?",
+        "en": "What does ChangeNotifierProxyProvider do?"
+      },
+      "options": [
+        {
+          "it": "Crea animazioni",
+          "en": "Creates animations"
+        },
+        {
+          "it": "Crea un provider che dipende da altri provider",
+          "en": "Creates a provider that depends on other providers"
+        },
+        {
+          "it": "Sostituisce tutti i provider",
+          "en": "Replaces all providers"
+        },
+        {
+          "it": "Gestisce la cache",
+          "en": "Manages cache"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ProxyProvider permette di creare provider che dipendono da altri provider, aggiornandosi quando cambiano.",
+        "en": "ProxyProvider allows creating providers that depend on other providers, updating when they change."
+      }
+    },
+    {
+      "question": {
+        "it": "Quale vantaggio offre Riverpod rispetto a Provider?",
+        "en": "What advantage does Riverpod offer compared to Provider?"
+      },
+      "options": [
+        {
+          "it": "Nessuno, sono identici",
+          "en": "None, they are identical"
+        },
+        {
+          "it": "Migliore testabilità e non dipende da BuildContext",
+          "en": "Better testability and doesn't depend on BuildContext"
+        },
+        {
+          "it": "È più vecchio e stabile",
+          "en": "It's older and more stable"
+        },
+        {
+          "it": "Usa meno memoria sempre",
+          "en": "Always uses less memory"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Riverpod è completamente testabile e non richiede BuildContext, rendendo i test e l'uso fuori da widget più semplici.",
+        "en": "Riverpod is fully testable and doesn't require BuildContext, making tests and usage outside widgets simpler."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa fa BlocBuilder?",
+        "en": "What does BlocBuilder do?"
+      },
+      "options": [
+        {
+          "it": "Crea nuovi Event",
+          "en": "Creates new Events"
+        },
+        {
+          "it": "Reagisce ai cambiamenti di stato e ricostruisce la UI",
+          "en": "Reacts to state changes and rebuilds UI"
+        },
+        {
+          "it": "Invia errori",
+          "en": "Sends errors"
+        },
+        {
+          "it": "Gestisce la navigazione",
+          "en": "Handles navigation"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "BlocBuilder ascolta il BLoC e ricostruisce il proprio widget quando lo stato cambia.",
+        "en": "BlocBuilder listens to the BLoC and rebuilds its widget when state changes."
+      }
+    },
+    {
+      "question": {
+        "it": "A cosa serve BlocListener?",
+        "en": "What is BlocListener used for?"
+      },
+      "options": [
+        {
+          "it": "Per mostrare la UI",
+          "en": "To show UI"
+        },
+        {
+          "it": "Per eseguire side effect come SnackBar, Dialog, Navigazione",
+          "en": "To execute side effects like SnackBar, Dialog, Navigation"
+        },
+        {
+          "it": "Per creare stati",
+          "en": "To create states"
+        },
+        {
+          "it": "Per testare il codice",
+          "en": "To test code"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "BlocListener serve per side effect come navigazione o notifiche che non richiedono rebuild della UI.",
+        "en": "BlocListener is used for side effects like navigation or notifications that don't require UI rebuild."
+      }
+    },
+    {
+      "question": {
+        "it": "Cosa si intende per State Lifting?",
+        "en": "What is meant by State Lifting?"
+      },
+      "options": [
+        {
+          "it": "Eliminare lo stato",
+          "en": "Deleting state"
+        },
+        {
+          "it": "Spostare lo stato al genitore comune più basso per condividerlo",
+          "en": "Moving state to the lowest common parent to share it"
+        },
+        {
+          "it": "Creare stato globale",
+          "en": "Creating global state"
+        },
+        {
+          "it": "Ottimizzare le performance",
+          "en": "Optimizing performance"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "State lifting consiste nel sollevare lo stato al widget genitore comune per permettere la condivisione tra figli.",
+        "en": "State lifting involves raising state to the common parent widget to enable sharing between children."
+      }
+    },
+    {
+      "question": {
+        "it": "Quando scegliere BLoC rispetto a Provider?",
+        "en": "When should you choose BLoC over Provider?"
+      },
+      "options": [
+        {
+          "it": "Sempre, BLoC è superiore",
+          "en": "Always, BLoC is superior"
+        },
+        {
+          "it": "Per progetti enterprise, team grandi, logica complessa",
+          "en": "For enterprise projects, large teams, complex logic"
+        },
+        {
+          "it": "Mai, Provider è migliore",
+          "en": "Never, Provider is better"
+        },
+        {
+          "it": "Solo per app offline",
+          "en": "Only for offline apps"
+        }
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "BLoC offre struttura rigorosa e testabilità superiore, ideale per progetti complessi e team numerosi.",
+        "en": "BLoC offers strict structure and superior testability, ideal for complex projects and large teams."
+      }
+    }
+  ]
+}

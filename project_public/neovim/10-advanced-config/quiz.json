@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Quale funzione crea un autocommand?",
+        "en": "Which function creates an autocommand?"
+      },
+      "options": [
+        "vim.autocmd.create()",
+        "vim.api.nvim_create_autocmd()",
+        "vim.create.autocmd()",
+        "vim.autocmd()"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "vim.api.nvim_create_autocmd() è la funzione Lua per creare autocommands.",
+        "en": "vim.api.nvim_create_autocmd() is the Lua function to create autocommands."
+      }
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Cosa significa 'VeryLazy' nel lazy loading?",
+        "en": "What does 'VeryLazy' mean in lazy loading?"
+      },
+      "options": [
+        "Non caricare mai",
+        "Caricare dopo l'UI",
+        "Caricare solo on demand",
+        "Caricare immediatamente"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "VeryLazy carica il plugin dopo che l'UI è completamente inizializzata.",
+        "en": "VeryLazy loads the plugin after the UI is fully initialized."
+      }
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Come si crea un comando utente?",
+        "en": "How do you create a user command?"
+      },
+      "options": [
+        "vim.command.create()",
+        "vim.api.nvim_create_user_command()",
+        "vim.user_command()",
+        ":command Lua"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "vim.api.nvim_create_user_command() crea comandi personalizzati in Lua.",
+        "en": "vim.api.nvim_create_user_command() creates custom commands in Lua."
+      }
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Quale plugin fornisce una statusline personalizzabile?",
+        "en": "Which plugin provides a customizable statusline?"
+      },
+      "options": [
+        "nvim-tree",
+        "lualine",
+        "telescope",
+        "treesitter"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Lualine è il plugin più popolare per statusline personalizzate.",
+        "en": "Lualine is the most popular plugin for custom statuslines."
+      }
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Come si imposta un highlight group?",
+        "en": "How do you set a highlight group?"
+      },
+      "options": [
+        "vim.highlight.set()",
+        "vim.api.nvim_set_hl()",
+        "vim.set.highlight()",
+        ":highlight"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "vim.api.nvim_set_hl() permette di definire highlight in Lua.",
+        "en": "vim.api.nvim_set_hl() allows defining highlights in Lua."
+      }
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Quale opzione attiva l'undo persistente?",
+        "en": "Which option enables persistent undo?"
+      },
+      "options": [
+        "vim.opt.undofile = true",
+        "vim.opt.backup = true",
+        "vim.opt.swapfile = true",
+        "vim.opt.history = true"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "undofile = true salva la storia undo in un file separato.",
+        "en": "undofile = true saves undo history to a separate file."
+      }
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Come si crea un gruppo di autocommands?",
+        "en": "How do you create an autocommand group?"
+      },
+      "options": [
+        "vim.api.nvim_create_augroup()",
+        "vim.group.create()",
+        "vim.autocmd.group()",
+        ":augroup"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "nvim_create_augroup() raggruppa autocommands correlati.",
+        "en": "nvim_create_augroup() groups related autocommands."
+      }
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Quale plugin mostra notifiche flottanti?",
+        "en": "Which plugin shows floating notifications?"
+      },
+      "options": [
+        "notify.nvim",
+        "nvim-notify",
+        "lualine",
+        "noice"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "nvim-notify è il plugin standard per notifiche eleganti.",
+        "en": "nvim-notify is the standard plugin for elegant notifications."
+      }
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Quale evento viene triggerato dopo TextYank?",
+        "en": "Which event is triggered after TextYank?"
+      },
+      "options": [
+        "YankPost",
+        "TextYankPost",
+        "AfterYank",
+        "CopyDone"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "TextYankPost è l'evento per azioni dopo aver yankato testo.",
+        "en": "TextYankPost is the event for actions after yanking text."
+      }
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Come si imposta vim.notify custom?",
+        "en": "How do you set custom vim.notify?"
+      },
+      "options": [
+        "vim.notify = require('notify')",
+        "vim.notify.setup()",
+        "Non è possibile",
+        ":set notify=notify"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "vim.notify può essere sovrascritto con una funzione personalizzata.",
+        "en": "vim.notify can be overridden with a custom function."
+      }
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Quale plugin fornisce buffer tabs visivi?",
+        "en": "Which plugin provides visual buffer tabs?"
+      },
+      "options": [
+        "nvim-tree",
+        "bufferline",
+        "lualine",
+        "telescope"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "bufferline mostra i buffer aperti come tabs in cima.",
+        "en": "bufferline shows open buffers as tabs at the top."
+      }
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Dove dovrebbero andare le opzioni globali?",
+        "en": "Where should global options go?"
+      },
+      "options": [
+        "In init.lua",
+        "In lua/config/options.lua",
+        "In ogni plugin",
+        "Non servono"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Separare le opzioni in un file dedicato è best practice.",
+        "en": "Separating options in a dedicated file is best practice."
+      }
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Come si disabilita un builtin plugin?",
+        "en": "How do you disable a builtin plugin?"
+      },
+      "options": [
+        "vim.g.loaded_plugin = 1",
+        "vim.opt.plugin = false",
+        "Non è possibile",
+        ":disable plugin"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Impostare vim.g.loaded_[plugin] = 1 disabilita i builtin.",
+        "en": "Setting vim.g.loaded_[plugin] = 1 disables builtins."
+      }
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Quale lazy.nvim option evita notifiche di cambiamento?",
+        "en": "Which lazy.nvim option avoids change notifications?"
+      },
+      "options": [
+        "notify = false",
+        "change_detection.notify = false",
+        "silent = true",
+        "quiet = true"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "change_detection.notify = false disabilita le notifiche di reload.",
+        "en": "change_detection.notify = false disables reload notifications."
+      }
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Come si profila il tempo di caricamento?",
+        "en": "How do you profile loading time?"
+      },
+      "options": [
+        ":Lazy profile",
+        ":Profile start",
+        "vim.profile()",
+        ":Time"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": ":Lazy profile mostra il tempo di caricamento di ogni plugin.",
+        "en": ":Lazy profile shows loading time for each plugin."
+      }
+    }
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "quiz": [
+    {
+      "id": 1,
+      "question": {
+        "it": "Quale pacchetto si usa per i test unitari in Dart?",
+        "en": "Which package is used for unit tests in Dart?"
+      },
+      "options": [
+        "flutter_test",
+        "test",
+        "dart_test",
+        "unit_test"
+      ],
+      "explanation": {
+        "it": "Il package 'test' è quello standard per i test unitari in Dart puro.",
+        "en": "The 'test' package is the standard for unit tests in pure Dart."
+      },
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": {
+        "it": "Quale funzione crea un gruppo di test correlati?",
+        "en": "Which function creates a group of related tests?"
+      },
+      "options": [
+        "testGroup()",
+        "describe()",
+        "group()",
+        "suite()"
+      ],
+      "explanation": {
+        "it": "group() organizza test correlati insieme, simile a describe() in altri framework.",
+        "en": "group() organizes related tests together, similar to describe() in other frameworks."
+      },
+      "correct": 2
+    },
+    {
+      "id": 3,
+      "question": {
+        "it": "Quale metodo verifica che un widget è presente nell'albero?",
+        "en": "Which method verifies a widget is present in the tree?"
+      },
+      "options": [
+        "findsOne",
+        "findsOneWidget",
+        "exists()",
+        "isPresent()"
+      ],
+      "explanation": {
+        "it": "findsOneWidget è il matcher che verifica che esiste esattamente una istanza.",
+        "en": "findsOneWidget is the matcher that verifies exactly one instance exists."
+      },
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": {
+        "it": "Quale annotation genera mock con mockito?",
+        "en": "Which annotation generates mocks with mockito?"
+      },
+      "options": [
+        "@Mock()",
+        "@GenerateMocks()",
+        "@Mockito()",
+        "@GenerateMocks()"
+      ],
+      "explanation": {
+        "it": "@GenerateMocks([ClassName]) genera i mock con build_runner.",
+        "en": "@GenerateMocks([ClassName]) generates mocks with build_runner."
+      },
+      "correct": 3
+    },
+    {
+      "id": 5,
+      "question": {
+        "it": "Quale metodo simula un tap su un widget?",
+        "en": "Which method simulates a tap on a widget?"
+      },
+      "options": [
+        "tester.tap()",
+        "tester.press()",
+        "tester.click()",
+        "tester.touch()"
+      ],
+      "explanation": {
+        "it": "tester.tap(find.byKey(Key('button'))) simula un tap sul widget trovato.",
+        "en": "tester.tap(find.byKey(Key('button'))) simulates a tap on the found widget."
+      },
+      "correct": 0
+    },
+    {
+      "id": 6,
+      "question": {
+        "it": "Quale comando genera la coverage?",
+        "en": "Which command generates coverage?"
+      },
+      "options": [
+        "flutter test --report",
+        "flutter test --coverage",
+        "flutter test --stats",
+        "flutter analyze"
+      ],
+      "explanation": {
+        "it": "flutter test --coverage genera il file lcov.info con i dati di coverage.",
+        "en": "flutter test --coverage generates the lcov.info file with coverage data."
+      },
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": {
+        "it": "Cosa verifica un golden test?",
+        "en": "What does a golden test verify?"
+      },
+      "options": [
+        "Le performance",
+        "L'aspetto visivo",
+        "La memoria",
+        "La rete"
+      ],
+      "explanation": {
+        "it": "I golden test confrontano screenshot con immagini di riferimento per regressioni visive.",
+        "en": "Golden tests compare screenshots with reference images for visual regressions."
+      },
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": {
+        "it": "Quale metodo esegue un widget test?",
+        "en": "Which method runs a widget test?"
+      },
+      "options": [
+        "test()",
+        "testWidgets()",
+        "widgetTest()",
+        "runTest()"
+      ],
+      "explanation": {
+        "it": "testWidgets() è la funzione specifica per i widget test con WidgetTester.",
+        "en": "testWidgets() is the specific function for widget tests with WidgetTester."
+      },
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": {
+        "it": "Quale package serve per integration test?",
+        "en": "Which package is needed for integration tests?"
+      },
+      "options": [
+        "integration_test",
+        "e2e_test",
+        "flutter_driver",
+        "app_test"
+      ],
+      "explanation": {
+        "it": "integration_test è il package ufficiale per test end-to-end in Flutter.",
+        "en": "integration_test is the official package for end-to-end tests in Flutter."
+      },
+      "correct": 0
+    },
+    {
+      "id": 10,
+      "question": {
+        "it": "Cosa fa setUp()?",
+        "en": "What does setUp() do?"
+      },
+      "options": [
+        "Esegue codice prima di ogni test",
+        "Configura l'ambiente una volta",
+        "Pulisce dopo i test",
+        "Salta i test"
+      ],
+      "explanation": {
+        "it": "setUp() viene eseguito prima di ogni test nel gruppo.",
+        "en": "setUp() is executed before each test in the group."
+      },
+      "correct": 0
+    },
+    {
+      "id": 11,
+      "question": {
+        "it": "Quale matcher verifica che viene lanciata un'eccezione?",
+        "en": "Which matcher verifies an exception is thrown?"
+      },
+      "options": [
+        "throwsException",
+        "throws",
+        "throwsA",
+        "error"
+      ],
+      "explanation": {
+        "it": "throwsA() è il matcher generico per verificare eccezioni.",
+        "en": "throwsA() is the generic matcher to verify exceptions."
+      },
+      "correct": 2
+    },
+    {
+      "id": 12,
+      "question": {
+        "it": "Quale metodo aggiorna l'albero dei widget dopo un'azione?",
+        "en": "Which method updates the widget tree after an action?"
+      },
+      "options": [
+        "tester.render()",
+        "tester.pump()",
+        "tester.update()",
+        "tester.refresh()"
+      ],
+      "explanation": {
+        "it": "tester.pump() aggiorna il widget tree, pumpAndSettle() aspetta che finiscano le animazioni.",
+        "en": "tester.pump() updates the widget tree, pumpAndSettle() waits for animations to finish."
+      },
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": {
+        "it": "Come si cerca un widget per Key?",
+        "en": "How do you find a widget by Key?"
+      },
+      "options": [
+        "find.byKey()",
+        "find.key()",
+        "find.withKey()",
+        "find.keyed()"
+      ],
+      "explanation": {
+        "it": "find.byKey(Key('name')) trova il widget con quella chiave.",
+        "en": "find.byKey(Key('name')) finds the widget with that key."
+      },
+      "correct": 0
+    },
+    {
+      "id": 14,
+      "question": {
+        "it": "Cosa fa tearDown()?",
+        "en": "What does tearDown() do?"
+      },
+      "options": [
+        "Esegue prima di ogni test",
+        "Esegue dopo ogni test",
+        "Esegue una volta all'inizio",
+        "Esegue solo in caso di errore"
+      ],
+      "explanation": {
+        "it": "tearDown() viene eseguito dopo ogni test per pulizia.",
+        "en": "tearDown() is executed after each test for cleanup."
+      },
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": {
+        "it": "Quale comando aggiorna i golden test?",
+        "en": "Which command updates golden tests?"
+      },
+      "options": [
+        "flutter test --goldens",
+        "flutter test --update-goldens",
+        "flutter golden --update",
+        "flutter test --refresh"
+      ],
+      "explanation": {
+        "it": "flutter test --update-goldens rigenera le immagini di riferimento.",
+        "en": "flutter test --update-goldens regenerates reference images."
+      },
+      "correct": 1
+    }
+  ]
+}

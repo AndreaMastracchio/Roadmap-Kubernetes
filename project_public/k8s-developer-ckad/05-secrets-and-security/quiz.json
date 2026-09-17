@@ -1,0 +1,384 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale tipo di Secret Kubernetes viene utilizzato per le credenziali di registro Docker?",
+        "en": "Which Kubernetes Secret type is used for Docker registry credentials?"
+      },
+      "options": [
+        "Opaque",
+        "kubernetes.io/dockerconfigjson",
+        "kubernetes.io/basic-auth",
+        "docker-registry"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubernetes.io/dockerconfigjson è il tipo specifico per le credenziali di registry Docker. Si crea con kubectl create secret docker-registry.",
+        "en": "kubernetes.io/dockerconfigjson is the specific type for Docker registry credentials. Created with kubectl create secret docker-registry."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale comando kubectl crea un Secret TLS?",
+        "en": "Which kubectl command creates a TLS Secret?"
+      },
+      "options": [
+        "kubectl create secret generic --type=tls",
+        "kubectl create secret tls",
+        "kubectl create tls secret",
+        "kubectl create secret certificate"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl create secret tls <name> --cert=path/to/cert --key=path/to/key crea un Secret di tipo kubernetes.io/tls.",
+        "en": "kubectl create secret tls <name> --cert=path/to/cert --key=path/to/key creates a Secret of type kubernetes.io/tls."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Dove vengono memorizzati i Secret di default in Kubernetes?",
+        "en": "Where are Secrets stored by default in Kubernetes?"
+      },
+        "options": [
+        "In un database MySQL",
+        "In etcd (codificati base64)",
+        "Su disco non cifrato",
+        "In AWS Secrets Manager"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "I Secret sono memorizzati in etcd codificati in base64. Per sicurezza aggiuntiva, abilitare encryption at rest.",
+        "en": "Secrets are stored in etcd encoded in base64. For additional security, enable encryption at rest."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale campo di securityContext impedisce a un container di eseguire come root?",
+        "en": "Which securityContext field prevents a container from running as root?"
+      },
+      "options": [
+        "runAsNonRoot: true",
+        "allowPrivilegeEscalation: false",
+        "readOnlyRootFilesystem: true",
+        "runAsUser: 1000"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "runAsNonRoot: true impedisce l'esecuzione come root. runAsUser: 1000 forza un utente specifico ma non impedisce root.",
+        "en": "runAsNonRoot: true prevents running as root. runAsUser: 1000 forces a specific user but doesn't prevent root."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di ServiceAccount viene usato per i workload standard?",
+        "en": "Which ServiceAccount type is used for standard workloads?"
+      },
+      "options": [
+        "Non-exist (nessun ServiceAccount)",
+        "default service account nel namespace",
+        "cluster-admin",
+        "system:anonymous"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Ogni namespace ha un ServiceAccount 'default'. I Pod usano questo se non specificano un serviceAccountName.",
+        "en": "Every namespace has a 'default' ServiceAccount. Pods use this if they don't specify a serviceAccountName."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale NetworkPolicy permette traffico solo da Pod nello stesso namespace?",
+        "en": "Which NetworkPolicy allows traffic only from Pods in the same namespace?"
+      },
+      "options": [
+        "podSelector: {}",
+        "namespaceSelector: {}, podSelector: {}",
+        "podSelector: {}, namespaceSelector: {}",
+        "deny-all"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "podSelector: {} (vuoto) seleziona tutti i Pod nello stesso namespace della NetworkPolicy.",
+        "en": "podSelector: {} (empty) selects all Pods in the same namespace as the NetworkPolicy."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale flag di kubectl decodifica i Secret in output?",
+        "en": "Which kubectl flag decodes Secrets in output?"
+      },
+      "options": [
+        "--decode",
+        "--show-original",
+        "--export",
+        "kubectl non decoda automaticamente, serve base64 -d"
+      ],
+      "correct": 3,
+      "explanation": {
+        "it": "kubectl mostra i Secret codificati base64. Per decodificare: kubectl get secret -o jsonpath='{.data.key}' | base64 -d",
+        "en": "kubectl shows Secrets base64 encoded. To decode: kubectl get secret -o jsonpath='{.data.key}' | base64 -d"
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale capacità Linux permette a un container di modificare le impostazioni di rete?",
+        "en": "Which Linux capability allows a container to modify network settings?"
+      },
+      "options": [
+        "CAP_NET_BIND_SERVICE",
+        "CAP_NET_ADMIN",
+        "CAP_NET_RAW",
+        "CAP_SYS_ADMIN"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "CAP_NET_ADMIN permette configurazione di rete. CAP_NET_BIND_SERVICE serve solo per binding porte <1024.",
+        "en": "CAP_NET_ADMIN allows network configuration. CAP_NET_BIND_SERVICE is only needed for binding ports <1024."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale Pod Security Standard permette i container privilegiati?",
+        "en": "Which Pod Security Standard allows privileged containers?"
+      },
+      "options": [
+        "Restricted",
+        "Baseline",
+        "Privileged",
+        "Permissive"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Pod Security Standards: Privileged (più permissivo), Baseline (medio), Restricted (più restrittivo).",
+        "en": "Pod Security Standards: Privileged (most permissive), Baseline (medium), Restricted (most restrictive)."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra il token JWT del ServiceAccount montato?",
+        "en": "Which command shows the mounted ServiceAccount JWT token?"
+      },
+      "options": [
+        "kubectl auth whoami",
+        "cat /var/run/secrets/kubernetes.io/serviceaccount/token",
+        "kubectl get sa-token",
+        "kubectl describe sa"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il token è montato automaticamente in /var/run/secrets/kubernetes.io/serviceaccount/token nel container.",
+        "en": "The token is automatically mounted in /var/run/secrets/kubernetes.io/serviceaccount/token in the container."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale RBAC Verb è necessario per leggere un Secret?",
+        "en": "Which RBAC Verb is needed to read a Secret?"
+      },
+      "options": [
+        "read",
+        "get",
+        "list",
+        "view"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "'get' legge una singola risorsa. 'list' elenca più risorse. Entrambi possono essere necessari.",
+        "en": "'get' reads a single resource. 'list' lists multiple resources. Both may be needed."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale RoleBinding permette accesso a livello di namespace?",
+        "en": "Which RoleBinding allows namespace-level access?"
+      },
+      "options": [
+        "ClusterRoleBinding",
+        "RoleBinding",
+        "NamespaceRoleBinding",
+        "GlobalRoleBinding"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "RoleBinding collega un Role/ClusterRole a un namespace. ClusterRoleBinding è per accesso cluster-wide.",
+        "en": "RoleBinding links a Role/ClusterRole to a namespace. ClusterRoleBinding is for cluster-wide access."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale NetworkPolicy richiede allow-all per uscita?",
+        "en": "Which NetworkPolicy requires allow-all for egress?"
+      },
+      "options": [
+        "Default deny egress",
+        "Default allow egress",
+        "Egress deny all",
+        "Egress allow all"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Una NetworkPolicy con policyTypes: [Egress] e senza regole egress (o regole vuote) blocca tutto il traffico in uscita.",
+        "en": "A NetworkPolicy with policyTypes: [Egress] and no egress rules (or empty rules) blocks all outbound traffic."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale campo disabilita l'automount del ServiceAccount token?",
+        "en": "Which field disables automounting of the ServiceAccount token?"
+      },
+      "options": [
+        "automountServiceAccountToken: false",
+        "mountServiceAccountToken: false",
+        "disableToken: true",
+        "skipServiceAccount: true"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "automountServiceAccountToken: false può essere impostato nel Pod spec o nel ServiceAccount.",
+        "en": "automountServiceAccountToken: false can be set in the Pod spec or in the ServiceAccount."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale annotazione forza Pod Security Standard a livello di namespace?",
+        "en": "Which annotation enforces Pod Security Standard at namespace level?"
+      },
+      "options": [
+        "pod-security.kubernetes.io/enforce",
+        "security.kubernetes.io/pod-standard",
+        "pod-security-policy/enforce",
+        "kubernetes.io/psp-enforce"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "pod-security.kubernetes.io/enforce: restricted|baseline|privileged applica lo standard richiesto.",
+        "en": "pod-security.kubernetes.io/enforce: restricted|baseline|privileged enforces the required standard."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale tipo di Secret è Opaque?",
+        "en": "What type of Secret is Opaque?"
+      },
+      "options": [
+        "Secret generico senza schema specifico",
+        "Secret per TLS",
+        "Secret per registry",
+        "Secret per SSH"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Opaque è il tipo default per Secret generici con dati arbitrari chiave-valore.",
+        "en": "Opaque is the default type for generic Secrets with arbitrary key-value data."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale Role è necessario per creare Deployments in un namespace?",
+        "en": "Which Role is needed to create Deployments in a namespace?"
+      },
+      "options": [
+        "Role con apiGroups: [apps], resources: [deployments], verbs: [create]",
+        "Role con resources: [pods], verbs: [create]",
+        "ClusterRole con resources: [deployments]",
+        "Role con apiGroups: [\"\"], resources: [deployments]"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Deployments sono in apiGroup 'apps'. verbs: [create] è il minimo per creare.",
+        "en": "Deployments are in apiGroup 'apps'. verbs: [create] is minimum for creation."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale flag di kubectl create secret generic legge da un file?",
+        "en": "Which kubectl create secret generic flag reads from a file?"
+      },
+      "options": [
+        "--from-file",
+        "--from-literal",
+        "--from-env-file",
+        "--file"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "--from-file=path legge il contenuto del file come valore della chiave.",
+        "en": "--from-file=path reads the file contents as the key's value."
+      },
+      "difficulty": "easy",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale capability è necessaria per eseguire ping?",
+        "en": "Which capability is needed to run ping?"
+      },
+      "options": [
+        "CAP_NET_ADMIN",
+        "CAP_NET_RAW",
+        "CAP_SYS_PTRACE",
+        "CAP_SYS_NETWORK"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "CAP_NET_RAW permette l'uso di socket raw necessari per ICMP (ping).",
+        "en": "CAP_NET_RAW allows raw socket usage needed for ICMP (ping)."
+      },
+      "difficulty": "hard",
+      "domain": "Application Deployment"
+    },
+    {
+      "question": {
+        "it": "Quale NetworkPolicy seleziona un Pod specifico?",
+        "en": "Which NetworkPolicy selects a specific Pod?"
+      },
+      "options": [
+        "podSelector con matchLabels",
+        "namespaceSelector con matchLabels",
+        "ipBlock",
+        "Tutte le precedenti"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "podSelector con matchLabels seleziona Pod specifici. namespaceSelector seleziona interi namespace.",
+        "en": "podSelector with matchLabels selects specific Pods. namespaceSelector selects entire namespaces."
+      },
+      "difficulty": "medium",
+      "domain": "Application Deployment"
+    }
+  ]
+}

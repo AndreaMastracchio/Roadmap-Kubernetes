@@ -1,0 +1,254 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale risorsa associa un Role a un ServiceAccount?",
+        "en": "Which resource binds a Role to a ServiceAccount?"
+      },
+      "options": ["ClusterRole", "RoleBinding", "ClusterRoleBinding", "RoleAssignment"],
+      "correct": 1,
+      "explanation": {
+        "it": "RoleBinding associa un Role (o ClusterRole) a un soggetto in un namespace.",
+        "en": "RoleBinding binds a Role (or ClusterRole) to a subject in a namespace."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-security"
+    },
+    {
+      "question": {
+        "it": "Quale comando verifica i permessi RBAC?",
+        "en": "Which command verifies RBAC permissions?"
+      },
+      "options": ["kubectl check rbac", "kubectl auth can-i", "kubectl verify access", "kubectl test permissions"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl auth can-i verifica se l'utente corrente ha un permesso specifico.",
+        "en": "kubectl auth can-i checks if the current user has a specific permission."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Quale apiGroup contiene le risorse RBAC?",
+        "en": "Which apiGroup contains RBAC resources?"
+      },
+      "options": ["core", "rbac.authorization.k8s.io", "security.k8s.io", "auth.k8s.io"],
+      "correct": 1,
+      "explanation": {
+        "it": "Le risorse RBAC sono nell'apiGroup 'rbac.authorization.k8s.io'.",
+        "en": "RBAC resources are in the apiGroup 'rbac.authorization.k8s.io'."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-security"
+    },
+    {
+      "question": {
+        "it": "Cosa sono le capabilities nel securityContext?",
+        "en": "What are capabilities in securityContext?"
+      },
+      "options": [
+        "Risorse CPU/RAM",
+        "Privilegi specifici del kernel Linux",
+        "Porte esposte",
+        "Volumi montati"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Le capabilities sono privilegi Linux specifici (es. NET_ADMIN, SYS_TIME).",
+        "en": "Capabilities are specific Linux kernel privileges (e.g. NET_ADMIN, SYS_TIME)."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-security"
+    },
+    {
+      "question": {
+        "it": "Quale securityContext impedisce l'esecuzione come root?",
+        "en": "Which securityContext prevents running as root?"
+      },
+      "options": ["runAsUser: 1000", "runAsNonRoot: true", "allowPrivilegeEscalation: false", "readOnlyRootFilesystem: true"],
+      "correct": 1,
+      "explanation": {
+        "it": "runAsNonRoot: true impedisce l'esecuzione come utente root.",
+        "en": "runAsNonRoot: true prevents running as the root user."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-security"
+    },
+    {
+      "question": {
+        "it": "Quale securityContext rende il filesystem read-only?",
+        "en": "Which securityContext makes the filesystem read-only?"
+      },
+      "options": ["runAsNonRoot: true", "readOnlyRootFilesystem: true", "allowPrivilegeEscalation: false", "runAsUser: 1000"],
+      "correct": 1,
+      "explanation": {
+        "it": "readOnlyRootFilesystem: true rende il filesystem del container in sola lettura.",
+        "en": "readOnlyRootFilesystem: true makes the container filesystem read-only."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-security"
+    },
+    {
+      "question": {
+        "it": "Quali sono i tre livelli di Pod Security Admission?",
+        "en": "What are the three Pod Security Admission levels?"
+      },
+      "options": ["low, medium, high", "privileged, baseline, restricted", "open, secure, locked", "basic, standard, advanced"],
+      "correct": 1,
+      "explanation": {
+        "it": "I livelli PSA sono: privileged (nessuna restrizione), baseline (minime), restricted (massima sicurezza).",
+        "en": "PSA levels are: privileged (no restrictions), baseline (minimal), restricted (maximum security)."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-security"
+    },
+    {
+      "question": {
+        "it": "Come attivi PSA 'restricted' su un namespace?",
+        "en": "How do you enable 'restricted' PSA on a namespace?"
+      },
+      "options": [
+        "kubectl secure namespace",
+        "kubectl label namespace <name> pod-security.kubernetes.io/enforce=restricted",
+        "kubectl set security restricted",
+        "kubectl apply psa restricted"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Usi kubectl label con la label pod-security.kubernetes.io/enforce=restricted.",
+        "en": "You use kubectl label with the pod-security.kubernetes.io/enforce=restricted label."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-security"
+    },
+    {
+      "question": {
+        "it": "Cosa fa allowPrivilegeEscalation: false?",
+        "en": "What does allowPrivilegeEscalation: false do?"
+      },
+      "options": [
+        "Impedisce l'accesso root",
+        "Impedisce al processo di ottenere più privilegi del padre",
+        "Impedisce l'uso di sudo",
+        "Impedisce la creazione di nuovi processi"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "allowPrivilegeEscalation: false impedisce al processo di ottenere più privilegi del padre (es. via setuid).",
+        "en": "allowPrivilegeEscalation: false prevents the process from gaining more privileges than its parent (e.g. via setuid)."
+      },
+      "difficulty": "hard",
+      "domain": "k8s-security"
+    },
+    {
+      "question": {
+        "it": "Quale verbo RBAC permette di creare risorse?",
+        "en": "Which RBAC verb allows creating resources?"
+      },
+      "options": ["read", "create", "write", "make"],
+      "correct": 1,
+      "explanation": {
+        "it": "I verbi RBAC principali sono: get, list, watch, create, update, patch, delete.",
+        "en": "Main RBAC verbs are: get, list, watch, create, update, patch, delete."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-security"
+    },
+    {
+      "question": {
+        "it": "Quale Role permette di leggere i Secret?",
+        "en": "Which Role allows reading Secrets?"
+      },
+      "options": [
+        "Role con resources: [\"secrets\"] e verbs: [\"get\"]",
+        "Role con resources: [\"configmaps\"] e verbs: [\"read\"]",
+        "ClusterRole con resources: [\"all\"]",
+        "Role senza regole specifiche"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Un Role con resources: [\"secrets\"] e verbs: [\"get\", \"list\"] permette di leggere i Secret.",
+        "en": "A Role with resources: [\"secrets\"] and verbs: [\"get\", \"list\"] allows reading Secrets."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-security"
+    },
+    {
+      "question": {
+        "it": "Come testi i permessi di un ServiceAccount specifico?",
+        "en": "How do you test permissions for a specific ServiceAccount?"
+      },
+      "options": [
+        "kubectl auth can-i <verb> <resource> --as=system:serviceaccount:<ns>:<sa>",
+        "kubectl test sa <sa>",
+        "kubectl verify serviceaccount <sa>",
+        "kubectl check permissions <sa>"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Usi --as=system:serviceaccount:<namespace>:<sa-name> per impersonare il SA.",
+        "en": "You use --as=system:serviceaccount:<namespace>:<sa-name> to impersonate the SA."
+      },
+      "difficulty": "hard",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Quale ServiceAccount usa un Pod di default?",
+        "en": "Which ServiceAccount does a Pod use by default?"
+      },
+      "options": [
+        "Il Pod fallisce",
+        "Il ServiceAccount 'default' del namespace",
+        "Gira senza autenticazione",
+        "Il ServiceAccount dell'utente creatore"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Se non specificato, il Pod usa automaticamente il SA 'default' del namespace.",
+        "en": "If not specified, the Pod automatically uses the 'default' SA of the namespace."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-security"
+    },
+    {
+      "question": {
+        "it": "Quale ClusterRole permette di leggere i nodi?",
+        "en": "Which ClusterRole allows reading nodes?"
+      },
+      "options": [
+        "ClusterRole con resources: [\"nodes\"] e verbs: [\"get\", \"list\"]",
+        "Role con resources: [\"nodes\"]",
+        "ClusterRole con resources: [\"pods\"]",
+        "Role con resources: [\"all\"]"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "Node è una risorsa cluster-scoped, quindi serve un ClusterRole.",
+        "en": "Node is a cluster-scoped resource, so you need a ClusterRole."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-security"
+    },
+    {
+      "question": {
+        "it": "Cosa è una best practice per le capabilities?",
+        "en": "What is a best practice for capabilities?"
+      },
+      "options": [
+        "Aggiungi tutte le capabilities",
+        "Drop ALL e aggiungi solo quelle necessarie",
+        "Non usare capabilities",
+        "Usa solo capabilities di default"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Best practice: capabilities: {drop: [\"ALL\"], add: [\"NECCESARY_CAP\"]}.",
+        "en": "Best practice: capabilities: {drop: [\"ALL\"], add: [\"NECESSARY_CAP\"]}."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-security"
+    }
+  ]
+}

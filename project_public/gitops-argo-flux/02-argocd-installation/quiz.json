@@ -1,0 +1,289 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale componente di ArgoCD memorizza la cache dei manifest del repository Git?",
+        "en": "Which ArgoCD component caches the manifests from the Git repository?"
+      },
+      "options": [
+        "Application Controller",
+        "Repo Server",
+        "API Server",
+        "Dex Server"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il Repo Server memorizza nella cache i manifest generati dal repository Git. Esegue clone e template dei file dal repository.",
+        "en": "The Repo Server caches the generated manifests from the Git repository. It clones and templates files from the repository."
+      },
+      "difficulty": "medium",
+      "domain": "ArgoCD architecture"
+    },
+    {
+      "question": {
+        "it": "Quale comando viene utilizzato per installare ArgoCD su Kubernetes?",
+        "en": "Which command is used to install ArgoCD on Kubernetes?"
+      },
+      "options": [
+        "argocd install",
+        "kubectl apply -f argocd-install.yaml",
+        "kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml",
+        "helm install argocd argo/argo-cd"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Il metodo ufficiale è usare kubectl apply con i manifest dal repository ArgoCD. Esiste anche Helm ma il metodo base è con kubectl.",
+        "en": "The official method is using kubectl apply with manifests from the ArgoCD repository. Helm also exists but the basic method is with kubectl."
+      },
+      "difficulty": "easy",
+      "domain": "ArgoCD installation"
+    },
+    {
+      "question": {
+        "it": "Quale è la password iniziale di default per l'utente admin di ArgoCD?",
+        "en": "What is the default initial password for the ArgoCD admin user?"
+      },
+      "options": [
+        "admin",
+        "password",
+        "Il nome del pod argocd-server",
+        "argocd"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "La password iniziale è generata automaticamente e corrisponde al nome del pod argocd-server. Si recupera con kubectl get pods.",
+        "en": "The initial password is automatically generated and corresponds to the argocd-server pod name. Retrieve it with kubectl get pods."
+      },
+      "difficulty": "medium",
+      "domain": "ArgoCD configuration"
+    },
+    {
+      "question": {
+        "it": "Quale porta utilizza l'API server di ArgoCD per il traffico gRPC?",
+        "en": "Which port does the ArgoCD API server use for gRPC traffic?"
+      },
+      "options": [
+        "80",
+        "443",
+        "8080",
+        "9090"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "ArgoCD API server usa la porta 443 per HTTPS e gRPC. La porta 80 è per HTTP (reindirizzamento).",
+        "en": "ArgoCD API server uses port 443 for HTTPS and gRPC. Port 80 is for HTTP (redirect)."
+      },
+      "difficulty": "hard",
+      "domain": "ArgoCD architecture"
+    },
+    {
+      "question": {
+        "it": "Quale ruolo RBAC è necessario per un utente che deve solo visualizzare applicazioni?",
+        "en": "Which RBAC role is needed for a user who only needs to view applications?"
+      },
+      "options": [
+        "role:admin",
+        "role:operator",
+        "role:readonly",
+        "role:viewer"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "role:readonly permette di visualizzare tutte le risorse senza modificarle. role:viewer non esiste in ArgoCD.",
+        "en": "role:readonly allows viewing all resources without modifying them. role:viewer doesn't exist in ArgoCD."
+      },
+      "difficulty": "easy",
+      "domain": "RBAC setup"
+    },
+    {
+      "question": {
+        "it": "Quale comando CLI configura le credenziali per accedere ad un repository Git?",
+        "en": "Which CLI command configures credentials to access a Git repository?"
+      },
+      "options": [
+        "argocd repo add",
+        "argocd git config",
+        "argocd repository register",
+        "argocd credentials add"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "argocd repo add <repo-url> aggiunge e configura le credenziali per un repository Git in ArgoCD.",
+        "en": "argocd repo add <repo-url> adds and configures credentials for a Git repository in ArgoCD."
+      },
+      "difficulty": "easy",
+      "domain": "ArgoCD CLI"
+    },
+    {
+      "question": {
+        "it": "Dove vengono memorizzate le configurazioni di ArgoCD nel cluster Kubernetes?",
+        "en": "Where are ArgoCD configurations stored in the Kubernetes cluster?"
+      },
+      "options": [
+        "ConfigMap nel namespace default",
+        "ConfigMap e Secrets nel namespace argocd",
+        "Custom Resource Definition",
+        "File di configurazione sul nodo"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Le configurazioni di ArgoCD sono memorizzate in ConfigMap e Secrets nel namespace argocd.",
+        "en": "ArgoCD configurations are stored in ConfigMaps and Secrets in the argocd namespace."
+      },
+      "difficulty": "medium",
+      "domain": "ArgoCD architecture"
+    },
+    {
+      "question": {
+        "it": "Quale componente ArgoCD gestisce l'autenticazione SSO?",
+        "en": "Which ArgoCD component handles SSO authentication?"
+      },
+      "options": [
+        "API Server",
+        "Application Controller",
+        "Dex",
+        "Repo Server"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "Dex è il servizio OIDC integrato in ArgoCD per gestire l'autenticazione SSO con provider esterni.",
+        "en": "Dex is the integrated OIDC service in ArgoCD to handle SSO authentication with external providers."
+      },
+      "difficulty": "hard",
+      "domain": "ArgoCD architecture"
+    },
+    {
+      "question": {
+        "it": "Come si espone l'interfaccia web di ArgoCD in locale durante lo sviluppo?",
+        "en": "How do you expose the ArgoCD web UI locally during development?"
+      },
+      "options": [
+        "kubectl expose",
+        "kubectl port-forward svc/argocd-server -n argocd 8080:443",
+        "argocd ui",
+        "kubectl proxy"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl port-forward crea un tunnel dalla porta locale al servizio nel cluster, esponendo l'UI.",
+        "en": "kubectl port-forward creates a tunnel from local port to the service in the cluster, exposing the UI."
+      },
+      "difficulty": "easy",
+      "domain": "ArgoCD CLI setup"
+    },
+    {
+      "question": {
+        "it": "Quale Custom Resource Definition (CRD) rappresenta un'applicazione in ArgoCD?",
+        "en": "Which Custom Resource Definition (CRD) represents an application in ArgoCD?"
+      },
+      "options": [
+        "GitApp",
+        "ArgoApp",
+        "Application",
+        "GitOpsApp"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "La CRD Application (argoproj.io/v1alpha1) rappresenta un'applicazione ArgoCD.",
+        "en": "The Application CRD (argoproj.io/v1alpha1) represents an ArgoCD application."
+      },
+      "difficulty": "easy",
+      "domain": "ArgoCD architecture"
+    },
+    {
+      "question": {
+        "it": "Quale flag del CLI di ArgoCD permette di saltare la verifica del certificato TLS?",
+        "en": "Which ArgoCD CLI flag allows skipping TLS certificate verification?"
+      },
+      "options": [
+        "--insecure",
+        "--skip-tls",
+        "--no-verify",
+        "--tls-skip"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "--insecure salta la verifica del certificato TLS. Utile per ambienti di sviluppo con certificati self-signed.",
+        "en": "--insecure skips TLS certificate verification. Useful for development environments with self-signed certificates."
+      },
+      "difficulty": "medium",
+      "domain": "ArgoCD CLI setup"
+    },
+    {
+      "question": {
+        "it": "Quale risorsa Kubernetes definisce i Progetti in ArgoCD?",
+        "en": "Which Kubernetes resource defines Projects in ArgoCD?"
+      },
+      "options": [
+        "AppProject",
+        "ArgoProject",
+        "GitOpsProject",
+        "Project"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "AppProject è la CRD che definisce un progetto ArgoCD, usato per limitare l'accesso e le risorse.",
+        "en": "AppProject is the CRD that defines an ArgoCD project, used to limit access and resources."
+      },
+      "difficulty": "medium",
+      "domain": "ArgoCD architecture"
+    },
+    {
+      "question": {
+        "it": "Dove si configura la policy RBAC di ArgoCD?",
+        "en": "Where is the ArgoCD RBAC policy configured?"
+      },
+      "options": [
+        "argocd-rbac-cm ConfigMap",
+        "argocd-cm ConfigMap",
+        "argocd-secret Secret",
+        "argocd-rbac Secret"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "La ConfigMap argocd-rbac-cm contiene le policy RBAC che definiscono permessi utenti e gruppi.",
+        "en": "The argocd-rbac-cm ConfigMap contains RBAC policies defining user and group permissions."
+      },
+      "difficulty": "hard",
+      "domain": "RBAC setup"
+    },
+    {
+      "question": {
+        "it": "Quale versione di Kubernetes è la minima supportata da ArgoCD v2.8?",
+        "en": "What is the minimum Kubernetes version supported by ArgoCD v2.8?"
+      },
+      "options": [
+        "v1.20",
+        "v1.21",
+        "v1.23",
+        "v1.24"
+      ],
+      "correct": 2,
+      "explanation": {
+        "it": "ArgoCD v2.8 richiede almeno Kubernetes v1.23. Le versioni precedenti potrebbero funzionare ma non sono supportate.",
+        "en": "ArgoCD v2.8 requires at least Kubernetes v1.23. Earlier versions might work but are not supported."
+      },
+      "difficulty": "hard",
+      "domain": "ArgoCD installation"
+    },
+    {
+      "question": {
+        "it": "Quale comando cambia la password dell'utente admin?",
+        "en": "Which command changes the admin user password?"
+      },
+      "options": [
+        "argocd account update-password",
+        "argocd user password",
+        "argocd admin set-password",
+        "kubectl edit secret argocd-secret"
+      ],
+      "correct": 0,
+      "explanation": {
+        "it": "argocd account update-password aggiorna la password dell'account corrente (admin se è l'unico utente).",
+        "en": "argocd account update-password updates the current account password (admin if it's the only user)."
+      },
+      "difficulty": "medium",
+      "domain": "ArgoCD CLI setup"
+    }
+  ]
+}

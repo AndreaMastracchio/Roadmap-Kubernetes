@@ -1,0 +1,244 @@
+{
+  "quiz": [
+    {
+      "question": {
+        "it": "Quale componente di Kubernetes è responsabile del controllo dello stato desiderato del cluster?",
+        "en": "Which Kubernetes component is responsible for controlling the desired state of the cluster?"
+      },
+      "options": ["kubelet", "kube-scheduler", "kube-controller-manager", "kube-proxy"],
+      "correct": 2,
+      "explanation": {
+        "it": "Il kube-controller-manager esegue i loop di controllo che monitorano lo stato del cluster e lavorano per convergere allo stato desiderato.",
+        "en": "The kube-controller-manager runs control loops that monitor the cluster state and work to converge to the desired state."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-fundamentals"
+    },
+    {
+      "question": {
+        "it": "Cos'è un Pod in Kubernetes?",
+        "en": "What is a Pod in Kubernetes?"
+      },
+      "options": [
+        "Una macchina virtuale",
+        "L'unità più piccola deployabile che contiene uno o più container",
+        "Un tipo di Service",
+        "Un nodo del cluster"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un Pod è l'unità più piccola in Kubernetes e può contenere uno o più container che condividono storage e rete.",
+        "en": "A Pod is the smallest unit in Kubernetes and can contain one or more containers that share storage and network."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-fundamentals"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra tutti i nodi del cluster?",
+        "en": "Which command shows all cluster nodes?"
+      },
+      "options": ["kubectl get pods", "kubectl get nodes", "kubectl list nodes", "kubectl show nodes"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl get nodes elenca tutti i nodi del cluster Kubernetes.",
+        "en": "kubectl get nodes lists all nodes in the Kubernetes cluster."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-fundamentals"
+    },
+    {
+      "question": {
+        "it": "Quale componente del Control Plane espone l'API Kubernetes?",
+        "en": "Which Control Plane component exposes the Kubernetes API?"
+      },
+      "options": ["etcd", "kube-scheduler", "kube-apiserver", "kubelet"],
+      "correct": 2,
+      "explanation": {
+        "it": "kube-apiserver è il componente che espone l'API Kubernetes ed è il front-end del control plane.",
+        "en": "kube-apiserver is the component that exposes the Kubernetes API and is the front-end of the control plane."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-architecture"
+    },
+    {
+      "question": {
+        "it": "Cosa significa che un container è 'ephemeral'?",
+        "en": "What does it mean that a container is 'ephemeral'?"
+      },
+      "options": [
+        "Non può essere riavviato",
+        "I suoi dati vengono persi quando viene eliminato",
+        "Non può comunicare in rete",
+        "Non ha limiti di risorse"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "I container sono effimeri: i dati scritti nel filesystem locale vengono persi alla terminazione, a meno di usare volumi.",
+        "en": "Containers are ephemeral: data written to the local filesystem is lost upon termination, unless volumes are used."
+      },
+      "difficulty": "easy",
+      "domain": "containers"
+    },
+    {
+      "question": {
+        "it": "Quale componente si assicura che i container siano in esecuzione su ogni nodo?",
+        "en": "Which component ensures containers are running on each node?"
+      },
+      "options": ["kube-proxy", "kube-scheduler", "kubelet", "etcd"],
+      "correct": 2,
+      "explanation": {
+        "it": "kubelet è l'agente che gira su ogni nodo e si assicura che i container descritti nei PodSpec siano correttamente avviati.",
+        "en": "kubelet is the agent running on each node that ensures containers described in PodSpecs are properly started."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-architecture"
+    },
+    {
+      "question": {
+        "it": "Quale comando crea un Pod da un'immagine nginx?",
+        "en": "Which command creates a Pod from an nginx image?"
+      },
+      "options": [
+        "kubectl create pod nginx --image=nginx",
+        "kubectl run nginx --image=nginx",
+        "kubectl start nginx --image=nginx",
+        "kubectl deploy nginx --image=nginx"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl run crea un Pod. Dalla v1.18+ non crea più un Deployment automaticamente.",
+        "en": "kubectl run creates a Pod. Since v1.18+ it no longer automatically creates a Deployment."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Quale tecnologia del kernel Linux permette l'isolamento dei processi?",
+        "en": "Which Linux kernel technology enables process isolation?"
+      },
+      "options": ["cgroups", "namespaces", "chroot", "systemd"],
+      "correct": 1,
+      "explanation": {
+        "it": "I namespaces Linux isolano ciò che un processo può vedere (altri processi, rete, filesystem).",
+        "en": "Linux namespaces isolate what a process can see (other processes, network, filesystem)."
+      },
+      "difficulty": "hard",
+      "domain": "containers"
+    },
+    {
+      "question": {
+        "it": "Quale tecnologia del kernel Linux permette la limitazione delle risorse?",
+        "en": "Which Linux kernel technology enables resource limiting?"
+      },
+      "options": ["namespaces", "cgroups", "seccomp", "SELinux"],
+      "correct": 1,
+      "explanation": {
+        "it": "I cgroups (Control Groups) gestiscono l'allocazione e la limitazione di CPU, RAM, I/O.",
+        "en": "cgroups (Control Groups) manage allocation and limiting of CPU, RAM, I/O."
+      },
+      "difficulty": "hard",
+      "domain": "containers"
+    },
+    {
+      "question": {
+        "it": "Cos'è un nodo worker in Kubernetes?",
+        "en": "What is a worker node in Kubernetes?"
+      },
+      "options": [
+        "Un componente del Control Plane",
+        "Una macchina dove girano i Pod delle applicazioni",
+        "Un database distribuito",
+        "Un tool di monitoring"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Un nodo worker è una macchina (fisica o virtuale) dove il runtime dei container esegue i Pod.",
+        "en": "A worker node is a machine (physical or virtual) where the container runtime executes Pods."
+      },
+      "difficulty": "easy",
+      "domain": "k8s-fundamentals"
+    },
+    {
+      "question": {
+        "it": "Quale runtime container è il default in Kubernetes moderno?",
+        "en": "Which container runtime is the default in modern Kubernetes?"
+      },
+      "options": ["Docker Engine", "containerd", "CRI-O", "Podman"],
+      "correct": 1,
+      "explanation": {
+        "it": "containerd è il runtime di default. Docker è stato deprecato come runtime dalla v1.20+.",
+        "en": "containerd is the default runtime. Docker was deprecated as a runtime since v1.20+."
+      },
+      "difficulty": "medium",
+      "domain": "containers"
+    },
+    {
+      "question": {
+        "it": "Cosa fa il comando 'kubectl describe pod <pod>'?",
+        "en": "What does 'kubectl describe pod <pod>' do?"
+      },
+      "options": [
+        "Elimina il Pod",
+        "Mostra dettagli estesi ed eventi del Pod",
+        "Mostra solo i log",
+        "Riavvia il Pod"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl describe mostra informazioni dettagliate, incluse label, annotazioni, eventi e stato dei container.",
+        "en": "kubectl describe shows detailed information including labels, annotations, events and container status."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Quale flag mostra l'output in formato JSON?",
+        "en": "Which flag shows output in JSON format?"
+      },
+      "options": ["-o yaml", "-o json", "--format json", "--json"],
+      "correct": 1,
+      "explanation": {
+        "it": "-o json mostra l'output in formato JSON. Altre opzioni: yaml, wide, name.",
+        "en": "-o json shows output in JSON format. Other options: yaml, wide, name."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    },
+    {
+      "question": {
+        "it": "Dove gira il Control Plane di Kubernetes?",
+        "en": "Where does the Kubernetes Control Plane run?"
+      },
+      "options": [
+        "Solo su nodi worker",
+        "Su nodi master/control plane dedicati",
+        "Dentro ogni Pod",
+        "Non gira su nodi"
+      ],
+      "correct": 1,
+      "explanation": {
+        "it": "Il Control Plane gira su nodi master dedicati, separati dai nodi worker dove girano le applicazioni.",
+        "en": "The Control Plane runs on dedicated master nodes, separate from worker nodes where applications run."
+      },
+      "difficulty": "medium",
+      "domain": "k8s-architecture"
+    },
+    {
+      "question": {
+        "it": "Quale comando mostra la versione di kubectl?",
+        "en": "Which command shows the kubectl version?"
+      },
+      "options": ["kubectl info", "kubectl version", "kubectl --version", "kubectl status"],
+      "correct": 1,
+      "explanation": {
+        "it": "kubectl version mostra la versione del client e del server (se connesso a un cluster).",
+        "en": "kubectl version shows the client and server version (if connected to a cluster)."
+      },
+      "difficulty": "easy",
+      "domain": "kubectl"
+    }
+  ]
+}
