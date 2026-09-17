@@ -6,7 +6,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
     ports:
-      - "8080:3000"
+      - "3100:3000"
     environment:
       - VITE_WATCH_USE_POLLING=${VITE_WATCH_USE_POLLING}
       - VITE_API_URL=${VITE_API_URL}
@@ -32,7 +32,7 @@ services:
       - ${PROJECT_PUBLIC_PATH:-./project_public}:/project_public
       - ${PROJECT_PRIVATE_PATH:-./project_private}:/project_private
     ports:
-      - "5005:5005"
+      - "3200:3200"
     environment:
       - MYSQL_HOST=${MYSQL_HOST}
       - MYSQL_USER=${MYSQL_USER}
@@ -64,7 +64,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "3306:3306"
+      - "3316:3306"
     volumes:
       - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - db_dev_data:/var/lib/mysql
@@ -77,7 +77,7 @@ services:
   redis:
     image: redis:7-alpine
     ports:
-      - "6379:6379"
+      - "6480:6379"
 
 volumes:
   db_dev_data:
